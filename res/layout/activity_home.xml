@@ -1,0 +1,12 @@
+<merge 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <Button
+        android:id="@+id/activity_home_hail_ride_button"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hail_ride" />
+
+</merge>
