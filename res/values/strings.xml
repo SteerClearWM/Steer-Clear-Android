@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">SteerClear</string>
-    <string name="hail_ride">Hail a Ride</string>
+    <string name="activity_home_hail_ride">Hail a Ride</string>
+    <string name="activity_home_address_field_hint">Enter your address</string>
 
 </resources>

@@ -25,14 +25,16 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int activity_home_hail_ride_button=0x7f070000;
+        public static final int activity_home_address_field=0x7f070000;
+        public static final int activity_home_hail_ride_button=0x7f070001;
     }
     public static final class layout {
         public static final int activity_home=0x7f030000;
     }
     public static final class string {
+        public static final int activity_home_address_field_hint=0x7f050002;
+        public static final int activity_home_hail_ride=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int hail_ride=0x7f050001;
     }
     public static final class style {
         /** 

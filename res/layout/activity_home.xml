@@ -1,12 +1,25 @@
-<merge 
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/activity_home_address_field"
+        android:hint="@string/activity_home_address_field_hint"
+        android:singleLine="true" />
+        
     <Button
         android:id="@+id/activity_home_hail_ride_button"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hail_ride" />
+        android:text="@string/activity_home_hail_ride" />
 
-</merge>
+</LinearLayout>
