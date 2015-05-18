@@ -26,10 +26,20 @@ public class ActivityHome extends Activity implements OnClickListener, HttpHelpe
 		hailRideButton.performClick();
 	}
 	
+	/**
+	 * Method called when user clicks "Hail Ride."
+	 * Uses HttpHelper to submit a POST request to the server.
+	 * Calls through to HttpHelperInterface.onPostSuccess() if success, onVolleyError() if otherwise
+	 */
 	private void hailRide() {
 		
 	}
 	
+	/**
+	 * Helper method to return a user's phone number properly formatted for a POST request.
+	 * Deletes the international code number at the start of the string, and inserts dashes.
+	 * @return formatted phone number
+	 */
 	private String getPhoneNumber() {
 		TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String mPhoneNumber = tMgr.getLine1Number();

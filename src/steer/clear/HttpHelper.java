@@ -12,18 +12,28 @@ import com.android.volley.toolbox.StringRequest;
 
 public class HttpHelper {
 	
-	final static String POST_TAG = "POST";
-	final static String GET_TAG = "GET";
+	final static String POST_TAG = "POST"; // Tag used for all POST requests when adding to the RequestQueue
+	final static String GET_TAG = "GET";  // Tag used for all GET requests when adding to the RequestQueue
 	
-	private static HttpHelper mInstance;
+	private static HttpHelper mInstance; // Singleton construct
 	
 	private final HttpHelperInterface listener;
 	
+	/**
+	 * Creates a new instance of HttpHelper with the listener attached to the context specified
+	 * @param listener
+	 */
 	public HttpHelper(HttpHelperInterface listener) {
 		mInstance = this;
 		this.listener = listener;
 	}
 	
+	/**
+	 * Singleton construct.
+	 * If the instance is null, creates a new HttpHelper class with a listener attached to the given context.
+	 * @param context
+	 * @return HttpHelper
+	 */
 	public static synchronized HttpHelper getInstance(Context context) {
 		if (mInstance == null) {
             mInstance = new HttpHelper((HttpHelperInterface) context);
@@ -32,6 +42,11 @@ public class HttpHelper {
         return mInstance;
     }
 	
+	/**
+	 * Method used to get a list of all rides currently in the queue.
+	 * If successful, calls through the HttpHelperInterface onGetSuccess()
+	 * If failure, calls through the HttpHelperInterface onVolleyError()
+	 */
 	public void getRides() {
         StringRequest myReq = new StringRequest(Request.Method.GET, "http://10.0.2.2:5000/rides", new Response.Listener<String>() {
 
@@ -53,6 +68,9 @@ public class HttpHelper {
         AppController.getInstance().addToRequestQueue(myReq, GET_TAG);
 	}
 	
+	/**
+	 * Test method to check if the server is running. You can pretty much ignore this for now.
+	 */
 	public void getPulse() {
 		StringRequest myReq = new StringRequest(Request.Method.GET, "http://10.0.2.2:5000/", new Response.Listener<String>() {
 
@@ -74,6 +92,17 @@ public class HttpHelper {
         AppController.getInstance().addToRequestQueue(myReq, GET_TAG);
 	}
 	
+	/**
+	 * Method used to add a ride to the queue. Parameters must be formatted exactly as shown
+	 * If successful, calls through the HttpHelperInterface onPostSuccess()
+	 * If failure, calls through the HttpHelperInterface onVolleyError()
+	 * @param String phone_number, in the format "xxx-xxx-xxxx"
+	 * @param Integer num_passengers
+	 * @param Double start_latitude
+	 * @param Double start_longitude
+	 * @param Double end_latitude
+	 * @param Double end_longitude
+	 */
 	public void addRide(final String phone_number, final Integer num_passengers, 
 			final Double start_latitude, final Double start_longitude, final Double end_latitude, final Double end_longitude) {
 		 
