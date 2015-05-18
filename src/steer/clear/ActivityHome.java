@@ -1,7 +1,9 @@
 package steer.clear;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,10 +26,18 @@ public class ActivityHome extends Activity implements OnClickListener, HttpHelpe
 		hailRideButton.performClick();
 	}
 	
-	/**
-	 * Skeleton method. In the future, will request a ride by pinging the eventual server backend
-	 */
 	private void hailRide() {
+		
+	}
+	
+	private String getPhoneNumber() {
+		TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		String mPhoneNumber = tMgr.getLine1Number();
+		StringBuilder str = new StringBuilder(mPhoneNumber);
+		str.deleteCharAt(0);
+		str.insert(3, "-");
+		str.insert(7, "-");
+		return str.toString();
 	}
 	
 	@Override

@@ -76,9 +76,8 @@ public class HttpHelper {
 	
 	public void addRide(final String phone_number, final Integer num_passengers, 
 			final Double start_latitude, final Double start_longitude, final Double end_latitude, final Double end_longitude) {
-		String url = "http://10.0.2.2:5000/rides";
-		
-        StringRequest myReq = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+		 
+        StringRequest myReq = new StringRequest(Request.Method.POST, "http://10.0.2.2:5000/rides", new Response.Listener<String>() {
 
 			@Override
 			public void onResponse(String arg0) {
@@ -111,7 +110,6 @@ public class HttpHelper {
 			
 		};
 
-		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(myReq, POST_TAG);
 	}
 }
