@@ -32,7 +32,6 @@ public final class R {
         public static final int activity_home=0x7f030000;
     }
     public static final class string {
-        public static final int activity_home_address_field_hint=0x7f050002;
         public static final int activity_home_hail_ride=0x7f050001;
         public static final int app_name=0x7f050000;
     }

@@ -3,11 +3,15 @@ package steer.clear;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 public class HttpHelper {
@@ -17,8 +21,7 @@ public class HttpHelper {
 	
 	private static HttpHelper mInstance; // Singleton construct
 	
-	private final HttpHelperInterface listener;
-	
+	private final HttpHelperInterface listener; // You know what this is
 	/**
 	 * Creates a new instance of HttpHelper with the listener attached to the context specified
 	 * @param listener
@@ -48,34 +51,11 @@ public class HttpHelper {
 	 * If failure, calls through the HttpHelperInterface onVolleyError()
 	 */
 	public void getRides() {
-        StringRequest myReq = new StringRequest(Request.Method.GET, "http://10.0.2.2:5000/rides", new Response.Listener<String>() {
+		JsonObjectRequest myReq = new JsonObjectRequest(Request.Method.GET, UtilityUrls.URL_GET_RIDES, 
+				null, new Response.Listener<JSONObject>() {
 
 			@Override
-			public void onResponse(String arg0) {
-				// TODO Auto-generated method stub
-				listener.onGetSuccess(arg0);
-			}
-			
-		}, new Response.ErrorListener() {
-
-			@Override
-			public void onErrorResponse(VolleyError arg0) {
-				// TODO Auto-generated method stub
-				listener.onVolleyError(arg0);
-			}
-		});
-
-        AppController.getInstance().addToRequestQueue(myReq, GET_TAG);
-	}
-	
-	/**
-	 * Test method to check if the server is running. You can pretty much ignore this for now.
-	 */
-	public void getPulse() {
-		StringRequest myReq = new StringRequest(Request.Method.GET, "http://10.0.2.2:5000/", new Response.Listener<String>() {
-
-			@Override
-			public void onResponse(String arg0) {
+			public void onResponse(JSONObject arg0) {
 				// TODO Auto-generated method stub
 				listener.onGetSuccess(arg0);
 			}
@@ -105,13 +85,20 @@ public class HttpHelper {
 	 */
 	public void addRide(final String phone_number, final Integer num_passengers, 
 			final Double start_latitude, final Double start_longitude, final Double end_latitude, final Double end_longitude) {
-		 
-        StringRequest myReq = new StringRequest(Request.Method.POST, "http://10.0.2.2:5000/rides", new Response.Listener<String>() {
+		if (num_passengers <= 0) {listener.onUserError("Negative passenger limit"); return;}
+		
+		StringRequest myReq = new StringRequest(Request.Method.POST, "http://10.0.2.2:5000/rides", new Response.Listener<String>() {
 
 			@Override
 			public void onResponse(String arg0) {
 				// TODO Auto-generated method stub
-				listener.onPostSuccess(arg0);
+				try {
+					JSONObject json = new JSONObject(arg0);
+					listener.onPostSuccess(json);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
         	
         }, new Response.ErrorListener() {

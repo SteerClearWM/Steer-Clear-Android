@@ -1,5 +1,7 @@
 package steer.clear;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -32,7 +34,8 @@ public class ActivityHome extends Activity implements OnClickListener, HttpHelpe
 	 * Calls through to HttpHelperInterface.onPostSuccess() if success, onVolleyError() if otherwise
 	 */
 	private void hailRide() {
-		
+		HttpHelper.getInstance(this).addRide("444-444-4444", 2, 40.5, 40.6, 40.5, 40.5);
+		//HttpHelper.getInstance(this).getRides();
 	}
 	
 	/**
@@ -43,10 +46,10 @@ public class ActivityHome extends Activity implements OnClickListener, HttpHelpe
 	private String getPhoneNumber() {
 		TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String mPhoneNumber = tMgr.getLine1Number();
-		StringBuilder str = new StringBuilder(mPhoneNumber);
-		str.deleteCharAt(0);
-		str.insert(3, "-");
-		str.insert(7, "-");
+		StringBuilder str = new StringBuilder(mPhoneNumber)
+			.deleteCharAt(0)
+			.insert(3, "-")
+			.insert(7, "-");
 		return str.toString();
 	}
 	
@@ -60,21 +63,38 @@ public class ActivityHome extends Activity implements OnClickListener, HttpHelpe
 	}
 
 	@Override
-	public void onPostSuccess(String string) {
+	public void onPostSuccess(JSONObject object) {
 		// TODO Auto-generated method stub
-		Log.v("Miles", "On post success, string is " + string);
+		Log.v("Miles", "On post success, response is " + object);
 	}
 
 	@Override
-	public void onGetSuccess(String string) {
+	public void onGetSuccess(JSONObject array) {
 		// TODO Auto-generated method stub
-		Log.v("Miles", "On get success, string is " + string);
+		Log.v("Miles", "On get success, response is " + array);
 	}
 
 	@Override
 	public void onVolleyError(VolleyError error) {
 		// TODO Auto-generated method stub
-		Log.v("Miles", "Volley Error is " + error.getMessage());
+		if (error.equals(null)) {
+			Log.v("Miles", "error is null, is server on?"); 
+		} else {
+			Log.v("Miles", "Volley Error is " + error.getMessage());
+			int errorCode = error.networkResponse.statusCode;
+			switch (errorCode) {
+				case 404: // Invalid url
+					Log.v("Miles", "404 Error, invalid url or badly encoded POST");
+					break;
+					
+				case 405: // Method not allowed, bad url?
+					Log.v("Miles" ,"405 Error, method not allowed");
+					break;
+					
+				default:
+					Log.v("Miles", "Error not handled " + errorCode);
+			}
+		}
 	}
 
 	@Override
