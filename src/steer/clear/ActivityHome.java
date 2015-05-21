@@ -3,9 +3,7 @@ package steer.clear;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,23 +32,8 @@ public class ActivityHome extends Activity implements OnClickListener, HttpHelpe
 	 * Calls through to HttpHelperInterface.onPostSuccess() if success, onVolleyError() if otherwise
 	 */
 	private void hailRide() {
-		HttpHelper.getInstance(this).addRide("444-444-4444", 2, 40.5, 40.6, 40.5, 40.5);
-		//HttpHelper.getInstance(this).getRides();
-	}
-	
-	/**
-	 * Helper method to return a user's phone number properly formatted for a POST request.
-	 * Deletes the international code number at the start of the string, and inserts dashes.
-	 * @return formatted phone number
-	 */
-	private String getPhoneNumber() {
-		TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		String mPhoneNumber = tMgr.getLine1Number();
-		StringBuilder str = new StringBuilder(mPhoneNumber)
-			.deleteCharAt(0)
-			.insert(3, "-")
-			.insert(7, "-");
-		return str.toString();
+		HttpHelper.getInstance(this).addRide(2, 40.5, 40.6, 40.5, 40.5);
+		HttpHelper.getInstance(this).getRides();
 	}
 	
 	@Override
@@ -96,10 +79,10 @@ public class ActivityHome extends Activity implements OnClickListener, HttpHelpe
 			}
 		}
 	}
-
+	
 	@Override
-	public void onUserError(String string) {
+	public void onUserError(int code) {
 		// TODO Auto-generated method stub
-		Log.v("Miles", "User Error is " + string);
+		Log.v("Miles", "User Error is " + code);
 	}
 }

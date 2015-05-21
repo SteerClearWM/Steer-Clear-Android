@@ -69,7 +69,7 @@ public class HttpHelper {
 			}
 		});
 
-        AppController.getInstance().addToRequestQueue(myReq, GET_TAG);
+        ApplicationController.getInstance().addToRequestQueue(myReq, GET_TAG);
 	}
 	
 	/**
@@ -83,9 +83,12 @@ public class HttpHelper {
 	 * @param Double end_latitude
 	 * @param Double end_longitude
 	 */
-	public void addRide(final String phone_number, final Integer num_passengers, 
-			final Double start_latitude, final Double start_longitude, final Double end_latitude, final Double end_longitude) {
-		if (num_passengers <= 0) {listener.onUserError("Negative passenger limit"); return;}
+	public void addRide(final Integer num_passengers, final Double start_latitude, final Double start_longitude,
+			final Double end_latitude, final Double end_longitude) {
+		if (num_passengers <= 0) {
+			listener.onUserError(100); 
+			return;
+		}
 		
 		StringRequest myReq = new StringRequest(Request.Method.POST, "http://10.0.2.2:5000/rides", new Response.Listener<String>() {
 
@@ -115,7 +118,6 @@ public class HttpHelper {
 			protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/x-www-form-urlencoded");
-                params.put("phone_number", phone_number);
     	        params.put("num_passengers", Integer.toString(num_passengers));
     	        params.put("start_latitude", Double.toString(start_latitude));
     	        params.put("start_longitude", Double.toString(start_longitude));
@@ -126,6 +128,6 @@ public class HttpHelper {
 			
 		};
 
-		AppController.getInstance().addToRequestQueue(myReq, POST_TAG);
+		ApplicationController.getInstance().addToRequestQueue(myReq, POST_TAG);
 	}
 }

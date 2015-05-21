@@ -13,7 +13,7 @@
         android:targetSdkVersion="18" />
 
     <application
-        android:name="steer.clear.AppController"
+        android:name="steer.clear.ApplicationController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"

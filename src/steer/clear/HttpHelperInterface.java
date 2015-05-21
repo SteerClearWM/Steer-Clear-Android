@@ -17,5 +17,10 @@ public interface HttpHelperInterface {
 	
 	public abstract void onVolleyError(VolleyError error);
 	
-	public abstract void onUserError(String string);
+	/**
+	 * @param int
+	 * 100 - invalid syntax for num_passengers
+	 * 
+	 */
+	public abstract void onUserError(int error);
 }

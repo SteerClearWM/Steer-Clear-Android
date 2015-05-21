@@ -3,4 +3,36 @@
 
     <string name="app_name">SteerClear</string>
     <string name="activity_home_hail_ride">Hail a Ride</string>
+    
+    <string-array name="locations_on_campus">
+        <item>Adair Hall</item>
+        <item>Alumni House</item>
+        <item>Andrews Hall</item>
+        <item>Barrett Hall</item>
+        <item>Botetourt Complex</item>
+        <item>Blow Memorial Hall</item>
+        <item>Brown Hall</item>
+        <item>Bryan Complex</item>
+        <item>Campus Center</item>
+        <item>Chandler Hall</item>
+        <item>Cohen Career Center</item>
+        <item>Commons Dining Hall</item>
+        <item>Daily Grind</item>
+        <item>Dupont Hall</item>
+        <item>Ewell Hall</item>
+        <item>Green and Gold Village</item>
+        <item>Hunt Hall</item>
+        <item>Jefferson Hall</item>
+        <item>Landrum Hall</item>
+        <item>Ludwell Hall</item>
+        <item>Monroe Hall</item>
+        <item>Old Dominion Hall</item>
+        <item>One Tribe Place</item>
+        <item>Randolph Complex</item>
+        <item>Sadler Center</item>
+        <item>Sorority Court</item>
+        <item>Taliaferro Hall</item>
+        <item>Yates Hall</item>
+    </string-array>
+    
 </resources>
