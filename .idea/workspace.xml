@@ -1850,6 +1850,13 @@
       <option name="number" value="Default" />
       <updated>1433900371137</updated>
     </task>
+    <task id="LOCAL-00001" summary="Android Studio Migration&#10;">
+      <created>1433989555131</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1433989555131</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
