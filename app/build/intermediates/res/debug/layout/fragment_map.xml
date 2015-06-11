@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@drawable/fragment_hail_ride_background" >
+    
+   	<com.google.android.gms.maps.MapView
+	    android:id="@+id/fragment_map_view"
+	    android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp"
+	    android:layout_width="match_parent" 
+	    android:layout_height="match_parent" />
+    
+    <TextView
+        android:id="@+id/fragment_map_input_hint"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+   	
+   	<steer.clear.ViewDelayAutoComplete
+        android:id="@+id/fragment_map_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:gravity="start"
+       	android:ellipsize="end" 
+       	android:singleLine="true" 
+       	android:scrollHorizontally="true"
+        android:completionThreshold="2"
+        android:layout_below="@id/fragment_map_input_hint"
+        android:drawableStart="@drawable/ic_clear_search_api_holo_light"
+        android:drawableLeft="@drawable/ic_clear_search_api_holo_light"
+        android:drawableRight="@drawable/ic_action_forward"
+        android:drawableEnd="@drawable/ic_action_forward" />
+   	
+   	<ProgressBar
+        android:id="@+id/fragment_map_input_suggestions_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@id/fragment_map_input"
+        android:visibility="gone"  />
+   	
+   	<ImageButton
+   	    android:id="@+id/fragment_map_back"
+   	    android:src="@drawable/ic_action_back"
+   	    style="?android:attr/borderlessButtonStyle"
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="wrap_content" 
+   	    android:layout_alignParentLeft="true"
+   	    android:layout_alignParentStart="true"
+   	    android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
+<!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/src/main/res/layout/fragment_map.xml -->
