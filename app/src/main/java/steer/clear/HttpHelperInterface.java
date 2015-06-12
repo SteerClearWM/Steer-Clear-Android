@@ -6,9 +6,11 @@ import com.android.volley.VolleyError;
 
 public interface HttpHelperInterface {
 	
-	public abstract void onPostSuccess(JSONObject object);
+	void onPostSuccess(JSONObject object);
 	
-	public abstract void onGetSuccess(JSONObject object);
+	void onGetSuccess(JSONObject object);
 	
-	public abstract void onVolleyError(VolleyError error);
+    void onVolleyError(VolleyError error);
+
+	void onDeleteSuccess(String string);
 }

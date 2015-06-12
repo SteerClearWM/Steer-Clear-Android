@@ -1,5 +1,6 @@
 package steer.clear;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
@@ -25,13 +26,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 /**
  * "HomeScreen" activity of the SteerClear app.
  * Instantiates MapFragments and handles anything having to do with Http.
  * @author Miles Peele
  *
  */
-public class ActivityHome extends FragmentActivity 
+public class ActivityHome extends FragmentActivity
 	implements HttpHelperInterface, ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
     
     // Stores the user's current LatLng
@@ -110,8 +120,36 @@ public class ActivityHome extends FragmentActivity
 	 */
 	@Override
 	public void onPostSuccess(JSONObject object) {
-		dismissHttpProgress();
-		Log.v("Miles", "ON POST SUCCESS< OBJECT IS " + object);
+		try {
+			JSONObject rideObject = new JSONObject(object.getString("ride"));
+			String pickupTime = rideObject.getString("pickup_time");
+			int cancelId = rideObject.getInt("id");
+			try {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
+				dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
+				Date eta = dateFormat.parse(pickupTime);
+
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(eta);
+				int pickupHour = calendar.get(Calendar.HOUR);
+				int pickupMinute = calendar.get(Calendar.MINUTE);
+
+				Intent etaActivity = new Intent(this, ActivityETA.class);
+				etaActivity.putExtra("PICKUP_HOUR", pickupHour);
+				etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
+				etaActivity.putExtra("CANCEL_ID", cancelId);
+				startActivity(etaActivity);
+
+				dismissHttpProgress();
+				finish();
+			} catch (ParseException p) {
+				dismissHttpProgress();
+				Logger.log("COULDNT PARSE DATE CUZ " + p);
+			}
+		} catch (JSONException e) {
+			dismissHttpProgress();
+			Logger.log("JSONEXCEPTION " + e.toString());
+		}
 	}
 
 	/**
@@ -137,7 +175,12 @@ public class ActivityHome extends FragmentActivity
         	Logger.log("VOLLY ERROR NULL");
         }
 	}
-	
+
+	@Override
+	public void onDeleteSuccess(String string) {
+		// NOT CALLED HERE
+	}
+
 	private void showHttpProgress() {
 		if (httpProgress != null && !httpProgress.isShowing()) {
 			httpProgress.show();
@@ -149,7 +192,7 @@ public class ActivityHome extends FragmentActivity
 			httpProgress.dismiss();
 		}
 	}
-	
+
 	/**
 	 * Convenience "get" method that fragments can call to get the googleApiClient.
 	 * Because of the apiClient's automanage feature, we don't (shouldn't) have to worry about this causing problems.
@@ -181,7 +224,7 @@ public class ActivityHome extends FragmentActivity
 	    FragmentMap fragment = new FragmentMap();
 	    fragment = FragmentMap.newInstance(DROPOFF, pickupLatLng);
 	    ft.addToBackStack(DROPOFF);
-	    ft.add(R.id.activity_home_fragment_frame, fragment, DROPOFF);
+	    ft.replace(R.id.activity_home_fragment_frame, fragment, DROPOFF);
 	    ft.commit();
 	}
 

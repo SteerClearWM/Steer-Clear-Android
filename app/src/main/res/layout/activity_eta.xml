@@ -1,0 +1,30 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fragment_hail_ride_background" >
+
+    <TextView
+        android:id="@+id/activity_eta_time"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:textColor="@android:color/white"
+        tools:text="ETA GOES HERE"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center"
+        android:alpha=".6" />
+
+    <Button
+        android:id="@+id/activity_eta_cancel_ride"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/activity_eta_cancel_ride"
+        style="?android:attr/borderlessButtonStyle"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:layout_gravity="bottom" />
+
+</FrameLayout>

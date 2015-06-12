@@ -19,16 +19,6 @@ import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-/**
- * Adapter that handles Autocomplete requests from the Places Geo Data API.
- * Results are encoded as {@link com.AdapterAutoCompleteItem.google.playservices.placecomplete.PlaceAutocompleteAdapter.PlaceAutocomplete}
- * objects
- * that contain both the Place ID and the text description from the autocomplete query.
- * <p>
- * Note that this adapter requires a valid {@link com.google.android.gms.common.api.GoogleApiClient}.
- * The API client must be maintained in the encapsulating Activity, including all lifecycle and
- * connection states. The API client must be connected with the {@link Places#GEO_DATA_API} API.
- */
 public class AdapterAutoComplete
         extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {
 
@@ -128,7 +118,7 @@ public class AdapterAutoComplete
 
     /**
      * Submits an autocomplete query to the Places Geo Data Autocomplete API.
-     * Results are returned as {@link com.AdapterAutoCompleteItem.google.playservices.placecomplete.PlaceAutocompleteAdapter.PlaceAutocomplete}
+     * Results are returned as PlaceAutocomplete
      * objects to store the Place ID and description that the API returns.
      * Returns an empty list if no results were found.
      * Returns null if the API client is not available or the query did not complete
@@ -197,7 +187,7 @@ public class AdapterAutoComplete
 
         @Override
         public String toString() {
-            return description.toString();
+            return description.toString().replace(", Williamsburg, VA, United States", "");
         }
     }
 }

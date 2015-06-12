@@ -7,7 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,6 +24,7 @@ public class HttpHelper {
 	// URLS FOR USE WITH GENYMOTION ONLY
 	private final static String URL_ADD_RIDE = "http://10.0.3.2:5000/rides";
 	private final static String URL_GET_RIDES = "http://10.0.3.2:5000/rides";
+	private final static String URL_DELETE_RIDE = "http://10.0.3.2:5000/rides";
 	
 	private static HttpHelper mInstance; // Singleton construct
 	
@@ -29,7 +32,6 @@ public class HttpHelper {
 	
 	/**
 	 * Creates a new instance of HttpHelper with the listener attached to the context specified
-	 * @param listener
 	 */
 	public HttpHelper(HttpHelperInterface listener) {
 		mInstance = this;
@@ -39,15 +41,10 @@ public class HttpHelper {
 	/**
 	 * Singleton construct.
 	 * If the instance is null, creates a new HttpHelper class with a listener attached to the given context.
-	 * @param context
 	 * @return HttpHelper
 	 */
 	public static synchronized HttpHelper getInstance(Context context) {
-		if (mInstance == null) {
-            mInstance = new HttpHelper((HttpHelperInterface) context);
-        }
- 
-        return mInstance;
+		return mInstance = new HttpHelper((HttpHelperInterface) context);
     }
 	
 	/**
@@ -81,12 +78,6 @@ public class HttpHelper {
 	 * Method used to add a ride to the queue. Parameters must be formatted exactly as shown
 	 * If successful, calls through the HttpHelperInterface onPostSuccess()
 	 * If failure, calls through the HttpHelperInterface onVolleyError()
-	 * @param String phone_number, in the format "xxx-xxx-xxxx"
-	 * @param Integer num_passengers
-	 * @param Double start_latitude
-	 * @param Double start_longitude
-	 * @param Double end_latitude
-	 * @param Double end_longitude
 	 */
 	public void addRide(final Integer num_passengers, final Double start_latitude, final Double start_longitude,
 			final Double end_latitude, final Double end_longitude) {
@@ -128,6 +119,28 @@ public class HttpHelper {
             }
 			
 		};
+
+		_ApplicationInitialize.getInstance().addToRequestQueue(myReq, POST_TAG);
+	}
+
+	public void cancelRide(int cancelId) {
+		String deleteUrl = URL_DELETE_RIDE + "/" + cancelId;
+		StringRequest myReq = new StringRequest(Request.Method.DELETE, deleteUrl,
+				new Response.Listener<String>() {
+
+					@Override
+					public void onResponse(String s) {
+						listener.onDeleteSuccess(s);
+					}
+
+		}, new Response.ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError volleyError) {
+				listener.onVolleyError(volleyError);
+			}
+
+		});
 
 		_ApplicationInitialize.getInstance().addToRequestQueue(myReq, POST_TAG);
 	}
