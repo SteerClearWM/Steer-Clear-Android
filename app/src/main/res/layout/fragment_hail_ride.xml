@@ -53,7 +53,7 @@
         android:drawableStart="@drawable/ic_find_next_holo_light"
         android:drawableLeft="@drawable/ic_find_next_holo_light"
         android:layout_centerHorizontal="true"
-        android:text="@string/fragment_hail_ride_passenger_initial_value"
+        android:text="0"
         android:textSize="25sp"
         android:textColor="@android:color/white" 
         android:drawableEnd="@drawable/ic_find_previous_holo_light"

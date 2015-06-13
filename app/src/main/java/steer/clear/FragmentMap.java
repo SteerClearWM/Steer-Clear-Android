@@ -3,6 +3,9 @@ package steer.clear;
 import java.util.Locale;
 
 import steer.clear.AdapterAutoComplete.AdapterAutoCompleteItem;
+
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -10,8 +13,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,10 +64,10 @@ public class FragmentMap extends Fragment
 	private ProgressBar inputSuggestionsLoading;
 	private MapView mapView;
 
-	// Stores the user's LatLng and the LatLng they chose from the AutoComplete results
-	private static LatLng userLatLng;
-	public static LatLng chosenLatLng;
-	public static CharSequence chosenLocationName;
+	// Stores the user's LatLng and the LatLng they chose as pickup/dropoff
+	private LatLng userLatLng;
+	public LatLng chosenLatLng;
+	public CharSequence chosenLocationName;
 	
 	// Controls if this mapfragment is going to ask for pickup or dropoff
 	private final static String PICKUP = "pickup";
@@ -71,7 +76,12 @@ public class FragmentMap extends Fragment
 	
 	// Save instance state tags
 	private final static String INPUT_TEXT = "input";
-	
+
+    // Tags for latlng in bundle
+    private final static String LATITUDE = "latitude";
+    private final static String LONGITUDE = "longitude";
+
+    // When finding a chosen location
 	private ProgressDialog progress;
 	
 	// For more Google warlock magic stuff
@@ -99,8 +109,9 @@ public class FragmentMap extends Fragment
 		FragmentMap frag = new FragmentMap();
 		Bundle args = new Bundle();
 		args.putString(TAG, tag);
+        args.putDouble(LATITUDE, currentLatLng.latitude);
+        args.putDouble(LONGITUDE, currentLatLng.longitude);
 		frag.setArguments(args);
-		userLatLng = currentLatLng;
 		return frag;
 	}
 	
@@ -177,7 +188,8 @@ public class FragmentMap extends Fragment
 		previousFragment.setOnClickListener(this);
 
 		mapView = (MapView) rootView.findViewById(R.id.fragment_map_view);
-		mapView.onCreate(savedInstanceState);	
+		mapView.onCreate(savedInstanceState);
+		mapView.setBackground(null);
 		mapView.getMapAsync(this);
 		
 		mAdapter = new AdapterAutoComplete(getActivity(), android.R.layout.simple_dropdown_item_1line, 
@@ -202,6 +214,10 @@ public class FragmentMap extends Fragment
 	@Override
 	public void onMapReady(GoogleMap map) {
 		map.setOnMarkerClickListener(this);
+        double latitude = getArguments().getDouble(LATITUDE);
+        double longitude = getArguments().getDouble(LONGITUDE);
+        LatLng userLatLng = new LatLng(latitude, longitude);
+
 		MarkerOptions marker = new MarkerOptions()
 			.position(userLatLng)
 			.title("Your Location");
@@ -211,8 +227,8 @@ public class FragmentMap extends Fragment
 		    .target(userLatLng)      
 		    .zoom(17)                   
 		    .bearing(90)                
-		    .tilt(30)                  
-		    .build();                  
+		    .tilt(30)
+		    .build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
 
@@ -261,18 +277,18 @@ public class FragmentMap extends Fragment
 					e.printStackTrace();
 				}
             }
-            
+
         });
-        
+
         alertDialog.setNegativeButton("Nah", new DialogInterface.OnClickListener() {
-        	
-            @Override
+
+			@Override
 			public void onClick(DialogInterface dialog, int which) {
-            	dialog.dismiss();
-            }
-            
-        });
-  
+				dialog.dismiss();
+			}
+
+		});
+
         alertDialog.show();
 
         return false;
@@ -285,50 +301,68 @@ public class FragmentMap extends Fragment
 		final String placeId = String.valueOf(item.placeId);
 		
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(listener.getGoogleApiClient(), placeId);
-        placeResult.setResultCallback(new ResultCallback<PlaceBuffer>()	{
+        placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
 
 			@Override
 			public void onResult(PlaceBuffer places) {
 				if (!places.getStatus().isSuccess()) {
 					Log.v("Miles", "Place query did not complete. Error: " + places.getStatus().toString());
-	                places.release();
-	                return;
+					places.release();
+					return;
 				}
-				
-				 // Get the Place object from the buffer.
-	            final Place place = places.get(0);
-	            
-	            if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
-	            	places.release(); 
-	            	dismissProgressDialog();
-	            	Toast.makeText(getActivity(), "SteerClear does not service this location", Toast.LENGTH_SHORT).show();
-	            	return;
-	            }
-	            
-	            chosenLatLng = place.getLatLng();
-	            chosenLocationName = place.getName();
-	            
-	            // Get the LatLng from the Place object and replaces it with the current map marker
-	            GoogleMap map = mapView.getMap();
-	            map.clear();
-	            MarkerOptions marker = new MarkerOptions().position(chosenLatLng);
-	            map.addMarker(marker);
-	            
-	            CameraPosition cameraPosition = new CameraPosition.Builder()
-				    .target(chosenLatLng)      
-				    .zoom(17)                   
-				    .bearing(90)                
-				    .tilt(30)                  
-				    .build();           
-	            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-	            places.release(); 
-	            dismissProgressDialog();
-	            final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-	            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+				// Get the Place object from the buffer.
+				final Place place = places.get(0);
+
+				if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
+					places.release();
+					dismissProgressDialog();
+					Toast.makeText(getActivity(), "SteerClear does not service this location", Toast.LENGTH_SHORT).show();
+					return;
+				}
+
+				chosenLatLng = place.getLatLng();
+				chosenLocationName = place.getName();
+
+				// Get the LatLng from the Place object and replaces it with the current map marker
+				GoogleMap map = mapView.getMap();
+				map.clear();
+				MarkerOptions marker = new MarkerOptions().position(chosenLatLng);
+				map.addMarker(marker);
+
+				CameraPosition cameraPosition = new CameraPosition.Builder()
+						.target(chosenLatLng)
+						.zoom(17)
+						.bearing(90)
+						.tilt(30)
+						.build();
+				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+				places.release();
+				dismissProgressDialog();
+				final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 			}
-        	
-        });
+
+		});
+	}
+
+	@Override
+	public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+		Display display = getActivity().getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		float displayWidth = size.x;
+
+		Animator animator;
+		if (enter) {
+			animator = ObjectAnimator.ofFloat(this, "translationX", displayWidth, 0);
+		} else {
+			animator = ObjectAnimator.ofFloat(this, "translationX", 0, displayWidth);
+		}
+
+		animator.setDuration(300);
+		return animator;
 	}
 	
 	@Override
@@ -370,7 +404,7 @@ public class FragmentMap extends Fragment
 			Toast.makeText(getActivity(), "Choose a location first!", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	private void showProgressDialog() {
 		if (progress != null && !progress.isShowing()) {
 			progress.show();

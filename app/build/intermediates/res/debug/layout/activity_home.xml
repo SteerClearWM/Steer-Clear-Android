@@ -1,10 +1,7 @@
 <FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-  	xmlns:tools="http://schemas.android.com/tools"
 	android:id="@+id/activity_home_fragment_frame"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:animateLayoutChanges="true"
-	android:background="@drawable/start_screen" >
+	android:layout_height="match_parent" >
     
 </FrameLayout><!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/src/main/res/layout/activity_home.xml -->

@@ -7,7 +7,6 @@
     <string name="fragment_map_dropoff_input_hint">SELECT DROPOFF LOCATION:</string>
     
     <string name="fragment_hail_ride_passenger_select_prompt">NUMBER OF PASSENGERS:</string>
-    <string name="fragment_hail_ride_passenger_initial_value">0</string>
 
     <string name="activity_eta_cancel_ride">CANCEL RIDE</string>
     

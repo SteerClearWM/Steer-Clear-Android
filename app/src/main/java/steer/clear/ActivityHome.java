@@ -9,7 +9,6 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -26,8 +25,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,9 +40,6 @@ import java.util.TimeZone;
  */
 public class ActivityHome extends FragmentActivity
 	implements HttpHelperInterface, ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
-    
-    // Stores the user's current LatLng
-	private static LatLng currentLatLng;
 	
 	// After user clicks "Next" in FragmentMap, stores their chosen LatLngs in these variables
 	private static LatLng pickupLatLng;
@@ -67,7 +61,7 @@ public class ActivityHome extends FragmentActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		
+
 		httpProgress = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
 		httpProgress.setMessage("Notifying driver of your request...");
 		
@@ -94,14 +88,6 @@ public class ActivityHome extends FragmentActivity
 	    } else {
 	        getFragmentManager().popBackStack();
 	    }
-	}
-	
-	/**
-	 * Don't change anything when we rotate screen, no need to waste system resources
-	 */
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-	    super.onConfigurationChanged(newConfig);
 	}
 	
 	/**
@@ -216,13 +202,8 @@ public class ActivityHome extends FragmentActivity
 		ActivityHome.pickupLatLng = pickupLatLng;
 		ActivityHome.pickupLocationName = pickupLocationName;
     	FragmentTransaction ft = getFragmentManager().beginTransaction();
-	    Fragment prev = getFragmentManager().findFragmentByTag(PICKUP);
-	    if (prev != null) {
-	        ft.remove(prev);
-	    }
 
-	    FragmentMap fragment = new FragmentMap();
-	    fragment = FragmentMap.newInstance(DROPOFF, pickupLatLng);
+	    Fragment fragment = FragmentMap.newInstance(DROPOFF, pickupLatLng);
 	    ft.addToBackStack(DROPOFF);
 	    ft.replace(R.id.activity_home_fragment_frame, fragment, DROPOFF);
 	    ft.commit();
@@ -242,13 +223,8 @@ public class ActivityHome extends FragmentActivity
 		ActivityHome.dropoffLatLng = dropoffLatLng;
 		ActivityHome.dropoffLocationName = dropoffLocationName;
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
-	    Fragment prev = getFragmentManager().findFragmentByTag(DROPOFF);
-	    if (prev != null) {
-	        ft.remove(prev);
-	    }
 
-	    FragmentHailRide fragment = new FragmentHailRide();
-	    fragment = FragmentHailRide.newInstance(pickupLocationName, dropoffLocationName);
+		FragmentHailRide fragment = FragmentHailRide.newInstance(pickupLocationName, dropoffLocationName);
 	    ft.addToBackStack(POST);
 	    ft.replace(R.id.activity_home_fragment_frame, fragment, POST);
 	    ft.commit();
@@ -256,22 +232,22 @@ public class ActivityHome extends FragmentActivity
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-		if (getFragmentManager().getBackStackEntryCount() == 0) {
-			if (currentLocation != null) {
-				currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-				overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-				
-				FragmentMap fragment = new FragmentMap();
-			    fragment = FragmentMap.newInstance(PICKUP, currentLatLng);
-			    FragmentTransaction ft = getFragmentManager().beginTransaction();
-			    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			    ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
-			    ft.commit();
-	        } else {
-	        	showSettingsAlert();
-	        }
-		}
+        Fragment prev = getFragmentManager().findFragmentByTag(PICKUP);
+        if (prev != null) {
+            getFragmentManager().beginTransaction().show(prev).commit();
+        } else {
+            Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (currentLocation != null) {
+                LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
+                ft.commit();
+            } else {
+                showSettingsAlert();
+            }
+        }
 	}
 
 	@Override

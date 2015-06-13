@@ -160,7 +160,7 @@ public class AdapterAutoComplete
             ArrayList resultList = new ArrayList<>(autocompletePredictions.getCount());
             while (iterator.hasNext()) {
                 AutocompletePrediction prediction = iterator.next();
-                // Get the details of this prediction and copy it into a new PlaceAutocomplete object.
+                // Get the details of this prediction and copy it into a new PlaceAutocomplete object
                 resultList.add(new AdapterAutoCompleteItem(prediction.getPlaceId(), prediction.getDescription()));
             }
 
@@ -187,7 +187,7 @@ public class AdapterAutoComplete
 
         @Override
         public String toString() {
-            return description.toString().replace(", Williamsburg, VA, United States", "");
+            return description.toString();
         }
     }
 }

@@ -288,7 +288,6 @@
     <string name="decline">Decline</string>
     <!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/src/main/res/values/strings.xml -->
     <eat-comment/>
-    <string name="fragment_hail_ride_passenger_initial_value">0</string>
     <string name="fragment_hail_ride_passenger_select_prompt">NUMBER OF PASSENGERS:</string>
     <string name="fragment_map_dropoff_input_hint">SELECT DROPOFF LOCATION:</string>
     <string name="fragment_map_pickup_input_hint">SELECT PICKUP LOCATION:</string>
@@ -308,9 +307,6 @@
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>
     <string name="store_picture_title">Save image</string>
-    <!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/src/main/res/values/strings.xml -->
-    <eat-comment/>
-    <string name="title_activity_activity__et"/>
     <!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.5.0/res/values/wallet_strings.xml -->
     <eat-comment/>
     <string name="wallet_buy_button_place_holder" translation_description="Text on a button that allows a user to make a payment with Google Wallet [CHAR LIMIT=30]">Buy with Google</string>
@@ -319,7 +315,7 @@
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
     <!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/src/main/res/values/styles.xml -->
     <eat-comment/>
-    <style name="AppBaseTheme" parent="android:Theme.Light">
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -328,6 +324,9 @@
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+        <item name="android:windowBackground">@drawable/start_screen</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
     <!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
     <eat-comment/>
@@ -1184,14 +1183,6 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/src/main/res/values/styles.xml -->
-    <eat-comment/>
-    <style name="NoActionBar" parent="@android:style/Theme.Holo.Light">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-    <!-- From: file:/C:/Users/Miles%20Peele/StudioProjects/SteerClear/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/res/values/values.xml -->
-    <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
 
