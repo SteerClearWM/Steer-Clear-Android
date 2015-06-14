@@ -3,25 +3,19 @@ package steer.clear;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextPaint;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 
 public class ViewDelayAutoComplete extends AutoCompleteTextView {
 
-    private static final int MESSAGE_TEXT_CHANGED = 100;
-    private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
-
-    private final int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
     private ProgressBar mLoadingIndicator;
-
-    private final Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            ViewDelayAutoComplete.super.performFiltering((CharSequence) msg.obj, msg.arg1);
-        }
-    };
 
     public ViewDelayAutoComplete(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,8 +30,6 @@ public class ViewDelayAutoComplete extends AutoCompleteTextView {
         if (mLoadingIndicator != null) {
             mLoadingIndicator.setVisibility(View.VISIBLE);
         }
-        mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
     }
 
     @Override
@@ -47,5 +39,15 @@ public class ViewDelayAutoComplete extends AutoCompleteTextView {
         }
         super.onFilterComplete(count);
     }
-  
+
+    @Override
+    protected void replaceText(CharSequence text) {
+        float viewWidth = getMeasuredWidth();
+        float textWidth = getPaint().measureText((String) text);
+        if (textWidth >= viewWidth) {
+            setText(TextUtils.ellipsize(text, new TextPaint(), textWidth - viewWidth, TextUtils.TruncateAt.END));
+        } else {
+            setText(text);
+        }
+    }
 }
