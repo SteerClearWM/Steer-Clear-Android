@@ -1,20 +1,17 @@
 package steer.clear;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -43,7 +40,7 @@ import java.util.TimeZone;
  * @author Miles Peele
  *
  */
-public class ActivityHome extends FragmentActivity
+public class ActivityHome extends AppCompatActivity
 	implements HttpHelperInterface, ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
 
 	// Stores user's current location
@@ -62,8 +59,6 @@ public class ActivityHome extends FragmentActivity
 
 	// Request code to use when launching the resolution activity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
-	// Unique tag for the error dialog fragment
-	private static final String DIALOG_ERROR = "dialog_error";
 	// Bool to track whether the app is already resolving an error
 	private boolean mResolvingError = false;
 	
@@ -96,7 +91,7 @@ public class ActivityHome extends FragmentActivity
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (!mResolvingError) {  // more about this later
+		if (!mResolvingError) {
 			mGoogleApiClient.connect();
 		}
 	}
@@ -285,7 +280,7 @@ public class ActivityHome extends FragmentActivity
 			ActivityHome.pickupLocationName = name;
 
 			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			Fragment fragment = FragmentMap.newInstance(DROPOFF, pickupLatLng, false);
+			Fragment fragment = FragmentMap.newInstance(DROPOFF, currentLatLng, false);
 			ft.remove(getFragmentManager().findFragmentByTag(PICKUP));
 			ft.addToBackStack(DROPOFF);
 			ft.add(R.id.activity_home_fragment_frame, fragment, DROPOFF);
@@ -332,21 +327,21 @@ public class ActivityHome extends FragmentActivity
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		Fragment prev = getFragmentManager().findFragmentByTag(PICKUP);
-        if (prev != null) {
-            getFragmentManager().beginTransaction().show(prev).commit();
-        } else {
-			Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            if (currentLocation != null) {
-                currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
-                ft.commit();
-            } else {
-                showSettingsAlert();
-            }
-        }
+		Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+		if (currentLocation != null) {
+			currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+			Fragment prev = getFragmentManager().findFragmentByTag(PICKUP);
+			if (prev != null) {
+				getFragmentManager().beginTransaction().show(prev).commit();
+			} else {
+				FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
+				ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
+				ft.commit();
+			}
+		} else {
+			showSettingsAlert();
+		}
 	}
 
 	@Override

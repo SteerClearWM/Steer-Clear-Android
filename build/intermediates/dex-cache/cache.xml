@@ -2,200 +2,60 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-bd071949b553600ac049cdd6fb4e6c55fb5bd5ea.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="eeebabdfd8203f6ab639ccea4ffa1f20e1adee3a">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-65d9792254093a2f209c7cb4c7eb05253c32b598.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-96092119c5348ff30fe66451befa33f604c1e57c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-d8b9ccebac9a5acf8c89efe06ae5b813c9b35d0b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.3\56498efd17752898cfcc3868c1b6211a07b12b8f\joda-time-2.3.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="56498efd17752898cfcc3868c1b6211a07b12b8f">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\joda-time-2.3-a414a34e6616e1493cf5cabdc40b81277d2b2885.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-d1d5a9d95f84342044277450a5f0775631f74cf0.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-e1f579333da5ec8b449300a6444f3cbc54cde171.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="02bac2dc792d78241077861566f2c82da955e7fa">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4192669895c00f7b2cf8198198c4b5f35df58de1.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="f44d03c138cb6488fdbaa65e3a7e5878861a56d8">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-878959aee1cfeceb769396def3f7cdf37fdd7588.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-0fe885ee93336955042948edfb7d07cec4a1df2d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="63ec6e9f4fe5482a7447d0f3091b8e543a02554c">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-89a88f6623c16e91a8af7624dbe218415e1b44dd.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-922f46378fa0a08886dcef52e60d401a08386eb1.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="29ebc7e04d877062317c8cc0e68b20f0c1fcda66">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4b1af810026dace2cbefcea0cd90d18a7b23ad49.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-3dcc5d1fd1e0f5b3e2812b34f359e1825fda6c51.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-a20cce0253aa47fd14df0ffe5710d1d3457da9d6.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4268fdfa4e03dc347f2e2c6e8b22480cb9bb02cb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="d405025c600055237c171a0bbabaa49d69696573">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-e1e79fcf164dbe8cc13a528149f2d27a38c4897c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\libs\internal_impl-22.0.0.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-85638d3a5855f9ea57ad10d8fcdf4aedd7036a1f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="a172852a35ff919e85b9b7f14bbc15c5bee25520">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-9fe9ad451c92777331cd25d1fde0966416d5afcd.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-2a8ae61d669c93969f0e2a27b0f44be9690e10ab.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.0\jars\libs\internal_impl-22.1.0.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="025cb89f2896c63200ff4c2e6c467a95691d880a">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\internal_impl-22.1.0-591697b5505fd18b2ff56a1b2541a91df1056cfa.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="a78183f30e769a98ab4820794f597763088d3065">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-ffb5087ef948fb6c382bd5f6187e73bb755b9ae6.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4a09e8315cb4721fa5e9ca7ab3be03b2449e92bb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-9577c08ee832305c501fd13d56eb56c1560e0d45.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.0\support-annotations-22.1.0.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\support-annotations-22.1.0-94259fda1ec0a0d34399de8eada5b305b02c1296.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-cef1cb8e09a7da8ca52520b24eb53b4d47857856.jar" />
-    </item>
-    <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.mcxiaoke.volley\library-aar\1.0.0\jars\classes.jar"
+        jar="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/exploded-aar/com.mcxiaoke.volley/library-aar/1.0.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
         sha1="e40b9a81989bd4a846018551c280f8c4d837bf2e">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-5496cceee7a8c2ae50b692eaa5350262129265d2.jar" />
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/classes-48f53d2f2d3dac08983f5f16b28e36e767771546.jar" />
     </item>
     <item
-        jar="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.5.0\jars\classes.jar"
+        jar="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.5.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
-        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
-        <dex dex="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-df9668904f274d3ee0f78a44045ec26eab230e96.jar" />
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/classes-556396bac44247dc3c89bec98a227922c0f36926.jar" />
+    </item>
+    <item
+        jar="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/jars/libs/internal_impl-22.1.0.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="025cb89f2896c63200ff4c2e6c467a95691d880a">
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/internal_impl-22.1.0-757b2885703247bd0032ea75422b5026f85572a3.jar" />
+    </item>
+    <item
+        jar="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="983e2f375504bc04def18e709c35192afe92e65f">
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/classes-b3c8fac80846dd2dc4510aec47a2daa7863f5df8.jar" />
+    </item>
+    <item
+        jar="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/classes-82ab7bfb59307f27251dced585398e8865eb4d7f.jar" />
+    </item>
+    <item
+        jar="/Users/milespeele/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/22.1.0/support-annotations-22.1.0.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="281bc6c58ecb3644c23fbc5ee0452019f67b4d5d">
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/support-annotations-22.1.0-1afb87b359543792a48570978c2a3a632f1f7cd4.jar" />
+    </item>
+    <item
+        jar="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="eeebabdfd8203f6ab639ccea4ffa1f20e1adee3a">
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/classes-14de81bf1ebc3158ccd7b5a17da57d9ce3eeb453.jar" />
+    </item>
+    <item
+        jar="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="/Users/milespeele/AndroidStudioProjects/Steer-Clear-Android/app/build/intermediates/pre-dexed/debug/classes-8c88dfe380cbde95a777fa1615dccab5b0d02732.jar" />
     </item>
 
 </items>

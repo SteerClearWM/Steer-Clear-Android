@@ -1,15 +1,12 @@
 package steer.clear;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 
@@ -30,8 +27,8 @@ public class ViewAutoComplete extends AutoCompleteTextView implements View.OnTou
 
     private AutoCompleteListener mListener;
     public interface AutoCompleteListener {
-        void arrowClicked();
-        void clearClicked();
+        void arrowClicked(View v);
+        void clearClicked(View v);
     }
 
     private MyHandler mHandler = new MyHandler(this);
@@ -40,11 +37,13 @@ public class ViewAutoComplete extends AutoCompleteTextView implements View.OnTou
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (event.getRawX() >= (getRight() - getPaddingRight() - getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                mListener.arrowClicked();
+                mListener.arrowClicked(v);
+                return true;
             }
 
             if (event.getRawX() <= (getLeft() + getPaddingLeft() + getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
-                mListener.clearClicked();
+                mListener.clearClicked(v);
+                return true;
             }
         }
         return false;
@@ -70,9 +69,10 @@ public class ViewAutoComplete extends AutoCompleteTextView implements View.OnTou
 
     public void setLoadingIndicator(ProgressBar progressBar) {
         mLoadingIndicator = progressBar;
+        mLoadingIndicator.setVisibility(View.GONE);
     }
 
-    public void setAutoCompletListener(AutoCompleteListener listener) {
+    public void setAutoCompleteListener(AutoCompleteListener listener) {
         mListener = listener;
     }
 

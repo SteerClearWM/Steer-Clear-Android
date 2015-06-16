@@ -43,7 +43,8 @@
         </activity>
 
         <activity
-            android:name=".ActivityEta" >
+            android:name=".ActivityEta"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
 
         <meta-data
@@ -51,7 +52,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBf5fBoGld4P7w-86wAD0fwxwYPwvtTApA" />
+            android:value="AIzaSyBXTqWTx1TbIRlbFzlAWbrG-Bekt8mVDVw" />
     </application>
 
 </manifest>
