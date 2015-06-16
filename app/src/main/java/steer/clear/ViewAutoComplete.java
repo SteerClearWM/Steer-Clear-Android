@@ -1,52 +1,89 @@
 package steer.clear;
 
+import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 
-public class ViewAutoComplete extends AutoCompleteTextView implements View.OnFocusChangeListener {
+import java.lang.ref.WeakReference;
+
+public class ViewAutoComplete extends AutoCompleteTextView implements View.OnTouchListener {
 
     private ProgressBar mLoadingIndicator;
-    private Drawable clearIcon;
-    private OnFocusChangeListener f;
+
+    private static final int MESSAGE_TEXT_CHANGED = 100;
+    private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
+    private int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
 
     final int DRAWABLE_LEFT = 0;
-    final int DRAWABLE_TOP = 1;
+    //final int DRAWABLE_TOP = 1;
     final int DRAWABLE_RIGHT = 2;
-    final int DRAWABLE_BOTTOM = 3;
+    //final int DRAWABLE_BOTTOM = 3;
 
-//    public interface Listener {
-//        void didClearText();
-//    }
+    private AutoCompleteListener mListener;
+    public interface AutoCompleteListener {
+        void arrowClicked();
+        void clearClicked();
+    }
+
+    private MyHandler mHandler = new MyHandler(this);
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (event.getRawX() >= (getRight() - getPaddingRight() - getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                mListener.arrowClicked();
+            }
+
+            if (event.getRawX() <= (getLeft() + getPaddingLeft() + getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
+                mListener.clearClicked();
+            }
+        }
+        return false;
+    }
+
+    private static class MyHandler extends Handler {
+        private final WeakReference<ViewAutoComplete> ref;
+
+        public MyHandler(ViewAutoComplete view) {
+            ref = new WeakReference<ViewAutoComplete>(view);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            ref.get().handlerFilter((CharSequence) msg.obj, msg.arg1);
+        }
+    }
 
     public ViewAutoComplete(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
-    }
-
-    private void init() {
-        clearIcon = getCompoundDrawables()[DRAWABLE_LEFT];
-        clearIcon.setBounds(0, 0, clearIcon.getIntrinsicWidth(), clearIcon.getIntrinsicHeight());
-        setClearIconVisible(false);
-        super.setOnFocusChangeListener(this);
-        //addTextChangedListener(new TextWatcherAdapter(this, this));
+        super.setOnTouchListener(this);
     }
 
     public void setLoadingIndicator(ProgressBar progressBar) {
         mLoadingIndicator = progressBar;
     }
 
-    @Override
-    public void setOnFocusChangeListener(OnFocusChangeListener f) {
-        this.f = f;
+    public void setAutoCompletListener(AutoCompleteListener listener) {
+        mListener = listener;
+    }
+
+    protected void handlerFilter(CharSequence msg, int delay) {
+        super.performFiltering(msg, delay);
     }
 
     @Override
     protected void performFiltering(CharSequence text, int keyCode) {
-        super.performFiltering(text, keyCode);
+        mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
         if (mLoadingIndicator != null) {
             mLoadingIndicator.setVisibility(View.VISIBLE);
         }
@@ -54,7 +91,6 @@ public class ViewAutoComplete extends AutoCompleteTextView implements View.OnFoc
 
     @Override
     public void onFilterComplete(int count) {
-        super.onFilterComplete(count);
         if (mLoadingIndicator != null) {
             mLoadingIndicator.setVisibility(View.GONE);
         }
@@ -63,49 +99,20 @@ public class ViewAutoComplete extends AutoCompleteTextView implements View.OnFoc
     @Override
     public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         if (isFocused()) {
-            setClearIconVisible(isNotEmpty(text));
+
         }
     }
 
     @Override
     protected void replaceText(CharSequence text) {
-//        float viewWidth = getMeasuredWidth();
-//        float textWidth = getPaint().measureText((String) text);
-//        if (textWidth > viewWidth) {
-//            setText(TextUtils.ellipsize(text, new TextPaint(), (textWidth - viewWidth)/2, TextUtils.TruncateAt.END));
-//        } else {
-//            setText(text);
-//        }
-        setText(text.subSequence(0, text.length() / 2) + "..");
-    }
-
-    @Override
-    public void onFocusChange(View v, boolean hasFocus) {
-        if (hasFocus) {
-            setClearIconVisible(isNotEmpty(getText()));
+        float viewWidth = getMeasuredWidth();
+        float textWidth = getPaint().measureText((String) text);
+        if (textWidth > viewWidth) {
+            setText(TextUtils.ellipsize(text, getPaint(),
+                    viewWidth - viewWidth / 4,
+                    TextUtils.TruncateAt.END, true, null));
         } else {
-            setClearIconVisible(false);
+            setText(text);
         }
-        if (f != null) {
-            f.onFocusChange(v, hasFocus);
-        }
-    }
-
-    protected void setClearIconVisible(boolean visible) {
-        boolean wasVisible = (getCompoundDrawables()[DRAWABLE_LEFT] != null);
-        if (visible != wasVisible) {
-            Drawable x = visible ? clearIcon : null;
-            setCompoundDrawables(x,
-                    getCompoundDrawables()[DRAWABLE_TOP],
-                    getCompoundDrawables()[DRAWABLE_RIGHT], getCompoundDrawables()[DRAWABLE_BOTTOM]);
-        }
-    }
-
-    public static boolean isEmpty(CharSequence str) {
-        return str == null || str.length() == 0;
-    }
-
-    public static boolean isNotEmpty(CharSequence str) {
-        return !isEmpty(str);
     }
 }

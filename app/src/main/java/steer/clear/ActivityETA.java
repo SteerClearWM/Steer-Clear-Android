@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
-public class ActivityETA extends Activity
+public class ActivityEta extends Activity
         implements View.OnClickListener, HttpHelperInterface {
 
     private TextView etaTime;

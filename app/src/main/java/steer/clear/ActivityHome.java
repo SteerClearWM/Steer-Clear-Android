@@ -1,29 +1,34 @@
 package steer.clear;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,7 +45,10 @@ import java.util.TimeZone;
  */
 public class ActivityHome extends FragmentActivity
 	implements HttpHelperInterface, ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
-	
+
+	// Stores user's current location
+	private static LatLng currentLatLng;
+
 	// After user clicks "Next" in FragmentMap, stores their chosen LatLngs in these variables
 	private static LatLng pickupLatLng;
 	private static CharSequence pickupLocationName;
@@ -51,9 +59,17 @@ public class ActivityHome extends FragmentActivity
 	private final static String PICKUP = "pickup";
 	private final static String DROPOFF = "dropoff";
 	private final static String POST = "post";
+
+	// Request code to use when launching the resolution activity
+	private static final int REQUEST_RESOLVE_ERROR = 1001;
+	// Unique tag for the error dialog fragment
+	private static final String DIALOG_ERROR = "dialog_error";
+	// Bool to track whether the app is already resolving an error
+	private boolean mResolvingError = false;
 	
 	// Only one GoogleApiClient ever instantiated
 	protected GoogleApiClient mGoogleApiClient;
+	private static final String STATE_RESOLVING_ERROR = "resolving_error";
 	
 	private ProgressDialog httpProgress;
 
@@ -61,6 +77,8 @@ public class ActivityHome extends FragmentActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		mResolvingError = savedInstanceState != null
+				&& savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
 		httpProgress = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
 		httpProgress.setMessage("Notifying driver of your request...");
@@ -74,6 +92,40 @@ public class ActivityHome extends FragmentActivity
 	        .addApi(LocationServices.API)
 	        .build();
 	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (!mResolvingError) {  // more about this later
+			mGoogleApiClient.connect();
+		}
+	}
+
+	@Override
+	protected void onStop() {
+		mGoogleApiClient.disconnect();
+		super.onStop();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_RESOLVE_ERROR) {
+			mResolvingError = false;
+			if (resultCode == RESULT_OK) {
+				// Make sure the app is not already connected or attempting to connect
+				if (!mGoogleApiClient.isConnecting() &&
+						!mGoogleApiClient.isConnected()) {
+					mGoogleApiClient.connect();
+				}
+			}
+		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putBoolean(STATE_RESOLVING_ERROR, mResolvingError);
+	}
 	
 	/**
 	 * Handles navigation between fragments.
@@ -86,18 +138,18 @@ public class ActivityHome extends FragmentActivity
 	    if (count == 0) {
 	        super.onBackPressed();
 	    } else {
-	        getFragmentManager().popBackStack();
-	    }
+	        getFragmentManager().popBackStackImmediate();
+		}
 	}
-	
+
 	/**
 	 * Called from FragmentHailRide when the app is ready to post a ride to the server.
 	 */
 	@Override
 	public void makeHttpPostRequest(int numPassengers) {
 		showHttpProgress();
-		HttpHelper.getInstance(this).addRide(numPassengers, 
-				pickupLatLng.latitude, pickupLatLng.longitude, 
+		HttpHelper.getInstance(this).addRide(numPassengers,
+				pickupLatLng.latitude, pickupLatLng.longitude,
 				dropoffLatLng.latitude, dropoffLatLng.longitude);
 	}
 
@@ -117,10 +169,10 @@ public class ActivityHome extends FragmentActivity
 
 				Calendar calendar = new GregorianCalendar();
 				calendar.setTime(eta);
-				int pickupHour = calendar.get(Calendar.HOUR);
+				int pickupHour = calendar.get(Calendar.HOUR_OF_DAY);
 				int pickupMinute = calendar.get(Calendar.MINUTE);
 
-				Intent etaActivity = new Intent(this, ActivityETA.class);
+				Intent etaActivity = new Intent(this, ActivityEta.class);
 				etaActivity.putExtra("PICKUP_HOUR", pickupHour);
 				etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
 				etaActivity.putExtra("CANCEL_ID", cancelId);
@@ -190,58 +242,105 @@ public class ActivityHome extends FragmentActivity
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
-		Logger.log("CONNECTION TO GOOGLEAPICLIENT FAILED " + result.toString());
+		if (mResolvingError) {
+			// Already attempting to resolve an error.
+			return;
+		} else if (result.hasResolution()) {
+			try {
+				mResolvingError = true;
+				result.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+			} catch (IntentSender.SendIntentException e) {
+				// There was an error with the resolution intent. Try again.
+				mGoogleApiClient.connect();
+			}
+		} else {
+			// Show dialog using GooglePlayServicesUtil.getErrorDialog()
+			GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(), this, 1);
+			mResolvingError = true;
+		}
 	}
 
-	/**
-	 * Called from FragmentMap when user chooses their location and moves on from the "Pickup Location" fragment.
-	 * Stores the user's pickupLatLng and pickupLocationName, then adds the "dropoff location" fragment to the layout.
-	 */
 	@Override
-	public void setPickup(LatLng pickupLatLng, CharSequence pickupLocationName) {
-		ActivityHome.pickupLatLng = pickupLatLng;
-		ActivityHome.pickupLocationName = pickupLocationName;
-    	FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-	    Fragment fragment = FragmentMap.newInstance(DROPOFF, pickupLatLng);
-	    ft.addToBackStack(DROPOFF);
-	    ft.replace(R.id.activity_home_fragment_frame, fragment, DROPOFF);
-	    ft.commit();
+	public void changePickup() {
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, true);
+		ft.addToBackStack(PICKUP);
+		ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
+		ft.commit();
 	}
 
-	/**
-	 * Called from FragmentMap when user chooses their location and moves on from the "dropoff Location" fragment.
-	 * Stores the user's dropoffLatLng and dropoffLocationName, then adds the "hail ride" fragment to the layout.
-	 */
 	@Override
-	public void setDropoff(LatLng dropoffLatLng, CharSequence dropoffLocationName) {
-		if (pickupLocationName.equals(dropoffLocationName)) {
-			Toast.makeText(this, "Your pickup and dropoff cannot be the same location", Toast.LENGTH_SHORT).show();
+	public void changeDropoff() {
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		FragmentMap fragment = FragmentMap.newInstance(DROPOFF, currentLatLng, true);
+		ft.addToBackStack(DROPOFF);
+		ft.add(R.id.activity_home_fragment_frame, fragment, DROPOFF);
+		ft.commit();
+	}
+
+	@Override
+	public void setChosenLocation(String fragmentTag, LatLng latlng, CharSequence name) {
+		if (fragmentTag == PICKUP) {
+			ActivityHome.pickupLatLng = latlng;
+			ActivityHome.pickupLocationName = name;
+
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			Fragment fragment = FragmentMap.newInstance(DROPOFF, pickupLatLng, false);
+			ft.remove(getFragmentManager().findFragmentByTag(PICKUP));
+			ft.addToBackStack(DROPOFF);
+			ft.add(R.id.activity_home_fragment_frame, fragment, DROPOFF);
+			ft.commit();
+		} else {
+			if (pickupLocationName.equals(dropoffLocationName)) {
+				Toast.makeText(this, "Your pickup and dropoff cannot be the same location", Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			ActivityHome.dropoffLatLng = latlng;
+			ActivityHome.dropoffLocationName = name;
+
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			FragmentHailRide fragment = FragmentHailRide.newInstance(pickupLocationName, dropoffLocationName);
+			ft.remove(getFragmentManager().findFragmentByTag(DROPOFF));
+			ft.addToBackStack(POST);
+			ft.replace(R.id.activity_home_fragment_frame, fragment, POST);
+			ft.commit();
+		}
+	}
+
+	@Override
+	public void onChosenLocationChanged(String fragmentTag, LatLng latlng, CharSequence name) {
+		if (name.equals(pickupLocationName) || name.equals(dropoffLocationName)) {
+			getFragmentManager().popBackStack();
 			return;
 		}
-		
-		ActivityHome.dropoffLatLng = dropoffLatLng;
-		ActivityHome.dropoffLocationName = dropoffLocationName;
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-		FragmentHailRide fragment = FragmentHailRide.newInstance(pickupLocationName, dropoffLocationName);
-	    ft.addToBackStack(POST);
-	    ft.replace(R.id.activity_home_fragment_frame, fragment, POST);
-	    ft.commit();
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		if (fragmentTag == PICKUP) {
+			ActivityHome.pickupLatLng = latlng;
+			ActivityHome.pickupLocationName = name;
+		} else {
+			ActivityHome.dropoffLatLng = latlng;
+			ActivityHome.dropoffLocationName = name;
+		}
+		getFragmentManager().popBackStack();
+		FragmentHailRide prevHailRide =
+				(FragmentHailRide) getFragmentManager().findFragmentByTag(POST);
+		prevHailRide.onLocationChanged(fragmentTag, name);
+		ft.show(prevHailRide).commit();
 	}
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-        Fragment prev = getFragmentManager().findFragmentByTag(PICKUP);
+		Fragment prev = getFragmentManager().findFragmentByTag(PICKUP);
         if (prev != null) {
             getFragmentManager().beginTransaction().show(prev).commit();
         } else {
-            Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+			Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (currentLocation != null) {
-                LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng);
+                currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
                 ft.commit();
             } else {

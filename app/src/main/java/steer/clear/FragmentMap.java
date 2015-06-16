@@ -1,9 +1,5 @@
 package steer.clear;
 
-import java.util.Locale;
-
-import steer.clear.AdapterAutoComplete.AdapterAutoCompleteItem;
-
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -18,11 +14,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -49,23 +44,28 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Locale;
+
+import steer.clear.AdapterAutoComplete.AdapterAutoCompleteItem;
+
 /**
  * Class that deals with all GoogleMaps stuff. 
  * @author Miles Peele
  *
  */
 public class FragmentMap extends Fragment
-	implements OnMapReadyCallback, AdapterView.OnItemClickListener, OnTouchListener, OnMarkerClickListener, OnClickListener {
+	implements OnMapReadyCallback, AdapterView.OnItemClickListener,
+        OnMarkerClickListener, OnClickListener, ViewAutoComplete.AutoCompleteListener {
 	
 	// Global views
-	private ViewDelayAutoComplete input;
+	private ViewAutoComplete input;
 	private TextView inputHint;
 	private ImageButton previousFragment;
 	private ProgressBar inputSuggestionsLoading;
 	private MapView mapView;
 
 	// Stores the user's LatLng and the LatLng they chose as pickup/dropoff
-	private LatLng userLatLng;
+	private static LatLng userLatLng;
 	public LatLng chosenLatLng;
 	public CharSequence chosenLocationName;
 	
@@ -77,9 +77,10 @@ public class FragmentMap extends Fragment
 	// Save instance state tags
 	private final static String INPUT_TEXT = "input";
 
-    // Tags for latlng in bundle
+    // Tags for Bundles
     private final static String LATITUDE = "latitude";
     private final static String LONGITUDE = "longitude";
+	private final static String FROM_HAIL_RIDE = "fromHailRide";
 
     // When finding a chosen location
 	private ProgressDialog progress;
@@ -105,12 +106,13 @@ public class FragmentMap extends Fragment
 	 * @param currentLatLng
 	 * @return FragmentMap fragment
 	 */
-	public static FragmentMap newInstance(String tag, LatLng currentLatLng) {
+	public static FragmentMap newInstance(String tag, LatLng currentLatLng, boolean fromHailRide) {
 		FragmentMap frag = new FragmentMap();
 		Bundle args = new Bundle();
 		args.putString(TAG, tag);
         args.putDouble(LATITUDE, currentLatLng.latitude);
         args.putDouble(LONGITUDE, currentLatLng.longitude);
+		args.putBoolean(FROM_HAIL_RIDE, fromHailRide);
 		frag.setArguments(args);
 		return frag;
 	}
@@ -119,22 +121,21 @@ public class FragmentMap extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
+		input.setText(getArguments().getString(INPUT_TEXT));
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mapView.onPause();
-    }
+		getArguments().putString(INPUT_TEXT, input.getText().toString());
+}
     
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
-        
-        if (!input.getText().toString().isEmpty()) {
-        	outState.putString(INPUT_TEXT, input.getText().toString());
-        }
+		outState.putString(INPUT_TEXT, input.getText().toString());
     }
 
     @Override
@@ -162,6 +163,7 @@ public class FragmentMap extends Fragment
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 		progress = new ProgressDialog(getActivity(), ProgressDialog.STYLE_HORIZONTAL);
 		progress.setMessage("Locating...");
 	}
@@ -170,7 +172,7 @@ public class FragmentMap extends Fragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
-		input = (ViewDelayAutoComplete) rootView.findViewById(R.id.fragment_map_input);
+		input = (ViewAutoComplete) rootView.findViewById(R.id.fragment_map_input);
 		inputHint = (TextView) rootView.findViewById(R.id.fragment_map_input_hint);
 		if (getArguments() != null) {
 			String tag = getArguments().getString(TAG);
@@ -195,9 +197,8 @@ public class FragmentMap extends Fragment
 		mAdapter = new AdapterAutoComplete(getActivity(), android.R.layout.simple_dropdown_item_1line, 
 				listener.getGoogleApiClient(), BOUNDS_WILLIAMSBURG, null);
 		input.setAdapter(mAdapter);
-		
 		input.setOnItemClickListener(this);
-		input.setOnTouchListener(this);
+        input.setAutoCompletListener(this);
 		
 		return rootView;
 	}
@@ -205,7 +206,7 @@ public class FragmentMap extends Fragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
-	    
+
 	    if (savedInstanceState != null) {
 	    	input.setText(savedInstanceState.getString(INPUT_TEXT));
 	    }
@@ -262,7 +263,7 @@ public class FragmentMap extends Fragment
         String tag = getArguments().getString(TAG);
         alertDialog.setTitle("Choose " + tag.substring(0, 1).toUpperCase(Locale.getDefault()) + tag.substring(1) + " Location");
         alertDialog.setMessage("Would you like to choose a nearby place as your " + tag + " location?" +
-        		" You must choose a location that has a name, like 'Barrett Hall.'");
+                " You must choose a location that has a name, like 'Barrett Hall.'");
         alertDialog.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
         	
             @Override
@@ -289,7 +290,7 @@ public class FragmentMap extends Fragment
 
 		});
 
-        alertDialog.show();
+		alertDialog.show();
 
         return false;
 	}
@@ -318,6 +319,7 @@ public class FragmentMap extends Fragment
 					places.release();
 					dismissProgressDialog();
 					Toast.makeText(getActivity(), "SteerClear does not service this location", Toast.LENGTH_SHORT).show();
+					input.setText("");
 					return;
 				}
 
@@ -339,9 +341,11 @@ public class FragmentMap extends Fragment
 				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
 				places.release();
-				dismissProgressDialog();
 				final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+				if (getView().getWindowToken() != null) {
+					imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+				}
+				dismissProgressDialog();
 			}
 
 		});
@@ -352,16 +356,18 @@ public class FragmentMap extends Fragment
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
-		float displayWidth = size.x;
+		// float displayWidth = size.x;
+		float displayHeight = size.y;
 
 		Animator animator;
 		if (enter) {
-			animator = ObjectAnimator.ofFloat(this, "translationX", displayWidth, 0);
+			animator = ObjectAnimator.ofFloat(getActivity(), "y", displayHeight, 0);
 		} else {
-			animator = ObjectAnimator.ofFloat(this, "translationX", 0, displayWidth);
-		}
+			animator = ObjectAnimator.ofFloat(getActivity(), "y", 0, displayHeight);
+        }
 
-		animator.setDuration(300);
+        animator.setDuration(1000);
+		animator.setInterpolator(new AccelerateDecelerateInterpolator());
 		return animator;
 	}
 	
@@ -370,35 +376,14 @@ public class FragmentMap extends Fragment
 		getActivity().onBackPressed();
 	}
 
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		final ViewDelayAutoComplete view = (ViewDelayAutoComplete) v;
-		final int DRAWABLE_LEFT = 0;
-        //final int DRAWABLE_TOP = 1;
-        final int DRAWABLE_RIGHT = 2;
-        //final int DRAWABLE_BOTTOM = 3;
-        
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getRawX() >= (view.getRight() - view.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-            	goToNextFragment();
-            	return true;
-            } 
-            
-            if (event.getRawX() <= (view.getLeft() + view.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
-            	view.setText("");
-            	return true;
-            }
-         }
-         return false;
-	}
-
 	private void goToNextFragment() {
 		if (chosenLatLng != null) {
 			String tag = getArguments().getString(TAG);
-			if (tag == PICKUP) {
-				listener.setPickup(chosenLatLng, chosenLocationName);
+			boolean fromHailRide = getArguments().getBoolean(FROM_HAIL_RIDE);
+			if (!fromHailRide) {
+				listener.setChosenLocation(tag, chosenLatLng, chosenLocationName);
 			} else {
-				listener.setDropoff(chosenLatLng, chosenLocationName);
+				listener.onChosenLocationChanged(tag, chosenLatLng, chosenLocationName);
 			}
 		} else {
 			Toast.makeText(getActivity(), "Choose a location first!", Toast.LENGTH_SHORT).show();
@@ -417,4 +402,13 @@ public class FragmentMap extends Fragment
 		}
 	}
 
+    @Override
+    public void arrowClicked() {
+        goToNextFragment();
+    }
+
+    @Override
+    public void clearClicked() {
+        input.setText("");
+    }
 }

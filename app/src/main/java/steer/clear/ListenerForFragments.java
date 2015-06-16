@@ -6,8 +6,9 @@ import com.google.android.gms.maps.model.LatLng;
 public interface ListenerForFragments {
 	
 	public GoogleApiClient getGoogleApiClient();
-    public void setPickup(LatLng pickupLatLng, CharSequence pickupName);
-    public void setDropoff(LatLng dropoff, CharSequence dropoffName);
+    public void changePickup();
+    public void setChosenLocation(String fragmentTag, LatLng latlng, CharSequence name);
+    public void changeDropoff();
     public void makeHttpPostRequest(int numPassengers);
-
+    public void onChosenLocationChanged(String fragmentTag, LatLng latlng, CharSequence c);
 }

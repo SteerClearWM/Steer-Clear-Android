@@ -1,14 +1,22 @@
 package steer.clear;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,19 +25,23 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	
 	// Global views
 	private TextView pickup;
+	private ImageButton changePickup;
 	private TextView dropoff;
+	private ImageButton changeDropoff;
 	private ImageButton postRide;
 	private TextView numPassengers;
 	
 	// static int used for, you guessed it, storing the current passenger count
 	private static int passengers = 0;
-	
+
 	// Final static strings used as keys for getArguments()
 	private final static String PICKUP = "pickup";
 	private final static String DROPOFF = "dropoff";
+
+	// Needed for life
+	private final static String POST = "post";
 	
 	private ListenerForFragments listener;
-	
 	public FragmentHailRide(){}
 	
 	/**
@@ -38,7 +50,8 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	 * @param dropoffLocationName
 	 * @return
 	 */
-	public static FragmentHailRide newInstance(CharSequence pickupLocationName, CharSequence dropoffLocationName) {
+	public static FragmentHailRide newInstance(CharSequence pickupLocationName,
+											   CharSequence dropoffLocationName) {
 		FragmentHailRide frag = new FragmentHailRide();
 		Bundle args = new Bundle();
 		args.putCharSequence(PICKUP, pickupLocationName);
@@ -65,11 +78,15 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 		
 		pickup = (TextView) rootView.findViewById(R.id.fragment_hail_ride_pickup_location);
 		pickup.setText("PICKUP LOCATION: \n" + args.getCharSequence(PICKUP));
-		pickup.setOnTouchListener(this);
+
+		changePickup = (ImageButton) rootView.findViewById(R.id.fragment_hail_ride_change_pickup);
+		changePickup.setOnClickListener(this);
 		
 		dropoff = (TextView) rootView.findViewById(R.id.fragment_hail_ride_dropoff_location);
 		dropoff.setText("DROPOFF LOCATION: \n" + args.getCharSequence(DROPOFF));
-		dropoff.setOnTouchListener(this);
+
+		changeDropoff = (ImageButton) rootView.findViewById(R.id.fragment_hail_ride_change_dropoff);
+		changeDropoff.setOnClickListener(this);
 		
 		numPassengers = (TextView) rootView.findViewById(R.id.fragment_hail_ride_passenger_select);
 		numPassengers.setOnTouchListener(this);
@@ -80,11 +97,49 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	}
 
 	@Override
-	public void onClick(View v) {
-		if (passengers != 0) {
-			listener.makeHttpPostRequest(passengers);
+	public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+		Animator animator;
+		if (enter) {
+			animator = ObjectAnimator.ofFloat(getActivity(), "alpha", 0, 1);
 		} else {
-			Toast.makeText(getActivity(), "Choose number of passengers", Toast.LENGTH_SHORT).show();
+			animator = ObjectAnimator.ofFloat(getActivity(), "alpha", 1, 0);
+		}
+
+		animator.setDuration(750);
+		animator.setInterpolator(new AccelerateDecelerateInterpolator());
+		return animator;
+	}
+
+	public void onLocationChanged(String whichChanged, CharSequence newLocationName) {
+		switch (whichChanged) {
+			case PICKUP:
+				pickup.setText("PICKUP LOCATION: \n" + newLocationName);
+				break;
+
+			case DROPOFF:
+				dropoff.setText("DROPOFF LOCATION: \n" + newLocationName);
+				break;
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()) {
+			case R.id.fragment_hail_ride_post:
+				if (passengers != 0) {
+					listener.makeHttpPostRequest(passengers);
+				} else {
+					Toast.makeText(getActivity(), "Choose number of passengers", Toast.LENGTH_SHORT).show();
+				}
+				break;
+
+			case R.id.fragment_hail_ride_change_pickup:
+				listener.changePickup();
+				break;
+
+			case R.id.fragment_hail_ride_change_dropoff:
+				listener.changeDropoff();
+				break;
 		}
 	}
 
@@ -98,49 +153,22 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
         //final int DRAWABLE_BOTTOM = 3;
         
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-        	switch (v.getId()) {
-        		case R.id.fragment_hail_ride_passenger_select:
-        			incrementNumPassengers(event, view, DRAWABLE_LEFT, DRAWABLE_RIGHT);
-        			break;
-        			
-        		// To come later...
-        		case R.id.fragment_hail_ride_pickup_location:
-        			Logger.log("CHANGE PICKUP");
-        			break;
-        			
-        		case R.id.fragment_hail_ride_dropoff_location:
-        			Logger.log("CHANGE DROPOFF");
-        			break;
-        	}
-         }
-         return true;
-	}
+			if (event.getRawX() >= (view.getRight() - view.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+				if (passengers < 8) {
+					passengers = passengers + 1;
+					view.setText(String.valueOf(passengers));
+				}
+				return true;
+			}
 
-	/**
-	 * Method name is pretty obvious. Changes the value of passengers when the user clicks on the up/ down arrow accordingly
-	 * @param event
-	 * @param view
-	 * @param DRAWABLE_LEFT
-	 * @param DRAWABLE_RIGHT
-	 * @return
-	 */
-	private boolean incrementNumPassengers(MotionEvent event, final TextView view,
-			final int DRAWABLE_LEFT, final int DRAWABLE_RIGHT) {
-		if (event.getRawX() >= (view.getRight() - view.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-			if (passengers < 8) {
-				passengers = passengers + 1;
-				view.setText(String.valueOf(passengers));
+			if (event.getRawX() <= (view.getLeft() + view.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
+				if (passengers > 1) {
+					passengers = passengers - 1;
+					view.setText(String.valueOf(passengers));
+				}
+				return true;
 			}
-			return true;
-		} 
-		 
-		if (event.getRawX() <= (view.getLeft() + view.getCompoundDrawables()[DRAWABLE_LEFT].getBounds().width())) {
-			if (passengers > 1) {
-				passengers = passengers - 1;
-				view.setText(String.valueOf(passengers));
-			}
-			return true;
 		}
-		return false;
+		return true;
 	}
 }

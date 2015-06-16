@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
+    android:layout_height="match_parent"
     android:background="@drawable/fragment_hail_ride_background" >
     
    	<com.google.android.gms.maps.MapView
@@ -21,16 +23,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
    	
-   	<steer.clear.ViewDelayAutoComplete
+   	<steer.clear.ViewAutoComplete
         android:id="@+id/fragment_map_input"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
-        android:gravity="start"
-       	android:ellipsize="end" 
-       	android:singleLine="true" 
-       	android:scrollHorizontally="true"
+        android:inputType="textNoSuggestions"
         android:completionThreshold="2"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:scrollHorizontally="true"
+        android:gravity="start|left"
         android:layout_below="@id/fragment_map_input_hint"
         android:drawableStart="@drawable/ic_clear_search_api_holo_light"
         android:drawableLeft="@drawable/ic_clear_search_api_holo_light"

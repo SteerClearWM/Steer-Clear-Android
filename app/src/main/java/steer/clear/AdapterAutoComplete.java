@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -148,7 +149,6 @@ public class AdapterAutoComplete
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
                 Logger.log("Error contacting API: " + status.toString());
-                Toast.makeText(getContext(), "There was an error on our part. Try again in a few", Toast.LENGTH_SHORT).show();
                 autocompletePredictions.release();
                 return null;
             }
