@@ -60,7 +60,6 @@ public class FragmentMap extends Fragment
 	// Global views
 	private ViewAutoComplete input;
 	private TextView inputHint;
-	private ImageButton previousFragment;
 	private ProgressBar inputSuggestionsLoading;
 	private MapView mapView;
 
@@ -185,24 +184,21 @@ public class FragmentMap extends Fragment
 		
 		inputSuggestionsLoading = (ProgressBar) rootView.findViewById(R.id.fragment_map_input_suggestions_loading);
 		input.setLoadingIndicator(inputSuggestionsLoading);
-		
-		previousFragment = (ImageButton) rootView.findViewById(R.id.fragment_map_back);
-		previousFragment.setOnClickListener(this);
 
 		mapView = (MapView) rootView.findViewById(R.id.fragment_map_view);
 		mapView.onCreate(savedInstanceState);
 		mapView.setBackground(null);
 		mapView.getMapAsync(this);
-		
-		mAdapter = new AdapterAutoComplete(getActivity(), android.R.layout.simple_dropdown_item_1line, 
+
+		mAdapter = new AdapterAutoComplete(getActivity(), android.R.layout.simple_dropdown_item_1line,
 				listener.getGoogleApiClient(), BOUNDS_WILLIAMSBURG, null);
 		input.setAdapter(mAdapter);
 		input.setOnItemClickListener(this);
         input.setAutoCompletListener(this);
-		
+
 		return rootView;
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
@@ -223,11 +219,11 @@ public class FragmentMap extends Fragment
 			.position(userLatLng)
 			.title("Your Location");
 		map.addMarker(marker);
-		
+
 		CameraPosition cameraPosition = new CameraPosition.Builder()
-		    .target(userLatLng)      
-		    .zoom(17)                   
-		    .bearing(90)                
+		    .target(userLatLng)
+		    .zoom(17)
+		    .bearing(90)
 		    .tilt(30)
 		    .build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -240,7 +236,7 @@ public class FragmentMap extends Fragment
 		if (requestCode == 1) {
 			if (resultCode == Activity.RESULT_OK) {
 				Place place = PlacePicker.getPlace(data, getActivity());
-				
+
 				if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
 					Toast.makeText(getActivity(), "Steer Clear does not service chosen location.", Toast.LENGTH_SHORT).show();
 					return;
@@ -370,7 +366,7 @@ public class FragmentMap extends Fragment
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
 		return animator;
 	}
-	
+
 	@Override
 	public void onClick(View v) {
 		getActivity().onBackPressed();

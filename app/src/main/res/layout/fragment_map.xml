@@ -47,15 +47,5 @@
         android:layout_centerHorizontal="true"
         android:layout_alignBottom="@id/fragment_map_input"
         android:visibility="gone"  />
-   	
-   	<ImageButton
-   	    android:id="@+id/fragment_map_back"
-   	    android:src="@drawable/ic_action_back"
-   	    style="?android:attr/borderlessButtonStyle"
-   	    android:layout_width="wrap_content"
-   	    android:layout_height="wrap_content" 
-   	    android:layout_alignParentLeft="true"
-   	    android:layout_alignParentStart="true"
-   	    android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
