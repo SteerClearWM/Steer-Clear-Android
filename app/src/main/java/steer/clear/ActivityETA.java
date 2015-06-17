@@ -1,24 +1,29 @@
 package steer.clear;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.KeyEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.volley.VolleyError;
+
 import org.json.JSONObject;
 
-public class ActivityEta extends Activity
+public class ActivityEta extends AppCompatActivity
         implements View.OnClickListener, HttpHelperInterface {
 
     private TextView etaTime;
     private Button cancelRide;
     private static int cancelId;
     private static String eta;
+
+    private final static String ETA = "eta";
 
     private ProgressDialog httpProgress;
 
@@ -38,8 +43,12 @@ public class ActivityEta extends Activity
             int pickupHour = extras.getIntExtra("PICKUP_HOUR", 0);
             int pickupMinute = extras.getIntExtra("PICKUP_MINUTE", 0);
             cancelId = extras.getIntExtra("CANCEL_ID", 0);
-            eta = String.format("%02d:%02d", pickupHour, pickupMinute);
-            etaTime.setText("Your ride will \n arrive at \n" + eta);
+            if (savedInstanceState != null) {
+                etaTime.setText("Your ride will \n arrive at \n" + savedInstanceState.getString(ETA));
+            } else {
+                eta = String.format("%02d:%02d", pickupHour, pickupMinute);
+                etaTime.setText("Your ride will \n arrive at \n" + eta);
+            }
         }
 
         cancelRide.setOnClickListener(this);
@@ -51,9 +60,43 @@ public class ActivityEta extends Activity
     }
 
     @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ETA, eta);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        etaTime.setText(savedInstanceState.getString(ETA));
+    }
+
+    @Override
     public void onClick(View v) {
-        showHttpProgress();
-        HttpHelper.getInstance(this).cancelRide(cancelId);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle("Cancel Ride");
+        alertDialog.setMessage("Would you like to cancel your requested ride? This will " +
+                "destroy all data entered and close the app.");
+        alertDialog.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                showHttpProgress();
+                HttpHelper.getInstance(ActivityEta.this).cancelRide(cancelId);
+            }
+
+        });
+
+        alertDialog.setNegativeButton("Nah", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+
+        });
+
+        alertDialog.show();
     }
 
     @Override

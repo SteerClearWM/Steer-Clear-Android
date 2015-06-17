@@ -3,7 +3,7 @@ package steer.clear;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -120,7 +120,7 @@ public class FragmentMap extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
-		input.setText(getArguments().getString(INPUT_TEXT));
+		input.setTextNoFilter(getArguments().getString(INPUT_TEXT), false);
     }
 
     @Override
@@ -194,7 +194,9 @@ public class FragmentMap extends Fragment
 				listener.getGoogleApiClient(), BOUNDS_WILLIAMSBURG, null);
 		input.setAdapter(mAdapter);
 		input.setOnItemClickListener(this);
-        input.setAutoCompletListener(this);
+		input.setAutoCompleteListener(this);
+
+        input.setAutoCompleteListener(this);
 
 		return rootView;
 	}
@@ -204,7 +206,7 @@ public class FragmentMap extends Fragment
 	    super.onActivityCreated(savedInstanceState);
 
 	    if (savedInstanceState != null) {
-	    	input.setText(savedInstanceState.getString(INPUT_TEXT));
+			input.setTextNoFilter(getArguments().getString(INPUT_TEXT), false);
 	    }
 	}
 
@@ -232,9 +234,9 @@ public class FragmentMap extends Fragment
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, final Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		showProgressDialog();
 		if (requestCode == 1) {
 			if (resultCode == Activity.RESULT_OK) {
+                showProgressDialog();
 				Place place = PlacePicker.getPlace(data, getActivity());
 
 				if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
@@ -244,8 +246,8 @@ public class FragmentMap extends Fragment
 				
 				chosenLatLng = place.getLatLng();
 	            chosenLocationName = place.getName();
-	            
-	            input.setText(chosenLocationName + " " + place.getAddress());
+
+				input.setTextNoFilter(getArguments().getString(INPUT_TEXT), false);
 	            
 	            goToNextFragment();
 	            dismissProgressDialog();
@@ -315,7 +317,7 @@ public class FragmentMap extends Fragment
 					places.release();
 					dismissProgressDialog();
 					Toast.makeText(getActivity(), "SteerClear does not service this location", Toast.LENGTH_SHORT).show();
-					input.setText("");
+					clearClicked(input);
 					return;
 				}
 
@@ -326,6 +328,7 @@ public class FragmentMap extends Fragment
 				GoogleMap map = mapView.getMap();
 				map.clear();
 				MarkerOptions marker = new MarkerOptions().position(chosenLatLng);
+				marker.title("Chosen Location");
 				map.addMarker(marker);
 
 				CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -399,12 +402,22 @@ public class FragmentMap extends Fragment
 	}
 
     @Override
-    public void arrowClicked() {
-        goToNextFragment();
+    public void arrowClicked(View v) {
+		final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (v.getWindowToken() != null) {
+			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+		}
+		goToNextFragment();
     }
 
     @Override
-    public void clearClicked() {
-        input.setText("");
+    public void clearClicked(View v) {
+		final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (v.getWindowToken() != null) {
+			imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+		}
+		chosenLatLng = null;
+		chosenLocationName = null;
+		input.setText("");
     }
 }
