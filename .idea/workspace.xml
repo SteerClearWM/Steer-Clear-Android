@@ -1,89 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidConfiguredLogFilters">
+    <filters>
+      <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="Miles" />
+        <option name="name" value="Mine" />
+        <option name="packageNamePattern" value="" />
+        <option name="pid" value="" />
+      </filter>
+    </filters>
+  </component>
   <component name="AndroidLayouts">
     <shared>
       <config />
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Mine" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beccef0d-dbed-4246-a02b-6f570e90b90c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/ViewPassengerSwitcher.java" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\appcompat_v7_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\mediarouter_v7_22_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_ads_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_analytics_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_appindexing_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_appinvite_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_appstate_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_cast_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_drive_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_fitness_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_games_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_gcm_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_identity_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_nearby_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_panorama_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_plus_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_safetynet_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_wallet_7_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\play_services_wearable_7_5_0.xml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-ldpi/main_background_footer.png" />
+      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\appcompat_v7_22_1_0.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\support_annotations_22_1_0.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\support_v4_22_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\SteerClear.iml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\android\support\v7\mediarouter\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\ads\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\all\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\analytics\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\appindexing\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\appinvite\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\appstate\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\cast\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\drive\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\fitness\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\games\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\gcm\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\identity\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\nearby\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\panorama\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\plus\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\safetynet\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\wallet\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\generated\source\r\debug\com\google\android\gms\wearable\R.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-0fe885ee93336955042948edfb7d07cec4a1df2d.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-2a8ae61d669c93969f0e2a27b0f44be9690e10ab.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-3dcc5d1fd1e0f5b3e2812b34f359e1825fda6c51.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4192669895c00f7b2cf8198198c4b5f35df58de1.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4268fdfa4e03dc347f2e2c6e8b22480cb9bb02cb.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4a09e8315cb4721fa5e9ca7ab3be03b2449e92bb.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-4b1af810026dace2cbefcea0cd90d18a7b23ad49.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-5496cceee7a8c2ae50b692eaa5350262129265d2.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-65d9792254093a2f209c7cb4c7eb05253c32b598.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-878959aee1cfeceb769396def3f7cdf37fdd7588.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-89a88f6623c16e91a8af7624dbe218415e1b44dd.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-922f46378fa0a08886dcef52e60d401a08386eb1.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-9577c08ee832305c501fd13d56eb56c1560e0d45.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-96092119c5348ff30fe66451befa33f604c1e57c.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-9fe9ad451c92777331cd25d1fde0966416d5afcd.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-a20cce0253aa47fd14df0ffe5710d1d3457da9d6.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-bd071949b553600ac049cdd6fb4e6c55fb5bd5ea.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-cef1cb8e09a7da8ca52520b24eb53b4d47857856.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-d1d5a9d95f84342044277450a5f0775631f74cf0.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-d8b9ccebac9a5acf8c89efe06ae5b813c9b35d0b.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-df9668904f274d3ee0f78a44045ec26eab230e96.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-e1e79fcf164dbe8cc13a528149f2d27a38c4897c.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-e1f579333da5ec8b449300a6444f3cbc54cde171.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\classes-ffb5087ef948fb6c382bd5f6187e73bb755b9ae6.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-85638d3a5855f9ea57ad10d8fcdf4aedd7036a1f.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\internal_impl-22.1.0-591697b5505fd18b2ff56a1b2541a91df1056cfa.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\pre-dexed\debug\support-annotations-22.1.0-94259fda1ec0a0d34399de8eada5b305b02c1296.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\color\wallet_primary_text_holo_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\color\wallet_secondary_text_holo_dark.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\Steer-Clear-Android.iml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ab_share_pack_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
@@ -122,33 +65,6 @@
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_disabled_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_off_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_on_0_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_on_1_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_on_2_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_cast_on_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_pause.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_play.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_route_disabled_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_route_off_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_route_on_0_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_route_on_1_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_route_on_2_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_media_route_on_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_pause_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_pause_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_play_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_play_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_setting_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\ic_setting_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\mr_ic_audio_vol.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi\cast_ic_notification_0.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi\cast_ic_notification_1.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi\cast_ic_notification_2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi\cast_ic_notification_on.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-hdpi-v17\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-hdpi-v17\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-hdpi-v17\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
@@ -207,33 +123,6 @@
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_disabled_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_off_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_on_0_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_on_1_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_on_2_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_cast_on_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_pause.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_play.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_route_disabled_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_route_off_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_route_on_0_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_route_on_1_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_route_on_2_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_media_route_on_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_pause_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_pause_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_play_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_play_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_setting_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\ic_setting_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\mr_ic_audio_vol.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi\cast_ic_notification_0.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi\cast_ic_notification_1.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi\cast_ic_notification_2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi\cast_ic_notification_on.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-tvdpi-v4\abc_btn_switch_to_on_mtrl_00001.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-tvdpi-v4\abc_btn_switch_to_on_mtrl_00012.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ab_share_pack_mtrl_alpha.9.png" afterPath="" />
@@ -274,33 +163,6 @@
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_disabled_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_off_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_on_0_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_on_1_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_on_2_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_cast_on_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_pause.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_play.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_route_disabled_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_route_off_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_route_on_0_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_route_on_1_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_route_on_2_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_media_route_on_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_pause_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_pause_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_play_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_play_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_setting_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\ic_setting_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\mr_ic_audio_vol.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi\cast_ic_notification_0.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi\cast_ic_notification_1.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi\cast_ic_notification_2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi\cast_ic_notification_on.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ab_share_pack_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
@@ -339,33 +201,6 @@
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_disabled_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_off_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_on_0_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_on_1_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_on_2_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_cast_on_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_pause.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_play.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_route_disabled_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_route_off_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_route_on_0_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_route_on_1_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_route_on_2_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_media_route_on_mono_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_pause_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_pause_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_play_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_play_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_setting_dark.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\ic_setting_light.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\mr_ic_audio_vol.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi\cast_ic_notification_0.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi\cast_ic_notification_1.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi\cast_ic_notification_2.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi\cast_ic_notification_on.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_radio_to_on_mtrl_000.png" afterPath="" />
@@ -385,23 +220,7 @@
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_switch_track_mtrl_alpha.9.png" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_tab_indicator_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\cast_ic_notification_connecting.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_media_route_connecting_mono_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_media_route_connecting_mono_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_media_route_mono_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_media_route_mono_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_pause_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_pause_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_play_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_play_light.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_settings_dark.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable\mr_ic_settings_light.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\layout-v11\abc_screen_content_include.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\layout-v17\mr_media_route_list_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\layout\mr_media_route_chooser_dialog.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\layout\mr_media_route_controller_material_dialog_b.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\layout\mr_media_route_list_item.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\raw\gtm_analytics" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-hdpi-v4\values-hdpi-v4.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-large-v4\values-large-v4.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-sw600dp-v13\values-sw600dp-v13.xml" afterPath="" />
@@ -412,279 +231,39 @@
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-w720dp-v13\values-w720dp-v13.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-xlarge-land-v4\values-xlarge-land-v4.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-xlarge-v4\values-xlarge-v4.xml" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\src\main\java\steer\clear\ActivityETA.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityEta.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityEta.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityEta.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/AdapterAutoComplete$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/AdapterAutoComplete$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/AdapterAutoComplete$AdapterAutoCompleteItem.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/AdapterAutoComplete$AdapterAutoCompleteItem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/AdapterAutoComplete.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/AdapterAutoComplete.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentHailRide.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentHailRide.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/FragmentMap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$3.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$4.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$5.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$6.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$7.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/HttpHelper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$anim.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$anim.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$anim.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$anim.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$attr.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$attr.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$attr.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$attr.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$attr.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$bool.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$bool.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$bool.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$bool.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$dimen.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$dimen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$dimen.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$dimen.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$drawable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$drawable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$drawable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$id.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$integer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$layout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$raw.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$raw.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$raw.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$raw.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$raw.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$raw.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$string.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$style.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$styleable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ViewAutoComplete$AutoCompleteListener.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ViewAutoComplete$AutoCompleteListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ViewAutoComplete$MyHandler.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ViewAutoComplete$MyHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ViewAutoComplete.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ViewAutoComplete.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/_ApplicationInitialize.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/_ApplicationInitialize.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug-androidTest.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug-androidTest.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityEta.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityEta.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/steer/clear/FragmentHailRide.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/FragmentHailRide.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/steer/clear/FragmentMap.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/FragmentMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/steer/clear/HttpHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/HttpHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/location/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/location/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/maps/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/maps/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/steer/clear/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/steer/clear/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/steer/clear/ViewAutoComplete.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/ViewAutoComplete.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_bar_title_item.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_bar_title_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_bar_up_container.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_bar_up_container.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_bar_view_list_nav_layout.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_bar_view_list_nav_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_menu_item_layout.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_menu_layout.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_menu_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_mode_bar.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_mode_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_mode_close_item_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_action_mode_close_item_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_activity_chooser_view.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_activity_chooser_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_activity_chooser_view_list_item.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_activity_chooser_view_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_background_cache_hint_selector_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_btn_check_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_btn_check_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_btn_default_mtrl_shape.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_btn_default_mtrl_shape.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_btn_radio_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_btn_radio_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_cab_background_internal_bg.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_cab_background_internal_bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_cab_background_top_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_cab_background_top_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_edit_text_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_edit_text_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_expanded_menu_layout.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_expanded_menu_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_fade_in.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_fade_in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_fade_out.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_fade_out.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_grow_fade_in_from_bottom.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_grow_fade_in_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_item_background_holo_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_item_background_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_item_background_holo_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_item_background_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_checkbox.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_checkbox.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_icon.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_icon.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_layout.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_radio.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_list_menu_item_radio.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_background_transition_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_holo_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_holo_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_holo_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_list_selector_holo_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_popup_menu_item_layout.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_popup_menu_item_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_disable_only_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_material_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_material_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_primary_text_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_ratingbar_full_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_ratingbar_full_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_content_include.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_content_include.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_simple.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_simple.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_simple_overlay_action_mode.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_simple_overlay_action_mode.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_toolbar.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_screen_toolbar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_search_dropdown_item_icons_2line.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_search_dropdown_item_icons_2line.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_search_url_text.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_search_url_text.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_search_view.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_search_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_secondary_text_material_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_secondary_text_material_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_secondary_text_material_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/abc_secondary_text_material_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_shrink_fade_out_from_bottom.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_shrink_fade_out_from_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_simple_dropdown_hint.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/abc_simple_dropdown_hint.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_in_bottom.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_in_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_in_top.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_in_top.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_out_bottom.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_out_bottom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_out_top.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/abc_slide_out_top.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_spinner_textfield_background_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_spinner_textfield_background_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_switch_thumb_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_switch_thumb_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_tab_indicator_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_tab_indicator_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_textfield_search_material.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/abc_textfield_search_material.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_eta.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_eta.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_home.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/activity_home.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/animation_slide_enter_right.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/animation_slide_enter_right.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/animation_slide_exit_left.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/anim/animation_slide_exit_left.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_icon_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_icon_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_icon_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_icon_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/color/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/drawable/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_hail_ride.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_hail_ride.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_map.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_map.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/androidTest/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeAssets/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/androidTest/debug/merger.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_base_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_base_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_maps_7_5_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_maps_7_5_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/support_simple_spinner_dropdown_item.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/support_simple_spinner_dropdown_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-af/values-af.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-af/values-af.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-am/values-am.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-am/values-am.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ar/values-ar.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ar/values-ar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-bg/values-bg.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-bg/values-bg.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-bn-rBD/values-bn-rBD.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-bn-rBD/values-bn-rBD.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ca/values-ca.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ca/values-ca.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-cs/values-cs.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-cs/values-cs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-da/values-da.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-da/values-da.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-de/values-de.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-de/values-de.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-el/values-el.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-el/values-el.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-en-rAU/values-en-rAU.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-en-rAU/values-en-rAU.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-en-rGB/values-en-rGB.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-en-rGB/values-en-rGB.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-en-rIN/values-en-rIN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-en-rIN/values-en-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-es-rUS/values-es-rUS.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-es-rUS/values-es-rUS.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-es/values-es.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-es/values-es.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-et-rEE/values-et-rEE.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-et-rEE/values-et-rEE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-eu-rES/values-eu-rES.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-eu-rES/values-eu-rES.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fa/values-fa.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fa/values-fa.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fi/values-fi.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fi/values-fi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fr-rCA/values-fr-rCA.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fr-rCA/values-fr-rCA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fr/values-fr.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-fr/values-fr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-gl-rES/values-gl-rES.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-gl-rES/values-gl-rES.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hi/values-hi.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hi/values-hi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hr/values-hr.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hr/values-hr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hu/values-hu.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hu/values-hu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hy-rAM/values-hy-rAM.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-hy-rAM/values-hy-rAM.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-in/values-in.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-in/values-in.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-is-rIS/values-is-rIS.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-is-rIS/values-is-rIS.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-it/values-it.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-it/values-it.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-iw/values-iw.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-iw/values-iw.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ja/values-ja.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ja/values-ja.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ka-rGE/values-ka-rGE.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ka-rGE/values-ka-rGE.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-kk-rKZ/values-kk-rKZ.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-kk-rKZ/values-kk-rKZ.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-km-rKH/values-km-rKH.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-km-rKH/values-km-rKH.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-kn-rIN/values-kn-rIN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-kn-rIN/values-kn-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ko/values-ko.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ko/values-ko.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ky-rKG/values-ky-rKG.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ky-rKG/values-ky-rKG.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-land/values-land.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-land/values-land.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-lo-rLA/values-lo-rLA.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-lo-rLA/values-lo-rLA.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-lt/values-lt.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-lt/values-lt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-lv/values-lv.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-lv/values-lv.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-mk-rMK/values-mk-rMK.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-mk-rMK/values-mk-rMK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ml-rIN/values-ml-rIN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ml-rIN/values-ml-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-mn-rMN/values-mn-rMN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-mn-rMN/values-mn-rMN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-mr-rIN/values-mr-rIN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-mr-rIN/values-mr-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ms-rMY/values-ms-rMY.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ms-rMY/values-ms-rMY.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-my-rMM/values-my-rMM.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-my-rMM/values-my-rMM.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-nb/values-nb.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-nb/values-nb.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ne-rNP/values-ne-rNP.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ne-rNP/values-ne-rNP.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-nl/values-nl.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-nl/values-nl.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pl/values-pl.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pl/values-pl.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-port/values-port.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-port/values-port.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pt-rBR/values-pt-rBR.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pt-rBR/values-pt-rBR.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pt-rPT/values-pt-rPT.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pt-rPT/values-pt-rPT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pt/values-pt.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-pt/values-pt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ro/values-ro.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ro/values-ro.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ru/values-ru.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ru/values-ru.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-si-rLK/values-si-rLK.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-si-rLK/values-si-rLK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sk/values-sk.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sk/values-sk.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sl/values-sl.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sl/values-sl.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sr/values-sr.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sr/values-sr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sv/values-sv.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sv/values-sv.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sw/values-sw.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-sw/values-sw.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ta-rIN/values-ta-rIN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ta-rIN/values-ta-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-te-rIN/values-te-rIN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-te-rIN/values-te-rIN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-th/values-th.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-th/values-th.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-tl/values-tl.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-tl/values-tl.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-tr/values-tr.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-tr/values-tr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-uk/values-uk.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-uk/values-uk.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ur-rPK/values-ur-rPK.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-ur-rPK/values-ur-rPK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-uz-rUZ/values-uz-rUZ.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-uz-rUZ/values-uz-rUZ.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v11/values-v11.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v11/values-v11.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v14/values-v14.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v14/values-v14.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v17/values-v17.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v17/values-v17.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v21/values-v21.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-v21/values-v21.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-vi/values-vi.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-vi/values-vi.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-w820dp/values-w820dp.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-w820dp/values-w820dp.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zh-rCN/values-zh-rCN.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zh-rCN/values-zh-rCN.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zh-rHK/values-zh-rHK.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zh-rHK/values-zh-rHK.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zh-rTW/values-zh-rTW.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zh-rTW/values-zh-rTW.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zu/values-zu.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values-zu/values-zu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SteerClear.iws" />
@@ -714,21 +293,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <file leaf-file-name="ActivityHome.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.34">
+              <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
+              <folding>
+                <element signature="e#7428#7429#0" expanded="true" />
+                <element signature="e#7458#7459#0" expanded="true" />
+                <element signature="e#12301#12691#0" expanded="true" />
+                <element signature="e#12690#12691#0" expanded="true" />
+                <element signature="e#12745#12966#0" expanded="true" />
+                <element signature="e#12965#12966#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="ViewPassengerSwitcher.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ViewPassengerSwitcher.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -2069,6 +1655,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/steer/clear/ViewAutoComplete.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/steer/clear/FragmentMap.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java" />
       </list>
     </option>
   </component>
@@ -2108,6 +1698,7 @@
         <subPane />
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -2185,6 +1776,152 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-mdpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-ldpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SteerClear" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -2195,15 +1932,15 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="99000200843338" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="048c1b8109ef497b" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="GooglePlay" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager" selected="Android Application.app">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -2389,6 +2126,9 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="beccef0d-dbed-4246-a02b-6f570e90b90c" name="Default" comment="" />
@@ -2403,46 +2143,101 @@
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.4914712" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.48933902" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.5021322" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.4978678" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.48933902" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed bug where your pickup and dropoff location could be the same location" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug where your pickup and dropoff location could be the same location" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#7428#7429#0" expanded="true" />
+            <element signature="e#7458#7459#0" expanded="true" />
+            <element signature="e#12301#12691#0" expanded="true" />
+            <element signature="e#12690#12691#0" expanded="true" />
+            <element signature="e#12745#12966#0" expanded="true" />
+            <element signature="e#12965#12966#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SteerClear.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2458,47 +2253,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="14" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ViewAutoComplete.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7930435">
-          <caret line="127" column="29" selection-start-line="127" selection-start-column="29" selection-end-line="127" selection-end-column="29" />
-          <folding>
-            <element signature="e#2470#2471#0" expanded="false" />
-            <element signature="e#2506#2507#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/FragmentMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.054545455">
-          <caret line="249" column="83" selection-start-line="249" selection-start-column="83" selection-end-line="249" selection-end-column="83" />
-          <folding>
-            <element signature="e#6039#6118#0" expanded="false" />
-            <element signature="e#6155#6235#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3026087">
-          <caret line="159" column="17" selection-start-line="159" selection-start-column="17" selection-end-line="159" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ViewPassengerSwitcher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2522,15 +2276,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8278261">
           <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2539,6 +2284,99 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/FragmentMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="321" column="17" selection-start-line="321" selection-start-column="17" selection-end-line="321" selection-end-column="17" />
+          <folding>
+            <element signature="e#10384#11902#0" expanded="false" />
+            <element signature="e#11901#11902#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/Logger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33203125">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-ldpi/fragment_hail_ride_background.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8869565">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5026087">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13051823">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15567766">
+          <caret line="5" column="63" selection-start-line="5" selection-start-column="63" selection-end-line="5" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ViewAutoComplete.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.8330436">
+          <caret line="127" column="29" selection-start-line="127" selection-start-column="29" selection-end-line="127" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ViewPassengerSwitcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34">
+          <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
+          <folding>
+            <element signature="e#7428#7429#0" expanded="true" />
+            <element signature="e#7458#7459#0" expanded="true" />
+            <element signature="e#12301#12691#0" expanded="true" />
+            <element signature="e#12690#12691#0" expanded="true" />
+            <element signature="e#12745#12966#0" expanded="true" />
+            <element signature="e#12965#12966#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

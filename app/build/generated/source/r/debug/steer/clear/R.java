@@ -1741,11 +1741,12 @@ containing a value of this type.
         public static final int ic_plusone_tall_off_client=0x7f020060;
         public static final int ic_search_black_24dp=0x7f020061;
         public static final int logo=0x7f020062;
-        public static final int notification_template_icon_bg=0x7f020067;
-        public static final int powered_by_google_dark=0x7f020063;
-        public static final int powered_by_google_light=0x7f020064;
-        public static final int right_arrow=0x7f020065;
-        public static final int start_screen=0x7f020066;
+        public static final int main_background_footer=0x7f020063;
+        public static final int notification_template_icon_bg=0x7f020068;
+        public static final int powered_by_google_dark=0x7f020064;
+        public static final int powered_by_google_light=0x7f020065;
+        public static final int right_arrow=0x7f020066;
+        public static final int start_screen=0x7f020067;
     }
     public static final class id {
         public static final int action0=0x7f0b0062;

@@ -286,7 +286,7 @@ public class ActivityHome extends AppCompatActivity
 			ft.add(R.id.activity_home_fragment_frame, fragment, DROPOFF);
 			ft.commit();
 		} else {
-			if (pickupLocationName.equals(dropoffLocationName)) {
+			if (pickupLocationName.equals(name)) {
 				Toast.makeText(this, "Your pickup and dropoff cannot be the same location", Toast.LENGTH_SHORT).show();
 				return;
 			}
@@ -306,7 +306,7 @@ public class ActivityHome extends AppCompatActivity
 	@Override
 	public void onChosenLocationChanged(String fragmentTag, LatLng latlng, CharSequence name) {
 		if (name.equals(pickupLocationName) || name.equals(dropoffLocationName)) {
-			getFragmentManager().popBackStack();
+			Toast.makeText(this, "Your pickup and dropoff cannot be the same location", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -330,16 +330,13 @@ public class ActivityHome extends AppCompatActivity
 		Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 		if (currentLocation != null) {
 			currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-			Fragment prev = getFragmentManager().findFragmentByTag(PICKUP);
-			if (prev != null) {
-				getFragmentManager().beginTransaction().show(prev).commit();
-			} else {
-				FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
-				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
-				ft.commit();
-			}
+
+			FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+			ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
+			ft.commit();
 		} else {
+			Logger.log("ON CONNECTED FAIL?");
 			showSettingsAlert();
 		}
 	}
