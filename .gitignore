@@ -2,3 +2,5 @@
 .gradle/
 gen/
 build/
+local.properties
+*.iml

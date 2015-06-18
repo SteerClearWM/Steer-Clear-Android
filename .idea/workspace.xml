@@ -21,249 +21,10 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Mine" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beccef0d-dbed-4246-a02b-6f570e90b90c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-ldpi/main_background_footer.png" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\appcompat_v7_22_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\support_annotations_22_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\.idea\libraries\support_v4_22_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\Steer-Clear-Android.iml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ab_share_pack_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_radio_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_radio_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_rating_star_off_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_rating_star_on_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_switch_to_on_mtrl_00001.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_btn_switch_to_on_mtrl_00012.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_cab_background_top_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_clear_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_commit_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_go_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_menu_moreoverflow_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_menu_paste_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_menu_selectall_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_menu_share_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_ic_voice_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_list_divider_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_list_focused_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_list_longpressed_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_list_pressed_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_list_pressed_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_list_selector_disabled_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_list_selector_disabled_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_menu_hardkey_panel_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_popup_background_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_switch_track_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_tab_indicator_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_textfield_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-hdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-hdpi-v17\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-hdpi-v17\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-hdpi-v17\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-hdpi-v17\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-mdpi-v17\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-mdpi-v17\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-mdpi-v17\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-mdpi-v17\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xhdpi-v17\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xhdpi-v17\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xhdpi-v17\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xhdpi-v17\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxhdpi-v17\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxhdpi-v17\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxhdpi-v17\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxhdpi-v17\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxxhdpi-v17\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxxhdpi-v17\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxxhdpi-v17\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-ldrtl-xxxhdpi-v17\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ab_share_pack_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_radio_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_radio_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_rating_star_off_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_rating_star_on_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_switch_to_on_mtrl_00001.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_btn_switch_to_on_mtrl_00012.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_cab_background_top_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_clear_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_commit_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_go_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_menu_moreoverflow_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_menu_paste_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_menu_selectall_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_menu_share_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_ic_voice_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_list_divider_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_list_focused_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_list_longpressed_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_list_pressed_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_list_pressed_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_list_selector_disabled_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_list_selector_disabled_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_menu_hardkey_panel_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_popup_background_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_switch_track_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_tab_indicator_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_textfield_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-mdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-tvdpi-v4\abc_btn_switch_to_on_mtrl_00001.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-tvdpi-v4\abc_btn_switch_to_on_mtrl_00012.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ab_share_pack_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_radio_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_radio_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_rating_star_off_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_rating_star_on_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_switch_to_on_mtrl_00001.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_btn_switch_to_on_mtrl_00012.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_cab_background_top_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_clear_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_commit_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_go_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_menu_moreoverflow_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_menu_paste_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_menu_selectall_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_menu_share_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_ic_voice_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_list_divider_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_list_focused_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_list_longpressed_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_list_pressed_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_list_pressed_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_list_selector_disabled_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_list_selector_disabled_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_menu_hardkey_panel_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_popup_background_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_switch_track_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_tab_indicator_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_textfield_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xhdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ab_share_pack_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_radio_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_radio_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_rating_star_off_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_rating_star_on_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_switch_to_on_mtrl_00001.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_btn_switch_to_on_mtrl_00012.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_cab_background_top_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_clear_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_commit_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_go_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_menu_moreoverflow_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_menu_paste_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_menu_selectall_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_menu_share_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_ic_voice_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_list_divider_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_list_focused_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_list_longpressed_holo.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_list_pressed_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_list_pressed_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_list_selector_disabled_holo_dark.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_list_selector_disabled_holo_light.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_menu_hardkey_panel_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_popup_background_mtrl_mult.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_switch_track_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_tab_indicator_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_textfield_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_textfield_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_textfield_search_activated_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxhdpi-v4\abc_textfield_search_default_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_check_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_check_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_radio_to_on_mtrl_000.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_radio_to_on_mtrl_015.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_switch_to_on_mtrl_00001.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_btn_switch_to_on_mtrl_00012.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_ab_back_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_clear_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_menu_copy_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_menu_cut_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_menu_moreoverflow_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_menu_paste_mtrl_am_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_menu_selectall_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_menu_share_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_ic_voice_search_api_mtrl_alpha.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_spinner_mtrl_am_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_switch_track_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\drawable-xxxhdpi-v4\abc_tab_indicator_mtrl_alpha.9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\layout-v11\abc_screen_content_include.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-hdpi-v4\values-hdpi-v4.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-large-v4\values-large-v4.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-sw600dp-v13\values-sw600dp-v13.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-w360dp-v13\values-w360dp-v13.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-w480dp-v13\values-w480dp-v13.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-w500dp-v13\values-w500dp-v13.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-w600dp-v13\values-w600dp-v13.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-w720dp-v13\values-w720dp-v13.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-xlarge-land-v4\values-xlarge-land-v4.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\app\build\intermediates\res\debug\values-xlarge-v4\values-xlarge-v4.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/ActivityHome.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/android/support/v7/appcompat/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/location/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/google/android/gms/maps/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$integer.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$integer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$styleable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/steer/clear/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/resources/resources-debug.ap_" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java" afterPath="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/android/support/v7/appcompat/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/location/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/location/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/maps/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/google/android/gms/maps/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/steer/clear/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/steer/clear/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/symbols/debug/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_map.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/layout/fragment_map.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_map.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResources/debug/merger.xml" />
+    <list default="true" id="beccef0d-dbed-4246-a02b-6f570e90b90c" name="Default" comment="Fixed bug where your pickup and dropoff location could be the same location">
+      <change type="DELETED" beforePath="C:\Users\Miles Peele\StudioProjects\SteerClear\import-summary.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SteerClear.iws" />
@@ -293,19 +54,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ActivityHome.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ActivityHome.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.34">
+            <state vertical-scroll-proportion="0.0">
               <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
-              <folding>
-                <element signature="e#7428#7429#0" expanded="true" />
-                <element signature="e#7458#7459#0" expanded="true" />
-                <element signature="e#12301#12691#0" expanded="true" />
-                <element signature="e#12690#12691#0" expanded="true" />
-                <element signature="e#12745#12966#0" expanded="true" />
-                <element signature="e#12965#12966#0" expanded="true" />
-              </folding>
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.14782609">
+              <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -315,7 +79,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#610#964#0" expanded="false" />
+                <element signature="e#963#964#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1659,6 +1427,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -1694,11 +1463,10 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane />
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -1718,220 +1486,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-mdpi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-ldpi" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SteerClear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clear" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2149,7 +1706,6 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.49573562" order="7" side_tool="false" content_ui="tabs" />
@@ -2168,6 +1724,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -2222,15 +1779,28 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ViewPassengerSwitcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding>
-            <element signature="e#7428#7429#0" expanded="true" />
-            <element signature="e#7458#7459#0" expanded="true" />
-            <element signature="e#12301#12691#0" expanded="true" />
-            <element signature="e#12690#12691#0" expanded="true" />
-            <element signature="e#12745#12966#0" expanded="true" />
-            <element signature="e#12965#12966#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#610#964#0" expanded="false" />
+            <element signature="e#963#964#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2276,14 +1846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8278261">
           <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2361,22 +1923,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#610#964#0" expanded="false" />
+            <element signature="e#963#964#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/steer/clear/ActivityHome.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34">
+        <state vertical-scroll-proportion="0.0">
           <caret line="308" column="115" selection-start-line="308" selection-start-column="115" selection-end-line="308" selection-end-column="115" />
-          <folding>
-            <element signature="e#7428#7429#0" expanded="true" />
-            <element signature="e#7458#7459#0" expanded="true" />
-            <element signature="e#12301#12691#0" expanded="true" />
-            <element signature="e#12690#12691#0" expanded="true" />
-            <element signature="e#12745#12966#0" expanded="true" />
-            <element signature="e#12965#12966#0" expanded="true" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14782609">
+          <caret line="5" column="5" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
