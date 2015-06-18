@@ -55,7 +55,7 @@ import steer.clear.AdapterAutoComplete.AdapterAutoCompleteItem;
  */
 public class FragmentMap extends Fragment
 	implements OnMapReadyCallback, AdapterView.OnItemClickListener,
-        OnMarkerClickListener, OnClickListener, ViewAutoComplete.AutoCompleteListener {
+        OnMarkerClickListener, ViewAutoComplete.AutoCompleteListener {
 	
 	// Global views
 	private ViewAutoComplete input;
@@ -368,11 +368,6 @@ public class FragmentMap extends Fragment
         animator.setDuration(1000);
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
 		return animator;
-	}
-
-	@Override
-	public void onClick(View v) {
-		getActivity().onBackPressed();
 	}
 
 	private void goToNextFragment() {

@@ -26,7 +26,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name="steer.clear._ApplicationInitialize"
+        android:name="steer.clear.ApplicationInitialize"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/logo"

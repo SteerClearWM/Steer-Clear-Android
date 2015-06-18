@@ -69,7 +69,7 @@ public class HttpHelper {
 			}
 		});
 
-        _ApplicationInitialize.getInstance().addToRequestQueue(myReq, GET_TAG);
+        ApplicationInitialize.getInstance().addToRequestQueue(myReq, GET_TAG);
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public class HttpHelper {
 			
 		};
 
-		_ApplicationInitialize.getInstance().addToRequestQueue(myReq, POST_TAG);
+		ApplicationInitialize.getInstance().addToRequestQueue(myReq, POST_TAG);
 	}
 
 	public void cancelRide(int cancelId) {
@@ -140,6 +140,6 @@ public class HttpHelper {
 
 		});
 
-		_ApplicationInitialize.getInstance().addToRequestQueue(myReq, POST_TAG);
+		ApplicationInitialize.getInstance().addToRequestQueue(myReq, POST_TAG);
 	}
 }
