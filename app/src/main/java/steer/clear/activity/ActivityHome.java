@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.activity;
 
 import android.support.v7.app.AlertDialog;
 import android.app.Fragment;
@@ -33,6 +33,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
+
+import steer.clear.fragment.FragmentHailRide;
+import steer.clear.fragment.FragmentMap;
+import steer.clear.service.HttpHelper;
+import steer.clear.service.HttpHelperInterface;
+import steer.clear.fragment.ListenerForFragments;
+import steer.clear.Logger;
+import steer.clear.R;
 
 /**
  * "HomeScreen" activity of the SteerClear app.

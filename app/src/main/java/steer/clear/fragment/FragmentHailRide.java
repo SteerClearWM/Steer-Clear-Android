@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -15,6 +15,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import steer.clear.R;
 
 public class FragmentHailRide extends Fragment implements OnClickListener, OnTouchListener {
 	

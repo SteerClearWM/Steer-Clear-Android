@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.view;
 
 import android.content.Context;
 import android.os.Handler;
@@ -7,12 +7,12 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 
 import java.lang.ref.WeakReference;
+
+import steer.clear.adapter.AdapterAutoComplete;
 
 public class ViewAutoComplete extends AutoCompleteTextView implements View.OnTouchListener {
 

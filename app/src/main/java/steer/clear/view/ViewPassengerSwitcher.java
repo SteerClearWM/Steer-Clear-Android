@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

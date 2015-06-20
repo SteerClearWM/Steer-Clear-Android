@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -15,12 +15,10 @@ import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,7 +44,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Locale;
 
-import steer.clear.AdapterAutoComplete.AdapterAutoCompleteItem;
+import steer.clear.adapter.AdapterAutoComplete;
+import steer.clear.adapter.AdapterAutoComplete.AdapterAutoCompleteItem;
+import steer.clear.R;
+import steer.clear.view.ViewAutoComplete;
 
 /**
  * Class that deals with all GoogleMaps stuff. 

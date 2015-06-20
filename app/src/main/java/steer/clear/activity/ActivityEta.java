@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.activity;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -14,6 +14,11 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
+
+import steer.clear.service.HttpHelper;
+import steer.clear.service.HttpHelperInterface;
+import steer.clear.Logger;
+import steer.clear.R;
 
 public class ActivityEta extends AppCompatActivity
         implements View.OnClickListener, HttpHelperInterface {

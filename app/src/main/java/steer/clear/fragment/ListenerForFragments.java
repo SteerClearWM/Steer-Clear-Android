@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.fragment;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.model.LatLng;

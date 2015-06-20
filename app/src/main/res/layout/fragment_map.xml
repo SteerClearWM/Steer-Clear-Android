@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
    	
-   	<steer.clear.ViewAutoComplete
+   	<steer.clear.view.ViewAutoComplete
         android:id="@+id/fragment_map_input"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.service;
 
 import android.content.Context;
 
@@ -13,6 +13,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import steer.clear.ApplicationInitialize;
 
 public class HttpHelper {
 	

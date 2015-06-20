@@ -1,15 +1,13 @@
-package steer.clear;
+package steer.clear.adapter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -19,6 +17,8 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLngBounds;
+
+import steer.clear.Logger;
 
 public class AdapterAutoComplete
         extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {
@@ -175,7 +175,7 @@ public class AdapterAutoComplete
     /**
      * Holder for Places Geo Data Autocomplete API results.
      */
-    class AdapterAutoCompleteItem {
+    public class AdapterAutoCompleteItem {
 
         public CharSequence placeId;
         public CharSequence description;

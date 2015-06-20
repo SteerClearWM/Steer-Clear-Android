@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.service;
 
 import org.json.JSONObject;
 

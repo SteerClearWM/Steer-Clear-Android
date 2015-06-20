@@ -32,7 +32,7 @@
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ActivityHome"
+            android:name=".activity.ActivityHome"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -43,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".ActivityEta"
+            android:name=".activity.ActivityEta"
             android:windowSoftInputMode="stateHidden" >
         </activity>
 
