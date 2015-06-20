@@ -7,10 +7,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import steer.clear.dagger.ApplicationModule;
+
 public class ApplicationInitialize extends Application {
 	
 	// Tag used for adding or cancelling requests
     public static final String TAG = ApplicationInitialize.class.getSimpleName();
+
+    private ApplicationModule mApplicationModule;
  
     // Global singleton 
     private RequestQueue mRequestQueue; 
@@ -22,6 +26,11 @@ public class ApplicationInitialize extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        mApplicationModule = new ApplicationModule(this);
+    }
+
+    public ApplicationModule getApplicationModule() {
+        return mApplicationModule;
     }
     
     public static synchronized ApplicationInitialize getInstance() {

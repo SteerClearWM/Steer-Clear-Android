@@ -34,6 +34,10 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import javax.inject.Inject;
+
+import steer.clear.ApplicationInitialize;
+import steer.clear.dagger.DaggerApplicationComponent;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.service.HttpHelper;
@@ -67,21 +71,22 @@ public class ActivityHome extends AppCompatActivity
 
 	// Request code to use when launching the resolution activity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
-	// Bool to track whether the app is already resolving an error
-	private boolean mResolvingError = false;
-	
-	// Only one GoogleApiClient ever instantiated
 	protected GoogleApiClient mGoogleApiClient;
 	private static final String STATE_RESOLVING_ERROR = "resolving_error";
 	
 	private ProgressDialog httpProgress;
 
+	@Inject public HttpHelper helper;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
-		mResolvingError = savedInstanceState != null
-				&& savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
+
+		DaggerApplicationComponent.builder()
+				.applicationModule(((ApplicationInitialize) getApplication()).getApplicationModule())
+				.build()
+				.inject(this);
 
 		httpProgress = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
 		httpProgress.setMessage("Notifying driver of your request...");
@@ -97,37 +102,15 @@ public class ActivityHome extends AppCompatActivity
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		if (!mResolvingError) {
-			mGoogleApiClient.connect();
-		}
-	}
-
-	@Override
-	protected void onStop() {
-		mGoogleApiClient.disconnect();
-		super.onStop();
-	}
-
-	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_RESOLVE_ERROR) {
-			mResolvingError = false;
 			if (resultCode == RESULT_OK) {
-				// Make sure the app is not already connected or attempting to connect
 				if (!mGoogleApiClient.isConnecting() &&
 						!mGoogleApiClient.isConnected()) {
 					mGoogleApiClient.connect();
 				}
 			}
 		}
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putBoolean(STATE_RESOLVING_ERROR, mResolvingError);
 	}
 	
 	/**
@@ -151,9 +134,6 @@ public class ActivityHome extends AppCompatActivity
 	@Override
 	public void makeHttpPostRequest(int numPassengers) {
 		showHttpProgress();
-		HttpHelper.getInstance(this).addRide(numPassengers,
-				pickupLatLng.latitude, pickupLatLng.longitude,
-				dropoffLatLng.latitude, dropoffLatLng.longitude);
 	}
 
 	/**
@@ -245,21 +225,14 @@ public class ActivityHome extends AppCompatActivity
 
 	@Override
 	public void onConnectionFailed(ConnectionResult result) {
-		if (mResolvingError) {
-			// Already attempting to resolve an error.
-			return;
-		} else if (result.hasResolution()) {
+		if (result.hasResolution()) {
 			try {
-				mResolvingError = true;
 				result.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
 			} catch (IntentSender.SendIntentException e) {
-				// There was an error with the resolution intent. Try again.
 				mGoogleApiClient.connect();
 			}
 		} else {
-			// Show dialog using GooglePlayServicesUtil.getErrorDialog()
 			GooglePlayServicesUtil.getErrorDialog(result.getErrorCode(), this, 1);
-			mResolvingError = true;
 		}
 	}
 

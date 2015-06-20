@@ -87,7 +87,6 @@ public class ActivityEta extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showHttpProgress();
-                HttpHelper.getInstance(ActivityEta.this).cancelRide(cancelId);
             }
 
         });
