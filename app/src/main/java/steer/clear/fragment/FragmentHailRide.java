@@ -142,7 +142,7 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
         //final int DRAWABLE_TOP = 1;
         final int DRAWABLE_RIGHT = 2;
         //final int DRAWABLE_BOTTOM = 3;
-        
+
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 			if (event.getRawX() >= (view.getRight() - view.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
 				if (passengers < 8) {

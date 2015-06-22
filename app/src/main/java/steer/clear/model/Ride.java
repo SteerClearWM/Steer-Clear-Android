@@ -1,7 +1,5 @@
 package steer.clear.model;
 
-import org.json.JSONObject;
-
 /**
  * Created by Miles Peele on 6/21/2015.
  */

@@ -3,7 +3,6 @@ package steer.clear.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.support.v7.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -46,10 +46,9 @@ import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.OnItemClick;
+import steer.clear.R;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.adapter.AdapterAutoComplete.AdapterAutoCompleteItem;
-import steer.clear.R;
 import steer.clear.view.ViewAutoComplete;
 
 /**

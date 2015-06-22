@@ -1,9 +1,5 @@
 package steer.clear.adapter;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
-
 import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
@@ -17,6 +13,10 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLngBounds;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import steer.clear.Logger;
 

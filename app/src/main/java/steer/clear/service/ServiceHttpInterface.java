@@ -3,7 +3,6 @@ package steer.clear.service;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import org.json.JSONObject;
 import java.io.IOException;
 
 public interface ServiceHttpInterface {

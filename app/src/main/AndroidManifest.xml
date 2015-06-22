@@ -25,7 +25,6 @@
         android:maxSdkVersion="18" />
 
     <application
-        android:name=".ApplicationInitialize"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -21,13 +20,12 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-import steer.clear.ApplicationInitialize;
+import steer.clear.Logger;
+import steer.clear.R;
 import steer.clear.dagger.ContextModule;
 import steer.clear.dagger.DaggerContextComponent;
 import steer.clear.service.ServiceHttp;
 import steer.clear.service.ServiceHttpInterface;
-import steer.clear.Logger;
-import steer.clear.R;
 
 public class ActivityEta extends AppCompatActivity
         implements View.OnClickListener, ServiceHttpInterface {
