@@ -12,16 +12,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import org.json.JSONObject;
 
-import steer.clear.service.HttpHelper;
-import steer.clear.service.HttpHelperInterface;
+import java.io.IOException;
+
+import javax.inject.Inject;
+
+import steer.clear.ApplicationInitialize;
+import steer.clear.dagger.DaggerApplicationComponent;
+import steer.clear.service.ServiceHttp;
+import steer.clear.service.ServiceHttpInterface;
 import steer.clear.Logger;
 import steer.clear.R;
 
 public class ActivityEta extends AppCompatActivity
-        implements View.OnClickListener, HttpHelperInterface {
+        implements View.OnClickListener, ServiceHttpInterface {
 
     private TextView etaTime;
     private Button cancelRide;
@@ -30,12 +38,21 @@ public class ActivityEta extends AppCompatActivity
 
     private final static String ETA = "eta";
 
+    @Inject
+    public ServiceHttp helper;
+
     private ProgressDialog httpProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
+
+        DaggerApplicationComponent.builder()
+                .applicationModule(((ApplicationInitialize) getApplication()).getApplicationModule())
+                .build()
+                .inject(this);
+        helper.registerListener(this);
 
         httpProgress = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
         httpProgress.setMessage("Canceling request...");
@@ -87,6 +104,7 @@ public class ActivityEta extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 showHttpProgress();
+                helper.cancelRide(cancelId);
             }
 
         });
@@ -104,26 +122,18 @@ public class ActivityEta extends AppCompatActivity
     }
 
     @Override
-    public void onDeleteSuccess(String string) {
+    public void onDeleteSuccess(Response response) {
         dismissHttpProgress();
         finish();
     }
 
     @Override
-    public void onPostSuccess(JSONObject object) {}
+    public void onPostSuccess(Response response) {}
 
     @Override
-    public void onGetSuccess(JSONObject object) {}
-
-    @Override
-    public void onVolleyError(VolleyError error) {
+    public void onFailure(Request request, IOException exception) {
         dismissHttpProgress();
-        if (error.networkResponse != null) {
-            Logger.log("Error Response code: " + error.networkResponse.statusCode);
-        } else {
-            Toast.makeText(this, "Unknown network error", Toast.LENGTH_SHORT).show();
-            Logger.log("VOLLY ERROR NULL");
-        }
+        Logger.log("ON FAILURE DELETE " + request.body());
     }
 
     private void showHttpProgress() {

@@ -1,5 +1,6 @@
 package steer.clear.activity;
 
+import android.location.LocationManager;
 import android.support.v7.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -23,10 +24,14 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,8 +45,9 @@ import steer.clear.ApplicationInitialize;
 import steer.clear.dagger.DaggerApplicationComponent;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
-import steer.clear.service.HttpHelper;
-import steer.clear.service.HttpHelperInterface;
+import steer.clear.model.Ride;
+import steer.clear.service.ServiceHttp;
+import steer.clear.service.ServiceHttpInterface;
 import steer.clear.fragment.ListenerForFragments;
 import steer.clear.Logger;
 import steer.clear.R;
@@ -53,7 +59,7 @@ import steer.clear.R;
  *
  */
 public class ActivityHome extends AppCompatActivity
-	implements HttpHelperInterface, ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
+	implements ServiceHttpInterface, ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
 
 	// Stores user's current location
 	private static LatLng currentLatLng;
@@ -72,11 +78,10 @@ public class ActivityHome extends AppCompatActivity
 	// Request code to use when launching the resolution activity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
 	protected GoogleApiClient mGoogleApiClient;
-	private static final String STATE_RESOLVING_ERROR = "resolving_error";
 	
 	private ProgressDialog httpProgress;
 
-	@Inject public HttpHelper helper;
+	@Inject public ServiceHttp helper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +95,7 @@ public class ActivityHome extends AppCompatActivity
 
 		httpProgress = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
 		httpProgress.setMessage("Notifying driver of your request...");
-		
+
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
 	        .enableAutoManage(this, 0, this)
 	        .addApi(Places.GEO_DATA_API)
@@ -99,6 +104,28 @@ public class ActivityHome extends AppCompatActivity
 	        .addOnConnectionFailedListener(this)
 	        .addApi(LocationServices.API)
 	        .build();
+
+		helper.registerListener(this);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		mGoogleApiClient.connect();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (mGoogleApiClient.isConnected()) {
+			mGoogleApiClient.disconnect();
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		Logger.log("ON RESUME");
 	}
 
 	@Override
@@ -134,73 +161,54 @@ public class ActivityHome extends AppCompatActivity
 	@Override
 	public void makeHttpPostRequest(int numPassengers) {
 		showHttpProgress();
+		helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
+				dropoffLatLng.latitude, dropoffLatLng.longitude);
 	}
 
 	/**
 	 * On a successful HttpPost request, returns JSONObject
 	 */
 	@Override
-	public void onPostSuccess(JSONObject object) {
+	public void onPostSuccess(Response response) {
 		try {
-			JSONObject rideObject = new JSONObject(object.getString("ride"));
-			String pickupTime = rideObject.getString("pickup_time");
-			int cancelId = rideObject.getInt("id");
-			try {
-				SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
-				dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
-				Date eta = dateFormat.parse(pickupTime);
+			Ride ride = new Gson().fromJson(response.body().string(), Ride.class);
+            Ride.RideInfo info = ride.getRideInfo();
+            String pickupTime = info.getPickupTime();
+            int cancelId = info.getId();
+            try {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
+                dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
+                Date eta = dateFormat.parse(pickupTime);
 
-				Calendar calendar = new GregorianCalendar();
-				calendar.setTime(eta);
-				int pickupHour = calendar.get(Calendar.HOUR_OF_DAY);
-				int pickupMinute = calendar.get(Calendar.MINUTE);
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(eta);
+                int pickupHour = calendar.get(Calendar.HOUR);
+                int pickupMinute = calendar.get(Calendar.MINUTE);
 
-				Intent etaActivity = new Intent(this, ActivityEta.class);
-				etaActivity.putExtra("PICKUP_HOUR", pickupHour);
-				etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
-				etaActivity.putExtra("CANCEL_ID", cancelId);
-				startActivity(etaActivity);
+                Intent etaActivity = new Intent(this, ActivityEta.class);
+                etaActivity.putExtra("PICKUP_HOUR", pickupHour);
+                etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
+                etaActivity.putExtra("CANCEL_ID", cancelId);
+                startActivity(etaActivity);
 
-				dismissHttpProgress();
-				finish();
-			} catch (ParseException p) {
-				dismissHttpProgress();
-				Logger.log("COULDNT PARSE DATE CUZ " + p);
-			}
-		} catch (JSONException e) {
-			dismissHttpProgress();
-			Logger.log("JSONEXCEPTION " + e.toString());
+                dismissHttpProgress();
+                finish();
+            } catch (ParseException p) {
+                dismissHttpProgress();
+                Logger.log("COULDNT PARSE DATE CUZ " + p);
+            }
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * On a successful HttpGet request, returns JSONObject
-	 */
 	@Override
-	public void onGetSuccess(JSONObject object) {
-		Log.v("Miles", "ON GET SUCCESS< OBJECT IS " + object);
-	}
-
-	/**
-	 * On an unsuccessful HttpRequest.
-	 * What to do in this? They're pretty much all 404 errors...
-	 * For now, let's not worry about it.
-	 */
-	@Override
-	public void onVolleyError(VolleyError error) {
-		dismissHttpProgress();
-		if (error.networkResponse != null) {
-            Logger.log("Error Response code: " + error.networkResponse.statusCode);
-        } else {
-        	Toast.makeText(this, "Unknown network error", Toast.LENGTH_SHORT).show();
-        	Logger.log("VOLLY ERROR NULL");
-        }
+	public void onFailure(Request request, IOException exception) {
+		Logger.log("ON FAILURE " + request.body());
 	}
 
 	@Override
-	public void onDeleteSuccess(String string) {
-		// NOT CALLED HERE
-	}
+	public void onDeleteSuccess(Response response) {}
 
 	private void showHttpProgress() {
 		if (httpProgress != null && !httpProgress.isShowing()) {
@@ -317,8 +325,19 @@ public class ActivityHome extends AppCompatActivity
 			ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
 			ft.commit();
 		} else {
-			Logger.log("ON CONNECTED FAIL?");
-			showSettingsAlert();
+			String locationProvider = LocationManager.NETWORK_PROVIDER;
+			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+			if (lastKnownLocation != null) {
+				currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+
+				FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
+				FragmentTransaction ft = getFragmentManager().beginTransaction();
+				ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
+				ft.commit();
+			} else {
+				showSettingsAlert();
+			}
 		}
 	}
 
@@ -351,10 +370,10 @@ public class ActivityHome extends AppCompatActivity
         	
             @Override
 			public void onClick(DialogInterface dialog,int which) {
+				dialog.dismiss();
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                dialog.dismiss();
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivityForResult(intent, 1);
             }
             
         });

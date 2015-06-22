@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import steer.clear.service.HttpHelper;
+import steer.clear.service.ServiceHttp;
 
 /**
  * Created by Miles Peele on 6/20/2015.
@@ -28,7 +28,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public HttpHelper getJiraService() {
-        return new HttpHelper();
+    public ServiceHttp getHttpService() {
+        return new ServiceHttp();
     }
 }

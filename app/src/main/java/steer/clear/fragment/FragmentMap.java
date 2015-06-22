@@ -367,7 +367,6 @@ public class FragmentMap extends Fragment
         }
 
         animator.setDuration(1000);
-		animator.setInterpolator(new AccelerateDecelerateInterpolator());
 		return animator;
 	}
 
