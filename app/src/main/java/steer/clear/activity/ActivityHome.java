@@ -1,7 +1,5 @@
 package steer.clear.activity;
 
-import android.location.LocationManager;
-import android.support.v7.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
@@ -9,27 +7,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -41,16 +36,16 @@ import java.util.TimeZone;
 
 import javax.inject.Inject;
 
-import steer.clear.ApplicationInitialize;
-import steer.clear.dagger.DaggerApplicationComponent;
+import steer.clear.Logger;
+import steer.clear.R;
+import steer.clear.dagger.ContextModule;
+import steer.clear.dagger.DaggerContextComponent;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
+import steer.clear.fragment.ListenerForFragments;
 import steer.clear.model.Ride;
 import steer.clear.service.ServiceHttp;
 import steer.clear.service.ServiceHttpInterface;
-import steer.clear.fragment.ListenerForFragments;
-import steer.clear.Logger;
-import steer.clear.R;
 
 /**
  * "HomeScreen" activity of the SteerClear app.
@@ -77,56 +72,37 @@ public class ActivityHome extends AppCompatActivity
 
 	// Request code to use when launching the resolution activity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
-	protected GoogleApiClient mGoogleApiClient;
-	
-	private ProgressDialog httpProgress;
 
+    @Inject public ProgressDialog httpProgress;
 	@Inject public ServiceHttp helper;
+    @Inject public GoogleApiClient mGoogleApiClient;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		DaggerApplicationComponent.builder()
-				.applicationModule(((ApplicationInitialize) getApplication()).getApplicationModule())
+		DaggerContextComponent.builder()
+                .contextModule(new ContextModule(this))
 				.build()
 				.inject(this);
-
-		httpProgress = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
-		httpProgress.setMessage("Notifying driver of your request...");
-
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-	        .enableAutoManage(this, 0, this)
-	        .addApi(Places.GEO_DATA_API)
-	        .addApi(Places.PLACE_DETECTION_API)
-	        .addConnectionCallbacks(this)
-	        .addOnConnectionFailedListener(this)
-	        .addApi(LocationServices.API)
-	        .build();
 
 		helper.registerListener(this);
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		mGoogleApiClient.connect();
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		if (mGoogleApiClient.isConnected()) {
-			mGoogleApiClient.disconnect();
+    @Override
+    public void onResume() {
+        super.onResume();
+		if (mGoogleApiClient != null) {
+			LocationAvailability availability =
+					LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
+			if (availability != null && availability.isLocationAvailable()) {
+				Logger.log("LOCATION AVAILABLE");
+			} else {
+				Logger.log("LOCATION UNAVAILABLE");
+			}
 		}
-	}
-
-	@Override
-	public void onResume() {
-		super.onResume();
-		Logger.log("ON RESUME");
-	}
+    }
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -162,7 +138,7 @@ public class ActivityHome extends AppCompatActivity
 	public void makeHttpPostRequest(int numPassengers) {
 		showHttpProgress();
 		helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
-				dropoffLatLng.latitude, dropoffLatLng.longitude);
+                dropoffLatLng.latitude, dropoffLatLng.longitude);
 	}
 
 	/**
@@ -316,29 +292,31 @@ public class ActivityHome extends AppCompatActivity
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-		if (currentLocation != null) {
-			currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+        if (getFragmentManager().findFragmentByTag(PICKUP) == null) {
+            Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (currentLocation != null) {
+                currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
-			FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
-			FragmentTransaction ft = getFragmentManager().beginTransaction();
-			ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
-			ft.commit();
-		} else {
-			String locationProvider = LocationManager.NETWORK_PROVIDER;
-			LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-			Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
-			if (lastKnownLocation != null) {
-				currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+                FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
+                ft.commit();
+            } else {
+                String locationProvider = LocationManager.NETWORK_PROVIDER;
+                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+                if (lastKnownLocation != null) {
+                    currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
 
-				FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
-				FragmentTransaction ft = getFragmentManager().beginTransaction();
-				ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
-				ft.commit();
-			} else {
-				showSettingsAlert();
-			}
-		}
+                    FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
+                    ft.commit();
+                } else {
+                    showSettingsAlert();
+                }
+            }
+        }
 	}
 
 	@Override
@@ -369,11 +347,12 @@ public class ActivityHome extends AppCompatActivity
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
         	
             @Override
-			public void onClick(DialogInterface dialog,int which) {
+			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivityForResult(intent, 1);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
             }
             
         });

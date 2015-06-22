@@ -9,20 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.VolleyError;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
 
 import steer.clear.ApplicationInitialize;
-import steer.clear.dagger.DaggerApplicationComponent;
+import steer.clear.dagger.ContextModule;
+import steer.clear.dagger.DaggerContextComponent;
 import steer.clear.service.ServiceHttp;
 import steer.clear.service.ServiceHttpInterface;
 import steer.clear.Logger;
@@ -37,25 +35,22 @@ public class ActivityEta extends AppCompatActivity
     private static String eta;
 
     private final static String ETA = "eta";
+    private final static String CANCEL_ID = "cancel";
 
-    @Inject
-    public ServiceHttp helper;
-
-    private ProgressDialog httpProgress;
+    @Inject public ServiceHttp helper;
+    @Inject public ProgressDialog httpProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
 
-        DaggerApplicationComponent.builder()
-                .applicationModule(((ApplicationInitialize) getApplication()).getApplicationModule())
+        DaggerContextComponent.builder()
+                .contextModule(new ContextModule(this))
                 .build()
                 .inject(this);
-        helper.registerListener(this);
 
-        httpProgress = new ProgressDialog(this, ProgressDialog.STYLE_HORIZONTAL);
-        httpProgress.setMessage("Canceling request...");
+        helper.registerListener(this);
 
         etaTime = (TextView) findViewById(R.id.activity_eta_time);
         cancelRide = (Button) findViewById(R.id.activity_eta_cancel_ride);
@@ -85,6 +80,7 @@ public class ActivityEta extends AppCompatActivity
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(ETA, eta);
+        outState.putInt(CANCEL_ID, cancelId);
     }
 
     @Override
@@ -137,14 +133,10 @@ public class ActivityEta extends AppCompatActivity
     }
 
     private void showHttpProgress() {
-        if (httpProgress != null && !httpProgress.isShowing()) {
-            httpProgress.show();
-        }
+        httpProgress.show();
     }
 
     private void dismissHttpProgress() {
-        if (httpProgress != null && httpProgress.isShowing()) {
-            httpProgress.dismiss();
-        }
+        httpProgress.dismiss();
     }
 }

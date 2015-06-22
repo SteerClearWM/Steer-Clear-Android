@@ -10,8 +10,8 @@ import steer.clear.activity.ActivityHome;
  * Created by Miles Peele on 6/20/2015.
  */
 @Singleton
-@Component(modules = {ApplicationModule.class})
-public interface ApplicationComponent {
+@Component(modules = {ContextModule.class})
+public interface ContextComponent {
 
     void inject(ActivityHome activity);
     void inject(ActivityEta activity);
