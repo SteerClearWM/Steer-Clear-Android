@@ -18,6 +18,9 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import steer.clear.ApplicationInitialize;
 import steer.clear.dagger.ContextModule;
 import steer.clear.dagger.DaggerContextComponent;
@@ -29,8 +32,8 @@ import steer.clear.R;
 public class ActivityEta extends AppCompatActivity
         implements View.OnClickListener, ServiceHttpInterface {
 
-    private TextView etaTime;
-    private Button cancelRide;
+    @InjectView(R.id.activity_eta_time) public TextView etaTime;
+    @InjectView(R.id.activity_eta_cancel_ride) public Button cancelRide;
     private static int cancelId;
     private static String eta;
 
@@ -44,6 +47,7 @@ public class ActivityEta extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
+        ButterKnife.inject(this);
 
         DaggerContextComponent.builder()
                 .contextModule(new ContextModule(this))
@@ -51,9 +55,6 @@ public class ActivityEta extends AppCompatActivity
                 .inject(this);
 
         helper.registerListener(this);
-
-        etaTime = (TextView) findViewById(R.id.activity_eta_time);
-        cancelRide = (Button) findViewById(R.id.activity_eta_cancel_ride);
 
         if (getIntent() != null) {
             Intent extras = getIntent();
@@ -67,8 +68,6 @@ public class ActivityEta extends AppCompatActivity
                 etaTime.setText("Your ride will \n arrive at \n" + eta);
             }
         }
-
-        cancelRide.setOnClickListener(this);
     }
 
     @Override
@@ -86,10 +85,14 @@ public class ActivityEta extends AppCompatActivity
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        etaTime.setText(savedInstanceState.getString(ETA));
+        eta = savedInstanceState.getString(ETA);
+        cancelId = savedInstanceState.getInt(CANCEL_ID);
+
+        etaTime.setText(eta);
     }
 
     @Override
+    @OnClick(R.id.activity_eta_cancel_ride)
     public void onClick(View v) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle("Cancel Ride");

@@ -16,17 +16,21 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
+import butterknife.OnTouch;
 import steer.clear.R;
 
 public class FragmentHailRide extends Fragment implements OnClickListener, OnTouchListener {
 	
 	// Global views
-	private TextView pickup;
-	private ImageButton changePickup;
-	private TextView dropoff;
-	private ImageButton changeDropoff;
-	private ImageButton postRide;
-	private TextView numPassengers;
+	@InjectView(R.id.fragment_hail_ride_pickup_location) public TextView pickup;
+	@InjectView(R.id.fragment_hail_ride_change_pickup) public ImageButton changePickup;
+	@InjectView(R.id.fragment_hail_ride_dropoff_location) public TextView dropoff;
+	@InjectView(R.id.fragment_hail_ride_change_dropoff) public ImageButton changeDropoff;
+	@InjectView(R.id.fragment_hail_ride_post) public ImageButton postRide;
+	@InjectView(R.id.fragment_hail_ride_passenger_select) public TextView numPassengers;
 	
 	// static int used for, you guessed it, storing the current passenger count
 	private static int passengers = 0;
@@ -70,26 +74,13 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_hail_ride, container, false);
-		
+		ButterKnife.inject(this, rootView);
+
 		Bundle args = getArguments();
-		
-		pickup = (TextView) rootView.findViewById(R.id.fragment_hail_ride_pickup_location);
+
 		pickup.setText("PICKUP LOCATION: \n" + args.getCharSequence(PICKUP));
 
-		changePickup = (ImageButton) rootView.findViewById(R.id.fragment_hail_ride_change_pickup);
-		changePickup.setOnClickListener(this);
-		
-		dropoff = (TextView) rootView.findViewById(R.id.fragment_hail_ride_dropoff_location);
 		dropoff.setText("DROPOFF LOCATION: \n" + args.getCharSequence(DROPOFF));
-
-		changeDropoff = (ImageButton) rootView.findViewById(R.id.fragment_hail_ride_change_dropoff);
-		changeDropoff.setOnClickListener(this);
-		
-		numPassengers = (TextView) rootView.findViewById(R.id.fragment_hail_ride_passenger_select);
-		numPassengers.setOnTouchListener(this);
-		
-		postRide = (ImageButton) rootView.findViewById(R.id.fragment_hail_ride_post);
-		postRide.setOnClickListener(this);
 		return rootView;
 	}
 
@@ -120,6 +111,8 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	}
 
 	@Override
+	@OnClick({R.id.fragment_hail_ride_change_pickup, R.id.fragment_hail_ride_change_dropoff,
+		R.id.fragment_hail_ride_post})
 	public void onClick(View v) {
 		switch(v.getId()) {
 			case R.id.fragment_hail_ride_post:
@@ -141,6 +134,7 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	}
 
 	@Override
+	@OnTouch(R.id.fragment_hail_ride_passenger_select)
 	public boolean onTouch(View v, MotionEvent event) {
 		final TextView view = (TextView) v;
 		v.performClick();

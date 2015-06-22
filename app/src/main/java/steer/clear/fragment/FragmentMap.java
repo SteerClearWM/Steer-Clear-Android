@@ -44,6 +44,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Locale;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnItemClick;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.adapter.AdapterAutoComplete.AdapterAutoCompleteItem;
 import steer.clear.R;
@@ -59,10 +62,10 @@ public class FragmentMap extends Fragment
         OnMarkerClickListener, ViewAutoComplete.AutoCompleteListener {
 	
 	// Global views
-	private ViewAutoComplete input;
-	private TextView inputHint;
-	private ProgressBar inputSuggestionsLoading;
-	private MapView mapView;
+	@InjectView(R.id.fragment_map_input) public ViewAutoComplete input;
+	@InjectView(R.id.fragment_map_input_hint) public TextView inputHint;
+	@InjectView(R.id.fragment_map_input_suggestions_loading) public ProgressBar inputSuggestionsLoading;
+	@InjectView(R.id.fragment_map_view) public MapView mapView;
 
 	// Stores the user's LatLng and the LatLng they chose as pickup/dropoff
 	private static LatLng userLatLng;
@@ -171,9 +174,8 @@ public class FragmentMap extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_map, container, false);
+		ButterKnife.inject(this, rootView);
 
-		input = (ViewAutoComplete) rootView.findViewById(R.id.fragment_map_input);
-		inputHint = (TextView) rootView.findViewById(R.id.fragment_map_input_hint);
 		if (getArguments() != null) {
 			String tag = getArguments().getString(TAG);
 			if (tag == PICKUP) {
@@ -182,22 +184,18 @@ public class FragmentMap extends Fragment
 				inputHint.setHint(getActivity().getResources().getString(R.string.fragment_map_dropoff_input_hint));
 			}
 		}
-		
-		inputSuggestionsLoading = (ProgressBar) rootView.findViewById(R.id.fragment_map_input_suggestions_loading);
-		input.setLoadingIndicator(inputSuggestionsLoading);
-
-		mapView = (MapView) rootView.findViewById(R.id.fragment_map_view);
-		mapView.onCreate(savedInstanceState);
-		mapView.setBackground(null);
-		mapView.getMapAsync(this);
 
 		mAdapter = new AdapterAutoComplete(getActivity(), android.R.layout.simple_dropdown_item_1line,
 				listener.getGoogleApiClient(), BOUNDS_WILLIAMSBURG, null);
+
+		input.setLoadingIndicator(inputSuggestionsLoading);
 		input.setAdapter(mAdapter);
 		input.setOnItemClickListener(this);
 		input.setAutoCompleteListener(this);
 
-        input.setAutoCompleteListener(this);
+		mapView.onCreate(savedInstanceState);
+		mapView.setBackground(null);
+		mapView.getMapAsync(this);
 
 		return rootView;
 	}
