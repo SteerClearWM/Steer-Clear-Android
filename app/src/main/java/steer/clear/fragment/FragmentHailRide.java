@@ -30,7 +30,7 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	@InjectView(R.id.fragment_hail_ride_dropoff_location) public TextView dropoff;
 	@InjectView(R.id.fragment_hail_ride_change_dropoff) public ImageButton changeDropoff;
 	@InjectView(R.id.fragment_hail_ride_post) public ImageButton postRide;
-	@InjectView(R.id.fragment_hail_ride_passenger_select) public TextView numPassengers;
+	@InjectView(R.id.view_passenger_switcher) public TextView numPassengers;
 	
 	// static int used for, you guessed it, storing the current passenger count
 	private static int passengers = 0;
@@ -134,7 +134,7 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	}
 
 	@Override
-	@OnTouch(R.id.fragment_hail_ride_passenger_select)
+	@OnTouch(R.id.view_passenger_switcher)
 	public boolean onTouch(View v, MotionEvent event) {
 		final TextView view = (TextView) v;
 		v.performClick();

@@ -46,6 +46,7 @@ import steer.clear.fragment.ListenerForFragments;
 import steer.clear.model.Ride;
 import steer.clear.service.ServiceHttp;
 import steer.clear.service.ServiceHttpInterface;
+import steer.clear.util.Locationer;
 
 /**
  * "HomeScreen" activity of the SteerClear app.
@@ -89,20 +90,6 @@ public class ActivityHome extends AppCompatActivity
 
 		helper.registerListener(this);
 	}
-
-    @Override
-    public void onResume() {
-        super.onResume();
-		if (mGoogleApiClient != null) {
-			LocationAvailability availability =
-					LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
-			if (availability != null && availability.isLocationAvailable()) {
-				Logger.log("LOCATION AVAILABLE");
-			} else {
-				Logger.log("LOCATION UNAVAILABLE");
-			}
-		}
-    }
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -302,11 +289,9 @@ public class ActivityHome extends AppCompatActivity
                 ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
                 ft.commit();
             } else {
-                String locationProvider = LocationManager.NETWORK_PROVIDER;
-                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
-                if (lastKnownLocation != null) {
-                    currentLatLng = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+				currentLocation = Locationer.getLocation(this);
+                if (currentLocation != null) {
+                    currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
                     FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
