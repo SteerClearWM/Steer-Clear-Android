@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -185,7 +184,7 @@ public class FragmentMap extends Fragment
 		}
 
 		mAdapter = new AdapterAutoComplete(getActivity(), android.R.layout.simple_dropdown_item_1line,
-				listener.getGoogleApiClient(), BOUNDS_WILLIAMSBURG, null);
+				listener.getGoogleApiClient(), BOUNDS_WILLIAMSBURG);
 
 		input.setLoadingIndicator(inputSuggestionsLoading);
 		input.setAdapter(mAdapter);
@@ -217,7 +216,7 @@ public class FragmentMap extends Fragment
 
 		MarkerOptions marker = new MarkerOptions()
 			.position(userLatLng)
-			.title("Your Location");
+			.title(getResources().getString(R.string.fragment_map_map_marker_title));
 		map.addMarker(marker);
 
 		CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -238,7 +237,8 @@ public class FragmentMap extends Fragment
 				Place place = PlacePicker.getPlace(data, getActivity());
 
 				if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
-					Toast.makeText(getActivity(), "Steer Clear does not service chosen location.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), getResources().getString(R.string.toast_too_far_for_steer_clear),
+							Toast.LENGTH_SHORT).show();
 					return;
 				}
 				
@@ -303,7 +303,6 @@ public class FragmentMap extends Fragment
 			@Override
 			public void onResult(PlaceBuffer places) {
 				if (!places.getStatus().isSuccess()) {
-					Log.v("Miles", "Place query did not complete. Error: " + places.getStatus().toString());
 					places.release();
 					return;
 				}
@@ -314,7 +313,8 @@ public class FragmentMap extends Fragment
 				if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
 					places.release();
 					dismissProgressDialog();
-					Toast.makeText(getActivity(), "SteerClear does not service this location", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), getResources().getString(R.string.toast_too_far_for_steer_clear),
+							Toast.LENGTH_SHORT).show();
 					clearClicked(input);
 					return;
 				}
@@ -378,7 +378,8 @@ public class FragmentMap extends Fragment
 				listener.onChosenLocationChanged(tag, chosenLatLng, chosenLocationName);
 			}
 		} else {
-			Toast.makeText(getActivity(), "Choose a location first!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), getResources().getString(R.string.toast_must_choose_location),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 

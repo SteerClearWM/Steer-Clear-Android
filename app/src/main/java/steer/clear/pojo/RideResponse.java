@@ -1,9 +1,9 @@
-package steer.clear.model;
+package steer.clear.pojo;
 
 /**
  * Created by Miles Peele on 6/21/2015.
  */
-public class Ride {
+public class RideResponse {
 
     public RideInfo ride;
 

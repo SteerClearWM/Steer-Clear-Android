@@ -5,9 +5,27 @@
     
     <string name="fragment_map_pickup_input_hint">SELECT PICKUP LOCATION:</string>
     <string name="fragment_map_dropoff_input_hint">SELECT DROPOFF LOCATION:</string>
+    <string name="fragment_map_map_marker_title">Your Location</string>
     
     <string name="fragment_hail_ride_passenger_select_prompt">NUMBER OF PASSENGERS:</string>
 
     <string name="activity_eta_cancel_ride">CANCEL RIDE</string>
+
+    <string name="toast_pickup_dropoff_same">Your pickup and dropoff cannot be the same location</string>
+    <string name="toast_google_client_connection_lost">Connection to internet has been lost, re-enable to continue using</string>
+    <string name="toast_too_far_for_steer_clear">SteerClear does not service this location</string>
+    <string name="toast_must_choose_location">Choose a location first!</string>
+
+    <string name="dialog_no_gps_title">GPS Settings</string>
+    <string name="dialog_no_gps_body">GPS is not enabled. Do you want to go to settings menu?
+        This app will close if you press \'Cancel\'.</string>
+    <string name="dialog_no_gps_pos_button_text">Settings</string>
+    <string name="dialog_no_gps_neg_button_text">Cancel</string>
+
+    <string name="dialog_cancel_ride_title">Cancel Ride</string>
+    <string name="dialog_cancel_ride_body">Would you like to cancel your requested ride? This will
+                "destroy all data entered and close the app.</string>
+    <string name="dialog_cancel_ride_pos_button_text">Sure</string>
+    <string name="dialog_cancel_ride_neg_button_text">Nah</string>
     
 </resources>

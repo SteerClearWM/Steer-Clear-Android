@@ -8,7 +8,6 @@ import android.widget.Filterable;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.AutocompleteFilter;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
@@ -40,21 +39,15 @@ public class AdapterAutoComplete
     private LatLngBounds mBounds;
 
     /**
-     * The autocomplete filter used to restrict queries to a specific set of place types.
-     */
-    private final AutocompleteFilter mPlaceFilter;
-
-    /**
      * Initializes with a resource for text rows and autocomplete query bounds.
      *
      * @see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
      */
     public AdapterAutoComplete(Context context, int resource, GoogleApiClient googleApiClient,
-            LatLngBounds bounds, AutocompleteFilter filter) {
+            LatLngBounds bounds) {
         super(context, resource);
         mGoogleApiClient = googleApiClient;
         mBounds = bounds;
-        mPlaceFilter = filter;
     }
 
     /**
@@ -139,7 +132,7 @@ public class AdapterAutoComplete
             PendingResult<AutocompletePredictionBuffer> results =
             		Places.GeoDataApi
                             .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
-                                    mBounds, mPlaceFilter);
+                                    mBounds, null);
 
             // This method should have been called off the main UI thread. Block and wait for at most 60s
             // for a result from the API.

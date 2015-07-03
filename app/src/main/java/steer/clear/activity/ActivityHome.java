@@ -2,12 +2,10 @@ package steer.clear.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
@@ -19,33 +17,19 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 import javax.inject.Inject;
 
-import steer.clear.Logger;
+import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.dagger.ContextModule;
-import steer.clear.dagger.DaggerContextComponent;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.fragment.ListenerForFragments;
-import steer.clear.model.Ride;
-import steer.clear.service.ServiceHttp;
-import steer.clear.service.ServiceHttpInterface;
+import steer.clear.pojo.RideResponse;
+import steer.clear.service.RetrofitClient;
 import steer.clear.util.Locationer;
 
 /**
@@ -55,7 +39,7 @@ import steer.clear.util.Locationer;
  *
  */
 public class ActivityHome extends AppCompatActivity
-	implements ServiceHttpInterface, ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
+	implements ListenerForFragments, OnConnectionFailedListener, ConnectionCallbacks {
 
 	// Stores user's current location
 	private static LatLng currentLatLng;
@@ -74,21 +58,23 @@ public class ActivityHome extends AppCompatActivity
 	// Request code to use when launching the resolution activity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
 
-    @Inject public ProgressDialog httpProgress;
-	@Inject public ServiceHttp helper;
-    @Inject public GoogleApiClient mGoogleApiClient;
+	@Inject public RetrofitClient helper;
+	public GoogleApiClient mGoogleApiClient;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		DaggerContextComponent.builder()
-                .contextModule(new ContextModule(this))
-				.build()
-				.inject(this);
+		((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
 
-		helper.registerListener(this);
+		mGoogleApiClient = new GoogleApiClient.Builder(this)
+				.enableAutoManage(this, 0, this)
+				.addApi(Places.GEO_DATA_API)
+				.addApi(Places.PLACE_DETECTION_API)
+				.addConnectionCallbacks(this)
+				.addApi(LocationServices.API)
+				.build();
 	}
 
 	@Override
@@ -123,66 +109,8 @@ public class ActivityHome extends AppCompatActivity
 	 */
 	@Override
 	public void makeHttpPostRequest(int numPassengers) {
-		showHttpProgress();
-		helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
-                dropoffLatLng.latitude, dropoffLatLng.longitude);
-	}
-
-	/**
-	 * On a successful HttpPost request, returns JSONObject
-	 */
-	@Override
-	public void onPostSuccess(Response response) {
-		try {
-			Ride ride = new Gson().fromJson(response.body().string(), Ride.class);
-            Ride.RideInfo info = ride.getRideInfo();
-            String pickupTime = info.getPickupTime();
-            int cancelId = info.getId();
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
-                dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
-                Date eta = dateFormat.parse(pickupTime);
-
-                Calendar calendar = new GregorianCalendar();
-                calendar.setTime(eta);
-                int pickupHour = calendar.get(Calendar.HOUR);
-                int pickupMinute = calendar.get(Calendar.MINUTE);
-
-                Intent etaActivity = new Intent(this, ActivityEta.class);
-                etaActivity.putExtra("PICKUP_HOUR", pickupHour);
-                etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
-                etaActivity.putExtra("CANCEL_ID", cancelId);
-                startActivity(etaActivity);
-
-                dismissHttpProgress();
-                finish();
-            } catch (ParseException p) {
-                dismissHttpProgress();
-                Logger.log("COULDNT PARSE DATE CUZ " + p);
-            }
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void onFailure(Request request, IOException exception) {
-		Logger.log("ON FAILURE " + request.body());
-	}
-
-	@Override
-	public void onDeleteSuccess(Response response) {}
-
-	private void showHttpProgress() {
-		if (httpProgress != null && !httpProgress.isShowing()) {
-			httpProgress.show();
-		}
-	}
-
-	private void dismissHttpProgress() {
-		if (httpProgress != null && httpProgress.isShowing()) {
-			httpProgress.dismiss();
-		}
+//		helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
+//                dropoffLatLng.latitude, dropoffLatLng.longitude);
 	}
 
 	/**
@@ -239,7 +167,8 @@ public class ActivityHome extends AppCompatActivity
 			ft.commit();
 		} else {
 			if (pickupLocationName.equals(name)) {
-				Toast.makeText(this, "Your pickup and dropoff cannot be the same location", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, getResources().getString(R.string.toast_pickup_dropoff_same),
+						Toast.LENGTH_SHORT).show();
 				return;
 			}
 
@@ -258,7 +187,8 @@ public class ActivityHome extends AppCompatActivity
 	@Override
 	public void onChosenLocationChanged(String fragmentTag, LatLng latlng, CharSequence name) {
 		if (name.equals(pickupLocationName) || name.equals(dropoffLocationName)) {
-			Toast.makeText(this, "Your pickup and dropoff cannot be the same location", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.toast_pickup_dropoff_same),
+					Toast.LENGTH_SHORT).show();
 			return;
 		}
 
@@ -306,19 +236,11 @@ public class ActivityHome extends AppCompatActivity
 
 	@Override
 	public void onConnectionSuspended(int cause) {
-		switch (cause) {
-			case GoogleApiClient.ConnectionCallbacks.CAUSE_NETWORK_LOST:
-				Toast.makeText(this, "Connection to internet has been lost, re-enable to continue using", Toast.LENGTH_SHORT).show();
-				break;
-				
-			case GoogleApiClient.ConnectionCallbacks.CAUSE_SERVICE_DISCONNECTED:
-				Toast.makeText(this, "Connection to GoogleApiClient has been suspended", Toast.LENGTH_SHORT).show();
-				break;
-				
-			default:
-				Logger.log("ONCONNECTIONSUSPENDED " + cause);
-				break;
-		}
+
+	}
+
+	public void onPostSuccess(RideResponse response) {
+
 	}
 	
 	/**
@@ -327,9 +249,10 @@ public class ActivityHome extends AppCompatActivity
      * */
     public void showSettingsAlert(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle("GPS Settings");
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu? This app will close if you press 'Cancel'.");
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+        alertDialog.setTitle(getResources().getString(R.string.dialog_no_gps_title));
+        alertDialog.setMessage(getResources().getString(R.string.dialog_no_gps_body));
+        alertDialog.setPositiveButton(getResources().getString(R.string.dialog_no_gps_pos_button_text),
+				new DialogInterface.OnClickListener() {
         	
             @Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -342,7 +265,8 @@ public class ActivityHome extends AppCompatActivity
             
         });
   
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(getResources().getString(R.string.dialog_no_gps_neg_button_text),
+				new DialogInterface.OnClickListener() {
         	
             @Override
 			public void onClick(DialogInterface dialog, int which) {
