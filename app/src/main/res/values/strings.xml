@@ -10,6 +10,7 @@
     <string name="fragment_hail_ride_passenger_select_prompt">NUMBER OF PASSENGERS:</string>
 
     <string name="activity_eta_cancel_ride">CANCEL RIDE</string>
+    <string name="activity_eta_formatted_title">Your ride will \n arrive at:</string>
 
     <string name="toast_pickup_dropoff_same">Your pickup and dropoff cannot be the same location</string>
     <string name="toast_google_client_connection_lost">Connection to internet has been lost, re-enable to continue using</string>
@@ -17,8 +18,8 @@
     <string name="toast_must_choose_location">Choose a location first!</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
-    <string name="dialog_no_gps_body">GPS is not enabled. Do you want to go to settings menu?
-        This app will close if you press \'Cancel\'.</string>
+    <string name="dialog_no_gps_body">GPS is not enabled. Do you want to go to your settings menu?
+        This app will close if you press \'Cancel\', as it needs GPS to function.</string>
     <string name="dialog_no_gps_pos_button_text">Settings</string>
     <string name="dialog_no_gps_neg_button_text">Cancel</string>
 

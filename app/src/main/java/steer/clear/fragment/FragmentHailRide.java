@@ -21,16 +21,17 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import butterknife.OnTouch;
 import steer.clear.R;
+import steer.clear.util.Utils;
 
 public class FragmentHailRide extends Fragment implements OnClickListener, OnTouchListener {
 	
 	// Global views
-	@InjectView(R.id.fragment_hail_ride_pickup_location) public TextView pickup;
-	@InjectView(R.id.fragment_hail_ride_change_pickup) public ImageButton changePickup;
-	@InjectView(R.id.fragment_hail_ride_dropoff_location) public TextView dropoff;
-	@InjectView(R.id.fragment_hail_ride_change_dropoff) public ImageButton changeDropoff;
-	@InjectView(R.id.fragment_hail_ride_post) public ImageButton postRide;
-	@InjectView(R.id.view_passenger_switcher) public TextView numPassengers;
+	@InjectView(R.id.fragment_hail_ride_pickup_location) TextView pickup;
+	@InjectView(R.id.fragment_hail_ride_change_pickup) ImageButton changePickup;
+	@InjectView(R.id.fragment_hail_ride_dropoff_location) TextView dropoff;
+	@InjectView(R.id.fragment_hail_ride_change_dropoff) ImageButton changeDropoff;
+	@InjectView(R.id.fragment_hail_ride_post) ImageButton postRide;
+	@InjectView(R.id.view_passenger_switcher) TextView numPassengers;
 	
 	// static int used for, you guessed it, storing the current passenger count
 	private static int passengers = 0;
@@ -38,9 +39,6 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	// Final static strings used as keys for getArguments()
 	private final static String PICKUP = "pickup";
 	private final static String DROPOFF = "dropoff";
-
-	// Needed for life
-	private final static String POST = "post";
 	
 	private ListenerForFragments listener;
 	public FragmentHailRide(){}
@@ -70,11 +68,18 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
         	e.printStackTrace();
         }
     }
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		listener = null;
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_hail_ride, container, false);
 		ButterKnife.inject(this, rootView);
+		numPassengers.setTypeface(Utils.getStaticTypeFace(getActivity(), "Antipasto.otf"));
 
 		Bundle args = getArguments();
 

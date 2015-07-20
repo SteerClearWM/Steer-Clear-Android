@@ -3,6 +3,8 @@ package steer.clear.view;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -23,9 +25,12 @@ public class ViewAutoComplete extends AutoCompleteTextView implements View.OnTou
     private int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
 
     final int DRAWABLE_LEFT = 0;
-    //final int DRAWABLE_TOP = 1;
     final int DRAWABLE_RIGHT = 2;
-    //final int DRAWABLE_BOTTOM = 3;
+
+    private int numMaxLines; //Maximum number of lines, default is 2 if not set in XML
+    private int numMinTextSize; //Minimum text size, default is 11 if not set in XML
+    private int numLines; // Hold the current number of lines
+    private int numTextSize; //Hold the current text size
 
     private AutoCompleteListener mListener;
     public interface AutoCompleteListener {
@@ -95,13 +100,6 @@ public class ViewAutoComplete extends AutoCompleteTextView implements View.OnTou
     public void onFilterComplete(int count) {
         if (mLoadingIndicator != null) {
             mLoadingIndicator.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
-        if (isFocused()) {
-
         }
     }
 

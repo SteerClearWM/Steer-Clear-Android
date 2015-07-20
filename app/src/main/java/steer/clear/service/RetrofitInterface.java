@@ -1,10 +1,12 @@
 package steer.clear.service;
 
 import retrofit.client.Response;
+import retrofit.http.Body;
 import retrofit.http.DELETE;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import rx.Observable;
 import steer.clear.pojo.RidePost;
 import steer.clear.pojo.RideResponse;
 
@@ -14,9 +16,9 @@ import steer.clear.pojo.RideResponse;
 public interface RetrofitInterface {
 
     @POST("/rides")
-    @Headers({"Content-Type: application/x-www-form-urlencoded"})
-    RideResponse addRide(RidePost ridePost);
+    @Headers({"contentType: application/x-www-form-urlencoded"})
+    Observable<RideResponse> addRide(@Body RidePost ridePost);
 
     @DELETE("/rides/{rideId}")
-    Response deleteRide(@Path("rideId") int cancelId);
+    Observable<Response> deleteRide(@Path("rideId") int cancelId);
 }

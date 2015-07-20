@@ -20,4 +20,18 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowTitleStyle">@style/DialogWindowTheme</item>
+        <item name="android:windowBackground">@color/dark_blue</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
+    <style name="DialogWindowTheme" parent="DialogTheme">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/dialog_title_text_size</item>
+    </style>
+
 </resources>

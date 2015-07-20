@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark_blue">#1a3a69</color>
+    <color name="light_blue">#00486a</color>
+    <color name="half_opacity">#80000000</color>
+    <color name="quarter_opacity">#40ffffff</color>
+</resources>

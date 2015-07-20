@@ -58,15 +58,12 @@ import steer.clear.view.ViewAutoComplete;
 public class FragmentMap extends Fragment
 	implements OnMapReadyCallback, AdapterView.OnItemClickListener,
         OnMarkerClickListener, ViewAutoComplete.AutoCompleteListener {
-	
-	// Global views
-	@InjectView(R.id.fragment_map_input) public ViewAutoComplete input;
-	@InjectView(R.id.fragment_map_input_hint) public TextView inputHint;
-	@InjectView(R.id.fragment_map_input_suggestions_loading) public ProgressBar inputSuggestionsLoading;
-	@InjectView(R.id.fragment_map_view) public MapView mapView;
 
-	// Stores the user's LatLng and the LatLng they chose as pickup/dropoff
-	private static LatLng userLatLng;
+	@InjectView(R.id.fragment_map_input) ViewAutoComplete input;
+	@InjectView(R.id.fragment_map_input_hint) TextView inputHint;
+	@InjectView(R.id.fragment_map_input_suggestions_loading) ProgressBar inputSuggestionsLoading;
+	@InjectView(R.id.fragment_map_view) MapView mapView;
+
 	public LatLng chosenLatLng;
 	public CharSequence chosenLocationName;
 	
@@ -160,6 +157,12 @@ public class FragmentMap extends Fragment
         	e.printStackTrace();
         }
     }
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		listener = null;
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -260,33 +263,21 @@ public class FragmentMap extends Fragment
         alertDialog.setTitle("Choose " + tag.substring(0, 1).toUpperCase(Locale.getDefault()) + tag.substring(1) + " Location");
         alertDialog.setMessage("Would you like to choose a nearby place as your " + tag + " location?" +
                 " You must choose a location that has a name, like 'Barrett Hall.'");
-        alertDialog.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
-        	
-            @Override
-			public void onClick(DialogInterface dialog,int which) {
-            	try {
-            		PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-					startActivityForResult(builder.build(getActivity()), 1);
-					getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-				} catch (GooglePlayServicesRepairableException e) {
-					e.printStackTrace();
-				} catch (GooglePlayServicesNotAvailableException e) {
-					e.printStackTrace();
-				}
+        alertDialog.setPositiveButton("Sure", (dialog, which) -> {
+            try {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                startActivityForResult(builder.build(getActivity()), 1);
+                getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+            } catch (GooglePlayServicesRepairableException e) {
+                e.printStackTrace();
+            } catch (GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
             }
-
+        }).setNegativeButton("Nah", (dialog, which) -> {
+            dialog.dismiss();
         });
 
-        alertDialog.setNegativeButton("Nah", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-
-		});
-
-		alertDialog.show();
+        alertDialog.show();
 
         return false;
 	}
@@ -298,54 +289,49 @@ public class FragmentMap extends Fragment
 		final String placeId = String.valueOf(item.placeId);
 		
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(listener.getGoogleApiClient(), placeId);
-        placeResult.setResultCallback(new ResultCallback<PlaceBuffer>() {
+        placeResult.setResultCallback(places -> {
+            if (!places.getStatus().isSuccess()) {
+                places.release();
+                return;
+            }
 
-			@Override
-			public void onResult(PlaceBuffer places) {
-				if (!places.getStatus().isSuccess()) {
-					places.release();
-					return;
-				}
+            // Get the Place object from the buffer.
+            final Place place = places.get(0);
 
-				// Get the Place object from the buffer.
-				final Place place = places.get(0);
+            if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
+                places.release();
+                dismissProgressDialog();
+                Toast.makeText(getActivity(), getResources().getString(R.string.toast_too_far_for_steer_clear),
+                        Toast.LENGTH_SHORT).show();
+                clearClicked(input);
+                return;
+            }
 
-				if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
-					places.release();
-					dismissProgressDialog();
-					Toast.makeText(getActivity(), getResources().getString(R.string.toast_too_far_for_steer_clear),
-							Toast.LENGTH_SHORT).show();
-					clearClicked(input);
-					return;
-				}
+            chosenLatLng = place.getLatLng();
+            chosenLocationName = place.getName();
 
-				chosenLatLng = place.getLatLng();
-				chosenLocationName = place.getName();
+            // Get the LatLng from the Place object and replaces it with the current map marker
+            GoogleMap map = mapView.getMap();
+            map.clear();
+            MarkerOptions marker = new MarkerOptions().position(chosenLatLng);
+            marker.title("Chosen Location");
+            map.addMarker(marker);
 
-				// Get the LatLng from the Place object and replaces it with the current map marker
-				GoogleMap map = mapView.getMap();
-				map.clear();
-				MarkerOptions marker = new MarkerOptions().position(chosenLatLng);
-				marker.title("Chosen Location");
-				map.addMarker(marker);
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(chosenLatLng)
+                    .zoom(17)
+                    .bearing(90)
+                    .tilt(30)
+                    .build();
+            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
-				CameraPosition cameraPosition = new CameraPosition.Builder()
-						.target(chosenLatLng)
-						.zoom(17)
-						.bearing(90)
-						.tilt(30)
-						.build();
-				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-				places.release();
-				final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-				if (getView().getWindowToken() != null) {
-					imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
-				}
-				dismissProgressDialog();
-			}
-
-		});
+            places.release();
+            final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (getView().getWindowToken() != null) {
+                imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+            }
+            dismissProgressDialog();
+        });
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package steer.clear.activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
@@ -21,8 +20,18 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+
 import javax.inject.Inject;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import steer.clear.Logger;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.fragment.FragmentHailRide;
@@ -30,7 +39,7 @@ import steer.clear.fragment.FragmentMap;
 import steer.clear.fragment.ListenerForFragments;
 import steer.clear.pojo.RideResponse;
 import steer.clear.service.RetrofitClient;
-import steer.clear.util.Locationer;
+import steer.clear.util.Utils;
 
 /**
  * "HomeScreen" activity of the SteerClear app.
@@ -77,6 +86,18 @@ public class ActivityHome extends AppCompatActivity
 				.build();
 	}
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.disconnect();
+    }
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_RESOLVE_ERROR) {
@@ -109,8 +130,42 @@ public class ActivityHome extends AppCompatActivity
 	 */
 	@Override
 	public void makeHttpPostRequest(int numPassengers) {
-//		helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
-//                dropoffLatLng.latitude, dropoffLatLng.longitude);
+		helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
+				dropoffLatLng.latitude, dropoffLatLng.longitude)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(this::onRideResponseReceived, this::onRideResponseError);
+	}
+
+	public void onRideResponseReceived(RideResponse response) {
+        Logger.log("RIDE RESPONSE");
+		RideResponse.RideInfo info = response.getRideInfo();
+		String pickupTime = info.getPickupTime();
+		int cancelId = info.getId();
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
+			dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
+			Date eta = dateFormat.parse(pickupTime);
+
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(eta);
+			int pickupHour = calendar.get(Calendar.HOUR);
+			int pickupMinute = calendar.get(Calendar.MINUTE);
+
+			Intent etaActivity = new Intent(this, ActivityEta.class);
+			etaActivity.putExtra("PICKUP_HOUR", pickupHour);
+			etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
+			etaActivity.putExtra("CANCEL_ID", cancelId);
+			startActivity(etaActivity);
+
+			finish();
+		} catch (ParseException p) {
+			p.printStackTrace();
+		}
+	}
+
+	public void onRideResponseError(Throwable error) {
+        error.printStackTrace();
 	}
 
 	/**
@@ -219,7 +274,7 @@ public class ActivityHome extends AppCompatActivity
                 ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
                 ft.commit();
             } else {
-				currentLocation = Locationer.getLocation(this);
+				currentLocation = Utils.getLocation(this);
                 if (currentLocation != null) {
                     currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
@@ -238,10 +293,6 @@ public class ActivityHome extends AppCompatActivity
 	public void onConnectionSuspended(int cause) {
 
 	}
-
-	public void onPostSuccess(RideResponse response) {
-
-	}
 	
 	/**
      * Method to show settings alert dialog if GPS could not be found
@@ -252,29 +303,19 @@ public class ActivityHome extends AppCompatActivity
         alertDialog.setTitle(getResources().getString(R.string.dialog_no_gps_title));
         alertDialog.setMessage(getResources().getString(R.string.dialog_no_gps_body));
         alertDialog.setPositiveButton(getResources().getString(R.string.dialog_no_gps_pos_button_text),
-				new DialogInterface.OnClickListener() {
-        	
-            @Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                startActivity(intent);
-            }
-            
-        });
+                (dialog, which) -> {
+                    dialog.dismiss();
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    startActivity(intent);
+                });
   
         alertDialog.setNegativeButton(getResources().getString(R.string.dialog_no_gps_neg_button_text),
-				new DialogInterface.OnClickListener() {
-        	
-            @Override
-			public void onClick(DialogInterface dialog, int which) {
-            	dialog.cancel();
-            	finish();
-            }
-            
-        });
+                (dialog, which) -> {
+                    dialog.cancel();
+                    finish();
+                });
 
         alertDialog.show();
     }

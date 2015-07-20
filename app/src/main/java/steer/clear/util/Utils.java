@@ -1,19 +1,25 @@
 package steer.clear.util;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 /**
- * Created by Miles Peele on 6/22/2015.
+ * Created by Miles Peele on 7/19/2015.
  */
-public class Locationer {
+public class Utils {
+    private static HashMap<String, Typeface> mFontMap;
 
     public static Location getLocation(Context context) {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         try {
             boolean isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
             boolean isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
@@ -40,5 +46,31 @@ public class Locationer {
         }
 
         return null;
+    }
+
+    private static void initializeFontMap(Context context) {
+        mFontMap = new HashMap<>();
+        AssetManager assetManager = context.getAssets();
+        try {
+            String[] fontFileNames = assetManager.list("fonts");
+            for (String fontFileName : fontFileNames) {
+                Typeface typeface = Typeface.createFromAsset(assetManager, "fonts/" + fontFileName);
+                mFontMap.put(fontFileName, typeface);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Typeface getStaticTypeFace(Context context, String fontFileName) {
+        if (mFontMap == null) {
+            initializeFontMap(context);
+        }
+        Typeface typeface = mFontMap.get(fontFileName);
+        if (typeface == null) {
+            throw new IllegalArgumentException(
+                    "Font name must match file name in assets/fonts/ directory: " + fontFileName);
+        }
+        return typeface;
     }
 }
