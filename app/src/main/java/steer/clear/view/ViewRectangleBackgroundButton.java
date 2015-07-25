@@ -1,0 +1,68 @@
+package steer.clear.view;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.widget.Button;
+
+import steer.clear.R;
+import steer.clear.util.Utils;
+
+/**
+ * Created by Miles Peele on 7/21/2015.
+ */
+public class ViewRectangleBackgroundButton extends Button {
+
+    private Paint curPaint;
+    private static float STROKE_WIDTH = 10f;
+    private RectF rect;
+
+    public ViewRectangleBackgroundButton(Context context) {
+        super(context);
+        init();
+    }
+
+    public ViewRectangleBackgroundButton(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public ViewRectangleBackgroundButton(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ViewRectangleBackgroundButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init() {
+        setTypeface(Utils.getStaticTypeFace(getContext(), "Antipasto.otf"));
+        curPaint = new Paint();
+        curPaint.setAntiAlias(true);
+        curPaint.setColor(Color.WHITE);
+        curPaint.setStyle(Paint.Style.STROKE);
+        curPaint.setStrokeJoin(Paint.Join.ROUND);
+        curPaint.setStrokeCap(Paint.Cap.ROUND);
+        curPaint.setStrokeWidth(STROKE_WIDTH);
+    }
+
+    @Override
+    protected void onSizeChanged (int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        rect = new RectF(0, 0, w, h);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.drawRoundRect(rect, 10, 10, curPaint);
+    }
+}

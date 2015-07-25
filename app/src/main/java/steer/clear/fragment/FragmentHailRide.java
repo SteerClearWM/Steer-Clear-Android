@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +25,12 @@ import steer.clear.R;
 import steer.clear.util.Utils;
 
 public class FragmentHailRide extends Fragment implements OnClickListener, OnTouchListener {
-	
-	// Global views
+
 	@InjectView(R.id.fragment_hail_ride_pickup_location) TextView pickup;
 	@InjectView(R.id.fragment_hail_ride_change_pickup) ImageButton changePickup;
 	@InjectView(R.id.fragment_hail_ride_dropoff_location) TextView dropoff;
 	@InjectView(R.id.fragment_hail_ride_change_dropoff) ImageButton changeDropoff;
-	@InjectView(R.id.fragment_hail_ride_post) ImageButton postRide;
+	@InjectView(R.id.fragment_hail_ride_post) Button postRide;
 	@InjectView(R.id.view_passenger_switcher) TextView numPassengers;
 	
 	// static int used for, you guessed it, storing the current passenger count
@@ -86,6 +86,7 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 		pickup.setText("PICKUP LOCATION: \n" + args.getCharSequence(PICKUP));
 
 		dropoff.setText("DROPOFF LOCATION: \n" + args.getCharSequence(DROPOFF));
+
 		return rootView;
 	}
 

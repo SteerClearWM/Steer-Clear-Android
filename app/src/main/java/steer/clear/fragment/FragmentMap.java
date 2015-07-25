@@ -90,6 +90,9 @@ public class FragmentMap extends Fragment
 	
 	// Listener defines communication between Fragments and ActivityHome
 	private ListenerForFragments listener;
+
+    // Animation
+    float displayHeight;
 	
 	/**
 	 * Empty constructor cuz this is needed (still don't know why)
@@ -170,6 +173,12 @@ public class FragmentMap extends Fragment
 		setRetainInstance(true);
 		progress = new ProgressDialog(getActivity(), ProgressDialog.STYLE_HORIZONTAL);
 		progress.setMessage("Locating...");
+
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        displayHeight = size.y;
+
 	}
 	
 	@Override
@@ -195,19 +204,20 @@ public class FragmentMap extends Fragment
 		input.setAutoCompleteListener(this);
 
 		mapView.onCreate(savedInstanceState);
-		mapView.setBackground(null);
-		mapView.getMapAsync(this);
 
 		return rootView;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-	    super.onActivityCreated(savedInstanceState);
+        super.onActivityCreated(savedInstanceState);
 
 	    if (savedInstanceState != null) {
 			input.setTextNoFilter(getArguments().getString(INPUT_TEXT), false);
 	    }
+
+        mapView.setBackground(null);
+        mapView.getMapAsync(this);
 	}
 
 	@Override
@@ -224,9 +234,9 @@ public class FragmentMap extends Fragment
 
 		CameraPosition cameraPosition = new CameraPosition.Builder()
 		    .target(userLatLng)
-		    .zoom(17)
-		    .bearing(90)
-		    .tilt(30)
+                .zoom(17)
+                .bearing(90)
+                .tilt(30)
 		    .build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
@@ -336,21 +346,17 @@ public class FragmentMap extends Fragment
 
 	@Override
 	public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-		Display display = getActivity().getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		// float displayWidth = size.x;
-		float displayHeight = size.y;
-
 		Animator animator;
 		if (enter) {
 			animator = ObjectAnimator.ofFloat(getActivity(), "y", displayHeight, 0);
+            animator.setStartDelay(200);
 		} else {
 			animator = ObjectAnimator.ofFloat(getActivity(), "y", 0, displayHeight);
         }
 
         animator.setDuration(1000);
 		animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        getView().setLayerType(View.LAYER_TYPE_HARDWARE, null);
 		return animator;
 	}
 

@@ -6,7 +6,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import steer.clear.service.RetrofitClient;
+import steer.clear.retrofit.Client;
+import steer.clear.util.Datastore;
 
 /**
  * Created by Miles Peele on 6/20/2015.
@@ -27,7 +28,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public RetrofitClient getHttpService() {
-        return new RetrofitClient();
+    public Client getHttpService() {
+        return new Client(mApplication);
+    }
+
+    @Provides
+    @Singleton
+    public Datastore getDatastore(Application mApplication) {
+        return new Datastore(mApplication);
     }
 }

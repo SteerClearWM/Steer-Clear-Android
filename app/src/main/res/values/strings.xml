@@ -2,12 +2,17 @@
 <resources>
 
     <string name="app_name">SteerClear</string>
+
+    <string name="fragment_login_register">REGISTER</string>
+    <string name="fragment_login_username_hint">Enter Username</string>
+    <string name="fragment_login_password_hint">Enter Password</string>
     
     <string name="fragment_map_pickup_input_hint">SELECT PICKUP LOCATION:</string>
     <string name="fragment_map_dropoff_input_hint">SELECT DROPOFF LOCATION:</string>
     <string name="fragment_map_map_marker_title">Your Location</string>
     
     <string name="fragment_hail_ride_passenger_select_prompt">NUMBER OF PASSENGERS:</string>
+    <string name="fragment_hail_ride_post">REQUEST RIDE</string>
 
     <string name="activity_eta_cancel_ride">CANCEL RIDE</string>
     <string name="activity_eta_formatted_title">Your ride will \n arrive at:</string>

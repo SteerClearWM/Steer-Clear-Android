@@ -1,6 +1,9 @@
 package steer.clear.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -29,16 +32,19 @@ import java.util.TimeZone;
 
 import javax.inject.Inject;
 
+import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.Logger;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.fragment.FragmentHailRide;
+import steer.clear.fragment.FragmentLogin;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.fragment.ListenerForFragments;
-import steer.clear.pojo.RideResponse;
-import steer.clear.service.RetrofitClient;
+import steer.clear.pojo.RideObject;
+import steer.clear.retrofit.Client;
+import steer.clear.util.Datastore;
 import steer.clear.util.Utils;
 
 /**
@@ -60,6 +66,7 @@ public class ActivityHome extends AppCompatActivity
 	private static CharSequence dropoffLocationName; // says it's unused but it is used in makeHttpPostRequest()
 	
 	// Static strings used as tags for Fragments
+    private static final String LOGIN = "authenticate";
 	private final static String PICKUP = "pickup";
 	private final static String DROPOFF = "dropoff";
 	private final static String POST = "post";
@@ -67,7 +74,8 @@ public class ActivityHome extends AppCompatActivity
 	// Request code to use when launching the resolution activity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
 
-	@Inject public RetrofitClient helper;
+	@Inject Client helper;
+    @Inject Datastore store;
 	public GoogleApiClient mGoogleApiClient;
 
 	@Override
@@ -109,64 +117,103 @@ public class ActivityHome extends AppCompatActivity
 			}
 		}
 	}
-	
-	/**
-	 * Handles navigation between fragments.
-	 * If the backstack is empty (count == 0), just finishes the activity by calling super.onBackPressed()
-	 * If not, pops that fragment off the backstack and shows it
-	 */
+
 	@Override
 	public void onBackPressed() {
 	    int count = getFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
-	        super.onBackPressed();
+            moveTaskToBack(true);
 	    } else {
-	        getFragmentManager().popBackStackImmediate();
+	        getFragmentManager().popBackStack();
 		}
 	}
 
-	/**
-	 * Called from FragmentHailRide when the app is ready to post a ride to the server.
-	 */
-	@Override
-	public void makeHttpPostRequest(int numPassengers) {
-		helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
-				dropoffLatLng.latitude, dropoffLatLng.longitude)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(this::onRideResponseReceived, this::onRideResponseError);
-	}
+    private void addFragmentLogin() {
+        FragmentManager manager = getFragmentManager();
+        FragmentLogin login = (FragmentLogin) manager.findFragmentByTag(LOGIN);
+        if (login != null) {
+            manager.beginTransaction().show(login).commit();
+        } else {
+            manager.beginTransaction()
+                    .add(R.id.activity_home_fragment_frame, FragmentLogin.newInstance(), LOGIN)
+                    .commit();
+        }
+    }
 
-	public void onRideResponseReceived(RideResponse response) {
-        Logger.log("RIDE RESPONSE");
-		RideResponse.RideInfo info = response.getRideInfo();
-		String pickupTime = info.getPickupTime();
-		int cancelId = info.getId();
-		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
-			dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
-			Date eta = dateFormat.parse(pickupTime);
+    public void onRegisterResponse(Response response, String username, String password) {
+        switch (response.getStatus()) {
+            case 200:
+            case 302:
+                helper.login(username, password)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(this::onLoginResponse, this::onRxError);
+                break;
+            default:
+                Logger.log("UNHANDLED RESPONSE CODE: " + response.getStatus());
+        }
+    }
 
-			Calendar calendar = new GregorianCalendar();
-			calendar.setTime(eta);
-			int pickupHour = calendar.get(Calendar.HOUR);
-			int pickupMinute = calendar.get(Calendar.MINUTE);
+    public void onLoginResponse(Response response) {
+        switch (response.getStatus()) {
+            case 200:
+            case 302:
+                showMapStuff();
+                break;
+            default:
+                Logger.log("UNHANDLED LOGIN EXCEPTION " + response.getStatus());
+        }
+    }
 
-			Intent etaActivity = new Intent(this, ActivityEta.class);
-			etaActivity.putExtra("PICKUP_HOUR", pickupHour);
-			etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
-			etaActivity.putExtra("CANCEL_ID", cancelId);
-			startActivity(etaActivity);
+    public void onRideResponseReceived(RideObject response) {
+        RideObject.RideInfo info = response.getRideInfo();
+        String pickupTime = info.getPickupTime();
+        int cancelId = info.getId();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss");
+            dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
+            Date eta = dateFormat.parse(pickupTime);
 
-			finish();
-		} catch (ParseException p) {
-			p.printStackTrace();
-		}
-	}
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(eta);
+            int pickupHour = calendar.get(Calendar.HOUR);
+            int pickupMinute = calendar.get(Calendar.MINUTE);
 
-	public void onRideResponseError(Throwable error) {
-        error.printStackTrace();
-	}
+            Intent etaActivity = new Intent(this, ActivityEta.class);
+            etaActivity.putExtra("PICKUP_HOUR", pickupHour);
+            etaActivity.putExtra("PICKUP_MINUTE", pickupMinute);
+            etaActivity.putExtra("CANCEL_ID", cancelId);
+            startActivity(etaActivity);
+
+            finish();
+        } catch (ParseException p) {
+            p.printStackTrace();
+        }
+    }
+
+    public void onRxError(Throwable throwable) {
+        Logger.log("RXERROR " + throwable.getLocalizedMessage());
+        throwable.printStackTrace();
+    }
+
+    private void showMapStuff() {
+//        FragmentTransaction ft = getFragmentManager().beginTransaction();
+//        FragmentLogin login = (FragmentLogin) getFragmentManager().findFragmentByTag(LOGIN);
+//        if (login != null) ft.remove(login).commit();
+
+        FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.activity_home_fragment_frame, fragment, PICKUP);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void authenticate(String username, String password) {
+        helper.register(username, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(Response -> onRegisterResponse(Response, username, password), this::onRxError);
+    }
 
 	/**
 	 * Convenience "get" method that fragments can call to get the googleApiClient.
@@ -239,6 +286,15 @@ public class ActivityHome extends AppCompatActivity
 		}
 	}
 
+    @Override
+    public void makeHttpPostRequest(int numPassengers) {
+        helper.addRide(numPassengers, pickupLatLng.latitude, pickupLatLng.longitude,
+                dropoffLatLng.latitude, dropoffLatLng.longitude)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onRideResponseReceived, this::onRxError);
+    }
+
 	@Override
 	public void onChosenLocationChanged(String fragmentTag, LatLng latlng, CharSequence name) {
 		if (name.equals(pickupLocationName) || name.equals(dropoffLocationName)) {
@@ -268,20 +324,12 @@ public class ActivityHome extends AppCompatActivity
             Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (currentLocation != null) {
                 currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-
-                FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
-                ft.commit();
+				addFragmentLogin();
             } else {
 				currentLocation = Utils.getLocation(this);
                 if (currentLocation != null) {
                     currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-
-                    FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.add(R.id.activity_home_fragment_frame, fragment, PICKUP);
-                    ft.commit();
+					addFragmentLogin();
                 } else {
                     showSettingsAlert();
                 }
@@ -289,7 +337,7 @@ public class ActivityHome extends AppCompatActivity
         }
 	}
 
-	@Override
+    @Override
 	public void onConnectionSuspended(int cause) {
 
 	}

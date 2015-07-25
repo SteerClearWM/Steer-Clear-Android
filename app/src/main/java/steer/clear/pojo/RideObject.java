@@ -3,7 +3,7 @@ package steer.clear.pojo;
 /**
  * Created by Miles Peele on 6/21/2015.
  */
-public class RideResponse {
+public class RideObject {
 
     public RideInfo ride;
 

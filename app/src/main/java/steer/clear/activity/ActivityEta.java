@@ -1,7 +1,6 @@
 package steer.clear.activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.service.RetrofitClient;
+import steer.clear.retrofit.Client;
 import steer.clear.util.Utils;
 import steer.clear.view.ViewEta;
 
@@ -37,7 +36,7 @@ public class ActivityEta extends AppCompatActivity
     private final static String HOUR = "PICKUP_HOUR";
     private final static String MINUTE = "PICKUP_MINUTE";
 
-    @Inject public RetrofitClient helper;
+    @Inject public Client helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

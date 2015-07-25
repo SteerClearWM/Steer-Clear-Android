@@ -12,19 +12,20 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search_black_24dp"
         android:scaleType="fitXY"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="@dimen/fragment_hail_ride_post_ride_margin"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <steer.clear.view.ViewChangeLocation
+    <steer.clear.view.ViewQuarterOpacityBackgroundText
         android:id="@+id/fragment_hail_ride_pickup_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="@dimen/view_change_location_text_size"
         android:textColor="@android:color/white"
         android:lines="2"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginLeft="@dimen/view_change_location_margin_start"
+        android:layout_marginStart="@dimen/view_change_location_margin_start"
+        android:paddingLeft="@dimen/view_change_location_padding_start"
         android:layout_alignBottom="@+id/fragment_hail_ride_change_pickup"
         android:layout_toLeftOf="@+id/fragment_hail_ride_change_pickup"
         android:layout_toStartOf="@+id/fragment_hail_ride_change_pickup" />
@@ -37,24 +38,25 @@
         android:src="@drawable/ic_search_black_24dp"
         android:scaleType="fitXY"
         android:layout_below="@id/fragment_hail_ride_pickup_location"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/fragment_hail_ride_dropoff_margin"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <steer.clear.view.ViewChangeLocation
+    <steer.clear.view.ViewQuarterOpacityBackgroundText
         android:id="@+id/fragment_hail_ride_dropoff_location"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:textSize="@dimen/view_change_location_text_size"
         android:textColor="@android:color/white"
         android:lines="2"
         android:layout_toLeftOf="@id/fragment_hail_ride_change_dropoff"
         android:layout_toStartOf="@id/fragment_hail_ride_change_dropoff"
         android:layout_alignBottom="@id/fragment_hail_ride_change_dropoff"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="@dimen/view_change_location_margin_start"
+        android:layout_marginStart="@dimen/view_change_location_margin_start"
+        android:paddingLeft="@dimen/view_change_location_padding_start" />
     
     <TextView
         android:id="@+id/fragment_hail_ride_passengers"
@@ -79,19 +81,22 @@
         android:text="0"
         android:textSize="25sp"
         android:textColor="@android:color/white"
+        android:layout_marginBottom="@dimen/fragment_hail_ride_post_margin_from_bottom"
         android:drawableEnd="@drawable/ic_find_previous_holo_light"
         android:drawableRight="@drawable/ic_find_previous_holo_light" />
     
-    <ImageButton
+    <steer.clear.view.ViewRectangleBackgroundButton
         android:id="@+id/fragment_hail_ride_post"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/view_post_ride_margin"
+        android:layout_marginStart="@dimen/view_post_ride_margin"
+        android:layout_marginRight="@dimen/view_post_ride_margin"
+        android:layout_marginEnd="@dimen/view_post_ride_margin"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="58dp"
-        android:src="@drawable/hail_button"
-        android:scaleType="fitXY"
-        android:adjustViewBounds="true"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@id/view_passenger_switcher"
+        android:text="@string/fragment_hail_ride_post"
+        android:textSize="35sp"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -11,6 +11,6 @@ import android.util.Log;
 public class Logger {
 
 	public static void log(String string) {
-		Log.v("Miles", string);
+		Log.d("Miles", string);
 	}
 }

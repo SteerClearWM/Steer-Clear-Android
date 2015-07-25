@@ -7,8 +7,8 @@
     
    	<com.google.android.gms.maps.MapView
 	    android:id="@+id/fragment_map_view"
-	    android:layout_marginTop="150dp"
-        android:layout_marginBottom="50dp"
+	    android:layout_marginTop="@dimen/map_margin_from_top"
+        android:layout_marginBottom="@dimen/map_margin_from_bottom"
 	    android:layout_width="match_parent" 
 	    android:layout_height="match_parent" />
     
@@ -16,8 +16,8 @@
         android:id="@+id/fragment_map_input_hint"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:textSize="20sp"
-        android:layout_marginTop="80dp"
+        android:textSize="@dimen/view_autocomplete_text_size"
+        android:layout_marginTop="@dimen/view_autocomplete_margin_from_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
    	

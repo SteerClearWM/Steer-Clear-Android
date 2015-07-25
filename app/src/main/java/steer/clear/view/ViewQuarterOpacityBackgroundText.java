@@ -15,28 +15,28 @@ import steer.clear.util.Utils;
 /**
  * Created by Miles Peele on 7/19/2015.
  */
-public class ViewChangeLocation extends TextView {
+public class ViewQuarterOpacityBackgroundText extends TextView {
 
     private Paint curPaint;
     private RectF rect;
 
-    public ViewChangeLocation(Context context) {
+    public ViewQuarterOpacityBackgroundText(Context context) {
         super(context);
         init();
     }
 
-    public ViewChangeLocation(Context context, AttributeSet attrs) {
+    public ViewQuarterOpacityBackgroundText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ViewChangeLocation(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ViewQuarterOpacityBackgroundText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ViewChangeLocation(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ViewQuarterOpacityBackgroundText(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
@@ -54,8 +54,7 @@ public class ViewChangeLocation extends TextView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRoundRect(new RectF(0, 0, canvas.getWidth(), canvas.getHeight()),
-                10, 10, curPaint);
+        canvas.drawRoundRect(new RectF(0, 0, canvas.getWidth(), canvas.getHeight()), 10, 10, curPaint);
     }
 
 }
