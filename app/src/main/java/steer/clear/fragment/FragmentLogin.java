@@ -29,6 +29,7 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
 
     @InjectView(R.id.fragment_login_username) ViewEditText username;
     @InjectView(R.id.fragment_login_password) ViewEditText password;
+    @InjectView(R.id.fragment_login_phone) ViewEditText phone;
     @InjectView(R.id.fragment_login_register) ViewRectangleBackgroundButton button;
 
     private ListenerForFragments listener;
@@ -109,28 +110,37 @@ public class FragmentLogin extends Fragment implements View.OnClickListener {
             animator = animateOut;
         }
 
-        animator.setDuration(750);
+        animator.setDuration(1000);
         animator.setInterpolator(INTERPOLATOR);
         getView().setLayerType(View.LAYER_TYPE_HARDWARE, null);
         return animator;
     }
 
+    public void onRxError() {
+        button.stopRippleAnimation();
+    }
+
     private boolean validateUsername() {
-        String input = username.getEnteredText();
-        return !input.isEmpty();
+        return !username.getEnteredText().isEmpty();
     }
 
     private boolean validatePassword() {
-        String pass = password.getEnteredText();
-        return !pass.isEmpty();
+        return !password.getEnteredText().isEmpty();
+    }
+
+    private boolean validatePhoneNumber() {
+        return phone.getEnteredText().matches("(\\+1[0-9]{10})");
     }
 
     @Override
     @OnClick(R.id.fragment_login_register)
     public void onClick(View v) {
-        if (validateUsername() && validatePassword()) {
-            listener.authenticate(username.getEnteredText(), password.getEnteredText());
+        if (validateUsername() && validatePassword() && validatePhoneNumber()) {
+            button.startRippleAnimation();
+            listener.authenticate(username.getEnteredText(), password.getEnteredText(),
+                    phone.getEnteredText());
         } else {
+            button.stopRippleAnimation();
             ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
         }
     }

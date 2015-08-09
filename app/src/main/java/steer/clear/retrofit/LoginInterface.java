@@ -6,6 +6,7 @@ import retrofit.http.Headers;
 import retrofit.http.POST;
 import rx.Observable;
 import steer.clear.pojo.LoginPost;
+import steer.clear.pojo.RegisterPost;
 
 /**
  * Created by Miles Peele on 7/25/2015.
@@ -18,5 +19,5 @@ public interface LoginInterface {
 
     @POST("/register")
     @Headers({"contentType: application/x-www-form-urlencoded"})
-    Observable<Response> register(@Body LoginPost login);
+    Observable<Response> register(@Body RegisterPost login);
 }

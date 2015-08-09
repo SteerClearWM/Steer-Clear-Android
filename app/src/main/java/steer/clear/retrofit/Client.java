@@ -2,25 +2,25 @@ package steer.clear.retrofit;
 
 import android.app.Application;
 
-import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 
-import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.concurrent.TimeUnit;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.client.Response;
 import rx.Observable;
 import steer.clear.pojo.LoginPost;
-import steer.clear.pojo.RidePost;
+import steer.clear.pojo.RegisterPost;
 import steer.clear.pojo.RideObject;
+import steer.clear.pojo.RidePost;
 
 public class Client {
 
-    private final static String URL_BASE = "http://10.0.3.2:5000/api";
-    private final static String URL_LOGIN = "http://10.0.3.2:5000/";
+    private final static String URL_BASE = "http://10.0.0.223:5000/api";
+    private final static String URL_LOGIN = "http://10.0.0.223:5000/";
 
     private ApiInterface apiInterface;
     public LoginInterface userInterface;
@@ -31,6 +31,7 @@ public class Client {
         cookieHandler.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         okHttpClient.setFollowRedirects(true);
         okHttpClient.setCookieHandler(cookieHandler);
+        okHttpClient.setConnectTimeout(15, TimeUnit.SECONDS);
         OkClient okClient = new OkClient(okHttpClient);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -50,8 +51,8 @@ public class Client {
         return userInterface.login(new LoginPost(username, password));
     }
 
-    public Observable<Response> register(String username, String password) {
-        return userInterface.register(new LoginPost(username, password));
+    public Observable<Response> register(String username, String password, String phone) {
+        return userInterface.register(new RegisterPost(username, password, phone));
     }
 	
 	/**

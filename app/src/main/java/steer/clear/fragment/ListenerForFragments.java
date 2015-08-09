@@ -5,7 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public interface ListenerForFragments {
 
-    void authenticate(String username, String password);
+    void authenticate(String username, String password, String phone);
     GoogleApiClient getGoogleApiClient();
     void changePickup();
     void setChosenLocation(String fragmentTag, LatLng latlng, CharSequence name);

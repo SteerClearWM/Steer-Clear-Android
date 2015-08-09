@@ -1,9 +1,6 @@
 package steer.clear.activity;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -32,19 +29,16 @@ import java.util.TimeZone;
 
 import javax.inject.Inject;
 
-import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.Logger;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.fragment.FragmentHailRide;
-import steer.clear.fragment.FragmentLogin;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.fragment.ListenerForFragments;
 import steer.clear.pojo.RideObject;
 import steer.clear.retrofit.Client;
-import steer.clear.util.Datastore;
 import steer.clear.util.Utils;
 
 /**
@@ -66,7 +60,6 @@ public class ActivityHome extends AppCompatActivity
 	private static CharSequence dropoffLocationName; // says it's unused but it is used in makeHttpPostRequest()
 	
 	// Static strings used as tags for Fragments
-    private static final String LOGIN = "authenticate";
 	private final static String PICKUP = "pickup";
 	private final static String DROPOFF = "dropoff";
 	private final static String POST = "post";
@@ -75,7 +68,6 @@ public class ActivityHome extends AppCompatActivity
 	private static final int REQUEST_RESOLVE_ERROR = 1001;
 
 	@Inject Client helper;
-    @Inject Datastore store;
 	public GoogleApiClient mGoogleApiClient;
 
 	@Override
@@ -122,48 +114,11 @@ public class ActivityHome extends AppCompatActivity
 	public void onBackPressed() {
 	    int count = getFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
-            moveTaskToBack(true);
+            super.onBackPressed();
 	    } else {
 	        getFragmentManager().popBackStack();
 		}
 	}
-
-    private void addFragmentLogin() {
-        FragmentManager manager = getFragmentManager();
-        FragmentLogin login = (FragmentLogin) manager.findFragmentByTag(LOGIN);
-        if (login != null) {
-            manager.beginTransaction().show(login).commit();
-        } else {
-            manager.beginTransaction()
-                    .add(R.id.activity_home_fragment_frame, FragmentLogin.newInstance(), LOGIN)
-                    .commit();
-        }
-    }
-
-    public void onRegisterResponse(Response response, String username, String password) {
-        switch (response.getStatus()) {
-            case 200:
-            case 302:
-                helper.login(username, password)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(this::onLoginResponse, this::onRxError);
-                break;
-            default:
-                Logger.log("UNHANDLED RESPONSE CODE: " + response.getStatus());
-        }
-    }
-
-    public void onLoginResponse(Response response) {
-        switch (response.getStatus()) {
-            case 200:
-            case 302:
-                showMapStuff();
-                break;
-            default:
-                Logger.log("UNHANDLED LOGIN EXCEPTION " + response.getStatus());
-        }
-    }
 
     public void onRideResponseReceived(RideObject response) {
         RideObject.RideInfo info = response.getRideInfo();
@@ -197,23 +152,16 @@ public class ActivityHome extends AppCompatActivity
     }
 
     private void showMapStuff() {
-//        FragmentTransaction ft = getFragmentManager().beginTransaction();
-//        FragmentLogin login = (FragmentLogin) getFragmentManager().findFragmentByTag(LOGIN);
-//        if (login != null) ft.remove(login).commit();
-
         FragmentMap fragment = FragmentMap.newInstance(PICKUP, currentLatLng, false);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_home_fragment_frame, fragment, PICKUP);
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void authenticate(String username, String password) {
-        helper.register(username, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(Response -> onRegisterResponse(Response, username, password), this::onRxError);
-    }
+	@Override
+	public void authenticate(String username, String password, String phone) {
+
+	}
 
 	/**
 	 * Convenience "get" method that fragments can call to get the googleApiClient.
@@ -324,12 +272,12 @@ public class ActivityHome extends AppCompatActivity
             Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (currentLocation != null) {
                 currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-				addFragmentLogin();
+				showMapStuff();
             } else {
 				currentLocation = Utils.getLocation(this);
                 if (currentLocation != null) {
                     currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-					addFragmentLogin();
+					showMapStuff();
                 } else {
                     showSettingsAlert();
                 }

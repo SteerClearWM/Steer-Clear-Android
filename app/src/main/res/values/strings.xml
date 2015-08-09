@@ -3,9 +3,15 @@
 
     <string name="app_name">SteerClear</string>
 
+    <string name="dialog_cant_login_title">Jefferson, We Have a Problem</string>
+    <string name="dialog_cant_login_body">Couldn\'t establish a connection. Try enabling data or
+    connecting to some sweet WiFi.</string>
+    <string name="dialog_cant_login_positive_button">Got it</string>
+
     <string name="fragment_login_register">REGISTER</string>
     <string name="fragment_login_username_hint">Enter Username</string>
     <string name="fragment_login_password_hint">Enter Password</string>
+    <string name="fragment_login_phone_hint">Enter Phone Number</string>
     
     <string name="fragment_map_pickup_input_hint">SELECT PICKUP LOCATION:</string>
     <string name="fragment_map_dropoff_input_hint">SELECT DROPOFF LOCATION:</string>
