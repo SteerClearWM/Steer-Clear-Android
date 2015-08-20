@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import de.greenrobot.event.EventBus;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
 
@@ -36,5 +37,11 @@ public class ApplicationModule {
     @Singleton
     public Datastore getDatastore(Application mApplication) {
         return new Datastore(mApplication);
+    }
+
+    @Provides
+    @Singleton
+    public EventBus getEventBus() {
+        return new EventBus();
     }
 }

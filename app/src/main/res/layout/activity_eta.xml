@@ -22,8 +22,8 @@
     <steer.clear.view.ViewEta
         android:id="@+id/activity_eta_time"
         android:layout_below="@id/activity_eta_time_prefix"
-        android:layout_width="@dimen/dimen_view_eta"
-        android:layout_height="@dimen/dimen_view_eta"
+        android:layout_width="@dimen/view_eta_dimens"
+        android:layout_height="@dimen/view_eta_dimens"
         android:textColor="@android:color/white"
         android:gravity="center"
         android:textSize="50sp"

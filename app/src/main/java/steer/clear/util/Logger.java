@@ -1,4 +1,4 @@
-package steer.clear;
+package steer.clear.util;
 
 import android.util.Log;
 

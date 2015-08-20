@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,38 +18,37 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import butterknife.OnTouch;
+import de.greenrobot.event.EventBus;
+import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.event.EventChangePlaces;
+import steer.clear.event.EventPostPlacesChosen;
 import steer.clear.util.Utils;
 
 public class FragmentHailRide extends Fragment implements OnClickListener, OnTouchListener {
 
-	@InjectView(R.id.fragment_hail_ride_pickup_location) TextView pickup;
-	@InjectView(R.id.fragment_hail_ride_change_pickup) ImageButton changePickup;
-	@InjectView(R.id.fragment_hail_ride_dropoff_location) TextView dropoff;
-	@InjectView(R.id.fragment_hail_ride_change_dropoff) ImageButton changeDropoff;
-	@InjectView(R.id.fragment_hail_ride_post) Button postRide;
-	@InjectView(R.id.view_passenger_switcher) TextView numPassengers;
-	
-	// static int used for, you guessed it, storing the current passenger count
+	@Bind(R.id.fragment_hail_ride_pickup_location) TextView pickup;
+	@Bind(R.id.fragment_hail_ride_change_pickup) ImageButton changePickup;
+	@Bind(R.id.fragment_hail_ride_dropoff_location) TextView dropoff;
+	@Bind(R.id.fragment_hail_ride_change_dropoff) ImageButton changeDropoff;
+	@Bind(R.id.fragment_hail_ride_post) Button postRide;
+	@Bind(R.id.view_passenger_switcher) TextView numPassengers;
+
+	@Inject EventBus bus;
+
 	private static int passengers = 0;
 
-	// Final static strings used as keys for getArguments()
 	private final static String PICKUP = "pickup";
 	private final static String DROPOFF = "dropoff";
-	
-	private ListenerForFragments listener;
+
 	public FragmentHailRide(){}
-	
-	/**
-	 * Instantiates newInstance of this fragment with two variables: the name of the pickupLocation and the dropoffLocation
-	 * @param pickupLocationName
-	 * @param dropoffLocationName
-	 * @return
-	 */
+
 	public static FragmentHailRide newInstance(CharSequence pickupLocationName,
 											   CharSequence dropoffLocationName) {
 		FragmentHailRide frag = new FragmentHailRide();
@@ -58,33 +58,22 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 		frag.setArguments(args);
 		return frag;
 	}
-	
-	@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            listener = (ListenerForFragments) activity;
-        } catch (ClassCastException e) {
-        	e.printStackTrace();
-        }
-    }
 
 	@Override
-	public void onDetach() {
-		super.onDetach();
-		listener = null;
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		((MainApp) activity.getApplication()).getApplicationComponent().inject(this);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_hail_ride, container, false);
-		ButterKnife.inject(this, rootView);
+		ButterKnife.bind(this, rootView);
 		numPassengers.setTypeface(Utils.getStaticTypeFace(getActivity(), "Antipasto.otf"));
 
 		Bundle args = getArguments();
 
 		pickup.setText("PICKUP LOCATION: \n" + args.getCharSequence(PICKUP));
-
 		dropoff.setText("DROPOFF LOCATION: \n" + args.getCharSequence(DROPOFF));
 
 		return rootView;
@@ -104,18 +93,6 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 		return animator;
 	}
 
-	public void onLocationChanged(String whichChanged, CharSequence newLocationName) {
-		switch (whichChanged) {
-			case PICKUP:
-				pickup.setText("PICKUP LOCATION: \n" + newLocationName);
-				break;
-
-			case DROPOFF:
-				dropoff.setText("DROPOFF LOCATION: \n" + newLocationName);
-				break;
-		}
-	}
-
 	@Override
 	@OnClick({R.id.fragment_hail_ride_change_pickup, R.id.fragment_hail_ride_change_dropoff,
 		R.id.fragment_hail_ride_post})
@@ -123,18 +100,20 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 		switch(v.getId()) {
 			case R.id.fragment_hail_ride_post:
 				if (passengers != 0) {
-					listener.makeHttpPostRequest(passengers);
+					bus.post(new EventPostPlacesChosen());
 				} else {
-					Toast.makeText(getActivity(), "Choose number of passengers", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getView(),
+                            getResources().getString(R.string.fragment_hail_ride_no_passengers),
+                            Snackbar.LENGTH_SHORT).show();
 				}
 				break;
 
 			case R.id.fragment_hail_ride_change_pickup:
-				listener.changePickup();
+                bus.post(new EventChangePlaces());
 				break;
 
 			case R.id.fragment_hail_ride_change_dropoff:
-				listener.changeDropoff();
+                bus.post(new EventChangePlaces());
 				break;
 		}
 	}

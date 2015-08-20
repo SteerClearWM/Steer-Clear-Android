@@ -2,23 +2,26 @@
 <resources>
 
     <string name="app_name">SteerClear</string>
+    <string name="url_base">http://10.0.0.223:5000/api</string>
+    <string name="url_authenticate">http://10.0.0.223:5000/</string>
 
-    <string name="dialog_cant_login_title">Jefferson, We Have a Problem</string>
-    <string name="dialog_cant_login_body">Couldn\'t establish a connection. Try enabling data or
-    connecting to some sweet WiFi.</string>
-    <string name="dialog_cant_login_positive_button">Got it</string>
-
-    <string name="fragment_login_register">REGISTER</string>
-    <string name="fragment_login_username_hint">Enter Username</string>
-    <string name="fragment_login_password_hint">Enter Password</string>
-    <string name="fragment_login_phone_hint">Enter Phone Number</string>
+    <string name="fragment_authenticate_register_text">REGISTER</string>
+    <string name="fragment_authenticate_login_text">LOGIN</string>
+    <string name="fragment_authenticate_username_hint">Enter Username</string>
+    <string name="fragment_authenticate_password_hint">Enter Password</string>
+    <string name="fragment_authenticate_phone_hint">Enter Phone Number</string>
     
-    <string name="fragment_map_pickup_input_hint">SELECT PICKUP LOCATION:</string>
-    <string name="fragment_map_dropoff_input_hint">SELECT DROPOFF LOCATION:</string>
-    <string name="fragment_map_map_marker_title">Your Location</string>
+    <string name="fragment_map_pickup_snackbar_text">Select a Pickup Location First</string>
+    <string name="fragment_map_dropoff_snackbar_text">Select a Dropoff Location First</string>
+    <string name="fragment_map_same_location">Pickup and Dropoff Cannot Be the Same</string>
+    <string name="fragment_map_no_service">SteerClear Does Not Service This Location</string>
+    <string name="fragment_map_current_location_marker">Your Location</string>
+    <string name="fragment_map_pickup_location_marker">Pickup Location</string>
+    <string name="fragment_map_dropoff_location_marker">Dropoff Location</string>
     
     <string name="fragment_hail_ride_passenger_select_prompt">NUMBER OF PASSENGERS:</string>
     <string name="fragment_hail_ride_post">REQUEST RIDE</string>
+    <string name="fragment_hail_ride_no_passengers">You Can\'t Have 0 Passengers</string>
 
     <string name="activity_eta_cancel_ride">CANCEL RIDE</string>
     <string name="activity_eta_formatted_title">Your ride will \n arrive at:</string>
@@ -27,6 +30,15 @@
     <string name="toast_google_client_connection_lost">Connection to internet has been lost, re-enable to continue using</string>
     <string name="toast_too_far_for_steer_clear">SteerClear does not service this location</string>
     <string name="toast_must_choose_location">Choose a location first!</string>
+
+    <string name="error_dialog_pos_button_text">Got it</string>
+
+    <string name="error_dialog_general_title">Something Has Gone Horribly Wrong</string>
+    <string name="error_dialog_general_body">Don\'t look at me. It\'s not my fault.</string>
+
+    <string name="error_dialog_no_internet_title">Jefferson, We Have a Problem</string>
+    <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try enabling data or
+        connecting to some sweet WiFi.</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
     <string name="dialog_no_gps_body">GPS is not enabled. Do you want to go to your settings menu?

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import steer.clear.Logger;
+import steer.clear.util.Logger;
 
 public class AdapterAutoComplete
         extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {

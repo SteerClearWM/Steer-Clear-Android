@@ -11,7 +11,7 @@ import steer.clear.pojo.RegisterPost;
 /**
  * Created by Miles Peele on 7/25/2015.
  */
-public interface LoginInterface {
+public interface AuthenticateInterface {
 
     @POST("/login")
     @Headers({"contentType: application/x-www-form-urlencoded"})

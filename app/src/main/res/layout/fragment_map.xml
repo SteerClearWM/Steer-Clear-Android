@@ -2,48 +2,46 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/fragment_hail_ride_background" >
-    
-   	<com.google.android.gms.maps.MapView
-	    android:id="@+id/fragment_map_view"
-	    android:layout_marginTop="@dimen/map_margin_from_top"
-        android:layout_marginBottom="@dimen/map_margin_from_bottom"
-	    android:layout_width="match_parent" 
-	    android:layout_height="match_parent" />
-    
-    <TextView
-        android:id="@+id/fragment_map_input_hint"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:textSize="@dimen/view_autocomplete_text_size"
-        android:layout_marginTop="@dimen/view_autocomplete_margin_from_top"
+    android:layout_height="match_parent" >
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/fragment_map_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
    	
    	<steer.clear.view.ViewAutoComplete
-        android:id="@+id/fragment_map_input"
-        android:layout_width="fill_parent"
+        android:id="@+id/fragment_map_pickup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:inputType="textNoSuggestions"
-        android:completionThreshold="2"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:scrollHorizontally="true"
-        android:gravity="start|left"
-        android:layout_below="@id/fragment_map_input_hint"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginLeft="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:drawableStart="@drawable/ic_clear_search_api_holo_light"
-        android:drawableLeft="@drawable/ic_clear_search_api_holo_light"
-        android:drawableRight="@drawable/ic_action_forward"
-        android:drawableEnd="@drawable/ic_action_forward" />
-   	
-   	<ProgressBar
-        android:id="@+id/fragment_map_input_suggestions_loading"
+        android:drawableLeft="@drawable/ic_clear_search_api_holo_light" />
+
+    <steer.clear.view.ViewAutoComplete
+        android:id="@+id/fragment_map_dropoff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_map_pickup"
+        android:layout_marginStart="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginLeft="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:drawableStart="@drawable/ic_clear_search_api_holo_light"
+        android:drawableLeft="@drawable/ic_clear_search_api_holo_light" />
+
+    <ImageButton
+        android:id="@+id/fragment_map_post"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@id/fragment_map_input"
-        android:visibility="gone"  />
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_forward"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

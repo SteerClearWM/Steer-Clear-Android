@@ -4,31 +4,31 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="fragment_login_register_button_horizontal_margin">100dp</dimen>
+    <dimen name="fragment_authenticate_register_top_margin">265dp</dimen>
+    <dimen name="fragment_authenticate_button_horizontal_margin">100dp</dimen>
+    <dimen name="fragment_authenticate_button_text_size">35sp</dimen>
+    <dimen name="fragment_authenticate_edittext_horizontal_margin">50dp</dimen>
+    <dimen name="fragment_authenticate_edittext_height">45dp</dimen>
+    <dimen name="fragment_authenticate_edittext_vertical_margin">15dp</dimen>
 
-    <dimen name="view_enter_user_info_horizontal_margin">50dp</dimen>
-    <dimen name="view_enter_user_info_height">55dp</dimen>
-    <dimen name="view_enter_user_info_vertical_margin">10dp</dimen>
-
+    <dimen name="fragment_map_autocomplete_horizontal_margin">16dp</dimen>
     <dimen name="view_autocomplete_text_size">20sp</dimen>
-    <dimen name="view_autocomplete_margin_from_top">80dp</dimen>
 
     <dimen name="view_change_location_margin_start">15dp</dimen>
     <dimen name="view_change_location_padding_start">5dp</dimen>
     <dimen name="view_change_location_text_size">25sp</dimen>
 
-    <dimen name="view_post_ride_margin">30dp</dimen>
-
+    <dimen name="fragment_hail_ride_post_margin">30dp</dimen>
     <dimen name="fragment_hail_ride_post_ride_margin">125dp</dimen>
     <dimen name="fragment_hail_ride_dropoff_margin">25dp</dimen>
     <dimen name="fragment_hail_ride_post_margin_from_bottom">58dp</dimen>
 
     <dimen name="activity_eta_margin_from_top">150dp</dimen>
 
-    <dimen name="map_margin_from_top">150dp</dimen>
-    <dimen name="map_margin_from_bottom">50dp</dimen>
+    <dimen name="view_eta_dimens">200dp</dimen>
 
-    <dimen name="dimen_view_eta">200dp</dimen>
-
-    <dimen name="dialog_title_text_size">20dp</dimen>
+    <dimen name="dialog_title_text_size">20sp</dimen>
+    <dimen name="dialog_body_text_size">15sp</dimen>
+    <dimen name="dialog_view_vertical_margin">20dp</dimen>
+    <dimen name="dialog_view_horizontal_margin">15dp</dimen>
 </resources>

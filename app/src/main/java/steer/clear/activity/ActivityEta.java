@@ -1,8 +1,8 @@
 package steer.clear.activity;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import butterknife.OnClick;
 import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
@@ -22,12 +22,12 @@ import steer.clear.retrofit.Client;
 import steer.clear.util.Utils;
 import steer.clear.view.ViewEta;
 
-public class ActivityEta extends AppCompatActivity
-        implements View.OnClickListener {
+public class ActivityEta extends AppCompatActivity implements View.OnClickListener {
 
-    @InjectView(R.id.activity_eta_time_prefix) TextView prefix;
-    @InjectView(R.id.activity_eta_time) ViewEta etaTime;
-    @InjectView(R.id.activity_eta_cancel_ride) Button cancelRide;
+    @Bind(R.id.activity_eta_time_prefix) TextView prefix;
+    @Bind(R.id.activity_eta_time) ViewEta etaTime;
+    @Bind(R.id.activity_eta_cancel_ride) Button cancelRide;
+
     private static int cancelId;
     private static String eta;
 
@@ -42,20 +42,20 @@ public class ActivityEta extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         cancelRide.setTypeface(Utils.getStaticTypeFace(this, "Antipasto.otf"));
         prefix.setTypeface(Utils.getStaticTypeFace(this, "Antipasto.otf"));
 
         ((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
 
-        if (getIntent() != null) {
-            Intent extras = getIntent();
-            int pickupHour = extras.getIntExtra(HOUR, 0);
-            int pickupMinute = extras.getIntExtra(MINUTE, 0);
-            cancelId = extras.getIntExtra(CANCEL, 0);
-            if (savedInstanceState != null) {
-                etaTime.setText(savedInstanceState.getString(ETA));
-            } else {
+        if (savedInstanceState != null) {
+            etaTime.setText(savedInstanceState.getString(ETA));
+        } else {
+            if (getIntent() != null) {
+                Intent extras = getIntent();
+                int pickupHour = extras.getIntExtra(HOUR, 0);
+                int pickupMinute = extras.getIntExtra(MINUTE, 0);
+                cancelId = extras.getIntExtra(CANCEL, 0);
                 eta = String.format("%02d : %02d", pickupHour, pickupMinute);
                 etaTime.setText(eta);
             }
@@ -85,7 +85,7 @@ public class ActivityEta extends AppCompatActivity
     @Override
     @OnClick(R.id.activity_eta_cancel_ride)
     public void onClick(View v) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         alertDialog.setTitle(getResources().getString(R.string.dialog_cancel_ride_title));
         alertDialog.setMessage(getResources().getString(R.string.dialog_cancel_ride_body));
         alertDialog.setPositiveButton(
