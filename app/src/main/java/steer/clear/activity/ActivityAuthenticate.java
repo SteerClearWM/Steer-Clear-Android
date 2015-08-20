@@ -1,6 +1,7 @@
 package steer.clear.activity;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,7 +32,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_authenticate);
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
         bus.register(this);
@@ -46,7 +47,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
             manager.beginTransaction().show(login).commit();
         } else {
             manager.beginTransaction()
-                    .add(R.id.activity_home_fragment_frame,
+                    .add(R.id.activity_authenticate_root,
                             FragmentAuthenticate.newInstance(store.checkRegistered()), AUTHENTICATE_TAG)
                     .commit();
         }
@@ -68,26 +69,16 @@ public class ActivityAuthenticate extends AppCompatActivity {
     }
 
     public void onRegisterError(int errorCode) {
-        FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate)
-                getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
-        if (fragmentAuthenticate != null) {
-            fragmentAuthenticate.stopTheRipple();
-        }
         Logger.log("ON REGISTER ERROR: " + errorCode);
         ErrorDialog.createFromErrorCode(this, errorCode).show();
     }
 
     public void onLoginSuccess() {
-        Logger.log("ON LOGIN SUCCESS");
+        Logger.log("ON login SUCCESS");
     }
 
     public void onLoginError(int errorCode) {
-        FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate)
-                getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
-        if (fragmentAuthenticate != null) {
-            fragmentAuthenticate.stopTheRipple();
-        }
-        Logger.log("ON REGISTER ERROR: " + errorCode);
+        Logger.log("ON login ERROR: " + errorCode);
         ErrorDialog.createFromErrorCode(this, errorCode).show();
     }
 

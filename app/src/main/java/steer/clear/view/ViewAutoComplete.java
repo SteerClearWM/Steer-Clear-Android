@@ -39,7 +39,20 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
     private Paint rectPaint;
     private Drawable cancelDrawable;
+
     private MyHandler mHandler = new MyHandler(this);
+    private final static class MyHandler extends Handler {
+        private final WeakReference<ViewAutoComplete> ref;
+
+        public MyHandler(ViewAutoComplete view) {
+            ref = new WeakReference<>(view);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            ref.get().handlerFilter((CharSequence) msg.obj, msg.arg1);
+        }
+    }
 
     private AutoCompleteListener mListener;
     public interface AutoCompleteListener {
@@ -76,11 +89,11 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         cancelDrawable = getCompoundDrawables()[0];
 
 //        getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-//        rectPaint = new Paint();
-//        rectPaint.setColor(Color.BLACK);
-//        rectPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-//        rectPaint.setAntiAlias(true);
-//        rectPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
+        rectPaint = new Paint();
+        rectPaint.setColor(Color.YELLOW);
+        rectPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        rectPaint.setAntiAlias(true);
+        rectPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
     }
 
     @Override
@@ -98,14 +111,6 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         }
 
         return super.onTouchEvent(event);
-    }
-
-    public void setAutoCompleteListener(AutoCompleteListener listener) {
-        mListener = listener;
-    }
-
-    protected void handlerFilter(CharSequence msg, int delay) {
-        super.performFiltering(msg, delay);
     }
 
     @Override
@@ -127,6 +132,14 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         }
     }
 
+    public void setAutoCompleteListener(AutoCompleteListener listener) {
+        mListener = listener;
+    }
+
+    protected void handlerFilter(CharSequence msg, int delay) {
+        super.performFiltering(msg, delay);
+    }
+
     public void setTextNoFilter(String text, boolean toFilter) {
         if (android.os.Build.VERSION.SDK_INT >= 17) {
             setText(text, toFilter);
@@ -135,19 +148,6 @@ public class ViewAutoComplete extends AutoCompleteTextView {
             setAdapter(null);
             setText(text);
             setAdapter(test);
-        }
-    }
-
-    private final static class MyHandler extends Handler {
-        private final WeakReference<ViewAutoComplete> ref;
-
-        public MyHandler(ViewAutoComplete view) {
-            ref = new WeakReference<>(view);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            ref.get().handlerFilter((CharSequence) msg.obj, msg.arg1);
         }
     }
 

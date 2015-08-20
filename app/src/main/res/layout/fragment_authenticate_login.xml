@@ -6,6 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/fragment_authenticate_logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/start_screen_logo"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY" />
+
     <steer.clear.view.ViewAuthenticateEditText
         android:id="@+id/fragment_authenticate_username"
         android:layout_width="match_parent"
@@ -14,11 +26,9 @@
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
-        android:layout_centerInParent="true"
         android:layout_marginBottom="15dp"
+        android:layout_below="@id/fragment_authenticate_logo"
         android:hint="@string/fragment_authenticate_username_hint"
-        android:gravity="center"
-        android:singleLine="true"
         tools:text="USERNAME" />
 
     <steer.clear.view.ViewAuthenticateEditText
@@ -29,26 +39,35 @@
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="85dp"
         android:layout_below="@id/fragment_authenticate_username"
         android:inputType="textPassword"
         android:hint="@string/fragment_authenticate_password_hint"
-        android:gravity="center"
-        android:singleLine="true"
         tools:text="PASWORD" />
 
-    <steer.clear.view.ViewRectangleBackgroundButton
+    <Button
         android:id="@+id/fragment_authenticate_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_marginLeft="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_marginStart="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_button_horizontal_margin"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_below="@id/fragment_authenticate_password"
+        android:background="@android:color/white"
+        android:textColor="@color/wm_green"
         android:text="@string/fragment_authenticate_login_text"
         android:textSize="@dimen/fragment_authenticate_button_text_size"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/fragment_authenticate_register_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_authenticate_button"
+        android:clickable="true"
+        android:gravity="center" />
 
 </RelativeLayout>

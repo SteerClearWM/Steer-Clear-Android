@@ -18,7 +18,11 @@
     </style>
 
     <style name="ActivityAuthenticateTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/start_screen</item>
+        <item name="android:windowBackground">@drawable/road</item>
+    </style>
+
+    <style name="ActivityHomeTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
     <style name="DialogAnimation">

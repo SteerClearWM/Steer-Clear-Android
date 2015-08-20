@@ -6,13 +6,19 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.annotation.Nullable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.Button;
+import android.widget.TextView;
 
 import javax.inject.Inject;
 
@@ -24,6 +30,7 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.util.Logger;
+import steer.clear.util.Utils;
 import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewRectangleBackgroundButton;
 
@@ -39,8 +46,9 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
 
     @Bind(R.id.fragment_authenticate_username) ViewAuthenticateEditText username;
     @Bind(R.id.fragment_authenticate_password) ViewAuthenticateEditText password;
-    @Bind(R.id.fragment_authenticate_phone) ViewAuthenticateEditText phone;
-    @Bind(R.id.fragment_authenticate_button) ViewRectangleBackgroundButton button;
+    @Nullable @Bind(R.id.fragment_authenticate_phone) ViewAuthenticateEditText phone;
+    @Nullable @Bind(R.id.fragment_authenticate_register_prompt) TextView prompt;
+    @Bind(R.id.fragment_authenticate_button) Button button;
 
     @Inject EventBus bus;
 
@@ -60,6 +68,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainApp) activity.getApplication()).getApplicationComponent().inject(this);
+        bus.register(this);
     }
 
     @Override
@@ -73,12 +82,10 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         View v = (getArguments().getBoolean(REGISTERED_KEY)) ?
                 inflater.inflate(R.layout.fragment_authenticate_login, container, false) :
                 inflater.inflate(R.layout.fragment_authenticate_register, container, false);
+//        View v = inflater.inflate(R.layout.fragment_authenticate_login, container, false);
         ButterKnife.bind(this, v);
-        username.setText("fuck");
-        password.setText("food");
-        if (phone != null) {
-            phone.setText("2022819022");
-        }
+        button.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
+        if (prompt != null) { prompt.setText(createSpan()); }
         return v;
     }
 
@@ -118,8 +125,26 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         return animator;
     }
 
-    public void stopTheRipple() {
-        button.stopRippleAnimation();
+    private SpannableString createSpan() {
+        prompt.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
+        prompt.setMovementMethod(LinkMovementMethod.getInstance());
+
+        SpannableString styledString = new SpannableString(getResources().getString(R.string.fragment_authenticate_register_prompt));
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) { ds.setUnderlineText(false); }
+        };
+        styledString.setSpan(clickableSpan, 23, styledString.length(), 0);
+
+        styledString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.spirit_gold)),
+                23, styledString.length(), 0);
+        return styledString;
     }
 
     private boolean validateUsername() {
@@ -143,7 +168,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         if (getArguments().getBoolean(REGISTERED_KEY)) {
             if (validateUsername() && validatePassword()) {
-                button.startRippleAnimation();
                 bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
                         ""));
             } else {
@@ -151,12 +175,15 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
             }
         } else {
             if (validateUsername() && validatePassword() && validatePhoneNumber()) {
-                button.startRippleAnimation();
                 bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
                         formatPhoneNumber()));
             } else {
                 ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
             }
         }
+    }
+
+    public void onEvent(int errorCode) {
+
     }
 }

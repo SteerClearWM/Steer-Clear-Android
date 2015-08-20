@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -28,14 +29,9 @@ import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
+import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 
-/**
- * "HomeScreen" activity of the SteerClear app.
- * Instantiates MapFragments and handles anything having to do with Http.
- * @author Miles Peele
- *
- */
 public class ActivityHome extends AppCompatActivity
 	implements OnConnectionFailedListener, ConnectionCallbacks {
 
@@ -53,6 +49,7 @@ public class ActivityHome extends AppCompatActivity
 	@Inject Client helper;
     @Inject EventBus bus;
 	public GoogleApiClient mGoogleApiClient;
+    private AlertDialog settings;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +69,6 @@ public class ActivityHome extends AppCompatActivity
 				.build();
 	}
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mGoogleApiClient.disconnect();
-    }
-
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_RESOLVE_ERROR) {
@@ -98,7 +83,7 @@ public class ActivityHome extends AppCompatActivity
 
 	@Override
 	public void onBackPressed() {
-	    int count = getFragmentManager().getBackStackEntryCount();
+        int count = getFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
             super.onBackPressed();
 	    } else {
@@ -136,31 +121,30 @@ public class ActivityHome extends AppCompatActivity
 	public void onConnectionSuspended(int cause) {
 
 	}
-	
-	/**
-     * Method to show settings alert dialog if GPS could not be found
-     * On pressing Settings button will launch Settings Options
-     * */
-    public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle(getResources().getString(R.string.dialog_no_gps_title));
-        alertDialog.setMessage(getResources().getString(R.string.dialog_no_gps_body));
-        alertDialog.setPositiveButton(getResources().getString(R.string.dialog_no_gps_pos_button_text),
-                (dialog, which) -> {
-                    dialog.dismiss();
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addCategory(Intent.CATEGORY_HOME);
-                    startActivity(intent);
-                });
-  
-        alertDialog.setNegativeButton(getResources().getString(R.string.dialog_no_gps_neg_button_text),
-                (dialog, which) -> {
-                    dialog.cancel();
-                    finish();
-                });
 
-        alertDialog.show();
+    public void showSettingsAlert() {
+        if (settings == null) {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+            alertDialog.setTitle(getResources().getString(R.string.dialog_no_gps_title));
+            alertDialog.setMessage(getResources().getString(R.string.dialog_no_gps_body));
+            alertDialog.setPositiveButton(getResources().getString(R.string.dialog_no_gps_pos_button_text),
+                    (dialog, which) -> {
+                        dialog.dismiss();
+                        Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    });
+
+            alertDialog.setNegativeButton(getResources().getString(R.string.dialog_no_gps_neg_button_text),
+                    (dialog, which) -> {
+                        finish();
+                    });
+            settings = alertDialog.create();
+            settings.show();
+        }
+
+        if (!settings.isShowing()) {
+            settings.show();
+        }
     }
 
 	@Override

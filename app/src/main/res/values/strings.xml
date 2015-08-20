@@ -7,10 +7,13 @@
 
     <string name="fragment_authenticate_register_text">REGISTER</string>
     <string name="fragment_authenticate_login_text">LOGIN</string>
-    <string name="fragment_authenticate_username_hint">Enter Username</string>
-    <string name="fragment_authenticate_password_hint">Enter Password</string>
-    <string name="fragment_authenticate_phone_hint">Enter Phone Number</string>
-    
+    <string name="fragment_authenticate_username_hint">W&amp;M USERNAME</string>
+    <string name="fragment_authenticate_password_hint">PASSWORD</string>
+    <string name="fragment_authenticate_phone_hint">PHONE</string>
+    <string name="fragment_authenticate_register_prompt">Don\'t have an account? REGISTER</string>
+
+    <string name="fragment_map_pickup_hint">Select a Pick Up Location</string>
+    <string name="fragment_map_dropoff_hint">Select a Drop Off Location</string>
     <string name="fragment_map_pickup_snackbar_text">Select a Pickup Location First</string>
     <string name="fragment_map_dropoff_snackbar_text">Select a Dropoff Location First</string>
     <string name="fragment_map_same_location">Pickup and Dropoff Cannot Be the Same</string>
