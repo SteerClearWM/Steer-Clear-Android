@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fragment_hail_ride_background" >
 
-    <TextView
+    <steer.clear.view.ViewTypefaceTextView
         android:id="@+id/activity_eta_time_prefix"
         android:layout_marginTop="@dimen/activity_eta_margin_from_top"
         android:layout_width="match_parent"

@@ -5,6 +5,8 @@
     <string name="url_base">http://10.0.0.223:5000/api</string>
     <string name="url_authenticate">http://10.0.0.223:5000/</string>
 
+    <string name="header_text">Steer Clear</string>
+
     <string name="fragment_authenticate_register_text">REGISTER</string>
     <string name="fragment_authenticate_login_text">LOGIN</string>
     <string name="fragment_authenticate_username_hint">W&amp;M USERNAME</string>
@@ -18,11 +20,9 @@
     <string name="fragment_map_dropoff_snackbar_text">Select a Dropoff Location First</string>
     <string name="fragment_map_same_location">Pickup and Dropoff Cannot Be the Same</string>
     <string name="fragment_map_no_service">SteerClear Does Not Service This Location</string>
-    <string name="fragment_map_current_location_marker">Your Location</string>
-    <string name="fragment_map_pickup_location_marker">Pickup Location</string>
-    <string name="fragment_map_dropoff_location_marker">Dropoff Location</string>
+    <string name="fragment_map_footer_text">CONFIRM RIDE</string>
     
-    <string name="fragment_hail_ride_passenger_select_prompt">NUMBER OF PASSENGERS:</string>
+    <string name="fragment_hail_ride_passenger_select_prompt">PASSENGERS:</string>
     <string name="fragment_hail_ride_post">REQUEST RIDE</string>
     <string name="fragment_hail_ride_no_passengers">You Can\'t Have 0 Passengers</string>
 

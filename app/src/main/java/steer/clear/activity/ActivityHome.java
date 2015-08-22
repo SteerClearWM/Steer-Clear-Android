@@ -2,12 +2,14 @@ package steer.clear.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.drawable.TransitionDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -69,7 +71,13 @@ public class ActivityHome extends AppCompatActivity
 				.build();
 	}
 
-	@Override
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getWindow().setBackgroundDrawable(null);
+    }
+
+    @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_RESOLVE_ERROR) {
 			if (resultCode == RESULT_OK) {
@@ -110,10 +118,10 @@ public class ActivityHome extends AppCompatActivity
         }
 	}
 
-	private void showMapStuff(LatLng currentLatLng) {
+	private void showMapStuff(LatLng userLatLng) {
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
-				FragmentMap.newInstance(currentLatLng), MAP);
+                FragmentMap.newInstance(userLatLng), MAP);
 		fragmentTransaction.commit();
 	}
 
@@ -169,8 +177,7 @@ public class ActivityHome extends AppCompatActivity
         if (fragmentMap != null) {
             ft.replace(R.id.activity_home_fragment_frame, fragmentMap, MAP).commit();
         } else {
-            ft.replace(R.id.activity_home_fragment_frame, FragmentMap.newInstance(userLatLng),
-                    MAP).commit();
+            ft.replace(R.id.activity_home_fragment_frame, FragmentMap.newInstance(userLatLng), MAP).commit();
         }
     }
 

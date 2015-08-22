@@ -1,8 +1,11 @@
 package steer.clear.view;
 
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,24 +15,21 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.GravityCompat;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.StaticLayout;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.ProgressBar;
 
 import java.lang.ref.WeakReference;
 
-import steer.clear.R;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.util.Logger;
+import steer.clear.util.Utils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
 
@@ -37,10 +37,16 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
     private static final int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
 
-    private Paint rectPaint;
-    private Drawable cancelDrawable;
+    private Drawable drawable;
+
+    private boolean startRipple = false;
+    private final static int DURATION = 2000;
+    private float radius;
+    private Paint ripplePaint;
+    private final static int HALF_ALPHA = 128;
 
     private MyHandler mHandler = new MyHandler(this);
+
     private final static class MyHandler extends Handler {
         private final WeakReference<ViewAutoComplete> ref;
 
@@ -78,34 +84,38 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     private void init(AttributeSet attributeSet) {
         setPaintFlags(getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
         setTextColor(Color.BLACK);
+        setHintTextColor(Color.GRAY);
         setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         setThreshold(2);
         setSingleLine(true);
-        setGravity(GravityCompat.START);
+        setGravity(Gravity.START | Gravity.CENTER);
         setHorizontallyScrolling(true);
         setEllipsize(TextUtils.TruncateAt.END);
-        setBackgroundColor(Color.WHITE);
+        setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
+        setCompoundDrawablePadding(15);
 
-        cancelDrawable = getCompoundDrawables()[0];
+        drawable = getCompoundDrawables()[2];
 
-//        getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-        rectPaint = new Paint();
-        rectPaint.setColor(Color.YELLOW);
-        rectPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-        rectPaint.setAntiAlias(true);
-        rectPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
+        ripplePaint = new Paint();
+        ripplePaint.setAntiAlias(true);
+        ripplePaint.setStyle(Paint.Style.FILL);
+        ripplePaint.setColor(Color.WHITE);
+        ripplePaint.setAlpha(HALF_ALPHA);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-//        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), rectPaint);
+        if (startRipple) {
+            canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, radius, ripplePaint);
+        }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getX() <= (getLeft() + getPaddingLeft() + cancelDrawable.getIntrinsicWidth())) {
+            if (event.getX() > getWidth() - getPaddingRight() - drawable.getIntrinsicWidth()) {
+                setText("");
                 mListener.clearClicked(this);
             }
         }
@@ -115,29 +125,18 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
     @Override
     protected void performFiltering(CharSequence text, int keyCode) {
+        startRippleAnimation();
         mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
     }
 
-    @Override
-    protected void replaceText(CharSequence text) {
-        float viewWidth = getMeasuredWidth();
-        float textWidth = getPaint().measureText((String) text);
-        if (textWidth > viewWidth) {
-            setText(TextUtils.ellipsize(text, getPaint(),
-                    viewWidth - viewWidth / 4,
-                    TextUtils.TruncateAt.END, true, null));
-        } else {
-            setText(text);
-        }
+    protected void handlerFilter(CharSequence msg, int delay) {
+        super.performFiltering(msg, delay);
+        stopRippleAnimation();
     }
 
     public void setAutoCompleteListener(AutoCompleteListener listener) {
         mListener = listener;
-    }
-
-    protected void handlerFilter(CharSequence msg, int delay) {
-        super.performFiltering(msg, delay);
     }
 
     public void setTextNoFilter(String text, boolean toFilter) {
@@ -151,4 +150,36 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         }
     }
 
+    public void startRippleAnimation() {
+        startRipple = true;
+
+        AnimatorSet test = new AnimatorSet();
+
+        ObjectAnimator radius = ObjectAnimator.ofFloat(this, "radius", 0, getMeasuredWidth());
+        radius.setDuration(DURATION);
+        radius.setRepeatCount(ValueAnimator.INFINITE);
+
+        ObjectAnimator alpha =  ObjectAnimator.ofObject(ripplePaint, "alpha",
+                new ArgbEvaluator(), ripplePaint.getAlpha(), 0);
+        alpha.setDuration(DURATION);
+        alpha.setRepeatCount(ValueAnimator.INFINITE);
+
+        test.playTogether(radius, alpha);
+        test.start();
+    }
+
+    public void stopRippleAnimation() {
+        if (radius == getMeasuredWidth()) {
+            startRipple = false;
+        }
+    }
+
+    public float getRadius() {
+        return radius;
+    }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+        invalidate();
+    }
 }

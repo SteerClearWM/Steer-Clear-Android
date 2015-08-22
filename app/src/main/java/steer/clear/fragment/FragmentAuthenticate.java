@@ -107,14 +107,12 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
 
     @Override
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        AnimatorSet animator;
+        AnimatorSet animator = new AnimatorSet();
         if (enter) {
-            animator = new AnimatorSet();
             animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 0.45f, 1),
                     ObjectAnimator.ofFloat(getActivity(), "scaleY", 0.45f, 1),
                     ObjectAnimator.ofFloat(getActivity(), "alpha", 0, 1));
         } else {
-            animator = new AnimatorSet();
             animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 1, 0),
                     ObjectAnimator.ofFloat(getActivity(), "scaleX", 1, 0),
                     ObjectAnimator.ofFloat(getActivity(), "scaleY", 1, 0));
@@ -126,7 +124,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     }
 
     private SpannableString createSpan() {
-        prompt.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
         prompt.setMovementMethod(LinkMovementMethod.getInstance());
 
         SpannableString styledString = new SpannableString(getResources().getString(R.string.fragment_authenticate_register_prompt));

@@ -23,26 +23,13 @@ public class AdapterAutoComplete
         extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {
 
     private static final String TAG = "PlaceAutocompleteAdapter";
-    /**
-     * Current results returned by this adapter.
-     */
+
     private ArrayList<AdapterAutoCompleteItem> mResultList;
 
-    /**
-     * Handles autocomplete requests.
-     */
-    private final GoogleApiClient mGoogleApiClient;
+     final GoogleApiClient mGoogleApiClient;
 
-    /**
-     * The bounds used for Places Geo Data autocomplete API requests.
-     */
     private LatLngBounds mBounds;
 
-    /**
-     * Initializes with a resource for text rows and autocomplete query bounds.
-     *
-     * @see android.widget.ArrayAdapter#ArrayAdapter(android.content.Context, int)
-     */
     public AdapterAutoComplete(Context context, int resource, GoogleApiClient googleApiClient,
             LatLngBounds bounds) {
         super(context, resource);
@@ -50,35 +37,23 @@ public class AdapterAutoComplete
         mBounds = bounds;
     }
 
-    /**
-     * Sets the bounds for all subsequent queries.
-     */
     public void setBounds(LatLngBounds bounds) {
         mBounds = bounds;
     }
 
-    /**
-     * Returns the number of results received in the last autocomplete query.
-     */
     @Override
     public int getCount() {
         return mResultList.size();
     }
 
-    /**
-     * Returns an item from the last autocomplete query.
-     */
     @Override
     public AdapterAutoCompleteItem getItem(int position) {
         return mResultList.get(position);
     }
 
-    /**
-     * Returns the filter for the current set of autocomplete results.
-     */
     @Override
     public Filter getFilter() {
-        Filter filter = new Filter() {
+        return new Filter() {
         	
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
@@ -107,7 +82,6 @@ public class AdapterAutoComplete
                 }
             }
         };
-        return filter;
     }
 
     /**

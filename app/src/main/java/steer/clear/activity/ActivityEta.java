@@ -21,10 +21,11 @@ import steer.clear.R;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Utils;
 import steer.clear.view.ViewEta;
+import steer.clear.view.ViewTypefaceTextView;
 
 public class ActivityEta extends AppCompatActivity implements View.OnClickListener {
 
-    @Bind(R.id.activity_eta_time_prefix) TextView prefix;
+    @Bind(R.id.activity_eta_time_prefix) ViewTypefaceTextView prefix;
     @Bind(R.id.activity_eta_time) ViewEta etaTime;
     @Bind(R.id.activity_eta_cancel_ride) Button cancelRide;
 
@@ -43,8 +44,8 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
         ButterKnife.bind(this);
-        cancelRide.setTypeface(Utils.getStaticTypeFace(this, "Antipasto.otf"));
-        prefix.setTypeface(Utils.getStaticTypeFace(this, "Antipasto.otf"));
+        cancelRide.setTypeface(Utils.getStaticTypeFace(this, "Avenir.otf"));
+        prefix.setTypeface(Utils.getStaticTypeFace(this, "Avenir.otf"));
 
         ((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
 

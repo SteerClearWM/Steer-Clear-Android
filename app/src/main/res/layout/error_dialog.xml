@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <TextView
+    <steer.clear.view.ViewTypefaceTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/error_dialog_title"
         style="@style/DialogTitleText" />
 
-    <TextView
+    <steer.clear.view.ViewTypefaceTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/error_dialog_title"

@@ -7,6 +7,7 @@
 
     <!-- NEW COLOR GUIDE -->
     <color name="wm_green">#115740</color>
+    <color name="selected_wm_green">#009933</color>
     <color name="spirit_gold">#F0B323</color>
     <color name="wm_silver">#80D0D3D4</color>
 </resources>

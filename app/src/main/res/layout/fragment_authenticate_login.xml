@@ -62,7 +62,7 @@
         android:textSize="@dimen/fragment_authenticate_button_text_size"
         android:layout_centerHorizontal="true" />
 
-    <TextView
+    <steer.clear.view.ViewTypefaceTextView
         android:id="@+id/fragment_authenticate_register_prompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

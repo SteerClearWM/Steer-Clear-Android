@@ -12,14 +12,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import steer.clear.R;
+import steer.clear.view.ViewTypefaceTextView;
 
 /**
  * Created by Miles Peele on 8/19/2015.
  */
 public class ErrorDialog extends Dialog implements View.OnClickListener, DialogInterface.OnDismissListener {
 
-    @Bind(R.id.error_dialog_title) TextView title;
-    @Bind(R.id.error_dialog_body) TextView body;
+    @Bind(R.id.error_dialog_title) ViewTypefaceTextView title;
+    @Bind(R.id.error_dialog_body) ViewTypefaceTextView body;
     @Bind(R.id.error_dialog_pos_button) Button posButton;
 
     private String titleText;

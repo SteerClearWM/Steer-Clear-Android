@@ -4,6 +4,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="header_text_size">20sp</dimen>
+    <dimen name="footer_text_size">15sp</dimen>
+
     <dimen name="fragment_authenticate_register_top_margin">265dp</dimen>
     <dimen name="fragment_authenticate_button_horizontal_margin">65dp</dimen>
     <dimen name="fragment_authenticate_button_text_size">35sp</dimen>
@@ -12,7 +15,7 @@
     <dimen name="fragment_authenticate_edittext_height">45dp</dimen>
     <dimen name="fragment_authenticate_edittext_vertical_margin">15dp</dimen>
 
-    <dimen name="fragment_map_autocomplete_horizontal_margin">16dp</dimen>
+    <dimen name="fragment_map_autocomplete_horizontal_margin">30dp</dimen>
     <dimen name="view_autocomplete_text_size">20sp</dimen>
 
     <dimen name="view_change_location_margin_start">15dp</dimen>

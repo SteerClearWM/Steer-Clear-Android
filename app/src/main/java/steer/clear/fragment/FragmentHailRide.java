@@ -4,8 +4,12 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +33,7 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventChangePlaces;
 import steer.clear.event.EventPostPlacesChosen;
+import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 
 public class FragmentHailRide extends Fragment implements OnClickListener, OnTouchListener {
@@ -44,8 +49,8 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 
 	private static int passengers = 0;
 
-	private final static String PICKUP = "pickup";
-	private final static String DROPOFF = "dropoff";
+	private final static String PICKUP = "pickupText";
+	private final static String DROPOFF = "dropoffText";
 
 	public FragmentHailRide(){}
 
@@ -69,12 +74,12 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_hail_ride, container, false);
 		ButterKnife.bind(this, rootView);
-		numPassengers.setTypeface(Utils.getStaticTypeFace(getActivity(), "Antipasto.otf"));
+		numPassengers.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
 
 		Bundle args = getArguments();
 
-		pickup.setText("PICKUP LOCATION: \n" + args.getCharSequence(PICKUP));
-		dropoff.setText("DROPOFF LOCATION: \n" + args.getCharSequence(DROPOFF));
+		pickup.setText("");
+		dropoff.setText("");
 
 		return rootView;
 	}
@@ -147,4 +152,33 @@ public class FragmentHailRide extends Fragment implements OnClickListener, OnTou
 		}
 		return true;
 	}
+
+//	private SpannableString createPickupSpan() {
+//        pickup.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
+//
+//        SpannableString spannableString = new SpannableString("PICKUP LOCATION: "  +
+//                getArguments().getCharSequence(PICKUP));
+//
+//        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.spirit_gold)),
+//                0, 16, 0);
+//
+//        spannableString.setSpan(new ForegroundColorSpan(Color.BLACK),
+//                16, spannableString.length(), 0);
+//
+//        return spannableString;
+//	}
+//
+//	private SpannableString createDropoffSpan() {
+//        dropoff.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
+//
+//        SpannableString spannableString = new SpannableString("DROPOFF LOCATION: " +
+//                getArguments().getCharSequence(DROPOFF));
+//
+//        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.wm_green)),
+//                0, 17, 0);
+//
+//        spannableString.setSpan(new ForegroundColorSpan(Color.BLACK),
+//                17, spannableString.length(), 0);
+//		return spannableString;
+//	}
 }

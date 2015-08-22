@@ -40,7 +40,7 @@ public class ViewEta extends TextView {
     }
 
     private void init() {
-        setTypeface(Utils.getStaticTypeFace(getContext(), "Antipasto.otf"));
+        setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
         curPaint = new Paint();
         curPaint.setAntiAlias(true);
         curPaint.setColor(getResources().getColor(R.color.quarter_opacity));

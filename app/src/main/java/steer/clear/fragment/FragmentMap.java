@@ -1,16 +1,26 @@
 package steer.clear.fragment;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Point;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,7 +30,6 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
@@ -29,12 +38,18 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.Locale;
+
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.activity.ActivityHome;
@@ -44,42 +59,51 @@ import steer.clear.util.Logger;
 import steer.clear.view.ViewAutoComplete;
 
 /**
- * Class that deals with all GoogleMaps stuff. 
+ * Class that deals with all GoogleMaps stuff.
  * @author Miles Peele
  *
  */
 public class FragmentMap extends Fragment
-	implements OnMapReadyCallback, ViewAutoComplete.AutoCompleteListener, View.OnClickListener {
+	implements View.OnClickListener, ViewAutoComplete.AutoCompleteListener,
+            OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
-	@Bind(R.id.fragment_map_pickup) ViewAutoComplete pickup;
-    @Bind(R.id.fragment_map_dropoff) ViewAutoComplete dropoff;
+	@Bind(R.id.fragment_map_pickup) ViewAutoComplete pickupText;
+    @Bind(R.id.fragment_map_dropoff) ViewAutoComplete dropoffText;
 	@Bind(R.id.fragment_map_view) MapView mapView;
-    @Bind(R.id.fragment_map_post) ImageButton post;
+    @Bind(R.id.fragment_map_post) Button confirm;
 
     @Inject EventBus bus;
+
+    private final static Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
+
+    private ProgressDialog progressDialog;
 
 	private LatLng pickupLatLng;
 	private CharSequence pickupName;
     private LatLng dropoffLatLng;
     private CharSequence dropoffName;
 
-	private final static String PICKUP_TEXT = "pickup";
-    private final static String DROPOFF_TEXT = "dropoff";
+	private final static String PICKUP_TEXT = "pickupText";
+    private final static String DROPOFF_TEXT = "dropoffText";
+    private final static String USER_LATITUDE = "lat";
+    private final static String USER_LONGITUDE = "lng";
+    private final static String PICKUP_MARKER_TITLE = "Pick Up Location";
+    private final static String DROPOFF_MARKER_TITLE = "Drop Off Location";
 
-    private final static String LATITUDE = "latitude";
-    private final static String LONGITUDE = "longitude";
-
+    private Geocoder geocoder;
+    private Marker pickupMarker;
+    private Marker dropoffMarker;
     private AdapterAutoComplete mAdapter;
     private static final LatLngBounds BOUNDS_WILLIAMSBURG = new LatLngBounds(
 			new LatLng(37.247247, -76.752889), new LatLng(37.307280, -76.685511));
 
 	public FragmentMap() {}
 
-	public static FragmentMap newInstance(LatLng currentLatLng) {
+	public static FragmentMap newInstance(LatLng userLocation) {
 		FragmentMap frag = new FragmentMap();
 		Bundle args = new Bundle();
-        args.putDouble(LATITUDE, currentLatLng.latitude);
-        args.putDouble(LONGITUDE, currentLatLng.longitude);
+        args.putDouble(USER_LATITUDE, userLocation.latitude);
+        args.putDouble(USER_LONGITUDE, userLocation.longitude);
 		frag.setArguments(args);
 		return frag;
 	}
@@ -88,16 +112,16 @@ public class FragmentMap extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
-		pickup.setTextNoFilter(getArguments().getString(PICKUP_TEXT), false);
-        dropoff.setTextNoFilter(getArguments().getString(DROPOFF_TEXT), false);
+		pickupText.setTextNoFilter(getArguments().getString(PICKUP_TEXT), false);
+        dropoffText.setTextNoFilter(getArguments().getString(DROPOFF_TEXT), false);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mapView.onPause();
-		getArguments().putString(PICKUP_TEXT, pickup.getText().toString());
-        getArguments().putString(DROPOFF_TEXT, dropoff.getText().toString());
+		getArguments().putString(PICKUP_TEXT, pickupText.getText().toString());
+        getArguments().putString(DROPOFF_TEXT, dropoffText.getText().toString());
     }
     
     @Override
@@ -106,14 +130,16 @@ public class FragmentMap extends Fragment
         if (mapView != null) {
             mapView.onSaveInstanceState(outState);
         }
-        outState.putString(PICKUP_TEXT, pickup.getText().toString());
-        outState.putString(DROPOFF_TEXT, dropoff.getText().toString());
+        outState.putString(PICKUP_TEXT, pickupText.getText().toString());
+        outState.putString(DROPOFF_TEXT, dropoffText.getText().toString());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        if (mapView != null) {
+            mapView.onDestroy();
+        }
     }
 
     @Override
@@ -126,6 +152,10 @@ public class FragmentMap extends Fragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainApp) activity.getApplication()).getApplicationComponent().inject(this);
+        geocoder = new Geocoder(activity, Locale.US);
+        progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("Locating...");
     }
 
 	
@@ -140,20 +170,18 @@ public class FragmentMap extends Fragment
 		View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 		ButterKnife.bind(this, rootView);
 
-        mAdapter = new AdapterAutoComplete(getActivity(), android.R.layout.simple_dropdown_item_1line,
-                ((ActivityHome) getActivity()).mGoogleApiClient, BOUNDS_WILLIAMSBURG);
+        mAdapter = new AdapterAutoComplete(getActivity(), R.layout.adapter_view,
+                getGoogleApiClient(), BOUNDS_WILLIAMSBURG);
 
-		pickup.setAdapter(mAdapter);
-		pickup.setAutoCompleteListener(this);
-        pickup.setOnItemClickListener(pickupAdapterViewClick);
+		pickupText.setAdapter(mAdapter);
+        pickupText.setAutoCompleteListener(this);
+        pickupText.setOnItemClickListener(pickupAdapterViewClick);
 
-        dropoff.setAdapter(mAdapter);
-        dropoff.setAutoCompleteListener(this);
-        dropoff.setOnItemClickListener(dropoffAdapterViewClick);
+        dropoffText.setAdapter(mAdapter);
+        dropoffText.setAutoCompleteListener(this);
+        dropoffText.setOnItemClickListener(dropoffAdapterViewClick);
 
 		mapView.onCreate(savedInstanceState);
-        mapView.setBackground(null);
-        mapView.getMapAsync(this);
 
 		return rootView;
 	}
@@ -163,10 +191,33 @@ public class FragmentMap extends Fragment
         super.onActivityCreated(savedInstanceState);
 
 	    if (savedInstanceState != null) {
-			pickup.setTextNoFilter(savedInstanceState.getString(PICKUP_TEXT), false);
-            dropoff.setTextNoFilter(savedInstanceState.getString(DROPOFF_TEXT), false);
+			pickupText.setTextNoFilter(savedInstanceState.getString(PICKUP_TEXT), false);
+            dropoffText.setTextNoFilter(savedInstanceState.getString(DROPOFF_TEXT), false);
 	    }
+
+        mapView.getMapAsync(this);
 	}
+
+    @Override
+    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        float displayHeight = size.y;
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        if (enter) {
+            animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(getActivity(), "y", displayHeight, 0));
+        } else {
+            animatorSet.playTogether(
+                    ObjectAnimator.ofFloat(getActivity(), "y", 0, displayHeight));
+        }
+
+        animatorSet.setDuration(1000);
+        animatorSet.setInterpolator(INTERPOLATOR);
+        return animatorSet;
+    }
 
     @Override
     public void onDestroyView() {
@@ -176,23 +227,71 @@ public class FragmentMap extends Fragment
 
     @Override
 	public void onMapReady(GoogleMap map) {
-        double latitude = getArguments().getDouble(LATITUDE);
-        double longitude = getArguments().getDouble(LONGITUDE);
-        LatLng userLatLng = new LatLng(latitude, longitude);
+        map.setOnMarkerDragListener(this);
+        map.setOnMarkerClickListener(this);
 
-		MarkerOptions marker = new MarkerOptions()
-			.position(userLatLng)
-			.title(getResources().getString(R.string.fragment_map_current_location_marker));
-		map.addMarker(marker);
+        LatLng userLocation = new LatLng(getArguments().getDouble(USER_LATITUDE),
+                getArguments().getDouble(USER_LONGITUDE));
+		MarkerOptions options = new MarkerOptions()
+			    .position(userLocation)
+                .title(PICKUP_MARKER_TITLE)
+                .draggable(true);
+        pickupMarker = map.addMarker(options);
 
 		CameraPosition cameraPosition = new CameraPosition.Builder()
-		    .target(userLatLng)
-                .zoom(17)
-                .bearing(90)
-                .tilt(30)
+		    .target(userLocation)
+            .zoom(17)
+            .bearing(90)
+            .tilt(30)
 		    .build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Toast.makeText(getActivity(), "Long-press then drag the marker to select a location",
+                Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        LatLng markerPos = marker.getPosition();
+        try {
+            Observable.just(geocoder.getFromLocation(markerPos.latitude, markerPos.longitude, 1))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(addresses -> {
+                        Address address = addresses.get(0);
+                        switch (marker.getTitle()) {
+                            case PICKUP_MARKER_TITLE:
+                                pickupLatLng = new LatLng(address.getLatitude(), address.getLongitude());
+                                pickupName = address.getAddressLine(0);
+                                pickupText.setTextNoFilter(address.getAddressLine(0) +
+                                        address.getAddressLine(1), false);
+                                break;
+                            case DROPOFF_MARKER_TITLE:
+                                dropoffLatLng = new LatLng(address.getLatitude(), address.getLongitude());
+                                dropoffName = address.getAddressLine(0);
+                                dropoffText.setTextNoFilter(address.getAddressLine(0) +
+                                        address.getAddressLine(1), false);
+                                break;
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     @OnClick(R.id.fragment_map_post)
@@ -219,12 +318,10 @@ public class FragmentMap extends Fragment
             case R.id.fragment_map_pickup:
                 pickupLatLng = null;
                 pickupName = null;
-                pickup.setText("");
                 break;
             case R.id.fragment_map_dropoff:
                 dropoffLatLng = null;
                 dropoffName = null;
-                dropoff.setText("");
                 break;
         }
     }
@@ -237,6 +334,7 @@ public class FragmentMap extends Fragment
             = (parent, view, position, id) -> {
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
+        progressDialog.show();
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
@@ -245,24 +343,30 @@ public class FragmentMap extends Fragment
                 return;
             }
 
-            // Get the Place object from the buffer.
             final Place place = places.get(0);
 
             if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
                 places.release();
                 Toast.makeText(getActivity(), getResources().getString(R.string.toast_too_far_for_steer_clear),
                         Toast.LENGTH_SHORT).show();
-                clearClicked(pickup);
+                pickupLatLng = null;
+                pickupName = null;
+                progressDialog.dismiss();
                 return;
             }
 
+            progressDialog.dismiss();
+
             pickupLatLng = place.getLatLng();
-            pickupName = place.getName();
+            pickupName = place.getAddress();
 
             GoogleMap map = mapView.getMap();
-            MarkerOptions marker = new MarkerOptions().position(pickupLatLng);
-            marker.title(getResources().getString(R.string.fragment_map_pickup_location_marker));
-            map.addMarker(marker);
+            pickupMarker.remove();
+            MarkerOptions options = new MarkerOptions()
+                    .position(pickupLatLng)
+                    .title(PICKUP_MARKER_TITLE)
+                    .draggable(true);
+            pickupMarker = map.addMarker(options);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(pickupLatLng)
@@ -275,7 +379,7 @@ public class FragmentMap extends Fragment
             places.release();
             final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (getView().getWindowToken() != null) {
-                imm.hideSoftInputFromWindow(pickup.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(pickupText.getWindowToken(), 0);
             }
         });
     };
@@ -284,6 +388,7 @@ public class FragmentMap extends Fragment
             = (parent, view, position, id) -> {
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
+        progressDialog.show();
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
@@ -299,17 +404,28 @@ public class FragmentMap extends Fragment
                 places.release();
                 Snackbar.make(getView(), getResources().getString(R.string.fragment_map_no_service),
                         Snackbar.LENGTH_SHORT).show();
-                clearClicked(dropoff);
+                dropoffLatLng = null;
+                dropoffName = null;
+                progressDialog.dismiss();
                 return;
             }
 
+            progressDialog.dismiss();
+
             dropoffLatLng = place.getLatLng();
-            dropoffName = place.getName();
+            dropoffName = place.getAddress();
 
             GoogleMap map = mapView.getMap();
-            MarkerOptions marker = new MarkerOptions().position(dropoffLatLng);
-            marker.title(getResources().getString(R.string.fragment_map_dropoff_location_marker));
-            map.addMarker(marker);
+
+            MarkerOptions options = new MarkerOptions()
+                    .position(dropoffLatLng)
+                    .title(DROPOFF_MARKER_TITLE)
+                    .draggable(true);
+
+            if (dropoffMarker != null) {
+                dropoffMarker.remove();
+            }
+            dropoffMarker = map.addMarker(options);
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(dropoffLatLng)
@@ -322,7 +438,7 @@ public class FragmentMap extends Fragment
             places.release();
             final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (getView().getWindowToken() != null) {
-                imm.hideSoftInputFromWindow(pickup.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(pickupText.getWindowToken(), 0);
             }
         });
     };

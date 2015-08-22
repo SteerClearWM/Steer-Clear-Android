@@ -14,6 +14,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.Button;
 
+import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 
 /**
@@ -87,6 +88,7 @@ public class ViewRectangleBackgroundButton extends Button {
     public void startRippleAnimation() {
         if (!startRipple) {
             startRipple = true;
+
             AnimatorSet test = new AnimatorSet();
 
             ObjectAnimator radius = ObjectAnimator.ofFloat(this, "radius", getMeasuredWidth());
@@ -107,7 +109,7 @@ public class ViewRectangleBackgroundButton extends Button {
         startRipple = false;
     }
 
-    private float getRadius() {
+    public float getRadius() {
         return radius;
     }
 

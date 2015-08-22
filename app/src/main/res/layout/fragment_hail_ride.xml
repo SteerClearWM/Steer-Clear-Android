@@ -2,8 +2,15 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/fragment_hail_ride_background">
+    android:layout_height="match_parent" >
+
+    <steer.clear.view.ViewHeader
+        android:id="@+id/fragment_hail_ride_header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:text="@string/header_text"
+        android:layout_marginBottom="40dp" />
 
     <ImageButton
         style="?android:attr/borderlessButtonStyle"
@@ -12,11 +19,11 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search_black_24dp"
         android:scaleType="fitXY"
-        android:layout_marginTop="@dimen/fragment_hail_ride_post_ride_margin"
+        android:layout_below="@id/fragment_hail_ride_header"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <steer.clear.view.ViewQuarterOpacityBackgroundText
+    <TextView
         android:id="@+id/fragment_hail_ride_pickup_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,7 +49,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <steer.clear.view.ViewQuarterOpacityBackgroundText
+    <TextView
         android:id="@+id/fragment_hail_ride_dropoff_location"
         android:background="@android:color/transparent"
         android:layout_width="match_parent"
@@ -57,7 +64,7 @@
         android:layout_marginLeft="@dimen/view_change_location_margin_start"
         android:layout_marginStart="@dimen/view_change_location_margin_start"
         android:paddingLeft="@dimen/view_change_location_padding_start" />
-    
+
     <TextView
         android:id="@+id/fragment_hail_ride_passengers"
         android:layout_marginTop="40dp"
@@ -65,11 +72,11 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:text="@string/fragment_hail_ride_passenger_select_prompt"
-        android:textColor="@android:color/white"
-        android:gravity="center"
+        android:textColor="@color/spirit_gold"
+        android:gravity="start|left"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/fragment_hail_ride_dropoff_location" />
-    
+
     <TextView
         android:id="@+id/view_passenger_switcher"
         android:layout_width="wrap_content"
@@ -84,19 +91,12 @@
         android:layout_marginBottom="@dimen/fragment_hail_ride_post_margin_from_bottom"
         android:drawableEnd="@drawable/ic_find_previous_holo_light"
         android:drawableRight="@drawable/ic_find_previous_holo_light" />
-    
-    <steer.clear.view.ViewRectangleBackgroundButton
+
+    <steer.clear.view.ViewFooter
         android:id="@+id/fragment_hail_ride_post"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_marginLeft="@dimen/fragment_hail_ride_post_margin"
-        android:layout_marginStart="@dimen/fragment_hail_ride_post_margin"
-        android:layout_marginRight="@dimen/fragment_hail_ride_post_margin"
-        android:layout_marginEnd="@dimen/fragment_hail_ride_post_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/view_passenger_switcher"
+        android:layout_height="50dp"
         android:text="@string/fragment_hail_ride_post"
-        android:textSize="35sp"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
