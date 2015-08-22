@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -104,6 +105,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         setEllipsize(TextUtils.TruncateAt.END);
         setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
         setCompoundDrawablePadding(15);
+        setSaveEnabled(true);
 
         drawable = getCompoundDrawables()[2];
 
@@ -132,6 +134,11 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         }
 
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void replaceText(CharSequence text) {
+        setText(text);
     }
 
     @Override
@@ -167,28 +174,30 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
     public void startRippleAnimation() {
         startRipple = true;
-        Logger.log("START RIPPLE " + startRipple);
 
-        AnimatorSet test = new AnimatorSet();
+        if (test == null) {
+            test = new AnimatorSet();
 
-        ObjectAnimator radius = ObjectAnimator.ofFloat(this, "radius", 0, getMeasuredWidth());
-        radius.setDuration(DURATION);
-        radius.setRepeatCount(ValueAnimator.REVERSE);
-        radius.setRepeatCount(ValueAnimator.INFINITE);
+            ObjectAnimator radius = ObjectAnimator.ofFloat(this, "radius", 0, getMeasuredWidth());
+            radius.setDuration(DURATION);
+            radius.setRepeatCount(ValueAnimator.INFINITE);
 
-        ObjectAnimator alpha =  ObjectAnimator.ofObject(ripplePaint, "alpha",
-                new ArgbEvaluator(), HALF_ALPHA, 0);
-        alpha.setDuration(DURATION);
-        alpha.setRepeatMode(ValueAnimator.REVERSE);
-        alpha.setRepeatCount(ValueAnimator.INFINITE);
+            ObjectAnimator alpha =  ObjectAnimator.ofObject(ripplePaint, "alpha",
+                    new ArgbEvaluator(), HALF_ALPHA, 0);
+            alpha.setDuration(DURATION);
+            alpha.setRepeatCount(ValueAnimator.INFINITE);
 
-        test.playTogether(radius, alpha);
-        test.start();
+            test.playTogether(radius, alpha);
+            test.start();
+        } else {
+            if (!test.isRunning()) {
+                test.start();
+            }
+        }
     }
 
     public void stopRippleAnimation() {
-        startRipple = false;
-        Logger.log("STOP RPPLE" + startRipple);
+        new Handler().postDelayed(() -> startRipple = false, 100);
     }
 
     public float getRadius() {
@@ -198,5 +207,15 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     public void setRadius(float radius) {
         this.radius = radius;
         invalidate();
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        return super.onSaveInstanceState();
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(state);
     }
 }

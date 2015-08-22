@@ -62,31 +62,4 @@
         android:layout_marginTop="10dp"
         android:layout_alignParentBottom="true" />
 
-    <!--<LinearLayout-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_above="@id/fragment_map_post"-->
-        <!--android:background="@android:drawable/dialog_holo_light_frame"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="50dp" >-->
-
-        <!--<steer.clear.view.ViewTypefaceButton-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:id="@+id/fragment_map_show_pickup_location"-->
-            <!--android:drawableStart="@drawable/gold_block"-->
-            <!--android:drawableLeft="@drawable/gold_block"-->
-            <!--android:text="Pick Up"-->
-            <!--android:background="@null" />-->
-
-        <!--<steer.clear.view.ViewTypefaceButton-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:id="@+id/fragment_map_show_dropoff_location"-->
-            <!--android:drawableEnd="@drawable/green_block"-->
-            <!--android:drawableRight="@drawable/green_block"-->
-            <!--android:text="Drop Off"-->
-            <!--android:background="@null" />-->
-    <!--</LinearLayout>-->
-
 </RelativeLayout>

@@ -276,14 +276,16 @@ public class FragmentMap extends Fragment
                         switch (marker.getTitle()) {
                             case PICKUP_MARKER_TITLE:
                                 pickupLatLng = new LatLng(address.getLatitude(), address.getLongitude());
-                                pickupName = address.getAddressLine(0);
-                                pickupText.setTextNoFilter(address.getAddressLine(0) +
+                                pickupName = address.getAddressLine(0) + ", " +
+                                        address.getAddressLine(1);
+                                pickupText.setTextNoFilter(address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1), false);
                                 break;
                             case DROPOFF_MARKER_TITLE:
                                 dropoffLatLng = new LatLng(address.getLatitude(), address.getLongitude());
-                                dropoffName = address.getAddressLine(0);
-                                dropoffText.setTextNoFilter(address.getAddressLine(0) +
+                                dropoffName = address.getAddressLine(0) + ", " +
+                                        address.getAddressLine(1);
+                                dropoffText.setTextNoFilter(address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1), false);
                                 break;
                         }

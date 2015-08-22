@@ -18,8 +18,6 @@ import steer.clear.util.Utils;
  */
 public class ViewTypefaceButton extends Button {
 
-    private Paint borderPaint;
-
     public ViewTypefaceButton(Context context) {
         super(context);
         init();
@@ -43,22 +41,8 @@ public class ViewTypefaceButton extends Button {
 
     private void init() {
         setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
-        setTextColor(Color.BLACK);
+        setTextColor(Color.WHITE);
         setTextSize(15f);
         setGravity(Gravity.CENTER);
-        setCompoundDrawablePadding(5);
-
-        borderPaint = new Paint();
-        borderPaint.setColor(getResources().getColor(R.color.wm_silver));
-        borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeJoin(Paint.Join.ROUND);
-        borderPaint.setStrokeWidth(10f);
-        borderPaint.setStrokeCap(Paint.Cap.ROUND);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), borderPaint);
     }
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <steer.clear.view.ViewHeader
         android:id="@+id/fragment_hail_ride_header"
@@ -12,85 +13,116 @@
         android:text="@string/header_text"
         android:layout_marginBottom="40dp" />
 
-    <ImageButton
-        style="?android:attr/borderlessButtonStyle"
-        android:id="@+id/fragment_hail_ride_change_pickup"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_search_black_24dp"
-        android:scaleType="fitXY"
+        android:id="@+id/fragment_hail_ride_pickup_layout"
         android:layout_below="@id/fragment_hail_ride_header"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginBottom="30dp" >
 
-    <TextView
-        android:id="@+id/fragment_hail_ride_pickup_location"
+        <ImageButton
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/fragment_hail_ride_change_pickup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_black_24dp"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_hail_ride_pickup_location_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@color/spirit_gold"
+            android:text="PICKUP LOCATION:"
+            android:layout_marginLeft="@dimen/view_change_location_margin_start"
+            android:layout_marginStart="@dimen/view_change_location_margin_start"
+            android:layout_marginBottom="15dp"
+            android:layout_toLeftOf="@+id/fragment_hail_ride_change_pickup"
+            android:layout_toStartOf="@+id/fragment_hail_ride_change_pickup"
+            tools:text="HEADER GOES HERE"/>
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@android:color/black"
+            android:id="@+id/fragment_hail_ride_pickup_location"
+            tools:text="FOOTER GOES HERE"
+            android:layout_below="@id/fragment_hail_ride_pickup_location_header"
+            android:layout_alignLeft="@id/fragment_hail_ride_pickup_location_header"
+            android:layout_toLeftOf="@+id/fragment_hail_ride_change_pickup"
+            android:layout_toStartOf="@+id/fragment_hail_ride_change_pickup" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/view_change_location_text_size"
-        android:textColor="@android:color/white"
-        android:lines="2"
-        android:layout_marginLeft="@dimen/view_change_location_margin_start"
-        android:layout_marginStart="@dimen/view_change_location_margin_start"
-        android:paddingLeft="@dimen/view_change_location_padding_start"
-        android:layout_alignBottom="@+id/fragment_hail_ride_change_pickup"
-        android:layout_toLeftOf="@+id/fragment_hail_ride_change_pickup"
-        android:layout_toStartOf="@+id/fragment_hail_ride_change_pickup" />
+        android:id="@+id/fragment_hail_ride_dropoff_layout"
+        android:layout_marginBottom="30dp"
+        android:layout_below="@id/fragment_hail_ride_pickup_layout" >
 
-    <ImageButton
-        style="?android:attr/borderlessButtonStyle"
-        android:id="@+id/fragment_hail_ride_change_dropoff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_search_black_24dp"
-        android:scaleType="fitXY"
-        android:layout_below="@id/fragment_hail_ride_pickup_location"
-        android:layout_marginTop="@dimen/fragment_hail_ride_dropoff_margin"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <ImageButton
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/fragment_hail_ride_change_dropoff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_black_24dp"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:id="@+id/fragment_hail_ride_dropoff_location"
-        android:background="@android:color/transparent"
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_hail_ride_dropoff_location_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@color/wm_green"
+            android:text="DROPOFF LOCATION"
+            android:layout_marginLeft="@dimen/view_change_location_margin_start"
+            android:layout_marginStart="@dimen/view_change_location_margin_start"
+            android:layout_marginBottom="15dp"
+            android:layout_toLeftOf="@+id/fragment_hail_ride_change_dropoff"
+            android:layout_toStartOf="@+id/fragment_hail_ride_change_dropoff"
+            tools:text="HEADER GOES HERE"/>
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@android:color/black"
+            android:id="@+id/fragment_hail_ride_dropoff_location"
+            tools:text="FOOTER GOES HERE"
+            android:layout_below="@id/fragment_hail_ride_dropoff_location_header"
+            android:layout_alignLeft="@id/fragment_hail_ride_dropoff_location_header"
+            android:layout_toLeftOf="@+id/fragment_hail_ride_change_dropoff"
+            android:layout_toStartOf="@+id/fragment_hail_ride_change_dropoff" />
+
+    </RelativeLayout>
+
+    <steer.clear.view.ViewTypefaceTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/view_change_location_text_size"
-        android:textColor="@android:color/white"
-        android:lines="2"
-        android:layout_toLeftOf="@id/fragment_hail_ride_change_dropoff"
-        android:layout_toStartOf="@id/fragment_hail_ride_change_dropoff"
-        android:layout_alignBottom="@id/fragment_hail_ride_change_dropoff"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/view_change_location_margin_start"
-        android:layout_marginStart="@dimen/view_change_location_margin_start"
-        android:paddingLeft="@dimen/view_change_location_padding_start" />
-
-    <TextView
-        android:id="@+id/fragment_hail_ride_passengers"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        android:text="@string/fragment_hail_ride_passenger_select_prompt"
+        android:id="@+id/fragment_hail_ride_passenger_select_header"
+        android:text="PASSENGERS:"
         android:textColor="@color/spirit_gold"
-        android:gravity="start|left"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/fragment_hail_ride_dropoff_location" />
+        android:textSize="@dimen/view_change_location_text_size"
+        android:layout_marginLeft="@dimen/view_change_location_margin_start"
+        android:layout_marginStart="@dimen/view_change_location_margin_start"
+        android:layout_below="@id/fragment_hail_ride_dropoff_layout"/>
 
-    <TextView
-        android:id="@+id/view_passenger_switcher"
+    <include
+        layout="@layout/fragment_hail_ride_passenger_select"
+        android:id="@+id/fragment_hail_ride_passenger_select"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_hail_ride_passengers"
-        android:drawableStart="@drawable/ic_find_next_holo_light"
-        android:drawableLeft="@drawable/ic_find_next_holo_light"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:text="0"
-        android:textSize="25sp"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="@dimen/fragment_hail_ride_post_margin_from_bottom"
-        android:drawableEnd="@drawable/ic_find_previous_holo_light"
-        android:drawableRight="@drawable/ic_find_previous_holo_light" />
+        android:layout_below="@id/fragment_hail_ride_passenger_select_header" />
 
     <steer.clear.view.ViewFooter
         android:id="@+id/fragment_hail_ride_post"

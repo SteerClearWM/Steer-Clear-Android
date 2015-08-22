@@ -16,9 +16,9 @@
 
     <string name="fragment_map_pickup_hint">Select a Pick Up Location</string>
     <string name="fragment_map_dropoff_hint">Select a Drop Off Location</string>
-    <string name="fragment_map_pickup_snackbar_text">Select a Pickup Location First</string>
-    <string name="fragment_map_dropoff_snackbar_text">Select a Dropoff Location First</string>
-    <string name="fragment_map_same_location">Pickup and Dropoff Cannot Be the Same</string>
+    <string name="fragment_map_pickup_snackbar_text">Select a Pick Up Location</string>
+    <string name="fragment_map_dropoff_snackbar_text">Select a Drop Off Location </string>
+    <string name="fragment_map_same_location">Pick Up and Drop Off Cannot Be the Same Location</string>
     <string name="fragment_map_no_service">SteerClear Does Not Service This Location</string>
     <string name="fragment_map_footer_text">CONFIRM RIDE</string>
     
