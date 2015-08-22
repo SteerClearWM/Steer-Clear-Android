@@ -125,7 +125,7 @@
         android:layout_below="@id/fragment_hail_ride_passenger_select_header" />
 
     <steer.clear.view.ViewFooter
-        android:id="@+id/fragment_hail_ride_post"
+        android:id="@+id/activity_eta_footer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="@string/fragment_hail_ride_post"

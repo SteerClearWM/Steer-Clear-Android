@@ -35,7 +35,7 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 	@Bind(R.id.fragment_hail_ride_dropoff_location) ViewTypefaceTextView dropoffLocation;
 	@Bind(R.id.fragment_hail_ride_change_dropoff) ImageButton changeDropoff;
     @Bind(R.id.fragment_hail_ride_passenger_select) ViewPassengerSelect test;
-	@Bind(R.id.fragment_hail_ride_post) Button postRide;
+	@Bind(R.id.activity_eta_footer) Button postRide;
 
 	@Inject EventBus bus;
 
@@ -89,10 +89,10 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 
 	@Override
 	@OnClick({R.id.fragment_hail_ride_change_pickup, R.id.fragment_hail_ride_change_dropoff,
-			R.id.fragment_hail_ride_post})
+			R.id.activity_eta_footer})
 	public void onClick(View v) {
 		switch(v.getId()) {
-			case R.id.fragment_hail_ride_post:
+			case R.id.activity_eta_footer:
 				if (test.getPassengers() != 0) {
                     Logger.log("PASSENGERS: " + test.getPassengers());
                     bus.post(new EventPostPlacesChosen());
