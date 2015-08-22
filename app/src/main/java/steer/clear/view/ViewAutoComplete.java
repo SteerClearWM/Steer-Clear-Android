@@ -1,17 +1,20 @@
 package steer.clear.view;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -24,10 +27,13 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
+import steer.clear.R;
 import steer.clear.adapter.AdapterAutoComplete;
+import steer.clear.util.ErrorDialog;
 import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 
@@ -39,6 +45,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
     private Drawable drawable;
 
+    private AnimatorSet test;
     private boolean startRipple = false;
     private final static int DURATION = 2000;
     private float radius;
@@ -82,6 +89,10 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     }
 
     private void init(AttributeSet attributeSet) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.ViewAutoComplete);
+        int color = typedArray.getColor(R.styleable.ViewAutoComplete_highlightColor, -1);
+        typedArray.recycle();
+
         setPaintFlags(getPaintFlags() | Paint.SUBPIXEL_TEXT_FLAG);
         setTextColor(Color.BLACK);
         setHintTextColor(Color.GRAY);
@@ -99,7 +110,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         ripplePaint = new Paint();
         ripplePaint.setAntiAlias(true);
         ripplePaint.setStyle(Paint.Style.FILL);
-        ripplePaint.setColor(Color.WHITE);
+        ripplePaint.setColor(color);
         ripplePaint.setAlpha(HALF_ALPHA);
     }
 
@@ -133,6 +144,10 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     protected void handlerFilter(CharSequence msg, int delay) {
         super.performFiltering(msg, delay);
         stopRippleAnimation();
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (cm.getActiveNetworkInfo() == null) {
+            ErrorDialog.createFromErrorCode(getContext(), 404).show();
+        }
     }
 
     public void setAutoCompleteListener(AutoCompleteListener listener) {
@@ -152,16 +167,19 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
     public void startRippleAnimation() {
         startRipple = true;
+        Logger.log("START RIPPLE " + startRipple);
 
         AnimatorSet test = new AnimatorSet();
 
         ObjectAnimator radius = ObjectAnimator.ofFloat(this, "radius", 0, getMeasuredWidth());
         radius.setDuration(DURATION);
+        radius.setRepeatCount(ValueAnimator.REVERSE);
         radius.setRepeatCount(ValueAnimator.INFINITE);
 
         ObjectAnimator alpha =  ObjectAnimator.ofObject(ripplePaint, "alpha",
-                new ArgbEvaluator(), ripplePaint.getAlpha(), 0);
+                new ArgbEvaluator(), HALF_ALPHA, 0);
         alpha.setDuration(DURATION);
+        alpha.setRepeatMode(ValueAnimator.REVERSE);
         alpha.setRepeatCount(ValueAnimator.INFINITE);
 
         test.playTogether(radius, alpha);
@@ -169,9 +187,8 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     }
 
     public void stopRippleAnimation() {
-        if (radius == getMeasuredWidth()) {
-            startRipple = false;
-        }
+        startRipple = false;
+        Logger.log("STOP RPPLE" + startRipple);
     }
 
     public float getRadius() {

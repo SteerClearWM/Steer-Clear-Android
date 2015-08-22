@@ -33,7 +33,8 @@
         android:drawableLeft="@drawable/gold_block"
         android:drawableStart="@drawable/gold_block"
         android:drawableRight="@drawable/ic_clear_search_api_holo_light"
-        android:drawableEnd="@drawable/ic_clear_search_api_holo_light" />
+        android:drawableEnd="@drawable/ic_clear_search_api_holo_light"
+        app:highlightColor="@color/spirit_gold" />
 
     <steer.clear.view.ViewAutoComplete
         android:id="@+id/fragment_map_dropoff"
@@ -50,7 +51,8 @@
         android:drawableStart="@drawable/green_block"
         android:drawableLeft="@drawable/green_block"
         android:drawableRight="@drawable/ic_clear_search_api_holo_light"
-        android:drawableEnd="@drawable/ic_clear_search_api_holo_light" />
+        android:drawableEnd="@drawable/ic_clear_search_api_holo_light"
+        app:highlightColor="@color/wm_green" />
 
     <steer.clear.view.ViewFooter
         android:id="@+id/fragment_map_post"

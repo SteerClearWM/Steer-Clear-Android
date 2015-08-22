@@ -1,9 +1,11 @@
 package steer.clear.adapter;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
+import steer.clear.util.ErrorDialog;
 import steer.clear.util.Logger;
 
 public class AdapterAutoComplete
@@ -30,9 +33,12 @@ public class AdapterAutoComplete
 
     private LatLngBounds mBounds;
 
+    private Context mContext;
+
     public AdapterAutoComplete(Context context, int resource, GoogleApiClient googleApiClient,
             LatLngBounds bounds) {
         super(context, resource);
+        mContext = context;
         mGoogleApiClient = googleApiClient;
         mBounds = bounds;
     }
@@ -108,14 +114,15 @@ public class AdapterAutoComplete
                             .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
                                     mBounds, null);
 
-            // This method should have been called off the main UI thread. Block and wait for at most 60s
+            // This method should have been called off the main UI thread. Block and wait for at most 15s
             // for a result from the API.
-            AutocompletePredictionBuffer autocompletePredictions = results.await(60, TimeUnit.SECONDS);
+            AutocompletePredictionBuffer autocompletePredictions = results.await(15, TimeUnit.SECONDS);
 
             // Confirm that the query completed successfully, otherwise return null
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
                 Logger.log("Error contacting API: " + status.toString());
+                Logger.log("STATUS CODE: " + status.getStatusCode());
                 autocompletePredictions.release();
                 return null;
             }
