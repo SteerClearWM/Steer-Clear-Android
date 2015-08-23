@@ -164,22 +164,23 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Override
     @OnClick(R.id.fragment_authenticate_button)
     public void onClick(View v) {
-        togglePulse();
-//        if (getArguments().getBoolean(REGISTERED_KEY)) {
-//            if (validateUsername() && validatePassword()) {
-//                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-//                        ""));
-//            } else {
-//                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
-//            }
-//        } else {
-//            if (validateUsername() && validatePassword() && validatePhoneNumber()) {
-//                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-//                        formatPhoneNumber()));
-//            } else {
-//                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
-//            }
-//        }
+        if (getArguments().getBoolean(REGISTERED_KEY)) {
+            if (validateUsername() && validatePassword()) {
+                togglePulse();
+                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+                        ""));
+            } else {
+                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+            }
+        } else {
+            if (validateUsername() && validatePassword() && validatePhoneNumber()) {
+                togglePulse();
+                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+                        formatPhoneNumber()));
+            } else {
+                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+            }
+        }
     }
 
     public void togglePulse() {

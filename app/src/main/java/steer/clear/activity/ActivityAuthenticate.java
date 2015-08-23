@@ -3,6 +3,7 @@ package steer.clear.activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -33,12 +34,23 @@ public class ActivityAuthenticate extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_authenticate);
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
-        bus.register(this);
+        if (store.hasPreviousRideInfo()) {
+            Intent etaActivity = new Intent(this, ActivityEta.class);
+            etaActivity.putExtra(ActivityEta.ETA, store.getEta());
+            etaActivity.putExtra(ActivityEta.CANCEL, store.getCancelId());
+            etaActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            etaActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(etaActivity);
+            finish();
+        } else {
+            setContentView(R.layout.activity_authenticate);
 
-        addFragmentAuthenticate();
+            bus.register(this);
+
+            addFragmentAuthenticate();
+        }
     }
 
     private void addFragmentAuthenticate() {

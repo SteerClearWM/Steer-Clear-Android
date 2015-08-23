@@ -17,6 +17,7 @@ import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.retrofit.Client;
+import steer.clear.util.Datastore;
 import steer.clear.util.Utils;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewTypefaceTextView;
@@ -29,13 +30,13 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
 
     private static int cancelId;
     private static String eta;
+    private boolean saveInfo = true;
 
-    private final static String ETA = "eta";
-    private final static String CANCEL = "CANCEL_ID";
-    private final static String HOUR = "PICKUP_HOUR";
-    private final static String MINUTE = "PICKUP_MINUTE";
+    public final static String ETA = "eta";
+    public final static String CANCEL = "CANCEL_ID";
 
-    @Inject public Client helper;
+    @Inject Client helper;
+    @Inject Datastore store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,12 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         } else {
             if (getIntent() != null) {
                 Intent extras = getIntent();
-                int pickupHour = extras.getIntExtra(HOUR, 0);
-                int pickupMinute = extras.getIntExtra(MINUTE, 0);
+                eta = extras.getStringExtra(ETA);
                 cancelId = extras.getIntExtra(CANCEL, 0);
-                eta = String.format("%02d : %02d", pickupHour, pickupMinute);
+                etaTime.setText(eta);
+            } else {
+                eta = "11:49";
+                cancelId = -1;
                 etaTime.setText(eta);
             }
         }
@@ -69,6 +72,14 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         super.onSaveInstanceState(outState);
         outState.putString(ETA, eta);
         outState.putInt(CANCEL, cancelId);
+    }
+
+    @Override
+    protected void onPause() {
+        if (saveInfo) {
+            store.putRideInfo(eta, cancelId);
+        }
+        super.onPause();
     }
 
     @Override
@@ -88,24 +99,24 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
             .setPositiveButton(
                 getResources().getString(R.string.dialog_cancel_ride_pos_button_text),
                 (dialog, which) -> {
-                    helper.cancelRide(cancelId)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(this::onResponseReceived, this::onErrorReceived);
+                    saveInfo = false;
+                    store.clearRideInfo();
+                    finish();
             }).setNegativeButton(
-                        getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
-                        (dialog, which) -> {
-                            dialog.dismiss();
-                        });
+                getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
+                (dialog, which) -> {
+                    dialog.dismiss();
+            });
 
         alertDialog.show();
     }
 
     public void onResponseReceived(Response response) {
-        finish();
+       // finish();
     }
 
     public void onErrorReceived(Throwable throwable) {
+        store.clearRideInfo();
         throwable.printStackTrace();
     }
 }

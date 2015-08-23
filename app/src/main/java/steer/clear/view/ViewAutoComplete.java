@@ -197,7 +197,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     }
 
     public void stopRippleAnimation() {
-        new Handler().postDelayed(() -> startRipple = false, 100);
+        new Handler().postDelayed(() -> startRipple = false, 350);
     }
 
     public float getRadius() {

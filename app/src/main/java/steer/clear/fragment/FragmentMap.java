@@ -130,8 +130,12 @@ public class FragmentMap extends Fragment
         if (mapView != null) {
             mapView.onSaveInstanceState(outState);
         }
-        outState.putString(PICKUP_TEXT, pickupText.getText().toString());
-        outState.putString(DROPOFF_TEXT, dropoffText.getText().toString());
+        if (pickupText != null) {
+            outState.putString(PICKUP_TEXT, pickupText.getText().toString());
+        }
+        if (dropoffText != null) {
+            outState.putString(DROPOFF_TEXT, dropoffText.getText().toString());
+        }
     }
 
     @Override
@@ -181,6 +185,7 @@ public class FragmentMap extends Fragment
         dropoffText.setAutoCompleteListener(this);
         dropoffText.setOnItemClickListener(dropoffAdapterViewClick);
 
+        mapView.setVisibility(View.GONE);
 		mapView.onCreate(savedInstanceState);
 
 		return rootView;
@@ -227,6 +232,7 @@ public class FragmentMap extends Fragment
 
     @Override
 	public void onMapReady(GoogleMap map) {
+        mapView.setVisibility(View.VISIBLE);
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 
@@ -266,12 +272,14 @@ public class FragmentMap extends Fragment
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
+        progressDialog.show();
         LatLng markerPos = marker.getPosition();
         try {
             Observable.just(geocoder.getFromLocation(markerPos.latitude, markerPos.longitude, 1))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(addresses -> {
+                        progressDialog.dismiss();
                         Address address = addresses.get(0);
                         switch (marker.getTitle()) {
                             case PICKUP_MARKER_TITLE:

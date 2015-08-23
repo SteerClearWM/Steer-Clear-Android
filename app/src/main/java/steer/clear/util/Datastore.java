@@ -11,6 +11,8 @@ public class Datastore {
 
     private SharedPreferences prefs;
     private final static String HAS_REGISTER = "register";
+    private final static String ETA = "eta";
+    private final static String CANCEL = "CANCEL_ID";
 
     public Datastore(Application application) {
         prefs = application.getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -30,5 +32,32 @@ public class Datastore {
 
     public boolean checkRegistered() {
         return getPrefs().getBoolean(HAS_REGISTER, false);
+    }
+
+    public void putRideInfo(String eta, int cancelId) {
+        SharedPreferences.Editor editor = getEditor();
+        editor.putString(ETA, eta);
+        editor.putInt(CANCEL, cancelId);
+        editor.commit();
+    }
+
+    public void clearRideInfo() {
+        SharedPreferences.Editor editor = getEditor();
+        editor.putString(ETA, "");
+        editor.putString(CANCEL, "");
+        editor.commit();
+    }
+
+    public int getCancelId() {
+        return getPrefs().getInt(CANCEL, -1);
+    }
+
+    public String getEta() {
+        return getPrefs().getString(ETA, "");
+    }
+
+    public boolean hasPreviousRideInfo() {
+        Logger.log("PREV ETA: " + getPrefs().getString(ETA, ""));
+        return !getPrefs().getString(ETA, "").isEmpty();
     }
 }
