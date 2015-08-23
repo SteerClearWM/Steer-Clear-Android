@@ -2,6 +2,7 @@ package steer.clear.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -20,29 +21,40 @@ public class ViewTypefaceButton extends Button {
 
     public ViewTypefaceButton(Context context) {
         super(context);
-        init();
+        init(null);
     }
 
     public ViewTypefaceButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
     public ViewTypefaceButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ViewTypefaceButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(attrs);
     }
 
-    private void init() {
+    private void init(AttributeSet attrs) {
+        if (attrs != null) {
+            TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ViewTypefaceButton);
+            int color = typedArray.getColor(R.styleable.ViewTypefaceButton_preferredTextColor, -1);
+            if (color == -1) {
+                setTextColor(Color.WHITE);
+            } else {
+                setTextColor(getResources().getColor(R.color.wm_green));
+            }
+            typedArray.recycle();
+        } else {
+            setTextColor(Color.WHITE);
+        }
         setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
-        setTextColor(Color.WHITE);
-        setTextSize(15f);
+        setTextSize(25f);
         setGravity(Gravity.CENTER);
     }
 }

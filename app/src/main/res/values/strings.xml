@@ -23,6 +23,8 @@
     <string name="fragment_map_footer_text">CONFIRM RIDE</string>
     
     <string name="fragment_hail_ride_passenger_select_prompt">PASSENGERS:</string>
+    <string name="fragment_hail_ride_pickup_header">PICKUP LOCATION:</string>
+    <string name="fragment_hail_ride_dropoff_header">DROPOFF LOCATION:</string>
     <string name="fragment_hail_ride_post">REQUEST RIDE</string>
     <string name="fragment_hail_ride_no_passengers">You Can\'t Have 0 Passengers</string>
 

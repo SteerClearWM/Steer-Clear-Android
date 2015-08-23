@@ -9,10 +9,10 @@
     <steer.clear.view.ViewHeader
         android:id="@+id/activity_eta_header"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/view_header_layout_height"
         android:layout_alignParentTop="true"
         android:text="@string/header_text"
-        android:layout_marginBottom="60dp" />
+        android:layout_marginBottom="@dimen/activity_eta_header_bottom_margin" />
 
     <steer.clear.view.ViewTypefaceTextView
         android:id="@+id/activity_eta_time_prefix"
@@ -20,10 +20,10 @@
         android:layout_height="wrap_content"
         android:textColor="@color/spirit_gold"
         android:gravity="center"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:text="Your ride will '\n' arrive at:"
-        android:textSize="30sp"
+        android:layout_marginLeft="@dimen/view_eta_prefix_horizontal_margin"
+        android:layout_marginRight="@dimen/view_eta_prefix_horizontal_margin"
+        android:text="@string/activity_eta_formatted_title"
+        android:textSize="@dimen/view_eta_prefix_text_size"
         android:layout_below="@id/activity_eta_header"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_centerHorizontal="true" />
@@ -35,16 +35,15 @@
         android:layout_height="@dimen/view_eta_dimens"
         android:textColor="@color/wm_green"
         android:gravity="center"
-        android:textSize="50sp"
-        android:text="11:49"
+        android:textSize="@dimen/view_eta_text_size"
         android:layout_centerHorizontal="true"
         tools:text="11:49" />
 
     <steer.clear.view.ViewFooter
         android:id="@+id/activity_eta_cancel_ride"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="CANCEL RIDE"
+        android:layout_height="@dimen/view_footer_layout_height"
+        android:text="@string/activity_eta_cancel_ride"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

@@ -20,5 +20,6 @@ public interface ApiInterface {
     Observable<RideObject> addRide(@Body RidePost ridePost);
 
     @DELETE("/rides/{rideId}")
+    @Headers({"contentType: application/x-www-form-urlencoded"})
     Observable<Response> deleteRide(@Path("rideId") int cancelId);
 }

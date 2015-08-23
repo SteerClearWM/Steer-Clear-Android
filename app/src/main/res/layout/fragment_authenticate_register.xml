@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/fragment_authenticate_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="@dimen/fragment_authenticate_logo_size"
+        android:layout_height="@dimen/fragment_authenticate_logo_size"
+        android:layout_marginTop="@dimen/fragment_authenticate_logo_vertical_margin"
+        android:layout_marginBottom="@dimen/fragment_authenticate_logo_vertical_margin"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/start_screen_logo"
@@ -26,7 +26,7 @@
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_logo"
         android:hint="@string/fragment_authenticate_username_hint" />
 
@@ -38,7 +38,7 @@
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_username"
         android:inputType="textPassword"
         android:hint="@string/fragment_authenticate_password_hint"
@@ -52,13 +52,13 @@
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_password"
         android:inputType="phone"
         android:hint="@string/fragment_authenticate_phone_hint"
         tools:text="PASWORD" />
 
-    <Button
+    <steer.clear.view.ViewTypefaceButton
         android:id="@+id/fragment_authenticate_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_marginLeft="@dimen/fragment_authenticate_button_horizontal_margin"
@@ -66,12 +66,12 @@
         android:layout_marginRight="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/fragment_authenticate_button_height"
         android:layout_below="@id/fragment_authenticate_phone"
         android:background="@android:color/white"
-        android:textColor="@color/wm_green"
         android:text="@string/fragment_authenticate_register_text"
         android:textSize="@dimen/fragment_authenticate_button_text_size"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        app:preferredTextColor="@color/wm_green"/>
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import steer.clear.event.EventAuthenticate;
+import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Datastore;
 import steer.clear.MainApp;
 import steer.clear.R;
@@ -53,6 +54,13 @@ public class ActivityAuthenticate extends AppCompatActivity {
         }
     }
 
+    public void onEvent(EventGoToRegister eventGoToRegister) {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.activity_authenticate_root,
+                        FragmentAuthenticate.newInstance(false), AUTHENTICATE_TAG)
+                .commit();
+    }
+
     public void onEvent(EventAuthenticate eventAuthenticate) {
         if (store.checkRegistered()) {
             helper.login(new WeakReference<>(this),
@@ -70,6 +78,10 @@ public class ActivityAuthenticate extends AppCompatActivity {
 
     public void onRegisterError(int errorCode) {
         Logger.log("ON REGISTER ERROR: " + errorCode);
+        FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
+        if (fragmentAuthenticate != null) {
+            fragmentAuthenticate.togglePulse();
+        }
         ErrorDialog.createFromErrorCode(this, errorCode).show();
     }
 
@@ -79,6 +91,10 @@ public class ActivityAuthenticate extends AppCompatActivity {
 
     public void onLoginError(int errorCode) {
         Logger.log("ON login ERROR: " + errorCode);
+        FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
+        if (fragmentAuthenticate != null) {
+            fragmentAuthenticate.togglePulse();
+        }
         ErrorDialog.createFromErrorCode(this, errorCode).show();
     }
 

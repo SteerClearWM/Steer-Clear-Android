@@ -3,6 +3,7 @@ package steer.clear.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventAuthenticate;
+import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 import steer.clear.view.ViewAuthenticateEditText;
@@ -53,6 +55,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Inject EventBus bus;
 
     private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
+    private AnimatorSet pulse;
 
     public FragmentAuthenticate() {}
 
@@ -68,7 +71,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainApp) activity.getApplication()).getApplicationComponent().inject(this);
-        bus.register(this);
     }
 
     @Override
@@ -82,7 +84,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         View v = (getArguments().getBoolean(REGISTERED_KEY)) ?
                 inflater.inflate(R.layout.fragment_authenticate_login, container, false) :
                 inflater.inflate(R.layout.fragment_authenticate_register, container, false);
-//        View v = inflater.inflate(R.layout.fragment_authenticate_login, container, false);
         ButterKnife.bind(this, v);
         button.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
         if (prompt != null) { prompt.setText(createSpan()); }
@@ -131,7 +132,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-
+                bus.post(new EventGoToRegister());
             }
 
             @Override
@@ -163,24 +164,47 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Override
     @OnClick(R.id.fragment_authenticate_button)
     public void onClick(View v) {
-        if (getArguments().getBoolean(REGISTERED_KEY)) {
-            if (validateUsername() && validatePassword()) {
-                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                        ""));
-            } else {
-                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
-            }
-        } else {
-            if (validateUsername() && validatePassword() && validatePhoneNumber()) {
-                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                        formatPhoneNumber()));
-            } else {
-                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
-            }
-        }
+        togglePulse();
+//        if (getArguments().getBoolean(REGISTERED_KEY)) {
+//            if (validateUsername() && validatePassword()) {
+//                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+//                        ""));
+//            } else {
+//                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+//            }
+//        } else {
+//            if (validateUsername() && validatePassword() && validatePhoneNumber()) {
+//                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+//                        formatPhoneNumber()));
+//            } else {
+//                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+//            }
+//        }
     }
 
-    public void onEvent(int errorCode) {
-
+    public void togglePulse() {
+       if (pulse == null) {
+           pulse = new AnimatorSet();
+           ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f, .9f);
+           scaleX.setRepeatCount(ValueAnimator.INFINITE);
+           scaleX.setRepeatMode(ValueAnimator.REVERSE);
+           ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f, .9f);
+           scaleY.setRepeatCount(ValueAnimator.INFINITE);
+           scaleY.setRepeatMode(ValueAnimator.REVERSE);
+           pulse.playTogether(scaleX, scaleY);
+           pulse.setDuration(600);
+           pulse.start();
+       } else {
+           if (pulse.isRunning()) {
+               AnimatorSet normalize = new AnimatorSet();
+               ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f);
+               ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f);
+               normalize.playTogether(scaleX, scaleY);
+               normalize.start();
+               pulse.cancel();
+           } else {
+               pulse.start();
+           }
+       }
     }
 }

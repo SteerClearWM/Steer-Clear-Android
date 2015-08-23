@@ -1,5 +1,6 @@
 package steer.clear.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +14,10 @@ import butterknife.OnClick;
 import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.retrofit.Client;
+import steer.clear.util.Utils;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewTypefaceTextView;
 
@@ -29,6 +32,8 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
 
     private final static String ETA = "eta";
     private final static String CANCEL = "CANCEL_ID";
+    private final static String HOUR = "PICKUP_HOUR";
+    private final static String MINUTE = "PICKUP_MINUTE";
 
     @Inject public Client helper;
 
@@ -37,23 +42,21 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
         ButterKnife.bind(this);
-//        cancelRide.setTypeface(Utils.getStaticTypeFace(this, "Avenir.otf"));
-//        prefix.setTypeface(Utils.getStaticTypeFace(this, "Avenir.otf"));
-//
-//        ((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
-//
-//        if (savedInstanceState != null) {
-//            etaTime.setText(savedInstanceState.getString(ETA));
-//        } else {
-//            if (getIntent() != null) {
-//                Intent extras = getIntent();
-//                int pickupHour = extras.getIntExtra(HOUR, 0);
-//                int pickupMinute = extras.getIntExtra(MINUTE, 0);
-//                cancelId = extras.getIntExtra(CANCEL, 0);
-//                eta = String.format("%02d : %02d", pickupHour, pickupMinute);
-//                etaTime.setText(eta);
-//            }
-//        }
+
+        ((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
+
+        if (savedInstanceState != null) {
+            etaTime.setText(savedInstanceState.getString(ETA));
+        } else {
+            if (getIntent() != null) {
+                Intent extras = getIntent();
+                int pickupHour = extras.getIntExtra(HOUR, 0);
+                int pickupMinute = extras.getIntExtra(MINUTE, 0);
+                cancelId = extras.getIntExtra(CANCEL, 0);
+                eta = String.format("%02d : %02d", pickupHour, pickupMinute);
+                etaTime.setText(eta);
+            }
+        }
     }
 
     @Override

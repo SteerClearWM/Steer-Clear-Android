@@ -5,4 +5,8 @@
         <attr name="highlightColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="ViewTypefaceButton">
+        <attr name="preferredTextColor" format="color" />
+    </declare-styleable>
+
 </resources>

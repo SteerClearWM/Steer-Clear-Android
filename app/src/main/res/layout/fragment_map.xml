@@ -13,10 +13,10 @@
     <steer.clear.view.ViewHeader
         android:id="@+id/fragment_map_header"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/view_header_layout_height"
         android:layout_alignParentTop="true"
         android:text="@string/header_text"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="@dimen/view_header_bottom_margin" />
    	
    	<steer.clear.view.ViewAutoComplete
         android:id="@+id/fragment_map_pickup"
@@ -57,9 +57,9 @@
     <steer.clear.view.ViewFooter
         android:id="@+id/fragment_map_post"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/view_footer_layout_height"
         android:text="@string/fragment_map_footer_text"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/view_footer_top_margin"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

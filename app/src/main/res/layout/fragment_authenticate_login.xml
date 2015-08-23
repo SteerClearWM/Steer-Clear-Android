@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/fragment_authenticate_logo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="50dp"
+        android:layout_width="@dimen/fragment_authenticate_logo_size"
+        android:layout_height="@dimen/fragment_authenticate_logo_size"
+        android:layout_marginTop="@dimen/fragment_authenticate_logo_vertical_margin"
+        android:layout_marginBottom="@dimen/fragment_authenticate_logo_vertical_margin"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/start_screen_logo"
@@ -26,7 +26,7 @@
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_logo"
         android:hint="@string/fragment_authenticate_username_hint"
         tools:text="USERNAME" />
@@ -39,22 +39,22 @@
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="@dimen/fragment_authenticate_login_password_margin_bottom"
         android:layout_below="@id/fragment_authenticate_username"
         android:inputType="textPassword"
         android:hint="@string/fragment_authenticate_password_hint"
         tools:text="PASWORD" />
 
-    <Button
+    <steer.clear.view.ViewTypefaceButton
         android:id="@+id/fragment_authenticate_button"
         style="?android:attr/borderlessButtonStyle"
         android:layout_marginLeft="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_marginStart="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_button_horizontal_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_button_horizontal_margin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/fragment_authenticate_button_height"
         android:layout_below="@id/fragment_authenticate_password"
         android:background="@android:color/white"
         android:textColor="@color/wm_green"
