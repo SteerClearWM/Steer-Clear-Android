@@ -28,6 +28,7 @@
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_logo"
+        android:inputType="text"
         android:hint="@string/fragment_authenticate_username_hint" />
 
     <steer.clear.view.ViewAuthenticateEditText
@@ -40,9 +41,8 @@
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_username"
-        android:inputType="textPassword"
-        android:hint="@string/fragment_authenticate_password_hint"
-        tools:text="PASWORD" />
+        android:inputType="text|textPassword"
+        android:hint="@string/fragment_authenticate_password_hint" />
 
     <steer.clear.view.ViewAuthenticateEditText
         android:id="@+id/fragment_authenticate_phone"
@@ -55,8 +55,7 @@
         android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_password"
         android:inputType="phone"
-        android:hint="@string/fragment_authenticate_phone_hint"
-        tools:text="PASWORD" />
+        android:hint="@string/fragment_authenticate_phone_hint" />
 
     <steer.clear.view.ViewTypefaceButton
         android:id="@+id/fragment_authenticate_button"

@@ -29,6 +29,7 @@
         android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_logo"
         android:hint="@string/fragment_authenticate_username_hint"
+        android:inputType="text"
         tools:text="USERNAME" />
 
     <steer.clear.view.ViewAuthenticateEditText
@@ -41,7 +42,7 @@
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginBottom="@dimen/fragment_authenticate_login_password_margin_bottom"
         android:layout_below="@id/fragment_authenticate_username"
-        android:inputType="textPassword"
+        android:inputType="text|textPassword"
         android:hint="@string/fragment_authenticate_password_hint"
         tools:text="PASWORD" />
 

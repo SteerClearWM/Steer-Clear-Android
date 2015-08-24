@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
@@ -46,7 +47,8 @@ public class ViewAuthenticateEditText extends EditText {
     private void init() {
         setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"), Typeface.BOLD);
         setGravity(GravityCompat.START);
-        setSingleLine(true);
+        setLines(1);
+        setMaxLines(1);
         getBackground().setColorFilter(getResources().getColor(R.color.spirit_gold), PorterDuff.Mode.SRC_ATOP);
     }
 
