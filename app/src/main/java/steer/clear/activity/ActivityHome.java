@@ -182,13 +182,6 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-        Intent intent = new Intent(this, ActivityEta.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(ActivityEta.ETA, "11:49");
-        intent.putExtra(ActivityEta.CANCEL, -1);
-        startActivity(intent);
-        finish();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.slide_out_right);
+
     }
 }

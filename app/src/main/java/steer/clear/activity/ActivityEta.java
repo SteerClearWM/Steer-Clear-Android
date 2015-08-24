@@ -49,16 +49,10 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         if (savedInstanceState != null) {
             etaTime.setText(savedInstanceState.getString(ETA));
         } else {
-            if (getIntent() != null) {
-                Intent extras = getIntent();
-                eta = extras.getStringExtra(ETA);
-                cancelId = extras.getIntExtra(CANCEL, 0);
-                etaTime.setText(eta);
-            } else {
-                eta = "11:49";
-                cancelId = -1;
-                etaTime.setText(eta);
-            }
+            Intent extras = getIntent();
+            eta = extras.getStringExtra(ETA);
+            cancelId = extras.getIntExtra(CANCEL, 0);
+            etaTime.setText(eta);
         }
     }
 
