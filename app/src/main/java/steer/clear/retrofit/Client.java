@@ -26,6 +26,8 @@ import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.activity.ActivityAuthenticate;
+import steer.clear.activity.ActivityEta;
+import steer.clear.activity.ActivityHome;
 import steer.clear.pojo.LoginPost;
 import steer.clear.pojo.RegisterPost;
 import steer.clear.pojo.RideObject;
@@ -123,6 +125,7 @@ public class Client {
                                         ActivityAuthenticate activityAuthenticate = weakReference.get();
                                         if (activityAuthenticate != null) {
                                             activityAuthenticate.onRegisterSuccess();
+                                            login(weakReference, username, password);
                                         }
                                         break;
                                     default:
@@ -136,6 +139,11 @@ public class Client {
                                     ActivityAuthenticate activityAuthenticate = weakReference.get();
                                     if (activityAuthenticate != null) {
                                         activityAuthenticate.onRegisterError(error.getResponse().getStatus());
+                                    }
+                                } else {
+                                    ActivityAuthenticate activityAuthenticate = weakReference.get();
+                                    if (activityAuthenticate != null) {
+                                        activityAuthenticate.onRegisterError(404);
                                     }
                                 }
                             });
@@ -153,13 +161,79 @@ public class Client {
 	 * If successful, calls through the ServiceHttpInterface onPostSuccess()
 	 * If failure, calls through the ServiceHttpInterface onVolleyError()
 	 */
-	public Observable<RideObject> addRide(final Integer num_passengers, final Double start_latitude, final Double start_longitude,
-			final Double end_latitude, final Double end_longitude) {
-        return apiInterface.addRide(new RidePost(num_passengers, start_latitude,
-                start_longitude, end_latitude, end_longitude));
+	public void addRide(final WeakReference<ActivityHome> weakReference,
+                        final Integer num_passengers,
+                        final Double start_latitude, final Double start_longitude,
+			            final Double end_latitude, final Double end_longitude) {
+        if (checkInternet()) {
+            apiInterface.addRide(new RidePost(num_passengers, start_latitude,
+                    start_longitude, end_latitude, end_longitude))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(rideObject -> {
+                        ActivityHome activityHome = weakReference.get();
+                        if (activityHome != null) {
+                            activityHome.onRideObjectReceived(rideObject);
+                        }
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                        Logger.log("ERROR WITH REGISTER");
+                        if (throwable instanceof RetrofitError) {
+                            RetrofitError error = (RetrofitError) throwable;
+                            ActivityHome activityAuthenticate = weakReference.get();
+                            if (activityAuthenticate != null) {
+                                activityAuthenticate.onRideObjectPostError(error.getResponse().getStatus());
+                            }
+                        } else {
+                            ActivityHome activityAuthenticate = weakReference.get();
+                            if (activityAuthenticate != null) {
+                                activityAuthenticate.onRideObjectPostError(404);
+                            }
+                        }
+                    });
+        } else {
+            ActivityHome activityHome = weakReference.get();
+            if (activityHome != null) {
+                activityHome.onRideObjectPostError(404);
+            }
+        }
 	}
 
-	public Observable<Response> cancelRide(int cancelId) {
-        return apiInterface.deleteRide(cancelId);
+	public void cancelRide(final WeakReference<ActivityEta> weakReference, int cancelId) {
+        if (checkInternet()) {
+            apiInterface.deleteRide(cancelId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(response -> {
+                        Logger.log("CANCEL RIDE STATUS CODE: " + response.getStatus());
+                        switch (response.getStatus()) {
+                            case 200:
+                                ActivityEta activityEta = weakReference.get();
+                                if (activityEta != null) {
+                                    activityEta.onRideCanceled(response);
+                                }
+                        }
+                    }, throwable -> {
+                        throwable.printStackTrace();
+                        Logger.log("ERROR WITH REGISTER");
+                        if (throwable instanceof RetrofitError) {
+                            RetrofitError error = (RetrofitError) throwable;
+                            ActivityEta activityAuthenticate = weakReference.get();
+                            if (activityAuthenticate != null) {
+                                activityAuthenticate.onRideCancelError(-1);
+                            }
+                        } else {
+                            ActivityEta activityAuthenticate = weakReference.get();
+                            if (activityAuthenticate != null) {
+                                activityAuthenticate.onRideCancelError(-1);
+                            }
+                        }
+                    });
+        } else {
+            ActivityEta activityEta = weakReference.get();
+            if (activityEta != null) {
+                activityEta.onRideCancelError(404);
+            }
+        }
 	}
 }

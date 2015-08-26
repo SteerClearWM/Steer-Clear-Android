@@ -7,7 +7,9 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class EventPostPlacesChosen {
 
-    public EventPostPlacesChosen() {
+    public int numPassengers;
 
+    public EventPostPlacesChosen(int numPassengers) {
+        this.numPassengers = numPassengers;
     }
 }

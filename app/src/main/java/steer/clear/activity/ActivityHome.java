@@ -19,6 +19,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.lang.ref.WeakReference;
+
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
@@ -27,10 +29,13 @@ import steer.clear.R;
 import steer.clear.event.EventChangePlaces;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.event.EventPostPlacesChosen;
+import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
+import steer.clear.pojo.RideObject;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
+import steer.clear.util.ErrorDialog;
 import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 
@@ -182,6 +187,17 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
+        helper.addRide(new WeakReference<>(this), eventPostPlacesChosen.numPassengers,
+                pickupLatLng.latitude, pickupLatLng.longitude,
+                dropoffLatLng.latitude, dropoffLatLng.longitude);
+    }
 
+    public void onRideObjectReceived(RideObject rideObject) {
+
+    }
+
+    public void onRideObjectPostError(int errorCode) {
+        Logger.log("ON REGISTER ERROR: " + errorCode);
+        ErrorDialog.createFromErrorCode(this, errorCode).show();
     }
 }

@@ -37,12 +37,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
         if (store.hasPreviousRideInfo()) {
-            Intent etaActivity = new Intent(this, ActivityEta.class);
-            etaActivity.putExtra(ActivityEta.ETA, store.getEta());
-            etaActivity.putExtra(ActivityEta.CANCEL, store.getCancelId());
-            etaActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            etaActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(etaActivity);
+            startActivity(ActivityEta.onNewIntent(this, store.getEta(), store.getCancelId()));
             finish();
         } else {
             setContentView(R.layout.activity_authenticate);
@@ -99,6 +94,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
 
     public void onLoginSuccess() {
         Logger.log("ON login SUCCESS");
+
     }
 
     public void onLoginError(int errorCode) {

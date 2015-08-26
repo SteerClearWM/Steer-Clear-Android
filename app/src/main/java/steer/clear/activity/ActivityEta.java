@@ -1,10 +1,13 @@
 package steer.clear.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
@@ -37,6 +40,15 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
 
     @Inject Client helper;
     @Inject Datastore store;
+
+    public static Intent onNewIntent(Context context, String eta, int cancelId) {
+        Intent etaActivity = new Intent(context, ActivityEta.class);
+        etaActivity.putExtra(ActivityEta.ETA, eta);
+        etaActivity.putExtra(ActivityEta.CANCEL, cancelId);
+        etaActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        etaActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return etaActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +107,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
                 (dialog, which) -> {
                     saveInfo = false;
                     store.clearRideInfo();
+                    helper.cancelRide(new WeakReference<>(this), cancelId);
                     finish();
             }).setNegativeButton(
                 getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
@@ -105,12 +118,12 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         alertDialog.show();
     }
 
-    public void onResponseReceived(Response response) {
+    public void onRideCanceled(Response response) {
        // finish();
     }
 
-    public void onErrorReceived(Throwable throwable) {
+    public void onRideCancelError(int errorCode) {
+        saveInfo = false;
         store.clearRideInfo();
-        throwable.printStackTrace();
     }
 }

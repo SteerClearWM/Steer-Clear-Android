@@ -17,7 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -35,6 +38,7 @@ import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewRectangleBackgroundButton;
+import steer.clear.view.ViewTypefaceButton;
 
 /**
  * Created by Miles Peele on 7/25/2015.
@@ -44,17 +48,17 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     private final static String USERNAME_KEY = "user";
     private final static String PASSWORD_KEY = "pass";
     private final static String REGISTERED_KEY = "registered";
-    private final static int ANIMATION_DURATION = 1000;
+    private final static int ANIMATION_DURATION = 1300;
 
     @Bind(R.id.fragment_authenticate_username) ViewAuthenticateEditText username;
     @Bind(R.id.fragment_authenticate_password) ViewAuthenticateEditText password;
     @Nullable @Bind(R.id.fragment_authenticate_phone) ViewAuthenticateEditText phone;
     @Nullable @Bind(R.id.fragment_authenticate_register_prompt) TextView prompt;
-    @Bind(R.id.fragment_authenticate_button) Button button;
+    @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
 
     @Inject EventBus bus;
 
-    private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
+    private static final Interpolator INTERPOLATOR = new AnticipateOvershootInterpolator();
     private AnimatorSet pulse;
 
     public FragmentAuthenticate() {}
@@ -110,12 +114,12 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
         AnimatorSet animator = new AnimatorSet();
         if (enter) {
-            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 0.45f, 1),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 0.45f, 1),
+            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 0, 1),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 0, 1),
                     ObjectAnimator.ofFloat(getActivity(), "alpha", 0, 1));
         } else {
             animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 1, 0),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleX", 1, 0),
+                    ObjectAnimator.ofFloat(getActivity(), "alpha", 1, 0),
                     ObjectAnimator.ofFloat(getActivity(), "scaleY", 1, 0));
         }
 
