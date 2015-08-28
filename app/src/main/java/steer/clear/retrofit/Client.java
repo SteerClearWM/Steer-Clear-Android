@@ -69,7 +69,7 @@ public class Client {
 
     private boolean checkInternet() {
         ConnectivityManager cm = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
+        return cm.getActiveNetworkInfo() != null;
     }
 
     public void login(final WeakReference<ActivityAuthenticate> weakReference,
@@ -97,7 +97,11 @@ public class Client {
                                     RetrofitError error = (RetrofitError) throwable;
                                     ActivityAuthenticate activityAuthenticate = weakReference.get();
                                     if (activityAuthenticate != null) {
-                                        activityAuthenticate.onLoginError(error.getResponse().getStatus());
+                                        if (error.getResponse() != null) {
+                                            activityAuthenticate.onLoginError(error.getResponse().getStatus());
+                                        } else {
+                                            activityAuthenticate.onLoginError(404);
+                                        }
                                     }
                                 }
                             });
@@ -136,14 +140,22 @@ public class Client {
                                 throwable.printStackTrace();
                                 Logger.log("ERROR WITH REGISTER");
                                 if (throwable instanceof RetrofitError) {
+                                    Logger.log("THROWABLE IS RETROFIT");
                                     RetrofitError error = (RetrofitError) throwable;
                                     ActivityAuthenticate activityAuthenticate = weakReference.get();
                                     if (activityAuthenticate != null) {
-                                        activityAuthenticate.onRegisterError(error.getResponse().getStatus());
+                                        Logger.log("PROPGATING TO ACTIVITY");
+                                        if (error.getResponse() != null) {
+                                            activityAuthenticate.onRegisterError(error.getResponse().getStatus());
+                                        } else {
+                                            activityAuthenticate.onRegisterError(404);
+                                        }
                                     }
                                 } else {
+                                    Logger.log("THROWABLE NOT RETROFIT");
                                     ActivityAuthenticate activityAuthenticate = weakReference.get();
                                     if (activityAuthenticate != null) {
+                                        Logger.log("404 to ACTIVITY");
                                         activityAuthenticate.onRegisterError(404);
                                     }
                                 }
@@ -183,7 +195,11 @@ public class Client {
                             RetrofitError error = (RetrofitError) throwable;
                             ActivityHome activityAuthenticate = weakReference.get();
                             if (activityAuthenticate != null) {
-                                activityAuthenticate.onRideObjectPostError(error.getResponse().getStatus());
+                                if (error.getResponse() != null) {
+                                    activityAuthenticate.onRideObjectPostError(error.getResponse().getStatus());
+                                } else {
+                                    activityAuthenticate.onRideObjectPostError(404);
+                                }
                             }
                         } else {
                             ActivityHome activityAuthenticate = weakReference.get();
@@ -222,7 +238,11 @@ public class Client {
                             RetrofitError error = (RetrofitError) throwable;
                             ActivityEta activityAuthenticate = weakReference.get();
                             if (activityAuthenticate != null) {
-                                activityAuthenticate.onRideCancelError(error.getResponse().getStatus());
+                                if (error.getResponse() != null) {
+                                    activityAuthenticate.onRideCancelError(error.getResponse().getStatus());
+                                } else {
+                                    activityAuthenticate.onRideCancelError(404);
+                                }
                             }
                         } else {
                             ActivityEta activityAuthenticate = weakReference.get();

@@ -52,8 +52,8 @@
         Pressing "OK" will log you in.</string>
 
     <string name="error_dialog_no_internet_title">Jefferson, We Have a Problem</string>
-    <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try enabling data or
-        connecting to some sweet WiFi.</string>
+    <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try reconnecting
+        to data or some sweet WiFi.</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
     <string name="dialog_no_gps_body">Couldn\'t grab your GPS, which we need. Do you want to go to your settings
