@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -42,5 +44,14 @@ public class Utils {
                     "Font name must match file name in assets/fonts/ directory: " + fontFileName);
         }
         return typeface;
+    }
+
+    public static boolean isSteerClearRunning() {
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+        }
+        return false;
     }
 }

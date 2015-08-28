@@ -1,5 +1,7 @@
 package steer.clear.view;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
@@ -69,7 +71,10 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
     public void onClick(View v) {
         if (v instanceof ViewTypefaceTextView) {
             ViewTypefaceTextView textView = (ViewTypefaceTextView) v;
-            textView.setBackgroundColor(getResources().getColor(R.color.spirit_gold));
+            ObjectAnimator.ofObject(textView, "backgroundColor", new ArgbEvaluator(),
+                    Color.WHITE, getResources().getColor(R.color.spirit_gold))
+                    .setDuration(750)
+                    .start();
             count = Integer.valueOf((String) textView.getText().subSequence(0, 1));
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
                 View child = linearLayout.getChildAt(i);
