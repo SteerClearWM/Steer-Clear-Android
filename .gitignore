@@ -38,4 +38,3 @@ bin/
 *~
 *.swp
 build/
-app/src/main/res/values/apikeys
