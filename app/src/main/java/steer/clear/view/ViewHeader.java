@@ -11,6 +11,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.TextView;
 
@@ -47,7 +48,7 @@ public class ViewHeader extends TextView {
 
     private void init() {
         setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
-        setTextSize(getResources().getDimension(R.dimen.header_text_size));
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.header_text_size));
         setGravity(Gravity.CENTER);
         setBackgroundColor(getResources().getColor(R.color.wm_green));
 

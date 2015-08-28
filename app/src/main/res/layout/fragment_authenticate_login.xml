@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/fragment_authenticate_logo"
@@ -58,10 +58,10 @@
         android:layout_height="@dimen/fragment_authenticate_button_height"
         android:layout_below="@id/fragment_authenticate_password"
         android:background="@android:color/white"
-        android:textColor="@color/wm_green"
         android:text="@string/fragment_authenticate_login_text"
         android:textSize="@dimen/fragment_authenticate_button_text_size"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        app:preferredTextColor="@color/wm_green" />
 
     <steer.clear.view.ViewTypefaceTextView
         android:id="@+id/fragment_authenticate_register_prompt"

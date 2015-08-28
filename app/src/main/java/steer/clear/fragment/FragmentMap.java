@@ -161,7 +161,6 @@ public class FragmentMap extends Fragment
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("Locating...");
     }
-
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

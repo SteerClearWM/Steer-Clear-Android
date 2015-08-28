@@ -31,8 +31,8 @@
     </style>
 
     <style name="ProgressDialogTheme" parent="Theme.AppCompat.Light.Dialog" >
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:textColor">@color/wm_green</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
@@ -42,6 +42,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:buttonBarStyle">@style/DialogButtonStyle</item>
     </style>
 
     <style name="DialogWindowTheme" parent="DialogTheme">

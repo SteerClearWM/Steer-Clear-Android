@@ -2,17 +2,19 @@
 <resources>
 
     <string name="app_name">SteerClear</string>
-    <string name="url_base">http://10.0.0.223:5000/api</string>
-    <string name="url_authenticate">http://10.0.0.223:5000/</string>
+    <string name="url_base">http://steerclear.wm.edu/api</string>
+    <string name="url_authenticate">http://steerclear.wm.edu/</string>
 
     <string name="header_text">Steer Clear</string>
 
     <string name="fragment_authenticate_register_text">REGISTER</string>
     <string name="fragment_authenticate_login_text">LOGIN</string>
-    <string name="fragment_authenticate_username_hint">W&amp;M USERNAME</string>
-    <string name="fragment_authenticate_password_hint">PASSWORD</string>
-    <string name="fragment_authenticate_phone_hint">PHONE</string>
+    <string name="fragment_authenticate_username_hint">W&amp;M USERNAME (ex. wtreveley) </string>
+    <string name="fragment_authenticate_password_hint">W&amp;M PASSWORD</string>
+    <string name="fragment_authenticate_phone_hint">PHONE (ex. 7577577577) </string>
     <string name="fragment_authenticate_register_prompt">Don\'t have an account? REGISTER</string>
+    <string name="fragment_authenticate_error_login">Must be a valid W&amp;M Username and Password.</string>
+    <string name="fragment_authenticate_error_register">Must be a valid W&amp;M Username, Password and Phone Number</string>
 
     <string name="fragment_map_pickup_hint">Select a Pick Up Location</string>
     <string name="fragment_map_dropoff_hint">Select a Drop Off Location</string>
@@ -36,18 +38,26 @@
     <string name="toast_too_far_for_steer_clear">SteerClear does not service this location</string>
     <string name="toast_must_choose_location">Choose a location first!</string>
 
-    <string name="error_dialog_pos_button_text">Got it</string>
+    <string name="error_dialog_pos_button_text">Ok</string>
 
-    <string name="error_dialog_general_title">Something Has Gone Horribly Wrong</string>
+    <string name="error_dialog_bad_creds_title">Check It Twice!</string>
+    <string name="error_dialog_bad_creds_body">Looks like either your username or password
+        is incorrect.</string>
+
+    <string name="error_dialog_general_title">Something Went Wrong</string>
     <string name="error_dialog_general_body">Don\'t look at me. It\'s not my fault.</string>
+
+    <string name="error_dialog_user_exists_title">The User DOES Exist!</string>
+    <string name="error_dialog_user_exists_body">It seems you already have an account.
+        Pressing "OK" will log you in.</string>
 
     <string name="error_dialog_no_internet_title">Jefferson, We Have a Problem</string>
     <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try enabling data or
         connecting to some sweet WiFi.</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
-    <string name="dialog_no_gps_body">GPS is not enabled. Do you want to go to your settings menu?
-        This app will close if you press \'Cancel\', as it needs GPS to function.</string>
+    <string name="dialog_no_gps_body">Couldn\'t grab your GPS, which we need. Do you want to go to your settings
+        menu to enable? This app will close if you press \'Cancel\'.</string>
     <string name="dialog_no_gps_pos_button_text">Settings</string>
     <string name="dialog_no_gps_neg_button_text">Cancel</string>
 

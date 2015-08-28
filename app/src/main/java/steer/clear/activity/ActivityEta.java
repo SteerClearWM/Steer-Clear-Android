@@ -41,7 +41,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     @Inject Client helper;
     @Inject Datastore store;
 
-    public static Intent onNewIntent(Context context, String eta, int cancelId) {
+    public static Intent newIntent(Context context, String eta, int cancelId) {
         Intent etaActivity = new Intent(context, ActivityEta.class);
         etaActivity.putExtra(ActivityEta.ETA, eta);
         etaActivity.putExtra(ActivityEta.CANCEL, cancelId);
@@ -99,7 +99,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     @Override
     @OnClick(R.id.activity_eta_cancel_ride)
     public void onClick(View v) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this)
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme)
             .setTitle(getResources().getString(R.string.dialog_cancel_ride_title))
             .setMessage(getResources().getString(R.string.dialog_cancel_ride_body))
             .setPositiveButton(
@@ -119,7 +119,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     }
 
     public void onRideCanceled(Response response) {
-       // finish();
+
     }
 
     public void onRideCancelError(int errorCode) {

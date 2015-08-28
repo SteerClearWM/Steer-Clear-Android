@@ -59,6 +59,15 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
 
     public static ErrorDialog createFromErrorCode(Context context, int code) {
         switch (code) {
+            case 400:
+                return new ErrorDialog(context,
+                        context.getResources().getString(R.string.error_dialog_bad_creds_title),
+                        context.getResources().getString(R.string.error_dialog_bad_creds_body),
+                        R.style.DialogTheme);
+            case 409:
+                return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_user_exists_title),
+                        context.getResources().getString(R.string.error_dialog_user_exists_body),
+                        R.style.DialogTheme);
             case 404:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_no_internet_title),
                         context.getResources().getString(R.string.error_dialog_no_internet_body),

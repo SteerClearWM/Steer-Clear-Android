@@ -57,7 +57,6 @@ public class Datastore {
     }
 
     public boolean hasPreviousRideInfo() {
-        Logger.log("PREV ETA: " + getPrefs().getString(ETA, ""));
         return !getPrefs().getString(ETA, "").isEmpty();
     }
 }

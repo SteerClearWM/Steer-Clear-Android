@@ -1,11 +1,9 @@
 package steer.clear.activity;
 
+import android.app.Dialog;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
@@ -20,6 +18,7 @@ import steer.clear.R;
 import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
+import steer.clear.util.Locationer;
 import steer.clear.util.Logger;
 
 
@@ -37,7 +36,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
         if (store.hasPreviousRideInfo()) {
-            startActivity(ActivityEta.onNewIntent(this, store.getEta(), store.getCancelId()));
+            startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
             finish();
         } else {
             setContentView(R.layout.activity_authenticate);
@@ -69,7 +68,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
     }
 
     public void onEvent(EventAuthenticate eventAuthenticate) {
-        if (store.checkRegistered()) {
+        if (eventAuthenticate.registered) {
             helper.login(new WeakReference<>(this),
                     eventAuthenticate.username, eventAuthenticate.password);
         } else {
@@ -86,15 +85,23 @@ public class ActivityAuthenticate extends AppCompatActivity {
     public void onRegisterError(int errorCode) {
         Logger.log("ON REGISTER ERROR: " + errorCode);
         FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
-        if (fragmentAuthenticate != null) {
-            fragmentAuthenticate.togglePulse();
+        fragmentAuthenticate.togglePulse();
+        Dialog error = ErrorDialog.createFromErrorCode(this, errorCode);
+        if (errorCode == 409) {
+            store.userHasRegistered();
+            error.setOnDismissListener(dialog -> {
+                helper.login(new WeakReference<>(this),
+                        fragmentAuthenticate.getUsername(),
+                        fragmentAuthenticate.getPassword());
+            });
         }
-        ErrorDialog.createFromErrorCode(this, errorCode).show();
+        error.show();
     }
 
     public void onLoginSuccess() {
         Logger.log("ON login SUCCESS");
-
+        startActivity(ActivityHome.newIntent(this));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     public void onLoginError(int errorCode) {

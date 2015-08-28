@@ -1,25 +1,32 @@
 package steer.clear.activity;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.TransitionDrawable;
+import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.FrameLayout;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.lang.ref.WeakReference;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -29,18 +36,17 @@ import steer.clear.R;
 import steer.clear.event.EventChangePlaces;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.event.EventPostPlacesChosen;
-import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.pojo.RideObject;
 import steer.clear.retrofit.Client;
-import steer.clear.util.Datastore;
 import steer.clear.util.ErrorDialog;
+import steer.clear.util.Locationer;
 import steer.clear.util.Logger;
 import steer.clear.util.Utils;
 
 public class ActivityHome extends AppCompatActivity
-	implements OnConnectionFailedListener, ConnectionCallbacks {
+	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {
 
     private static LatLng userLatLng;
 	private static LatLng pickupLatLng;
@@ -55,8 +61,13 @@ public class ActivityHome extends AppCompatActivity
 
 	@Inject Client helper;
     @Inject EventBus bus;
+    @Inject Locationer locationer;
 	public GoogleApiClient mGoogleApiClient;
     private AlertDialog settings;
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, ActivityHome.class);
+    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +123,10 @@ public class ActivityHome extends AppCompatActivity
                 userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 				showMapStuff(userLatLng);
             } else {
-				currentLocation = Utils.getLocation(this);
+                currentLocation = locationer.getLocation();
                 if (currentLocation != null) {
                     userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-					showMapStuff(userLatLng);
+                    showMapStuff(userLatLng);
                 } else {
                     showSettingsAlert();
                 }
@@ -124,6 +135,7 @@ public class ActivityHome extends AppCompatActivity
 	}
 
 	private void showMapStuff(LatLng userLatLng) {
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
                 FragmentMap.newInstance(userLatLng), MAP);
@@ -162,7 +174,15 @@ public class ActivityHome extends AppCompatActivity
 
 	@Override
 	public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Logger.log("CONNECTION FAILED WITH CODE: " + connectionResult.getErrorCode());
+        }
 	}
 
     public void onEvent(EventPlacesChosen eventPlacesChosen) {
@@ -193,11 +213,35 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onRideObjectReceived(RideObject rideObject) {
+        RideObject.RideInfo info = rideObject.getRideInfo();
+        String pickupTime = info.getPickupTime();
+        int cancelId = info.getId();
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss",
+                    Locale.US);
+            dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
 
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(dateFormat.parse(pickupTime));
+
+            startActivity(ActivityEta.newIntent(this,
+                    String.format("%02d : %02d",
+                            calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
+                    cancelId));
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            finish();
+        } catch (ParseException p) {
+            p.printStackTrace();
+        }
     }
 
     public void onRideObjectPostError(int errorCode) {
         Logger.log("ON REGISTER ERROR: " + errorCode);
         ErrorDialog.createFromErrorCode(this, errorCode).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
 }

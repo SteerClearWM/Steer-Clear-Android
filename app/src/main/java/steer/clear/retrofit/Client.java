@@ -112,6 +112,7 @@ public class Client {
 
     public void register(final WeakReference<ActivityAuthenticate> weakReference,
                          String username, String password, String phone) {
+        Logger.log("REGISTERING");
         if (checkInternet()) {
             Logger.log("HAS INTERNET");
             authenticateInterface.register(new RegisterPost(username, password, phone))
@@ -208,24 +209,25 @@ public class Client {
                         Logger.log("CANCEL RIDE STATUS CODE: " + response.getStatus());
                         switch (response.getStatus()) {
                             case 200:
+                            case 204:
                                 ActivityEta activityEta = weakReference.get();
                                 if (activityEta != null) {
                                     activityEta.onRideCanceled(response);
                                 }
+                                break;
                         }
                     }, throwable -> {
                         throwable.printStackTrace();
-                        Logger.log("ERROR WITH REGISTER");
                         if (throwable instanceof RetrofitError) {
                             RetrofitError error = (RetrofitError) throwable;
                             ActivityEta activityAuthenticate = weakReference.get();
                             if (activityAuthenticate != null) {
-                                activityAuthenticate.onRideCancelError(-1);
+                                activityAuthenticate.onRideCancelError(error.getResponse().getStatus());
                             }
                         } else {
                             ActivityEta activityAuthenticate = weakReference.get();
                             if (activityAuthenticate != null) {
-                                activityAuthenticate.onRideCancelError(-1);
+                                activityAuthenticate.onRideCancelError(404);
                             }
                         }
                     });

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.Button;
 
@@ -41,7 +42,7 @@ public class ViewFooter extends Button {
 
     private void init() {
         setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
-        setTextSize(getResources().getDimension(R.dimen.footer_text_size));
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.footer_text_size));
         setBackgroundResource(R.drawable.footer_selector);
         setGravity(Gravity.CENTER);
     }

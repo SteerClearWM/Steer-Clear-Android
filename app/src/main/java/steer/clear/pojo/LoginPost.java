@@ -1,8 +1,5 @@
 package steer.clear.pojo;
 
-/**
- * Created by Miles Peele on 7/25/2015.
- */
 public class LoginPost {
 
     public String username;

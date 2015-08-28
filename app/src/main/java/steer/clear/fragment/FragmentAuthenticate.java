@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
@@ -40,9 +41,6 @@ import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewRectangleBackgroundButton;
 import steer.clear.view.ViewTypefaceButton;
 
-/**
- * Created by Miles Peele on 7/25/2015.
- */
 public class FragmentAuthenticate extends Fragment implements View.OnClickListener {
 
     private final static String USERNAME_KEY = "user";
@@ -58,7 +56,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
 
     @Inject EventBus bus;
 
-    private static final Interpolator INTERPOLATOR = new AnticipateOvershootInterpolator();
+    private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private AnimatorSet pulse;
 
     public FragmentAuthenticate() {}
@@ -89,8 +87,10 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
                 inflater.inflate(R.layout.fragment_authenticate_login, container, false) :
                 inflater.inflate(R.layout.fragment_authenticate_register, container, false);
         ButterKnife.bind(this, v);
-        button.setTypeface(Utils.getStaticTypeFace(getActivity(), "Avenir.otf"));
+
         if (prompt != null) { prompt.setText(createSpan()); }
+
+        createPulseAnimation();
         return v;
     }
 
@@ -126,6 +126,31 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         animator.setDuration(ANIMATION_DURATION);
         animator.setInterpolator(INTERPOLATOR);
         return animator;
+    }
+
+    private void createPulseAnimation() {
+        pulse = new AnimatorSet();
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f, .9f);
+        scaleX.setRepeatCount(ValueAnimator.INFINITE);
+        scaleX.setRepeatMode(ValueAnimator.REVERSE);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f, .9f);
+        scaleY.setRepeatCount(ValueAnimator.INFINITE);
+        scaleY.setRepeatMode(ValueAnimator.REVERSE);
+        pulse.playTogether(scaleX, scaleY);
+        pulse.setDuration(600);
+    }
+
+    public void togglePulse() {
+        if (pulse.isRunning()) {
+            pulse.cancel();
+            AnimatorSet normalize = new AnimatorSet();
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f);
+            normalize.playTogether(scaleX, scaleY);
+            normalize.start();
+        } else {
+            pulse.start();
+        }
     }
 
     private SpannableString createSpan() {
@@ -165,51 +190,35 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         return "+1" + phone.getEnteredText();
     }
 
+    public String getUsername() { return username.getEnteredText(); }
+
+    public String getPassword() { return password.getEnteredText(); }
+
     @Override
     @OnClick(R.id.fragment_authenticate_button)
     public void onClick(View v) {
-        if (getArguments().getBoolean(REGISTERED_KEY)) {
-            if (validateUsername() && validatePassword()) {
-                togglePulse();
-                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                        ""));
+        if (!pulse.isRunning()) {
+            if (getArguments().getBoolean(REGISTERED_KEY)) {
+                if (validateUsername() && validatePassword()) {
+                    togglePulse();
+                    bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+                            "", getArguments().getBoolean(REGISTERED_KEY)));
+                } else {
+                    ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+                    Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_login),
+                            Snackbar.LENGTH_SHORT).show();
+                }
             } else {
-                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
-            }
-        } else {
-            if (validateUsername() && validatePassword() && validatePhoneNumber()) {
-                togglePulse();
-                bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                        formatPhoneNumber()));
-            } else {
-                ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+                if (validateUsername() && validatePassword() && validatePhoneNumber()) {
+                    togglePulse();
+                    bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+                            formatPhoneNumber(), getArguments().getBoolean(REGISTERED_KEY)));
+                } else {
+                    ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+                    Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_register),
+                            Snackbar.LENGTH_SHORT);
+                }
             }
         }
-    }
-
-    public void togglePulse() {
-       if (pulse == null) {
-           pulse = new AnimatorSet();
-           ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f, .9f);
-           scaleX.setRepeatCount(ValueAnimator.INFINITE);
-           scaleX.setRepeatMode(ValueAnimator.REVERSE);
-           ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f, .9f);
-           scaleY.setRepeatCount(ValueAnimator.INFINITE);
-           scaleY.setRepeatMode(ValueAnimator.REVERSE);
-           pulse.playTogether(scaleX, scaleY);
-           pulse.setDuration(600);
-           pulse.start();
-       } else {
-           if (pulse.isRunning()) {
-               AnimatorSet normalize = new AnimatorSet();
-               ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f);
-               ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f);
-               normalize.playTogether(scaleX, scaleY);
-               normalize.start();
-               pulse.cancel();
-           } else {
-               pulse.start();
-           }
-       }
     }
 }
