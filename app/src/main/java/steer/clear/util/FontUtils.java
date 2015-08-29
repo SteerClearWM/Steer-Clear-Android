@@ -12,12 +12,14 @@ import android.util.Log;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 /**
  * Created by Miles Peele on 7/19/2015.
  */
-public class Utils {
+public class FontUtils {
+
     private static HashMap<String, Typeface> mFontMap;
 
     private static void initializeFontMap(Context context) {
@@ -44,14 +46,5 @@ public class Utils {
                     "Font name must match file name in assets/fonts/ directory: " + fontFileName);
         }
         return typeface;
-    }
-
-    public static boolean isSteerClearRunning() {
-        Calendar calendar = Calendar.getInstance();
-        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
-            int hour = calendar.get(Calendar.HOUR_OF_DAY);
-            int minute = calendar.get(Calendar.MINUTE);
-        }
-        return false;
     }
 }

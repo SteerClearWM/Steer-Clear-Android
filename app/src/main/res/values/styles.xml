@@ -44,6 +44,7 @@
         <item name="android:windowCloseOnTouchOutside">false</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:buttonBarStyle">@style/DialogButtonStyle</item>
+        <item name="android:borderlessButtonStyle">@style/DialogButtonStyle</item>
     </style>
 
     <style name="DialogWindowTheme" parent="DialogTheme">

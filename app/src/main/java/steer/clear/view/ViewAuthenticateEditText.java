@@ -8,12 +8,11 @@ import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.GravityCompat;
-import android.text.InputType;
 import android.util.AttributeSet;
 import android.widget.EditText;
 
 import steer.clear.R;
-import steer.clear.util.Utils;
+import steer.clear.util.FontUtils;
 
 /**
  * Created by Miles Peele on 7/25/2015.
@@ -45,7 +44,7 @@ public class ViewAuthenticateEditText extends EditText {
     }
 
     private void init() {
-        setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"), Typeface.BOLD);
+        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"), Typeface.BOLD);
         setGravity(GravityCompat.START);
         setLines(1);
         setMaxLines(1);

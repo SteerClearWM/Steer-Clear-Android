@@ -38,7 +38,6 @@ public class Locationer implements android.location.LocationListener {
 
     public Location getLocation() {
         if (lastKnown != null) {
-            Logger.log("LAST KNOWN NOT NULL");
             return lastKnown;
         }
 

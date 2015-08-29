@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
+import retrofit.RetrofitError;
 import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -21,7 +22,7 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
-import steer.clear.util.Utils;
+import steer.clear.util.ErrorDialog;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewTypefaceTextView;
 
@@ -59,7 +60,9 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         ((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
 
         if (savedInstanceState != null) {
-            etaTime.setText(savedInstanceState.getString(ETA));
+            cancelId = savedInstanceState.getInt(CANCEL);
+            eta = savedInstanceState.getString(ETA);
+            etaTime.setText(eta);
         } else {
             Intent extras = getIntent();
             eta = extras.getStringExtra(ETA);
@@ -82,9 +85,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
 
     @Override
     protected void onPause() {
-        if (saveInfo) {
-            store.putRideInfo(eta, cancelId);
-        }
+        if (saveInfo) { store.putRideInfo(eta, cancelId); }
         super.onPause();
     }
 
@@ -105,10 +106,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
             .setPositiveButton(
                 getResources().getString(R.string.dialog_cancel_ride_pos_button_text),
                 (dialog, which) -> {
-                    saveInfo = false;
-                    store.clearRideInfo();
-                    helper.cancelRide(new WeakReference<>(this), cancelId);
-                    finish();
+                    cancelRide();
             }).setNegativeButton(
                 getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
                 (dialog, which) -> {
@@ -118,12 +116,29 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         alertDialog.show();
     }
 
-    public void onRideCanceled(Response response) {
-
-    }
-
-    public void onRideCancelError(int errorCode) {
+    private void cancelRide() {
         saveInfo = false;
         store.clearRideInfo();
+        helper.cancelRide(cancelId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onRideCanceled, this::onRideCancelError);
+    }
+
+    public void onRideCanceled(Response response) {
+        finish();
+    }
+
+    public void onRideCancelError(Throwable throwable) {
+        saveInfo = false;
+        store.clearRideInfo();
+        throwable.printStackTrace();
+        if (throwable instanceof RetrofitError) {
+            RetrofitError error = (RetrofitError) throwable;
+            ErrorDialog.createFromErrorCode(this, error.getResponse() != null ?
+                    error.getResponse().getStatus() : 404).show();
+        } else {
+            ErrorDialog.createFromErrorCode(this, 404).show();
+        }
     }
 }

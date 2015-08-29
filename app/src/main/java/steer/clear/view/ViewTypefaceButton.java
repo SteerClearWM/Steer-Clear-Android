@@ -3,16 +3,14 @@ package steer.clear.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.widget.Button;
 
 import steer.clear.R;
-import steer.clear.util.Utils;
+import steer.clear.util.FontUtils;
 
 /**
  * Created by Miles Peele on 8/22/2015.
@@ -53,7 +51,7 @@ public class ViewTypefaceButton extends Button {
         } else {
             setTextColor(Color.WHITE);
         }
-        setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
+        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
         setTextSize(25f);
         setGravity(Gravity.CENTER);
     }

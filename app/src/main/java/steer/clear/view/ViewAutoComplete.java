@@ -1,6 +1,5 @@
 package steer.clear.view;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -11,32 +10,26 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
-import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
 import steer.clear.R;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.util.ErrorDialog;
-import steer.clear.util.Logger;
-import steer.clear.util.Utils;
+import steer.clear.util.FontUtils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
 
@@ -103,7 +96,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         setGravity(Gravity.START | Gravity.CENTER);
         setHorizontallyScrolling(true);
         setEllipsize(TextUtils.TruncateAt.END);
-        setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
+        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
         setCompoundDrawablePadding(15);
         setSaveEnabled(true);
 

@@ -18,11 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AnticipateOvershootInterpolator;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
-import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -35,10 +31,7 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.event.EventGoToRegister;
-import steer.clear.util.Logger;
-import steer.clear.util.Utils;
 import steer.clear.view.ViewAuthenticateEditText;
-import steer.clear.view.ViewRectangleBackgroundButton;
 import steer.clear.view.ViewTypefaceButton;
 
 public class FragmentAuthenticate extends Fragment implements View.OnClickListener {

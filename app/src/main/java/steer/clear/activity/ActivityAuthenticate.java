@@ -2,14 +2,17 @@ package steer.clear.activity;
 
 import android.app.Dialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Datastore;
@@ -18,8 +21,6 @@ import steer.clear.R;
 import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
-import steer.clear.util.Locationer;
-import steer.clear.util.Logger;
 
 
 public class ActivityAuthenticate extends AppCompatActivity {
@@ -69,48 +70,85 @@ public class ActivityAuthenticate extends AppCompatActivity {
 
     public void onEvent(EventAuthenticate eventAuthenticate) {
         if (eventAuthenticate.registered) {
-            helper.login(new WeakReference<>(this),
-                    eventAuthenticate.username, eventAuthenticate.password);
+            helper.login(eventAuthenticate.username, eventAuthenticate.password)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onLoginSuccess, this::onRegisterError);
         } else {
-            helper.register(new WeakReference<>(this),
-                    eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone);
+            helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
+                            eventAuthenticate.password), this::onRegisterError);
         }
     }
 
-    public void onRegisterSuccess() {
+    public void onRegisterSuccess(String username, String password) {
         store.userHasRegistered();
-        Logger.log("ON REGISTER SUCESSS");
+        helper.login(username, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onLoginSuccess, this::onLoginError);
     }
 
-    public void onRegisterError(int errorCode) {
-        Logger.log("ON REGISTER ERROR: " + errorCode);
-        FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
-        fragmentAuthenticate.togglePulse();
-        Dialog error = ErrorDialog.createFromErrorCode(this, errorCode);
-        if (errorCode == 409) {
-            store.userHasRegistered();
-            error.setOnDismissListener(dialog -> {
-                helper.login(new WeakReference<>(this),
-                        fragmentAuthenticate.getUsername(),
-                        fragmentAuthenticate.getPassword());
-            });
+    public void onRegisterError(Throwable throwable) {
+        throwable.printStackTrace();
+        toggleLoadingAnimation();
+        if (throwable instanceof RetrofitError) {
+            RetrofitError error = (RetrofitError) throwable;
+            if (error.getResponse() != null) {
+                Dialog errorDialog = ErrorDialog.createFromErrorCode(this, error.getResponse().getStatus());
+                if (error.getResponse().getStatus() == 409) {
+                    store.userHasRegistered();
+                    errorDialog.setOnDismissListener(dialog -> {
+                        toggleLoadingAnimation();
+                        helper.login(getFragmentUsername(), getFragmentPassword())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(this::onLoginSuccess, this::onLoginError);
+                    });
+                }
+                errorDialog.show();
+            } else {
+                ErrorDialog.createFromErrorCode(this, 404).show();
+            }
+        } else {
+            ErrorDialog.createFromErrorCode(this, 404).show();
         }
-        error.show();
     }
 
-    public void onLoginSuccess() {
-        Logger.log("ON login SUCCESS");
+    public void onLoginSuccess(Response response) {
         startActivity(ActivityHome.newIntent(this));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    public void onLoginError(int errorCode) {
-        Logger.log("ON login ERROR: " + errorCode);
+    public void onLoginError(Throwable throwable) {
+        throwable.printStackTrace();
+        toggleLoadingAnimation();
+        if (throwable instanceof RetrofitError) {
+            RetrofitError error = (RetrofitError) throwable;
+            ErrorDialog.createFromErrorCode(this, error.getResponse() != null ?
+                error.getResponse().getStatus() : 404).show();
+        } else {
+            ErrorDialog.createFromErrorCode(this, 404).show();
+        }
+    }
+
+    private void toggleLoadingAnimation() {
         FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
         if (fragmentAuthenticate != null) {
             fragmentAuthenticate.togglePulse();
         }
-        ErrorDialog.createFromErrorCode(this, errorCode).show();
+    }
+
+    private String getFragmentUsername() {
+        FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
+        return fragmentAuthenticate != null ? fragmentAuthenticate.getUsername() : "";
+    }
+
+    private String getFragmentPassword() {
+        FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
+        return fragmentAuthenticate != null ? fragmentAuthenticate.getPassword() : "";
     }
 
 }

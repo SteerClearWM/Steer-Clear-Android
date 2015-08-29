@@ -28,6 +28,8 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
 
     @Bind(R.id.fragment_hail_ride_passenger_select_linear_layout) LinearLayout linearLayout;
 
+    private final static int BACKGROUND_ANIMATION = 350;
+
     public int count = 0;
 
     public ViewPassengerSelect(Context context) {
@@ -73,7 +75,7 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
             ViewTypefaceTextView textView = (ViewTypefaceTextView) v;
             ObjectAnimator.ofObject(textView, "backgroundColor", new ArgbEvaluator(),
                     Color.WHITE, getResources().getColor(R.color.spirit_gold))
-                    .setDuration(750)
+                    .setDuration(BACKGROUND_ANIMATION)
                     .start();
             count = Integer.valueOf((String) textView.getText().subSequence(0, 1));
             for (int i = 0; i < linearLayout.getChildCount(); i++) {

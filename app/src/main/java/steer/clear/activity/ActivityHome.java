@@ -14,7 +14,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
@@ -23,7 +22,6 @@ import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -31,6 +29,9 @@ import java.util.TimeZone;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
+import retrofit.RetrofitError;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventChangePlaces;
@@ -43,7 +44,6 @@ import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
 import steer.clear.util.Locationer;
 import steer.clear.util.Logger;
-import steer.clear.util.Utils;
 
 public class ActivityHome extends AppCompatActivity
 	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {
@@ -207,9 +207,12 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-        helper.addRide(new WeakReference<>(this), eventPostPlacesChosen.numPassengers,
+        helper.addRide(eventPostPlacesChosen.numPassengers,
                 pickupLatLng.latitude, pickupLatLng.longitude,
-                dropoffLatLng.latitude, dropoffLatLng.longitude);
+                dropoffLatLng.latitude, dropoffLatLng.longitude)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onRideObjectReceived, this::onRideObjectPostError);
     }
 
     public void onRideObjectReceived(RideObject rideObject) {
@@ -235,9 +238,15 @@ public class ActivityHome extends AppCompatActivity
         }
     }
 
-    public void onRideObjectPostError(int errorCode) {
-        Logger.log("ON REGISTER ERROR: " + errorCode);
-        ErrorDialog.createFromErrorCode(this, errorCode).show();
+    public void onRideObjectPostError(Throwable throwable) {
+        throwable.printStackTrace();
+        if (throwable instanceof RetrofitError) {
+            RetrofitError error = (RetrofitError) throwable;
+            ErrorDialog.createFromErrorCode(this, error.getResponse() != null ?
+                    error.getResponse().getStatus() : 404).show();
+        } else {
+            ErrorDialog.createFromErrorCode(this, 404).show();
+        }
     }
 
     @Override

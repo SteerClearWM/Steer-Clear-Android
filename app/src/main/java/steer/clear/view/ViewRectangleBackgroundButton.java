@@ -14,8 +14,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.Button;
 
-import steer.clear.util.Logger;
-import steer.clear.util.Utils;
+import steer.clear.util.FontUtils;
 
 /**
  * Created by Miles Peele on 7/21/2015.
@@ -54,7 +53,7 @@ public class ViewRectangleBackgroundButton extends Button {
     }
 
     private void init() {
-        setTypeface(Utils.getStaticTypeFace(getContext(), "Antipasto.otf"));
+        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Antipasto.otf"));
         curPaint = new Paint();
         curPaint.setAntiAlias(true);
         curPaint.setColor(Color.WHITE);

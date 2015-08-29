@@ -6,7 +6,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import steer.clear.util.Utils;
+import steer.clear.util.FontUtils;
 
 /**
  * Created by Miles Peele on 8/21/2015.
@@ -35,6 +35,6 @@ public class ViewTypefaceTextView extends TextView {
     }
 
     private void init() {
-        setTypeface(Utils.getStaticTypeFace(getContext(), "Avenir.otf"));
+        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
     }
 }

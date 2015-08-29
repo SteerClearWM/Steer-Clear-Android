@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import steer.clear.R;
-import steer.clear.util.Utils;
+import steer.clear.util.FontUtils;
 
 /**
  * Created by Miles Peele on 7/19/2015.
@@ -42,7 +42,7 @@ public class ViewQuarterOpacityBackgroundText extends TextView {
     }
 
     private void init() {
-        setTypeface(Utils.getStaticTypeFace(getContext(), "Antipasto.otf"));
+        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Antipasto.otf"));
         curPaint = new Paint();
         curPaint.setAntiAlias(true);
         curPaint.setColor(getResources().getColor(R.color.quarter_opacity));

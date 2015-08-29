@@ -72,101 +72,12 @@ public class Client {
         return cm.getActiveNetworkInfo() != null;
     }
 
-    public void login(final WeakReference<ActivityAuthenticate> weakReference,
-                      String username, String password) {
-        if (checkInternet()) {
-            authenticateInterface.login(new LoginPost(username, password))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            response -> {
-                                switch (response.getStatus()) {
-                                    case 200:
-                                        ActivityAuthenticate activityAuthenticate = weakReference.get();
-                                        if (activityAuthenticate != null) {
-                                            activityAuthenticate.onLoginSuccess();
-                                        }
-                                        break;
-                                    default:
-                                        Logger.log("UNHANDLED LOGIN RESPONSE CODE: " + response.getStatus());
-                                }
-                            }, throwable -> {
-                                throwable.printStackTrace();
-                                Logger.log("ERROR WITH LOGIN");
-                                if (throwable instanceof RetrofitError) {
-                                    RetrofitError error = (RetrofitError) throwable;
-                                    ActivityAuthenticate activityAuthenticate = weakReference.get();
-                                    if (activityAuthenticate != null) {
-                                        if (error.getResponse() != null) {
-                                            activityAuthenticate.onLoginError(error.getResponse().getStatus());
-                                        } else {
-                                            activityAuthenticate.onLoginError(404);
-                                        }
-                                    }
-                                }
-                            });
-        } else {
-            Logger.log("NO HAS INTERNET");
-            ActivityAuthenticate activityAuthenticate = weakReference.get();
-            if (activityAuthenticate != null) {
-                activityAuthenticate.onRegisterError(404);
-            }
-        }
+    public Observable<Response> login(String username, String password) {
+        return authenticateInterface.login(new LoginPost(username, password));
     }
 
-    public void register(final WeakReference<ActivityAuthenticate> weakReference,
-                         String username, String password, String phone) {
-        Logger.log("REGISTERING");
-        if (checkInternet()) {
-            Logger.log("HAS INTERNET");
-            authenticateInterface.register(new RegisterPost(username, password, phone))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            response -> {
-                                switch (response.getStatus()) {
-                                    case 200:
-                                    case 302:
-                                        ActivityAuthenticate activityAuthenticate = weakReference.get();
-                                        if (activityAuthenticate != null) {
-                                            activityAuthenticate.onRegisterSuccess();
-                                            login(weakReference, username, password);
-                                        }
-                                        break;
-                                    default:
-                                        Logger.log("UNHANDLED REGISTER RESPONSE CODE: " + response.getStatus());
-                                }
-                            }, throwable -> {
-                                throwable.printStackTrace();
-                                Logger.log("ERROR WITH REGISTER");
-                                if (throwable instanceof RetrofitError) {
-                                    Logger.log("THROWABLE IS RETROFIT");
-                                    RetrofitError error = (RetrofitError) throwable;
-                                    ActivityAuthenticate activityAuthenticate = weakReference.get();
-                                    if (activityAuthenticate != null) {
-                                        Logger.log("PROPGATING TO ACTIVITY");
-                                        if (error.getResponse() != null) {
-                                            activityAuthenticate.onRegisterError(error.getResponse().getStatus());
-                                        } else {
-                                            activityAuthenticate.onRegisterError(404);
-                                        }
-                                    }
-                                } else {
-                                    Logger.log("THROWABLE NOT RETROFIT");
-                                    ActivityAuthenticate activityAuthenticate = weakReference.get();
-                                    if (activityAuthenticate != null) {
-                                        Logger.log("404 to ACTIVITY");
-                                        activityAuthenticate.onRegisterError(404);
-                                    }
-                                }
-                            });
-        } else {
-            Logger.log("NO HAS INTERNET");
-            ActivityAuthenticate activityAuthenticate = weakReference.get();
-            if (activityAuthenticate != null) {
-                activityAuthenticate.onRegisterError(404);
-            }
-        }
+    public Observable<Response> register(String username, String password, String phone) {
+        return authenticateInterface.register(new RegisterPost(username, password, phone));
     }
 	
 	/**
@@ -174,88 +85,14 @@ public class Client {
 	 * If successful, calls through the ServiceHttpInterface onPostSuccess()
 	 * If failure, calls through the ServiceHttpInterface onVolleyError()
 	 */
-	public void addRide(final WeakReference<ActivityHome> weakReference,
-                        final Integer num_passengers,
+	public Observable<RideObject> addRide(final Integer num_passengers,
                         final Double start_latitude, final Double start_longitude,
 			            final Double end_latitude, final Double end_longitude) {
-        if (checkInternet()) {
-            apiInterface.addRide(new RidePost(num_passengers, start_latitude,
-                    start_longitude, end_latitude, end_longitude))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(rideObject -> {
-                        ActivityHome activityHome = weakReference.get();
-                        if (activityHome != null) {
-                            activityHome.onRideObjectReceived(rideObject);
-                        }
-                    }, throwable -> {
-                        throwable.printStackTrace();
-                        Logger.log("ERROR WITH REGISTER");
-                        if (throwable instanceof RetrofitError) {
-                            RetrofitError error = (RetrofitError) throwable;
-                            ActivityHome activityAuthenticate = weakReference.get();
-                            if (activityAuthenticate != null) {
-                                if (error.getResponse() != null) {
-                                    activityAuthenticate.onRideObjectPostError(error.getResponse().getStatus());
-                                } else {
-                                    activityAuthenticate.onRideObjectPostError(404);
-                                }
-                            }
-                        } else {
-                            ActivityHome activityAuthenticate = weakReference.get();
-                            if (activityAuthenticate != null) {
-                                activityAuthenticate.onRideObjectPostError(404);
-                            }
-                        }
-                    });
-        } else {
-            ActivityHome activityHome = weakReference.get();
-            if (activityHome != null) {
-                activityHome.onRideObjectPostError(404);
-            }
-        }
+        return apiInterface.addRide(new RidePost(num_passengers, start_latitude,
+                start_longitude, end_latitude, end_longitude));
 	}
 
-	public void cancelRide(final WeakReference<ActivityEta> weakReference, int cancelId) {
-        if (checkInternet()) {
-            apiInterface.deleteRide(cancelId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(response -> {
-                        Logger.log("CANCEL RIDE STATUS CODE: " + response.getStatus());
-                        switch (response.getStatus()) {
-                            case 200:
-                            case 204:
-                                ActivityEta activityEta = weakReference.get();
-                                if (activityEta != null) {
-                                    activityEta.onRideCanceled(response);
-                                }
-                                break;
-                        }
-                    }, throwable -> {
-                        throwable.printStackTrace();
-                        if (throwable instanceof RetrofitError) {
-                            RetrofitError error = (RetrofitError) throwable;
-                            ActivityEta activityAuthenticate = weakReference.get();
-                            if (activityAuthenticate != null) {
-                                if (error.getResponse() != null) {
-                                    activityAuthenticate.onRideCancelError(error.getResponse().getStatus());
-                                } else {
-                                    activityAuthenticate.onRideCancelError(404);
-                                }
-                            }
-                        } else {
-                            ActivityEta activityAuthenticate = weakReference.get();
-                            if (activityAuthenticate != null) {
-                                activityAuthenticate.onRideCancelError(404);
-                            }
-                        }
-                    });
-        } else {
-            ActivityEta activityEta = weakReference.get();
-            if (activityEta != null) {
-                activityEta.onRideCancelError(404);
-            }
-        }
+	public Observable<Response> cancelRide(int cancelId) {
+        return apiInterface.deleteRide(cancelId);
 	}
 }
