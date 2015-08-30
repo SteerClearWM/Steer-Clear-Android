@@ -79,12 +79,7 @@ public class Client {
     public Observable<Response> register(String username, String password, String phone) {
         return authenticateInterface.register(new RegisterPost(username, password, phone));
     }
-	
-	/**
-	 * Method used to add a ride to the queue. Parameters must be formatted exactly as shown
-	 * If successful, calls through the ServiceHttpInterface onPostSuccess()
-	 * If failure, calls through the ServiceHttpInterface onVolleyError()
-	 */
+
 	public Observable<RideObject> addRide(final Integer num_passengers,
                         final Double start_latitude, final Double start_longitude,
 			            final Double end_latitude, final Double end_longitude) {

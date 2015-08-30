@@ -5,11 +5,11 @@ package steer.clear.pojo;
  */
 public class RidePost {
 
-    private int num_passengers;
-    private float start_latitude;
-    private float start_longitude;
-    private float end_latitude;
-    private float end_longitude;
+    public int num_passengers;
+    public float start_latitude;
+    public float start_longitude;
+    public float end_latitude;
+    public float end_longitude;
 
     public RidePost(int numPassengers, double pickupLat, double pickupupLong,
                     double dropoffLat, double dropoffLong) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -109,7 +110,7 @@ public class ActivityHome extends AppCompatActivity
 	public void onBackPressed() {
         int count = getFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
-            super.onBackPressed();
+            moveTaskToBack(true);
 	    } else {
 	        getFragmentManager().popBackStack();
 		}
@@ -140,6 +141,7 @@ public class ActivityHome extends AppCompatActivity
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
                 FragmentMap.newInstance(userLatLng), MAP);
 		fragmentTransaction.commit();
+        new Handler().postDelayed(() -> getWindow().setBackgroundDrawable(null), 3000);
 	}
 
     @Override

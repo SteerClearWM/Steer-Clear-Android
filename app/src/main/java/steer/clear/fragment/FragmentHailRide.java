@@ -74,7 +74,7 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 	}
 
 	@Override
-	public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+	 public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
 		Animator animator;
 		if (enter) {
 			animator = ObjectAnimator.ofFloat(getActivity(), "alpha", 0, 1);
@@ -83,7 +83,6 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 		}
 
 		animator.setDuration(750);
-		animator.setInterpolator(new AccelerateDecelerateInterpolator());
 		return animator;
 	}
 

@@ -45,7 +45,8 @@
         is incorrect.</string>
 
     <string name="error_dialog_general_title">Something Went Wrong</string>
-    <string name="error_dialog_general_body">Don\'t look at me. It\'s not my fault.</string>
+    <string name="error_dialog_general_body">Don\'t look at me. It\'s not my fault. Try
+        retrying whatever you were trying to do.</string>
 
     <string name="error_dialog_user_exists_title">The User DOES Exist!</string>
     <string name="error_dialog_user_exists_body">It seems you already have an account.

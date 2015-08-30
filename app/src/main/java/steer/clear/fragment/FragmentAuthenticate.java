@@ -83,7 +83,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
 
         if (prompt != null) { prompt.setText(createSpan()); }
 
-        createPulseAnimation();
         return v;
     }
 
@@ -121,29 +120,8 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         return animator;
     }
 
-    private void createPulseAnimation() {
-        pulse = new AnimatorSet();
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f, .9f);
-        scaleX.setRepeatCount(ValueAnimator.INFINITE);
-        scaleX.setRepeatMode(ValueAnimator.REVERSE);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f, .9f);
-        scaleY.setRepeatCount(ValueAnimator.INFINITE);
-        scaleY.setRepeatMode(ValueAnimator.REVERSE);
-        pulse.playTogether(scaleX, scaleY);
-        pulse.setDuration(600);
-    }
-
     public void togglePulse() {
-        if (pulse.isRunning()) {
-            pulse.cancel();
-            AnimatorSet normalize = new AnimatorSet();
-            ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f);
-            ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f);
-            normalize.playTogether(scaleX, scaleY);
-            normalize.start();
-        } else {
-            pulse.start();
-        }
+        button.togglePulse();
     }
 
     private SpannableString createSpan() {
@@ -197,7 +175,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
                     bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
                             "", getArguments().getBoolean(REGISTERED_KEY)));
                 } else {
-                    ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+                    button.shake();
                     Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_login),
                             Snackbar.LENGTH_SHORT).show();
                 }
@@ -207,7 +185,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
                     bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
                             formatPhoneNumber(), getArguments().getBoolean(REGISTERED_KEY)));
                 } else {
-                    ObjectAnimator.ofFloat(button, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
+                    button.shake();
                     Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_register),
                             Snackbar.LENGTH_SHORT);
                 }

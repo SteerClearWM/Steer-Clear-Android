@@ -11,6 +11,7 @@ import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.view.Display;
@@ -57,6 +58,7 @@ import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.util.Logger;
 import steer.clear.view.ViewAutoComplete;
+import steer.clear.view.ViewFooter;
 
 /**
  * Class that deals with all GoogleMaps stuff.
@@ -82,6 +84,8 @@ public class FragmentMap extends Fragment
 	private CharSequence pickupName;
     private LatLng dropoffLatLng;
     private CharSequence dropoffName;
+
+    private static float displayHeight;
 
 	private final static String PICKUP_TEXT = "pickupText";
     private final static String DROPOFF_TEXT = "dropoffText";
@@ -160,6 +164,11 @@ public class FragmentMap extends Fragment
         progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("Locating...");
+
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        displayHeight = size.y;
     }
 	
 	@Override
@@ -184,7 +193,6 @@ public class FragmentMap extends Fragment
         dropoffText.setAutoCompleteListener(this);
         dropoffText.setOnItemClickListener(dropoffAdapterViewClick);
 
-        mapView.setVisibility(View.GONE);
 		mapView.onCreate(savedInstanceState);
 
 		return rootView;
@@ -204,18 +212,17 @@ public class FragmentMap extends Fragment
 
     @Override
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        float displayHeight = size.y;
-
         AnimatorSet animatorSet = new AnimatorSet();
         if (enter) {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), "y", displayHeight, 0));
+                    ObjectAnimator.ofFloat(getActivity(), "scaleX", 0f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 0f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), "alpha", 0f, 1f));
         } else {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), "y", 0, displayHeight));
+                    ObjectAnimator.ofFloat(getActivity(), "scaleX", 1f, 0f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 1f, 0f),
+                    ObjectAnimator.ofFloat(getActivity(), "alpha", 1f, 0f));
         }
 
         animatorSet.setDuration(1000);
@@ -231,7 +238,6 @@ public class FragmentMap extends Fragment
 
     @Override
 	public void onMapReady(GoogleMap map) {
-        mapView.setVisibility(View.VISIBLE);
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 
@@ -250,6 +256,7 @@ public class FragmentMap extends Fragment
             .tilt(30)
 		    .build();
 		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        mapView.setVisibility(View.VISIBLE);
 	}
 
     @Override
@@ -305,15 +312,16 @@ public class FragmentMap extends Fragment
     @Override
     @OnClick(R.id.fragment_map_post)
     public void onClick(View v) {
-        if (pickupLatLng == null) {
-            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_pickup_snackbar_text), Snackbar.LENGTH_SHORT).show();
-        } else if (dropoffLatLng == null) {
-            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_dropoff_snackbar_text), Snackbar.LENGTH_SHORT).show();
-        } else if (pickupLatLng.equals(dropoffLatLng)) {
-            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_same_location), Snackbar.LENGTH_SHORT).show();
-        } else {
-            bus.post(new EventPlacesChosen(pickupLatLng, pickupName, dropoffLatLng, dropoffName));
-        }
+        ((ViewFooter) v).startAnimating();
+//        if (pickupLatLng == null) {
+//            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_pickup_snackbar_text), Snackbar.LENGTH_SHORT).show();
+//        } else if (dropoffLatLng == null) {
+//            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_dropoff_snackbar_text), Snackbar.LENGTH_SHORT).show();
+//        } else if (pickupLatLng.equals(dropoffLatLng)) {
+//            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_same_location), Snackbar.LENGTH_SHORT).show();
+//        } else {
+//            bus.post(new EventPlacesChosen(pickupLatLng, pickupName, dropoffLatLng, dropoffName));
+//        }
     }
 
     @Override

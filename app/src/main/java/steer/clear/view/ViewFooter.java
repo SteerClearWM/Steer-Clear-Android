@@ -1,20 +1,35 @@
 package steer.clear.view;
 
+import android.animation.Animator;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Property;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.Button;
 
 import steer.clear.R;
 import steer.clear.util.FontUtils;
+import steer.clear.util.Logger;
 
 /**
  * Created by Miles Peele on 8/21/2015.
  */
 public class ViewFooter extends Button {
+
+    private final static int BACKGROUND_ANIMATION = 1000;
+
+    private ObjectAnimator objectAnimator;
 
     public ViewFooter(Context context) {
         super(context);
@@ -42,5 +57,24 @@ public class ViewFooter extends Button {
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.footer_text_size));
         setBackgroundResource(R.drawable.footer_selector);
         setGravity(Gravity.CENTER);
+
+        objectAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+                getResources().getColor(R.color.wm_green), getResources().getColor(R.color.spirit_gold));
+        objectAnimator.setDuration(BACKGROUND_ANIMATION);
+        objectAnimator.setRepeatMode(ValueAnimator.REVERSE);
+        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
     }
+
+    public void startAnimating() {
+        if (!objectAnimator.isRunning()) {
+            objectAnimator.start();
+        }
+        new Handler().postDelayed(this::stopAnimating, 3000);
+    }
+
+    public void stopAnimating() {
+        objectAnimator.end();
+        Logger.log("END");
+    }
+
 }
