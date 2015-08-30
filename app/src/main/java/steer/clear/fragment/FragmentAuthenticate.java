@@ -31,6 +31,7 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.event.EventGoToRegister;
+import steer.clear.util.Datastore;
 import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewTypefaceButton;
 
@@ -48,6 +49,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
 
     @Inject EventBus bus;
+    @Inject Datastore store;
 
     private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
     private AnimatorSet pulse;
@@ -82,6 +84,8 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         ButterKnife.bind(this, v);
 
         if (prompt != null) { prompt.setText(createSpan()); }
+
+        username.setText(store.getUsername());
 
         return v;
     }
@@ -168,7 +172,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Override
     @OnClick(R.id.fragment_authenticate_button)
     public void onClick(View v) {
-        if (!pulse.isRunning()) {
+        if (!button.isPulseRunning()) {
             if (getArguments().getBoolean(REGISTERED_KEY)) {
                 if (validateUsername() && validatePassword()) {
                     togglePulse();

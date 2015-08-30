@@ -146,7 +146,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         stopRippleAnimation();
         ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm.getActiveNetworkInfo() == null) {
-            ErrorDialog.createFromErrorCode(getContext(), 404).show();
+            ErrorDialog.createFromHttpErrorCode(getContext(), 404).show();
         }
     }
 

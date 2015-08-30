@@ -15,11 +15,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -63,6 +63,7 @@ public class ActivityHome extends AppCompatActivity
 	@Inject Client helper;
     @Inject EventBus bus;
     @Inject Locationer locationer;
+    private LocationRequest locationRequest;
 	public GoogleApiClient mGoogleApiClient;
     private AlertDialog settings;
 
@@ -86,6 +87,11 @@ public class ActivityHome extends AppCompatActivity
 				.addConnectionCallbacks(this)
 				.addApi(LocationServices.API)
 				.build();
+
+        locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
+                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
 	}
 
     @Override
@@ -124,6 +130,8 @@ public class ActivityHome extends AppCompatActivity
                 userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 				showMapStuff(userLatLng);
             } else {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                        locationRequest, this);
                 currentLocation = locationer.getLocation();
                 if (currentLocation != null) {
                     userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
@@ -136,13 +144,18 @@ public class ActivityHome extends AppCompatActivity
 	}
 
 	private void showMapStuff(LatLng userLatLng) {
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        stopLocationUpdates();
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
                 FragmentMap.newInstance(userLatLng), MAP);
 		fragmentTransaction.commit();
         new Handler().postDelayed(() -> getWindow().setBackgroundDrawable(null), 3000);
 	}
+
+    private void stopLocationUpdates() {
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        locationer.stopListeningForLocation();
+    }
 
     @Override
 	public void onConnectionSuspended(int cause) {
@@ -230,8 +243,7 @@ public class ActivityHome extends AppCompatActivity
             calendar.setTime(dateFormat.parse(pickupTime));
 
             startActivity(ActivityEta.newIntent(this,
-                    String.format("%02d : %02d",
-                            calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
+                    String.format("%02d : %02d", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
                     cancelId));
             overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             finish();
@@ -244,10 +256,10 @@ public class ActivityHome extends AppCompatActivity
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
-            ErrorDialog.createFromErrorCode(this, error.getResponse() != null ?
+            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
                     error.getResponse().getStatus() : 404).show();
         } else {
-            ErrorDialog.createFromErrorCode(this, 404).show();
+            ErrorDialog.createFromHttpErrorCode(this, 404).show();
         }
     }
 

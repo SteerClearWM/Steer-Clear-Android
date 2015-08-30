@@ -3,6 +3,7 @@ package steer.clear.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -47,6 +48,7 @@ public class ViewHeader extends TextView {
         setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.header_text_size));
         setGravity(Gravity.CENTER);
+        setTextColor(Color.WHITE);
         setBackgroundColor(getResources().getColor(R.color.wm_green));
 
         borderPaint = new Paint();

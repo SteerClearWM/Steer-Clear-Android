@@ -11,7 +11,6 @@ import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.view.Display;
@@ -21,7 +20,8 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -56,15 +56,9 @@ import steer.clear.R;
 import steer.clear.activity.ActivityHome;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.event.EventPlacesChosen;
-import steer.clear.util.Logger;
 import steer.clear.view.ViewAutoComplete;
 import steer.clear.view.ViewFooter;
 
-/**
- * Class that deals with all GoogleMaps stuff.
- * @author Miles Peele
- *
- */
 public class FragmentMap extends Fragment
 	implements View.OnClickListener, ViewAutoComplete.AutoCompleteListener,
             OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
@@ -72,7 +66,8 @@ public class FragmentMap extends Fragment
 	@Bind(R.id.fragment_map_pickup) ViewAutoComplete pickupText;
     @Bind(R.id.fragment_map_dropoff) ViewAutoComplete dropoffText;
 	@Bind(R.id.fragment_map_view) MapView mapView;
-    @Bind(R.id.fragment_map_post) Button confirm;
+    @Bind(R.id.fragment_map_post) ViewFooter confirm;
+    @Bind(R.id.fragment_map_current_location) ImageButton myLocation;
 
     @Inject EventBus bus;
 
@@ -160,7 +155,9 @@ public class FragmentMap extends Fragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainApp) activity.getApplication()).getApplicationComponent().inject(this);
+
         geocoder = new Geocoder(activity, Locale.US);
+
         progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setMessage("Locating...");
@@ -238,6 +235,7 @@ public class FragmentMap extends Fragment
 
     @Override
 	public void onMapReady(GoogleMap map) {
+        map.setMyLocationEnabled(true);
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 
@@ -261,7 +259,7 @@ public class FragmentMap extends Fragment
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Toast.makeText(getActivity(), "Long-press then drag the marker to select a location",
+        Toast.makeText(getActivity(), getResources().getString(R.string.fragment_map_marker_hint),
                 Toast.LENGTH_SHORT).show();
         return false;
     }
@@ -310,18 +308,33 @@ public class FragmentMap extends Fragment
     }
 
     @Override
-    @OnClick(R.id.fragment_map_post)
+    @OnClick({R.id.fragment_map_post, R.id.fragment_map_current_location})
     public void onClick(View v) {
-        ((ViewFooter) v).startAnimating();
-//        if (pickupLatLng == null) {
-//            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_pickup_snackbar_text), Snackbar.LENGTH_SHORT).show();
-//        } else if (dropoffLatLng == null) {
-//            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_dropoff_snackbar_text), Snackbar.LENGTH_SHORT).show();
-//        } else if (pickupLatLng.equals(dropoffLatLng)) {
-//            Snackbar.make(getView(), getResources().getString(R.string.fragment_map_same_location), Snackbar.LENGTH_SHORT).show();
-//        } else {
-//            bus.post(new EventPlacesChosen(pickupLatLng, pickupName, dropoffLatLng, dropoffName));
-//        }
+        switch (v.getId()) {
+            case R.id.fragment_map_post:
+                if (pickupLatLng == null) {
+                    Snackbar.make(getView(), getResources().getString(R.string.fragment_map_pickup_snackbar_text), Snackbar.LENGTH_SHORT).show();
+                } else if (dropoffLatLng == null) {
+                    Snackbar.make(getView(), getResources().getString(R.string.fragment_map_dropoff_snackbar_text), Snackbar.LENGTH_SHORT).show();
+                } else if (pickupLatLng.equals(dropoffLatLng)) {
+                    Snackbar.make(getView(), getResources().getString(R.string.fragment_map_same_location), Snackbar.LENGTH_SHORT).show();
+                } else {
+                    bus.post(new EventPlacesChosen(pickupLatLng, pickupName, dropoffLatLng, dropoffName));
+                }
+                break;
+            case R.id.fragment_map_current_location:
+                LatLng userLocation = new LatLng(getArguments().getDouble(USER_LATITUDE),
+                        getArguments().getDouble(USER_LONGITUDE));
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(userLocation)
+                        .zoom(17)
+                        .bearing(90)
+                        .tilt(30)
+                        .build();
+                mapView.getMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                break;
+        }
     }
 
     @Override
@@ -368,6 +381,7 @@ public class FragmentMap extends Fragment
                         Toast.LENGTH_SHORT).show();
                 pickupLatLng = null;
                 pickupName = null;
+                pickupText.setText("");
                 progressDialog.dismiss();
                 return;
             }
@@ -419,10 +433,11 @@ public class FragmentMap extends Fragment
 
             if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
                 places.release();
-                Snackbar.make(getView(), getResources().getString(R.string.fragment_map_no_service),
-                        Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.fragment_map_no_service),
+                        Toast.LENGTH_SHORT).show();
                 dropoffLatLng = null;
                 dropoffName = null;
+                dropoffText.setText("");
                 progressDialog.dismiss();
                 return;
             }

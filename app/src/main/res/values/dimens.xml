@@ -27,8 +27,8 @@
     <dimen name="view_change_location_text_size">20sp</dimen>
 
     <dimen name="fragment_hail_ride_header_bottom_margin">40dp</dimen>
-    <dimen name="fragment_hail_ride_layout_bottom_margin">30dp</dimen>
-    <dimen name="fragment_hail_ride_internal_layout_bottom_margin">15dp</dimen>
+    <dimen name="fragment_hail_ride_layout_bottom_margin">45dp</dimen>
+    <dimen name="fragment_hail_ride_internal_layout_bottom_margin">10dp</dimen>
     <dimen name="fragment_hail_ride_location_text_size">17sp</dimen>
     <dimen name="fragment_hail_ride_post_margin">30dp</dimen>
     <dimen name="fragment_hail_ride_post_ride_margin">125dp</dimen>

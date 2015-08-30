@@ -23,6 +23,7 @@
     <string name="fragment_map_same_location">Pick Up and Drop Off Cannot Be the Same Location</string>
     <string name="fragment_map_no_service">SteerClear Does Not Service This Location</string>
     <string name="fragment_map_footer_text">CONFIRM RIDE</string>
+    <string name="fragment_map_marker_hint">Long-press then drag the marker to select a location</string>
     
     <string name="fragment_hail_ride_passenger_select_prompt">PASSENGERS:</string>
     <string name="fragment_hail_ride_pickup_header">PICKUP LOCATION:</string>
@@ -38,7 +39,7 @@
     <string name="toast_too_far_for_steer_clear">SteerClear does not service this location</string>
     <string name="toast_must_choose_location">Choose a location first!</string>
 
-    <string name="error_dialog_pos_button_text">Ok</string>
+    <string name="error_dialog_pos_button_text">OK</string>
 
     <string name="error_dialog_bad_creds_title">Check It Twice!</string>
     <string name="error_dialog_bad_creds_body">Looks like either your username or password
@@ -63,8 +64,8 @@
     <string name="dialog_no_gps_neg_button_text">Cancel</string>
 
     <string name="dialog_cancel_ride_title">Cancel Ride</string>
-    <string name="dialog_cancel_ride_body">Would you like to cancel your requested ride? This will
-                "destroy all data entered and close the app.</string>
+    <string name="dialog_cancel_ride_body">Would you like to cancel your requested ride? This action
+        will destroy all entered data and return to the map.</string>
     <string name="dialog_cancel_ride_pos_button_text">Sure</string>
     <string name="dialog_cancel_ride_neg_button_text">Nah</string>
     

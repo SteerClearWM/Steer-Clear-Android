@@ -9,4 +9,8 @@
         <attr name="preferredTextColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="ViewTypefaceTextView">
+        <attr name="drawCircle" format="boolean" />
+    </declare-styleable>
+
 </resources>

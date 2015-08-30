@@ -28,7 +28,7 @@
             android:src="@drawable/ic_search_black_24dp"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
@@ -78,7 +78,7 @@
             android:src="@drawable/ic_search_black_24dp"
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
@@ -118,6 +118,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/fragment_hail_ride_passenger_select_header"
         android:text="@string/fragment_hail_ride_passenger_select_prompt"
+        android:gravity="center"
         android:textColor="@color/spirit_gold"
         android:textSize="@dimen/view_change_location_text_size"
         android:layout_marginLeft="@dimen/view_change_location_margin_start"
@@ -136,7 +137,7 @@
         android:id="@+id/fragment_hail_ride_passenger_select"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/fragment_hail_ride_passenger_select_header"

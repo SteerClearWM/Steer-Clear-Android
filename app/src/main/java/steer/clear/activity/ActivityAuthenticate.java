@@ -2,7 +2,7 @@ package steer.clear.activity;
 
 import android.app.Dialog;
 import android.app.FragmentManager;
-import android.content.DialogInterface;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -21,7 +21,7 @@ import steer.clear.R;
 import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
-
+import steer.clear.util.Logger;
 
 public class ActivityAuthenticate extends AppCompatActivity {
 
@@ -29,6 +29,8 @@ public class ActivityAuthenticate extends AppCompatActivity {
     @Inject Datastore store;
     @Inject EventBus bus;
 
+    private static final String LOGIN_TAG = "login";
+    private static final String REGISTER_TAG = "register";
     private static final String AUTHENTICATE_TAG = "authenticate";
 
     @Override
@@ -48,6 +50,16 @@ public class ActivityAuthenticate extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        int count = getFragmentManager().getBackStackEntryCount();
+        if (count == 0) {
+            super.onBackPressed();
+        } else {
+            getFragmentManager().popBackStack();
+        }
+    }
+
     private void addFragmentAuthenticate() {
         FragmentManager manager = getFragmentManager();
         FragmentAuthenticate login = (FragmentAuthenticate) manager.findFragmentByTag(AUTHENTICATE_TAG);
@@ -62,7 +74,8 @@ public class ActivityAuthenticate extends AppCompatActivity {
     }
 
     public void onEvent(EventGoToRegister eventGoToRegister) {
-        getFragmentManager().beginTransaction()
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.addToBackStack(LOGIN_TAG)
                 .replace(R.id.activity_authenticate_root,
                         FragmentAuthenticate.newInstance(false), AUTHENTICATE_TAG)
                 .commit();
@@ -73,7 +86,8 @@ public class ActivityAuthenticate extends AppCompatActivity {
             helper.login(eventAuthenticate.username, eventAuthenticate.password)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onLoginSuccess, this::onRegisterError);
+                    .subscribe(Response -> onLoginSuccess(eventAuthenticate.username),
+                            this::onLoginError);
         } else {
             helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
                     .subscribeOn(Schedulers.io())
@@ -85,10 +99,11 @@ public class ActivityAuthenticate extends AppCompatActivity {
 
     public void onRegisterSuccess(String username, String password) {
         store.userHasRegistered();
+        store.putUsername(username);
         helper.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onLoginSuccess, this::onLoginError);
+                .subscribe(Response -> onLoginSuccess(username), this::onLoginError);
     }
 
     public void onRegisterError(Throwable throwable) {
@@ -96,8 +111,9 @@ public class ActivityAuthenticate extends AppCompatActivity {
         toggleLoadingAnimation();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
+            Logger.log("ERROR IS NETWORK: " + (error.getKind() == RetrofitError.Kind.NETWORK));
             if (error.getResponse() != null) {
-                Dialog errorDialog = ErrorDialog.createFromErrorCode(this, error.getResponse().getStatus());
+                Dialog errorDialog = ErrorDialog.createFromHttpErrorCode(this, error.getResponse().getStatus());
                 if (error.getResponse().getStatus() == 409) {
                     store.userHasRegistered();
                     errorDialog.setOnDismissListener(dialog -> {
@@ -105,19 +121,20 @@ public class ActivityAuthenticate extends AppCompatActivity {
                         helper.login(getFragmentUsername(), getFragmentPassword())
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(this::onLoginSuccess, this::onLoginError);
+                                .subscribe(Response -> onLoginSuccess(getFragmentUsername()), this::onLoginError);
                     });
                 }
                 errorDialog.show();
             } else {
-                ErrorDialog.createFromErrorCode(this, 404).show();
+                ErrorDialog.createFromHttpErrorCode(this, 404).show();
             }
         } else {
-            ErrorDialog.createFromErrorCode(this, 404).show();
+            ErrorDialog.createFromHttpErrorCode(this, 404).show();
         }
     }
 
-    public void onLoginSuccess(Response response) {
+    public void onLoginSuccess(String username) {
+        store.putUsername(username);
         startActivity(ActivityHome.newIntent(this));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
@@ -127,10 +144,10 @@ public class ActivityAuthenticate extends AppCompatActivity {
         toggleLoadingAnimation();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
-            ErrorDialog.createFromErrorCode(this, error.getResponse() != null ?
-                error.getResponse().getStatus() : 404).show();
+            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
+                    error.getResponse().getStatus() : 404).show();
         } else {
-            ErrorDialog.createFromErrorCode(this, 404).show();
+            ErrorDialog.createFromHttpErrorCode(this, 404).show();
         }
     }
 

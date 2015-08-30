@@ -7,8 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.lang.ref.WeakReference;
-
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -23,6 +21,7 @@ import steer.clear.R;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
 import steer.clear.util.ErrorDialog;
+import steer.clear.util.Logger;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewTypefaceTextView;
 
@@ -32,8 +31,8 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     @Bind(R.id.activity_eta_time) ViewTypefaceTextView etaTime;
     @Bind(R.id.activity_eta_cancel_ride) ViewFooter cancelRide;
 
-    private static int cancelId;
-    private static String eta;
+    private int cancelId;
+    private String eta;
     private boolean saveInfo = true;
 
     public final static String ETA = "eta";
@@ -126,6 +125,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     }
 
     public void onRideCanceled(Response response) {
+        startActivity(ActivityHome.newIntent(this));
         finish();
     }
 
@@ -135,10 +135,11 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
-            ErrorDialog.createFromErrorCode(this, error.getResponse() != null ?
+            Logger.log("CODE: " + error.getResponse().getStatus());
+            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
                     error.getResponse().getStatus() : 404).show();
         } else {
-            ErrorDialog.createFromErrorCode(this, 404).show();
+            ErrorDialog.createFromHttpErrorCode(this, 404).show();
         }
     }
 }

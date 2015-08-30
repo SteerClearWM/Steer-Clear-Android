@@ -75,6 +75,10 @@ public class ViewTypefaceButton extends Button {
         ObjectAnimator.ofFloat(this, "translationX", 0, 25, -25, 25, -25, 15, -15, 6, -6, 0).start();
     }
 
+    public boolean isPulseRunning() {
+        return pulse.isRunning();
+    }
+
     public void togglePulse() {
         if (pulse.isRunning()) {
             pulse.cancel();

@@ -64,4 +64,16 @@
         android:layout_marginTop="@dimen/view_footer_top_margin"
         android:layout_alignParentBottom="true" />
 
+    <ImageButton
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/location"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_above="@id/fragment_map_post"
+        android:background="@android:color/white"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/fragment_map_current_location" />
+
 </RelativeLayout>

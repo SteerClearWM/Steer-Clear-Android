@@ -13,6 +13,7 @@ public class Datastore {
     private final static String HAS_REGISTER = "register";
     private final static String ETA = "eta";
     private final static String CANCEL = "CANCEL_ID";
+    private final static String USER = "username";
 
     public Datastore(Application application) {
         prefs = application.getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -32,6 +33,14 @@ public class Datastore {
 
     public boolean checkRegistered() {
         return getPrefs().getBoolean(HAS_REGISTER, false);
+    }
+
+    public void putUsername(String username) {
+        getEditor().putString(USER, username).commit();
+    }
+
+    public String getUsername() {
+        return getPrefs().getString(USER, "");
     }
 
     public void putRideInfo(String eta, int cancelId) {

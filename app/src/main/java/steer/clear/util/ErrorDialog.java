@@ -57,7 +57,7 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
         }
     }
 
-    public static ErrorDialog createFromErrorCode(Context context, int code) {
+    public static ErrorDialog createFromHttpErrorCode(Context context, int code) {
         switch (code) {
             case 400:
                 return new ErrorDialog(context,
@@ -76,6 +76,18 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_general_title),
                         context.getResources().getString(R.string.error_dialog_general_body),
                         R.style.DialogTheme);
+        }
+    }
+
+    public static void createFromGoogleCode(Context context, int code) {
+        switch (code) {
+            case 7:
+                break;
+            default:
+                new ErrorDialog(context,
+                        context.getResources().getString(R.string.error_dialog_general_title),
+                        context.getResources().getString(R.string.error_dialog_general_body),
+                        R.style.DialogTheme).show();
         }
     }
 

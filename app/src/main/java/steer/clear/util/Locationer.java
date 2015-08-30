@@ -10,9 +10,6 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
-/**
- * Created by mbpeele on 8/28/15.
- */
 public class Locationer implements android.location.LocationListener {
 
     private LocationManager locationManager;
@@ -34,6 +31,10 @@ public class Locationer implements android.location.LocationListener {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
                     this);
         }
+    }
+
+    public void stopListeningForLocation() {
+        locationManager.removeUpdates(this);
     }
 
     public Location getLocation() {

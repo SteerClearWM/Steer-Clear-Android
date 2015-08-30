@@ -123,6 +123,7 @@ public class AdapterAutoComplete
             if (!status.isSuccess()) {
                 Logger.log("Error contacting API: " + status.toString());
                 Logger.log("STATUS CODE: " + status.getStatusCode());
+                ErrorDialog.createFromGoogleCode(getContext(), status.getStatusCode());
                 autocompletePredictions.release();
                 return null;
             }

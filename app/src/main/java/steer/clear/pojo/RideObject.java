@@ -12,6 +12,7 @@ public class RideObject {
     }
 
     public static class RideInfo {
+
         public int id;
         public Float end_latitude;
         public Float end_longitude;
