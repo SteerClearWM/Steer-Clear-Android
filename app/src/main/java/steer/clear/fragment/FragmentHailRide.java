@@ -24,6 +24,7 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventChangePlaces;
 import steer.clear.event.EventPostPlacesChosen;
+import steer.clear.util.LoadingDialog;
 import steer.clear.util.Logger;
 import steer.clear.view.ViewPassengerSelect;
 import steer.clear.view.ViewTypefaceTextView;
@@ -38,8 +39,6 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 	@Bind(R.id.fragment_hail_ride_footer) Button postRide;
 
 	@Inject EventBus bus;
-
-	private static int passengers = 0;
 
 	private final static String PICKUP = "pickupText";
 	private final static String DROPOFF = "dropoffText";

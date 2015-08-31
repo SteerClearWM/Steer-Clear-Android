@@ -43,6 +43,7 @@ import steer.clear.fragment.FragmentMap;
 import steer.clear.pojo.RideObject;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
+import steer.clear.util.LoadingDialog;
 import steer.clear.util.Locationer;
 import steer.clear.util.Logger;
 
@@ -63,6 +64,7 @@ public class ActivityHome extends AppCompatActivity
 	@Inject Client helper;
     @Inject EventBus bus;
     @Inject Locationer locationer;
+    private LoadingDialog loadingDialog;
     private LocationRequest locationRequest;
 	public GoogleApiClient mGoogleApiClient;
     private AlertDialog settings;
@@ -77,6 +79,8 @@ public class ActivityHome extends AppCompatActivity
 		setContentView(R.layout.activity_home);
 
 		((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
+
+        loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
 
         bus.register(this);
 
@@ -222,6 +226,7 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
+        loadingDialog.show();
         helper.addRide(eventPostPlacesChosen.numPassengers,
                 pickupLatLng.latitude, pickupLatLng.longitude,
                 dropoffLatLng.latitude, dropoffLatLng.longitude)
@@ -231,6 +236,7 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onRideObjectReceived(RideObject rideObject) {
+        loadingDialog.dismiss();
         RideObject.RideInfo info = rideObject.getRideInfo();
         String pickupTime = info.getPickupTime();
         int cancelId = info.getId();
@@ -253,6 +259,7 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onRideObjectPostError(Throwable throwable) {
+        loadingDialog.dismiss();
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;

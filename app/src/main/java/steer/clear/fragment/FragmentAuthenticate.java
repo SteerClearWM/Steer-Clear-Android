@@ -3,7 +3,6 @@ package steer.clear.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -32,6 +31,7 @@ import steer.clear.R;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Datastore;
+import steer.clear.util.LoadingDialog;
 import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewTypefaceButton;
 

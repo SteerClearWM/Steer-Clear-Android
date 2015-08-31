@@ -9,6 +9,7 @@ import dagger.Provides;
 import de.greenrobot.event.EventBus;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
+import steer.clear.util.LoadingDialog;
 import steer.clear.util.Locationer;
 
 /**
@@ -49,4 +50,5 @@ public class ApplicationModule {
     @Provides
     @Singleton
     public Locationer getLocationer() { return new Locationer(mApplication); }
+
 }

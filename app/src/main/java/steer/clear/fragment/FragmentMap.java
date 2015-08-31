@@ -56,6 +56,7 @@ import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.event.EventAnimateToMarker;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.util.HueFromColor;
+import steer.clear.util.LoadingDialog;
 import steer.clear.util.Logger;
 import steer.clear.view.ViewAutoComplete;
 import steer.clear.view.ViewFooter;
@@ -75,10 +76,9 @@ public class FragmentMap extends Fragment
     @Bind(R.id.fragment_map_marker_select_layout) ViewMarkerSelectLayout viewMarkerSelectLayout;
 
     @Inject EventBus bus;
+    private LoadingDialog loadingDialog;
 
     private final static Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
-
-    private ProgressDialog progressDialog;
 
 	private LatLng pickupLatLng;
 	private CharSequence pickupName;
@@ -153,9 +153,7 @@ public class FragmentMap extends Fragment
 
         geocoder = new Geocoder(activity, Locale.US);
 
-        progressDialog = new ProgressDialog(getActivity(), R.style.ProgressDialogTheme);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Locating...");
+        loadingDialog = new LoadingDialog(activity, R.style.ProgressDialogTheme);
 
         bus.register(this);
     }
@@ -226,14 +224,8 @@ public class FragmentMap extends Fragment
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 
-		CameraPosition cameraPosition = new CameraPosition.Builder()
-		    .target(new LatLng(getArguments().getDouble(USER_LATITUDE),
-                    getArguments().getDouble(USER_LONGITUDE)))
-            .zoom(17)
-            .bearing(90)
-            .tilt(30)
-            .build();
-		map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        animateCameraToLocation(new LatLng(getArguments().getDouble(USER_LATITUDE),
+                getArguments().getDouble(USER_LONGITUDE)));
         mapView.setVisibility(View.VISIBLE);
 	}
 
@@ -246,77 +238,32 @@ public class FragmentMap extends Fragment
         }
 
         int idOfSelectedButton = viewMarkerSelectLayout.getIdOfSelectedButton();
-        if (idOfSelectedButton != -1) {
-            switch (idOfSelectedButton) {
-                case R.id.fragment_map_show_pickup_location:
-                    pickupLatLng = latLng;
+        if (idOfSelectedButton == -1) {
+            Toast.makeText(getActivity(),
+                    getResources().getString(R.string.fragment_map_marker_drop_hint),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                    MarkerOptions pickup = new MarkerOptions()
-                            .position(pickupLatLng)
-                            .title(PICKUP_MARKER_TITLE)
-                            .icon(BitmapDescriptorFactory.defaultMarker(
-                                    HueFromColor.getHue(getResources().getColor(R.color.spirit_gold))))
-                            .draggable(true);
+        switch (idOfSelectedButton) {
+            case R.id.fragment_map_show_pickup_location:
+                pickupLatLng = latLng;
 
-                    if (pickupMarker != null) {
-                        pickupMarker.remove();
-                    }
-                    pickupMarker = mapView.getMap().addMarker(pickup);
+                dropMarkerOnMap(pickupLatLng, PICKUP_MARKER_TITLE);
 
-                    progressDialog.show();
-                    try {
-                        Observable.just(geocoder.getFromLocation(pickupLatLng.latitude, pickupLatLng.longitude, 1))
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(addresses -> {
-                                    progressDialog.dismiss();
-                                    Address address = addresses.get(0);
-                                    pickupName = address.getAddressLine(0) + ", " +
-                                            address.getAddressLine(1);
-                                    pickupText.setTextNoFilter(address.getAddressLine(0) + ", " +
-                                            address.getAddressLine(1), false);
-                                });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                reverseGeocodeLocation(pickupLatLng, PICKUP_MARKER_TITLE);
 
-                    animateCameraToLocation(pickupLatLng);
-                    break;
-                case R.id.fragment_map_show_dropoff_location:
-                    dropoffLatLng = latLng;
+                animateCameraToLocation(pickupLatLng);
+                break;
+            case R.id.fragment_map_show_dropoff_location:
+                dropoffLatLng = latLng;
 
-                    MarkerOptions options = new MarkerOptions()
-                            .position(dropoffLatLng)
-                            .title(DROPOFF_MARKER_TITLE)
-                            .icon(BitmapDescriptorFactory.defaultMarker(
-                                    HueFromColor.getHue(getResources().getColor(R.color.wm_green))))
-                            .draggable(true);
+                dropMarkerOnMap(dropoffLatLng, DROPOFF_MARKER_TITLE);
 
-                    if (dropoffMarker != null) {
-                        dropoffMarker.remove();
-                    }
-                    dropoffMarker = mapView.getMap().addMarker(options);
+                reverseGeocodeLocation(dropoffLatLng, DROPOFF_MARKER_TITLE);
 
-                    progressDialog.show();
-                    try {
-                        Observable.just(geocoder.getFromLocation(dropoffLatLng.latitude, dropoffLatLng.longitude, 1))
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(addresses -> {
-                                    progressDialog.dismiss();
-                                    Address address = addresses.get(0);
-                                    dropoffName = address.getAddressLine(0) + ", " +
-                                            address.getAddressLine(1);
-                                    dropoffText.setTextNoFilter(address.getAddressLine(0) + ", " +
-                                            address.getAddressLine(1), false);
-                                });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    animateCameraToLocation(dropoffLatLng);
-                    break;
-            }
+                animateCameraToLocation(dropoffLatLng);
+                break;
         }
     }
 
@@ -339,35 +286,7 @@ public class FragmentMap extends Fragment
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
-        progressDialog.show();
-        LatLng markerPos = marker.getPosition();
-        try {
-            Observable.just(geocoder.getFromLocation(markerPos.latitude, markerPos.longitude, 1))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(addresses -> {
-                        progressDialog.dismiss();
-                        Address address = addresses.get(0);
-                        switch (marker.getTitle()) {
-                            case PICKUP_MARKER_TITLE:
-                                pickupLatLng = new LatLng(address.getLatitude(), address.getLongitude());
-                                pickupName = address.getAddressLine(0) + ", " +
-                                        address.getAddressLine(1);
-                                pickupText.setTextNoFilter(address.getAddressLine(0) + ", " +
-                                        address.getAddressLine(1), false);
-                                break;
-                            case DROPOFF_MARKER_TITLE:
-                                dropoffLatLng = new LatLng(address.getLatitude(), address.getLongitude());
-                                dropoffName = address.getAddressLine(0) + ", " +
-                                        address.getAddressLine(1);
-                                dropoffText.setTextNoFilter(address.getAddressLine(0) + ", " +
-                                        address.getAddressLine(1), false);
-                                break;
-                        }
-                    });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        reverseGeocodeLocation(marker.getPosition(), marker.getTitle());
     }
 
     @Override
@@ -407,16 +326,6 @@ public class FragmentMap extends Fragment
         }
     }
 
-    private void animateCameraToLocation(LatLng latLng) {
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latLng)
-                .zoom(17)
-                .bearing(90)
-                .tilt(30)
-                .build();
-        mapView.getMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-    }
-
     @Override
     public void clearClicked(View v) {
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -444,7 +353,7 @@ public class FragmentMap extends Fragment
             = (parent, view, position, id) -> {
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
-        progressDialog.show();
+        loadingDialog.show();
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
@@ -462,27 +371,16 @@ public class FragmentMap extends Fragment
                 pickupLatLng = null;
                 pickupName = null;
                 pickupText.setText("");
-                progressDialog.dismiss();
+                loadingDialog.dismiss();
                 return;
             }
 
-            progressDialog.dismiss();
+            loadingDialog.dismiss();
 
             pickupLatLng = place.getLatLng();
             pickupName = place.getAddress();
 
-            GoogleMap map = mapView.getMap();
-
-            if (pickupMarker != null) {
-                pickupMarker.remove();
-            }
-            MarkerOptions options = new MarkerOptions()
-                    .position(pickupLatLng)
-                    .title(PICKUP_MARKER_TITLE)
-                    .icon(BitmapDescriptorFactory.defaultMarker(
-                            HueFromColor.getHue(getResources().getColor(R.color.spirit_gold))))
-                    .draggable(true);
-            pickupMarker = map.addMarker(options);
+            dropMarkerOnMap(pickupLatLng, PICKUP_MARKER_TITLE);
 
             animateCameraToLocation(pickupLatLng);
 
@@ -498,7 +396,7 @@ public class FragmentMap extends Fragment
             = (parent, view, position, id) -> {
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
-        progressDialog.show();
+        loadingDialog.show();
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
@@ -517,28 +415,16 @@ public class FragmentMap extends Fragment
                 dropoffLatLng = null;
                 dropoffName = null;
                 dropoffText.setText("");
-                progressDialog.dismiss();
+                loadingDialog.dismiss();
                 return;
             }
 
-            progressDialog.dismiss();
+            loadingDialog.dismiss();
 
             dropoffLatLng = place.getLatLng();
             dropoffName = place.getAddress();
 
-            GoogleMap map = mapView.getMap();
-
-            MarkerOptions options = new MarkerOptions()
-                    .position(dropoffLatLng)
-                    .title(DROPOFF_MARKER_TITLE)
-                    .icon(BitmapDescriptorFactory.defaultMarker(
-                            HueFromColor.getHue(getResources().getColor(R.color.wm_green))))
-                    .draggable(true);
-
-            if (dropoffMarker != null) {
-                dropoffMarker.remove();
-            }
-            dropoffMarker = map.addMarker(options);
+            dropMarkerOnMap(dropoffLatLng, DROPOFF_MARKER_TITLE);
 
             animateCameraToLocation(dropoffLatLng);
 
@@ -549,4 +435,77 @@ public class FragmentMap extends Fragment
             }
         });
     };
+
+    private void dropMarkerOnMap(LatLng latLng, String whichMarker) {
+        switch (whichMarker) {
+            case PICKUP_MARKER_TITLE:
+
+                if (pickupMarker != null) {
+                    pickupMarker.remove();
+                }
+                MarkerOptions options = new MarkerOptions()
+                        .position(pickupLatLng)
+                        .title(PICKUP_MARKER_TITLE)
+                        .icon(BitmapDescriptorFactory.defaultMarker(
+                                HueFromColor.getHue(getResources().getColor(R.color.spirit_gold))))
+                        .draggable(true);
+                pickupMarker = mapView.getMap().addMarker(options);
+                break;
+            case DROPOFF_MARKER_TITLE:
+
+                MarkerOptions options1 = new MarkerOptions()
+                        .position(dropoffLatLng)
+                        .title(DROPOFF_MARKER_TITLE)
+                        .icon(BitmapDescriptorFactory.defaultMarker(
+                                HueFromColor.getHue(getResources().getColor(R.color.wm_green))))
+                        .draggable(true);
+
+                if (dropoffMarker != null) {
+                    dropoffMarker.remove();
+                }
+                dropoffMarker = mapView.getMap().addMarker(options1);
+                break;
+        }
+    }
+
+    private void reverseGeocodeLocation(LatLng latLng, String whichMarker) {
+        loadingDialog.show();
+        try {
+            Observable.just(geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(addresses -> {
+                        loadingDialog.dismiss();
+                        Address address = addresses.get(0);
+                        switch (whichMarker) {
+                            case PICKUP_MARKER_TITLE:
+                                pickupLatLng = new LatLng(address.getLatitude(), address.getLongitude());
+                                pickupName = address.getAddressLine(0) + ", " +
+                                        address.getAddressLine(1);
+                                pickupText.setTextNoFilter(address.getAddressLine(0) + ", " +
+                                        address.getAddressLine(1), false);
+                                break;
+                            case DROPOFF_MARKER_TITLE:
+                                dropoffLatLng = new LatLng(address.getLatitude(), address.getLongitude());
+                                dropoffName = address.getAddressLine(0) + ", " +
+                                        address.getAddressLine(1);
+                                dropoffText.setTextNoFilter(address.getAddressLine(0) + ", " +
+                                        address.getAddressLine(1), false);
+                                break;
+                        }
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void animateCameraToLocation(LatLng latLng) {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .zoom(17)
+                .bearing(90)
+                .tilt(30)
+                .build();
+        mapView.getMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
 }
