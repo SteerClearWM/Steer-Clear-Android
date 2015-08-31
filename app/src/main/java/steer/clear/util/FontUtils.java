@@ -50,18 +50,4 @@ public class FontUtils {
         }
         return typeface;
     }
-
-    public static boolean isSteerClearRunning() {
-        Calendar calendar = Calendar.getInstance();
-        Date rightNow = calendar.getTime();
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY) {
-            Date thursdayStart = new Date();
-            Date thursdayEnd = new Date();
-            Logger.log("THURS START: " + thursdayStart);
-            Logger.log("THURS END: " + thursdayEnd);
-            return rightNow.after(thursdayStart) && rightNow.before(thursdayEnd);
-        }
-        return false;
-    }
 }

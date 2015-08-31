@@ -65,16 +65,4 @@ public class ViewFooter extends Button {
         objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
     }
 
-    public void startAnimating() {
-        if (!objectAnimator.isRunning()) {
-            objectAnimator.start();
-        }
-        new Handler().postDelayed(this::stopAnimating, 3000);
-    }
-
-    public void stopAnimating() {
-        objectAnimator.end();
-        Logger.log("END");
-    }
-
 }

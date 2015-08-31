@@ -16,6 +16,8 @@
     <string name="fragment_authenticate_error_login">Must be a valid W&amp;M Username and Password.</string>
     <string name="fragment_authenticate_error_register">Must be a valid W&amp;M Username, Password and Phone Number</string>
 
+    <string name="fragment_map_marker_drop_pickup">Pick Up</string>
+    <string name="fragment_map_marker_drop_dropoff">Drop Off</string>
     <string name="fragment_map_pickup_hint">Select a Pick Up Location</string>
     <string name="fragment_map_dropoff_hint">Select a Drop Off Location</string>
     <string name="fragment_map_pickup_snackbar_text">Select a Pick Up Location</string>
@@ -55,7 +57,7 @@
 
     <string name="error_dialog_no_internet_title">Jefferson, We Have a Problem</string>
     <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try reconnecting
-        to data or some sweet WiFi.</string>
+        your data or WiFi.</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
     <string name="dialog_no_gps_body">Couldn\'t grab your GPS, which we need. Do you want to go to your settings

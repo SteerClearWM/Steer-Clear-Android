@@ -7,6 +7,10 @@
 
     <declare-styleable name="ViewTypefaceButton">
         <attr name="preferredTextColor" format="color" />
+        <attr name="preferredTextSize" format="reference" />
+        <attr name="drawBorder" format="boolean" />
+        <attr name="fillOnClick" format="boolean" />
+        <attr name="drawableColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="ViewTypefaceTextView">

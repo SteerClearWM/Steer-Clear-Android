@@ -33,6 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -56,6 +57,7 @@ import steer.clear.R;
 import steer.clear.activity.ActivityHome;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.event.EventPlacesChosen;
+import steer.clear.util.HueFromColor;
 import steer.clear.view.ViewAutoComplete;
 import steer.clear.view.ViewFooter;
 
@@ -244,6 +246,8 @@ public class FragmentMap extends Fragment
 		MarkerOptions options = new MarkerOptions()
 			    .position(userLocation)
                 .title(PICKUP_MARKER_TITLE)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        HueFromColor.getHue(getResources().getColor(R.color.spirit_gold))))
                 .draggable(true);
         pickupMarker = map.addMarker(options);
 
@@ -396,6 +400,8 @@ public class FragmentMap extends Fragment
             MarkerOptions options = new MarkerOptions()
                     .position(pickupLatLng)
                     .title(PICKUP_MARKER_TITLE)
+                    .icon(BitmapDescriptorFactory.defaultMarker(
+                            HueFromColor.getHue(getResources().getColor(R.color.spirit_gold))))
                     .draggable(true);
             pickupMarker = map.addMarker(options);
 
@@ -452,6 +458,8 @@ public class FragmentMap extends Fragment
             MarkerOptions options = new MarkerOptions()
                     .position(dropoffLatLng)
                     .title(DROPOFF_MARKER_TITLE)
+                    .icon(BitmapDescriptorFactory.defaultMarker(
+                            HueFromColor.getHue(getResources().getColor(R.color.wm_green))))
                     .draggable(true);
 
             if (dropoffMarker != null) {

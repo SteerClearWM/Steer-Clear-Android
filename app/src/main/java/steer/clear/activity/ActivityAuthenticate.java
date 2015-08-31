@@ -111,7 +111,6 @@ public class ActivityAuthenticate extends AppCompatActivity {
         toggleLoadingAnimation();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
-            Logger.log("ERROR IS NETWORK: " + (error.getKind() == RetrofitError.Kind.NETWORK));
             if (error.getResponse() != null) {
                 Dialog errorDialog = ErrorDialog.createFromHttpErrorCode(this, error.getResponse().getStatus());
                 if (error.getResponse().getStatus() == 409) {

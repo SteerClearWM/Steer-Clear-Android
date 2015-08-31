@@ -64,16 +64,59 @@
         android:layout_marginTop="@dimen/view_footer_top_margin"
         android:layout_alignParentBottom="true" />
 
+    <steer.clear.view.ViewMarkerSelectLayout
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_above="@id/fragment_map_post"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" >
+
+        <steer.clear.view.ViewTypefaceButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_map_show_pickup_location"
+            android:drawableStart="@drawable/gold_block"
+            android:drawableLeft="@drawable/gold_block"
+            android:text="@string/fragment_map_marker_drop_pickup"
+            android:paddingRight="@dimen/view_typeface_button_padding"
+            android:paddingEnd="@dimen/view_typeface_button_padding"
+            app:preferredTextColor="@android:color/black"
+            app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
+            app:drawBorder="true"
+            app:fillOnClick="true"
+            app:drawableColor="@color/spirit_gold"
+            android:background="@null" />
+
+        <steer.clear.view.ViewTypefaceButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_map_show_dropoff_location"
+            android:drawableEnd="@drawable/green_block"
+            android:drawableRight="@drawable/green_block"
+            android:text="@string/fragment_map_marker_drop_dropoff"
+            android:paddingLeft="@dimen/view_typeface_button_padding"
+            app:preferredTextColor="@android:color/black"
+            app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
+            app:drawBorder="true"
+            app:fillOnClick="true"
+            app:drawableColor="@color/wm_green"
+            android:background="@null" />
+    </steer.clear.view.ViewMarkerSelectLayout>
+
     <ImageButton
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_location_on_black_24dp"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:layout_above="@id/fragment_map_post"
-        android:background="@android:color/white"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
         android:id="@+id/fragment_map_current_location" />
 
 </RelativeLayout>
