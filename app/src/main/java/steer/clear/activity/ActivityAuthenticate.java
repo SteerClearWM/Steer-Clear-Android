@@ -134,6 +134,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
 
     public void onLoginSuccess(String username) {
         store.putUsername(username);
+        toggleLoadingAnimation();
         startActivity(ActivityHome.newIntent(this));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }

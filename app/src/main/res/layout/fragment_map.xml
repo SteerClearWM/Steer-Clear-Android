@@ -65,6 +65,7 @@
         android:layout_alignParentBottom="true" />
 
     <steer.clear.view.ViewMarkerSelectLayout
+        android:id="@+id/fragment_map_marker_select_layout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:layout_above="@id/fragment_map_post"
@@ -95,6 +96,7 @@
             android:drawableEnd="@drawable/green_block"
             android:drawableRight="@drawable/green_block"
             android:text="@string/fragment_map_marker_drop_dropoff"
+            android:drawablePadding="5dp"
             android:paddingLeft="@dimen/view_typeface_button_padding"
             app:preferredTextColor="@android:color/black"
             app:preferredTextSize="@dimen/view_typeface_button_small_text_size"

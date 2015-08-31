@@ -10,6 +10,7 @@ import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.retrofit.Client;
+import steer.clear.view.ViewMarkerSelectLayout;
 
 /**
  * Created by Miles Peele on 6/20/2015.
@@ -27,4 +28,6 @@ public interface ApplicationComponent {
     void inject(FragmentAuthenticate fragmentAuthenticate);
 
     void inject(Client client);
+
+    void inject(ViewMarkerSelectLayout markerSelectLayout);
 }

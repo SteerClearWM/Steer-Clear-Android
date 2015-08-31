@@ -7,34 +7,50 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
+import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.event.EventAnimateToMarker;
+import steer.clear.util.Logger;
 
 /**
  * Created by Miles Peele on 8/30/2015.
  */
 public class ViewMarkerSelectLayout extends LinearLayout implements View.OnClickListener {
 
-    @Bind(R.id.fragment_map_show_pickup_location) ViewTypefaceButton pickup;
-    @Bind(R.id.fragment_map_show_dropoff_location) ViewTypefaceButton dropoff;
+    @Bind(R.id.fragment_map_show_dropoff_location) ViewTypefaceButton pickup;
+    @Bind(R.id.fragment_map_show_pickup_location) ViewTypefaceButton dropoff;
+
+    @Inject EventBus bus;
 
     public ViewMarkerSelectLayout(Context context) {
         super(context);
+        init();
     }
 
     public ViewMarkerSelectLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
     }
 
     public ViewMarkerSelectLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ViewMarkerSelectLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init() {
+        ((MainApp) getContext().getApplicationContext()).getApplicationComponent().inject(this);
     }
 
     @Override
@@ -43,17 +59,30 @@ public class ViewMarkerSelectLayout extends LinearLayout implements View.OnClick
         ButterKnife.bind(this);
     }
 
-
     @Override
-    @OnClick({R.id.fragment_map_show_pickup_location, R.id.fragment_map_show_dropoff_location})
+    @OnClick({R.id.fragment_map_show_dropoff_location, R.id.fragment_map_show_pickup_location})
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_map_show_pickup_location:
-                pickup.startRectAnimation();
-                break;
             case R.id.fragment_map_show_dropoff_location:
-                dropoff.startRectAnimation();
+                pickup.setSelected();
+                dropoff.setNotSelected();
+                bus.post(new EventAnimateToMarker(pickup.getId()));
                 break;
+            case R.id.fragment_map_show_pickup_location:
+                dropoff.setSelected();
+                pickup.setNotSelected();
+                bus.post(new EventAnimateToMarker(dropoff.getId()));
+                break;
+        }
+    }
+
+    public int getIdOfSelectedButton() {
+        if (pickup.isSelected()) {
+            return pickup.getId();
+        } else if (dropoff.isSelected()) {
+            return dropoff.getId();
+        } else {
+            return -1;
         }
     }
 }
