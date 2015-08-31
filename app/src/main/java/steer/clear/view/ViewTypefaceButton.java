@@ -87,10 +87,9 @@ public class ViewTypefaceButton extends Button {
         borderPaint = new Paint();
         borderPaint.setAntiAlias(true);
         borderPaint.setColor(getResources().getColor(R.color.wm_silver));
-        borderPaint.setStrokeWidth(15f);
+        borderPaint.setStrokeWidth(10f);
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeJoin(Paint.Join.ROUND);
-        borderPaint.setStrokeCap(Paint.Cap.ROUND);
 
         pulse = new AnimatorSet();
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(this, "scaleX", 1f, .9f);
@@ -107,8 +106,29 @@ public class ViewTypefaceButton extends Button {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (shouldDrawBorder) {
-            canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), borderPaint);
+            drawBorder(canvas);
         }
+    }
+
+    private void drawBorder(Canvas canvas) {
+        canvas.drawLine(getStartOfRect(), 0, getEndofRect(), 0, borderPaint);
+        canvas.drawLine(getStartOfRect(), canvas.getHeight(), getEndofRect(), canvas.getHeight(), borderPaint);
+        canvas.drawLine(getEndofRect(), 0, getEndofRect(), canvas.getHeight(), borderPaint);
+    }
+
+    private boolean hasDrawableLeft() {
+        return getCompoundDrawables()[0] != null;
+    }
+
+    private int getStartOfRect() {
+        return hasDrawableLeft() ?
+                getCompoundDrawables()[0].getIntrinsicWidth() :
+                getMeasuredWidth() - getCompoundDrawables()[2].getIntrinsicWidth();
+    }
+
+    private int getEndofRect() {
+        return hasDrawableLeft() ?
+                getMeasuredWidth() : 0;
     }
 
     public boolean isSelected() {

@@ -220,12 +220,6 @@ public class FragmentMap extends Fragment
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
-    @Override
 	public void onMapReady(GoogleMap map) {
         map.setMyLocationEnabled(true);
         map.setOnMapClickListener(this);
