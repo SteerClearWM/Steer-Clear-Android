@@ -113,6 +113,8 @@ public class ViewTypefaceButton extends Button {
     private void drawBorder(Canvas canvas) {
         canvas.drawLine(getStartOfRect(), 0, getEndofRect(), 0, borderPaint);
         canvas.drawLine(getStartOfRect(), canvas.getHeight(), getEndofRect(), canvas.getHeight(), borderPaint);
+
+        borderPaint.setStrokeWidth(borderPaint.getStrokeWidth() / 2);
         canvas.drawLine(getEndofRect(), 0, getEndofRect(), canvas.getHeight(), borderPaint);
     }
 

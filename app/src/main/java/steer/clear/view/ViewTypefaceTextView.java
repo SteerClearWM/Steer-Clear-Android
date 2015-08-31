@@ -14,9 +14,6 @@ import android.widget.TextView;
 import steer.clear.R;
 import steer.clear.util.FontUtils;
 
-/**
- * Created by Miles Peele on 8/21/2015.
- */
 public class ViewTypefaceTextView extends TextView {
 
     private Paint circlePaint;

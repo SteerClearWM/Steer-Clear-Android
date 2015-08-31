@@ -1,5 +1,6 @@
 package steer.clear.activity;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -226,7 +227,9 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-        loadingDialog.show();
+        if (!isFinishing()) {
+            loadingDialog.show();
+        }
         helper.addRide(eventPostPlacesChosen.numPassengers,
                 pickupLatLng.latitude, pickupLatLng.longitude,
                 dropoffLatLng.latitude, dropoffLatLng.longitude)

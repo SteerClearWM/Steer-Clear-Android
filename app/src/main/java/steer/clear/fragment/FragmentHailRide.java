@@ -92,10 +92,8 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 		switch(v.getId()) {
 			case R.id.fragment_hail_ride_footer:
 				if (test.getPassengers() != 0) {
-                    Logger.log("PASSENGERS: " + test.getPassengers());
                     bus.post(new EventPostPlacesChosen(test.getPassengers()));
 				} else {
-                    Logger.log("0 PASSENGERS");
                     Snackbar.make(getView(),
                             getResources().getString(R.string.fragment_hail_ride_no_passengers),
                             Snackbar.LENGTH_SHORT).show();

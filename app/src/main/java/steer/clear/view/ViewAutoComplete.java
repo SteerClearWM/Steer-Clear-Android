@@ -22,7 +22,15 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
 
 import java.lang.ref.WeakReference;
 
@@ -36,6 +44,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     private static final int MESSAGE_TEXT_CHANGED = 100;
     private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
     private static final int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
+    private GoogleApiClient googleApiClient;
 
     private Drawable drawable;
 
@@ -47,7 +56,6 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     private final static int HALF_ALPHA = 128;
 
     private MyHandler mHandler = new MyHandler(this);
-
     private final static class MyHandler extends Handler {
         private final WeakReference<ViewAutoComplete> ref;
 
