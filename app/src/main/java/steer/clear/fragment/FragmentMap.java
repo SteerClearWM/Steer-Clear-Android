@@ -478,7 +478,10 @@ public class FragmentMap extends Fragment
             pickupName = place.getAddress();
 
             GoogleMap map = mapView.getMap();
-            pickupMarker.remove();
+
+            if (pickupMarker != null) {
+                pickupMarker.remove();
+            }
             MarkerOptions options = new MarkerOptions()
                     .position(pickupLatLng)
                     .title(PICKUP_MARKER_TITLE)
