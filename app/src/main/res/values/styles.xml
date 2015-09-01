@@ -21,10 +21,6 @@
         <item name="android:windowBackground">@drawable/road</item>
     </style>
 
-    <style name="ActivityHomeTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash_screen</item>
-    </style>
-
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/scale_in</item>
         <item name="android:windowExitAnimation">@anim/scale_out</item>
