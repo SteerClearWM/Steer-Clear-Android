@@ -1,5 +1,6 @@
 package steer.clear.util;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
@@ -56,12 +57,14 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
         switch (v.getId()) {
             case R.id.error_dialog_pos_button:
                 if (titleText.equals(getContext().getResources().getString(R.string.error_dialog_unauth_title))) {
-
                     getContext().startActivity(
                             ActivityAuthenticate.newIntent(getContext(), true),
                             ActivityOptionsCompat.makeCustomAnimation(getContext(),
                                     android.R.anim.fade_in,
                                     android.R.anim.fade_out).toBundle());
+                    if (getContext() instanceof Activity) {
+                        ((Activity) getContext()).finish();
+                    }
                 } else {
                     dismiss();
                 }

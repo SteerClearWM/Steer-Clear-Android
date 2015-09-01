@@ -14,6 +14,7 @@ public class Datastore {
     private final static String ETA = "eta";
     private final static String CANCEL = "CANCEL_ID";
     private final static String USER = "username";
+    private final static String COOKIE = "cookie";
 
     public Datastore(Application application) {
         prefs = application.getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -67,5 +68,13 @@ public class Datastore {
 
     public boolean hasPreviousRideInfo() {
         return !getPrefs().getString(ETA, "").isEmpty();
+    }
+
+    public void putCookie(String cookie) {
+        getEditor().putString(COOKIE, cookie).commit();
+    }
+
+    public String getCookie() {
+        return getPrefs().getString(COOKIE, "");
     }
 }

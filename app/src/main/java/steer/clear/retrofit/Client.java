@@ -32,6 +32,7 @@ import steer.clear.pojo.LoginPost;
 import steer.clear.pojo.RegisterPost;
 import steer.clear.pojo.RideObject;
 import steer.clear.pojo.RidePost;
+import steer.clear.util.Datastore;
 import steer.clear.util.Logger;
 
 public class Client {
@@ -41,10 +42,13 @@ public class Client {
     private Application application;
 
     @Inject EventBus bus;
+    @Inject Datastore store;
 
 	public Client(Application application) {
         this.application = application;
         ((MainApp) application).getApplicationComponent().inject(this);
+
+        Interceptor interceptor = new Interceptor(store);
 
         OkHttpClient okHttpClient = new OkHttpClient();
         CookieManager cookieHandler = new CookieManager();
@@ -57,12 +61,14 @@ public class Client {
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(application.getResources().getString(R.string.url_base))
                 .setClient(okClient)
+                .setRequestInterceptor(interceptor)
                 .build();
         apiInterface = restAdapter.create(ApiInterface.class);
 
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(application.getResources().getString(R.string.url_authenticate))
                 .setClient(okClient)
+                .setRequestInterceptor(interceptor)
                 .build();
         authenticateInterface = adapter.create(AuthenticateInterface.class);
 	}

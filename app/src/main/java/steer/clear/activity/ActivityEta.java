@@ -21,6 +21,7 @@ import steer.clear.R;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
 import steer.clear.util.ErrorDialog;
+import steer.clear.util.LoadingDialog;
 import steer.clear.util.Logger;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewTypefaceTextView;
@@ -40,6 +41,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
 
     @Inject Client helper;
     @Inject Datastore store;
+    private LoadingDialog loadingDialog;
 
     public static Intent newIntent(Context context, String eta, int cancelId) {
         Intent etaActivity = new Intent(context, ActivityEta.class);
@@ -68,6 +70,8 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
             cancelId = extras.getIntExtra(CANCEL, 0);
             etaTime.setText(eta);
         }
+
+        loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
     }
 
     @Override
@@ -116,6 +120,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     }
 
     private void cancelRide() {
+        loadingDialog.show();
         saveInfo = false;
         store.clearRideInfo();
         helper.cancelRide(cancelId)
@@ -125,13 +130,16 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     }
 
     public void onRideCanceled(Response response) {
+        loadingDialog.dismiss();
         startActivity(ActivityHome.newIntent(this));
         finish();
     }
 
     public void onRideCancelError(Throwable throwable) {
-        saveInfo = false;
-        store.clearRideInfo();
+        loadingDialog.dismiss();
+        // FOR DEBUG
+//        saveInfo = false;
+//        store.clearRideInfo();
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;

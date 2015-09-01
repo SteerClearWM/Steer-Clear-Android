@@ -12,8 +12,10 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import retrofit.RetrofitError;
+import retrofit.client.Header;
 import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.event.EventGoToRegister;
@@ -47,7 +49,17 @@ public class ActivityAuthenticate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
-        if (store.hasPreviousRideInfo() && shouldLoginAgain()) {
+        if (shouldLoginAgain()) {
+            setContentView(R.layout.activity_authenticate);
+
+            bus.register(this);
+
+            addFragmentAuthenticate();
+
+            return;
+        }
+
+        if (store.hasPreviousRideInfo()) {
             startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
             finish();
         } else {
@@ -99,8 +111,10 @@ public class ActivityAuthenticate extends AppCompatActivity {
             helper.login(eventAuthenticate.username, eventAuthenticate.password)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(Response -> onLoginSuccess(eventAuthenticate.username),
-                            this::onLoginError);
+                    .subscribe(response -> {
+                        parseResponseForCookie(response);
+                        onLoginSuccess(eventAuthenticate.username);
+                    }, this::onLoginError);
         } else {
             helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
                     .subscribeOn(Schedulers.io())
@@ -116,7 +130,10 @@ public class ActivityAuthenticate extends AppCompatActivity {
         helper.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(Response -> onLoginSuccess(username), this::onLoginError);
+                .subscribe(response -> {
+                    parseResponseForCookie(response);
+                    onLoginSuccess(username);
+                }, this::onLoginError);
     }
 
     public void onRegisterError(Throwable throwable) {
@@ -133,7 +150,9 @@ public class ActivityAuthenticate extends AppCompatActivity {
                         helper.login(getFragmentUsername(), getFragmentPassword())
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(Response -> onLoginSuccess(getFragmentUsername()), this::onLoginError);
+                                .subscribe(response -> {
+                                    onLoginSuccess(getFragmentUsername());
+                                }, this::onLoginError);
                     });
                 }
                 errorDialog.show();
@@ -142,6 +161,15 @@ public class ActivityAuthenticate extends AppCompatActivity {
             }
         } else {
             ErrorDialog.createFromHttpErrorCode(this, 404).show();
+        }
+    }
+
+    private void parseResponseForCookie(Response response) {
+        for (Header header: response.getHeaders()) {
+            if (header.getName().contains("Set-Cookie")) {
+                store.putCookie(header.getValue());
+                break;
+            }
         }
     }
 

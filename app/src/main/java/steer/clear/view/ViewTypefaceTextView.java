@@ -50,7 +50,6 @@ public class ViewTypefaceTextView extends TextView {
         circlePaint.setStyle(Paint.Style.FILL);
         circlePaint.setStrokeJoin(Paint.Join.ROUND);
         circlePaint.setStrokeCap(Paint.Cap.ROUND);
-        circlePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
 
         if (attrs != null) {
             TypedArray typedArray =
