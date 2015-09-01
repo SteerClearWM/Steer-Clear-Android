@@ -13,9 +13,17 @@
         android:layout_alignParentTop="true"
         android:text="@string/header_text" />
 
+    <steer.clear.view.ViewFooter
+        android:id="@+id/fragment_map_post"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_footer_layout_height"
+        android:text="@string/fragment_map_footer_text"
+        android:layout_alignParentBottom="true" />
+
     <com.google.android.gms.maps.MapView
         android:visibility="gone"
         android:layout_below="@id/fragment_map_header"
+        android:layout_above="@id/fragment_map_post"
         android:id="@+id/fragment_map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -56,20 +64,13 @@
         android:drawableEnd="@drawable/ic_clear_search_api_holo_light"
         app:highlightColor="@color/wm_green" />
 
-    <steer.clear.view.ViewFooter
-        android:id="@+id/fragment_map_post"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_footer_layout_height"
-        android:text="@string/fragment_map_footer_text"
-        android:layout_marginTop="@dimen/view_footer_top_margin"
-        android:layout_alignParentBottom="true" />
-
     <steer.clear.view.ViewMarkerSelectLayout
         android:id="@+id/fragment_map_marker_select_layout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:layout_above="@id/fragment_map_post"
         android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_marginBottom="@dimen/view_footer_top_margin"
         android:layout_width="wrap_content"
         android:layout_height="50dp" >
 
@@ -117,6 +118,7 @@
         android:layout_alignParentEnd="true"
         android:gravity="center"
         android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_alignBottom="@id/fragment_map_marker_select_layout"
         android:padding="10dp"
         android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
         android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"

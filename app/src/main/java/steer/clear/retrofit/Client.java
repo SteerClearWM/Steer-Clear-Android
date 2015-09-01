@@ -41,7 +41,6 @@ public class Client {
     private AuthenticateInterface authenticateInterface;
     private Application application;
 
-    @Inject EventBus bus;
     @Inject Datastore store;
 
 	public Client(Application application) {

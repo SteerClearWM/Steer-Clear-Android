@@ -229,20 +229,30 @@ public class ActivityHome extends AppCompatActivity
 
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-        if (TimeLock.isSteerClearRunning()) {
-            if (!isFinishing()) {
-                loadingDialog.show();
-            }
-
-            helper.addRide(eventPostPlacesChosen.numPassengers,
-                    pickupLatLng.latitude, pickupLatLng.longitude,
-                    dropoffLatLng.latitude, dropoffLatLng.longitude)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onRideObjectReceived, this::onRideObjectPostError);
-        } else {
-            ErrorDialog.steerClearNotRunning(this);
+//        if (TimeLock.isSteerClearRunning()) {
+//            if (!isFinishing()) {
+//                loadingDialog.show();
+//            }
+//
+//            helper.addRide(eventPostPlacesChosen.numPassengers,
+//                    pickupLatLng.latitude, pickupLatLng.longitude,
+//                    dropoffLatLng.latitude, dropoffLatLng.longitude)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(this::onRideObjectReceived, this::onRideObjectPostError);
+//        } else {
+//            ErrorDialog.steerClearNotRunning(this);
+//        }
+        if (!isFinishing()) {
+            loadingDialog.show();
         }
+
+        helper.addRide(eventPostPlacesChosen.numPassengers,
+                pickupLatLng.latitude, pickupLatLng.longitude,
+                dropoffLatLng.latitude, dropoffLatLng.longitude)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onRideObjectReceived, this::onRideObjectPostError);
     }
 
     public void onRideObjectReceived(RideObject rideObject) {

@@ -52,7 +52,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Inject Datastore store;
 
     private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
-    private AnimatorSet pulse;
 
     public FragmentAuthenticate() {}
 
@@ -110,13 +109,13 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
         AnimatorSet animator = new AnimatorSet();
         if (enter) {
-            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 0, 1),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 0, 1),
-                    ObjectAnimator.ofFloat(getActivity(), "alpha", 0, 1));
+            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 0f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 0f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), "alpha", 0f, 1f));
         } else {
-            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 1, 0),
-                    ObjectAnimator.ofFloat(getActivity(), "alpha", 1, 0),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 1, 0));
+            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 1f, .45f),
+                    ObjectAnimator.ofFloat(getActivity(), "alpha", 1f, .45f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 1f, 0f));
         }
 
         animator.setDuration(ANIMATION_DURATION);

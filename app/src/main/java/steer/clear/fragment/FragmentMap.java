@@ -115,7 +115,6 @@ public class FragmentMap extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
-        mapView.setVisibility(View.VISIBLE);
 		pickupText.setTextNoFilter(getArguments().getString(PICKUP_TEXT), false);
         dropoffText.setTextNoFilter(getArguments().getString(DROPOFF_TEXT), false);
     }
@@ -124,7 +123,6 @@ public class FragmentMap extends Fragment
     public void onPause() {
         super.onPause();
         mapView.onPause();
-        mapView.setVisibility(View.GONE);
 		getArguments().putString(PICKUP_TEXT, pickupText.getText().toString());
         getArguments().putString(DROPOFF_TEXT, dropoffText.getText().toString());
     }
@@ -205,13 +203,13 @@ public class FragmentMap extends Fragment
         AnimatorSet animatorSet = new AnimatorSet();
         if (enter) {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), "scaleX", 0f, 1f),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 0f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleX", .45f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleY", .45f, 1f),
                     ObjectAnimator.ofFloat(getActivity(), "alpha", 0f, 1f));
         } else {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), "scaleX", 1f, 0f),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 1f, 0f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleX", 1f, .45f),
+                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 1f, .45f),
                     ObjectAnimator.ofFloat(getActivity(), "alpha", 1f, 0f));
         }
 

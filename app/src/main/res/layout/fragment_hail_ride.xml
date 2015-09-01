@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -58,6 +59,7 @@
             tools:text="FOOTER GOES HERE"
             android:layout_below="@id/fragment_hail_ride_pickup_location_header"
             android:layout_alignLeft="@id/fragment_hail_ride_pickup_location_header"
+            android:layout_alignStart="@id/fragment_hail_ride_pickup_location_header"
             android:layout_toLeftOf="@+id/fragment_hail_ride_change_pickup"
             android:layout_toStartOf="@+id/fragment_hail_ride_change_pickup" />
 
@@ -108,6 +110,7 @@
             tools:text="FOOTER GOES HERE"
             android:layout_below="@id/fragment_hail_ride_dropoff_location_header"
             android:layout_alignLeft="@id/fragment_hail_ride_dropoff_location_header"
+            android:layout_alignStart="@id/fragment_hail_ride_dropoff_location_header"
             android:layout_toLeftOf="@+id/fragment_hail_ride_change_dropoff"
             android:layout_toStartOf="@+id/fragment_hail_ride_change_dropoff" />
 

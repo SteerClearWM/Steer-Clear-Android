@@ -19,9 +19,7 @@ public class Interceptor implements RequestInterceptor {
 
     @Override
     public void intercept(RequestFacade request) {
-        Logger.log("INTERCEPT REQUEST");
         if (!store.getCookie().isEmpty()) {
-            Logger.log("ADD COOKIE: " + store.getCookie());
             request.addHeader("Cookie", store.getCookie());
         }
     }

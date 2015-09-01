@@ -110,25 +110,40 @@ public class ActivityAuthenticate extends AppCompatActivity {
     }
 
     public void onEvent(EventAuthenticate eventAuthenticate) {
-        if (TimeLock.isSteerClearRunning()) {
-            if (eventAuthenticate.registered) {
-                helper.login(eventAuthenticate.username, eventAuthenticate.password)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(response -> {
-                            parseResponseForCookie(response);
-                            onLoginSuccess(eventAuthenticate.username);
-                        }, this::onLoginError);
-            } else {
-                helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
-                                eventAuthenticate.password), this::onRegisterError);
-            }
+//        if (TimeLock.isSteerClearRunning()) {
+//            if (eventAuthenticate.registered) {
+//                helper.login(eventAuthenticate.username, eventAuthenticate.password)
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(response -> {
+//                            parseResponseForCookie(response);
+//                            onLoginSuccess(eventAuthenticate.username);
+//                        }, this::onLoginError);
+//            } else {
+//                helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
+//                                eventAuthenticate.password), this::onRegisterError);
+//            }
+//        } else {
+//            ErrorDialog.steerClearNotRunning(this);
+//            toggleLoadingAnimation();
+//        }
+        if (eventAuthenticate.registered) {
+            helper.login(eventAuthenticate.username, eventAuthenticate.password)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(response -> {
+                        parseResponseForCookie(response);
+                        onLoginSuccess(eventAuthenticate.username);
+                    }, this::onLoginError);
         } else {
-            ErrorDialog.steerClearNotRunning(this);
-            toggleLoadingAnimation();
+            helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
+                            eventAuthenticate.password), this::onRegisterError);
         }
     }
 
