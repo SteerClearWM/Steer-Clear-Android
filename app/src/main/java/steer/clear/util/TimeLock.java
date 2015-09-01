@@ -24,10 +24,10 @@ public class TimeLock {
                 return rightNow.after(thursdayStart);
             case Calendar.FRIDAY:
                 return (calendar.get(Calendar.AM_PM) == Calendar.AM) ?
-                        rightNow.before(fridayEnd) : rightNow.after(fridayStart);
+                        rightNow.before(thursdayEnd) : rightNow.after(fridayStart);
             case Calendar.SATURDAY:
                 return (calendar.get(Calendar.AM_PM) == Calendar.AM) ?
-                        rightNow.before(saturdayEnd) : rightNow.after(saturdayStart);
+                        rightNow.before(fridayEnd) : rightNow.after(saturdayStart);
             case Calendar.SUNDAY:
                 return rightNow.before(saturdayEnd);
         }
