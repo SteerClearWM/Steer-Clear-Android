@@ -57,6 +57,7 @@ public class ViewFooter extends Button {
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.footer_text_size));
         setBackgroundResource(R.drawable.footer_selector);
         setGravity(Gravity.CENTER);
+        setTextColor(Color.WHITE);
 
         objectAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
                 getResources().getColor(R.color.wm_green), getResources().getColor(R.color.spirit_gold));

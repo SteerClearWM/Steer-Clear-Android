@@ -51,7 +51,7 @@ public class Client {
         cookieHandler.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         okHttpClient.setFollowRedirects(true);
         okHttpClient.setCookieHandler(cookieHandler);
-        okHttpClient.setConnectTimeout(20, TimeUnit.SECONDS);
+        okHttpClient.setConnectTimeout(10, TimeUnit.SECONDS);
         OkClient okClient = new OkClient(okHttpClient);
 
         RestAdapter restAdapter = new RestAdapter.Builder()

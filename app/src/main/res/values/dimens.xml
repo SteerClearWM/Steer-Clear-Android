@@ -50,7 +50,7 @@
     <dimen name="view_eta_prefix_horizontal_margin">50dp</dimen>
     <dimen name="activity_eta_header_bottom_margin">60dp</dimen>
 
-    <dimen name="view_header_layout_height">60dp</dimen>
+    <dimen name="view_header_layout_height">48dp</dimen>
     <dimen name="view_header_bottom_margin">10dp</dimen>
 
     <dimen name="view_footer_layout_height">48dp</dimen>

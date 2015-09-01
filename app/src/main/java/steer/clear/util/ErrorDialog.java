@@ -1,9 +1,12 @@
 package steer.clear.util;
 
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import steer.clear.R;
+import steer.clear.activity.ActivityAuthenticate;
 import steer.clear.view.ViewTypefaceTextView;
 
 /**
@@ -51,7 +55,16 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_dialog_pos_button:
-                dismiss();
+                if (titleText.equals(getContext().getResources().getString(R.string.error_dialog_unauth_title))) {
+
+                    getContext().startActivity(
+                            ActivityAuthenticate.newIntent(getContext(), true),
+                            ActivityOptionsCompat.makeCustomAnimation(getContext(),
+                                    android.R.anim.fade_in,
+                                    android.R.anim.fade_out).toBundle());
+                } else {
+                    dismiss();
+                }
                 break;
         }
     }
@@ -70,6 +83,10 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
             case 404:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_no_internet_title),
                         context.getResources().getString(R.string.error_dialog_no_internet_body),
+                        R.style.DialogTheme);
+            case 401:
+                return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_unauth_title),
+                        context.getResources().getString(R.string.error_dialog_unauth_body),
                         R.style.DialogTheme);
             default:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_general_title),

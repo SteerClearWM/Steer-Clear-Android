@@ -23,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/error_dialog_body"
-        android:text="@string/error_dialog_pos_button_text"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:text="@string/error_dialog_pos_button_text"
         style="@style/DialogButtonStyle" />
 
 </RelativeLayout>

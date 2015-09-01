@@ -43,7 +43,7 @@
     <string name="toast_too_far_for_steer_clear">SteerClear does not service this location</string>
     <string name="toast_must_choose_location">Choose a location first!</string>
 
-    <string name="dialog_progress_text">Loading...</string>
+    <string name="dialog_progress_text">Loading…</string>
 
     <string name="error_dialog_pos_button_text">OK</string>
 
@@ -60,14 +60,18 @@
         Pressing "OK" will log you in.</string>
 
     <string name="error_dialog_no_internet_title">Jefferson, We Have a Problem</string>
-    <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try reconnecting
-        your data or WiFi.</string>
+    <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try connecting to
+        data, or reconnecting your WiFi.</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
     <string name="dialog_no_gps_body">Couldn\'t grab your GPS, which we need. Do you want to go to your settings
         menu to enable? This app will close if you press \'Cancel\'.</string>
     <string name="dialog_no_gps_pos_button_text">Settings</string>
     <string name="dialog_no_gps_neg_button_text">Cancel</string>
+
+    <string name="error_dialog_unauth_title">Our bad!</string>
+    <string name="error_dialog_unauth_body">We need to log you in again. Pressing "OK" will
+        take you back to the login screen.</string>
 
     <string name="dialog_cancel_ride_title">Cancel Ride</string>
     <string name="dialog_cancel_ride_body">Would you like to cancel your requested ride? This action

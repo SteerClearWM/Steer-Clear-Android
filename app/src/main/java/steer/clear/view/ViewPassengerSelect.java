@@ -56,6 +56,7 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
     private void init() {
         setVerticalFadingEdgeEnabled(true);
         setFadingEdgeLength(75);
+        setScrollbarFadingEnabled(false);
     }
 
     @Override

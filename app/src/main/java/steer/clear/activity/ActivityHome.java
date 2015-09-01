@@ -226,6 +226,7 @@ public class ActivityHome extends AppCompatActivity
         }
     }
 
+
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
         if (!isFinishing()) {
             loadingDialog.show();

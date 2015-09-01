@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "steer.clear"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 22
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8

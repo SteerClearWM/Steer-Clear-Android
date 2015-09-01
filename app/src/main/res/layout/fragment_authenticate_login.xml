@@ -69,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_authenticate_button"
         android:clickable="true"
+        android:textColor="@android:color/white"
         android:gravity="center" />
 
 </RelativeLayout>

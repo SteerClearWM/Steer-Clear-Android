@@ -10,6 +10,7 @@ import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.retrofit.Client;
+import steer.clear.util.ErrorDialog;
 import steer.clear.view.ViewMarkerSelectLayout;
 
 /**

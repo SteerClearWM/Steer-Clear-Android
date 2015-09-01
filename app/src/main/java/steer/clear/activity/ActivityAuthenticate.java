@@ -3,6 +3,8 @@ package steer.clear.activity;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -32,13 +34,20 @@ public class ActivityAuthenticate extends AppCompatActivity {
     private static final String LOGIN_TAG = "login";
     private static final String REGISTER_TAG = "register";
     private static final String AUTHENTICATE_TAG = "authenticate";
+    private static final String SHOULD_RELOGIN = "whatever";
+
+    public static Intent newIntent(Context context, boolean shouldLogin) {
+        Intent intent = new Intent(context, ActivityAuthenticate.class);
+        intent.putExtra(SHOULD_RELOGIN, shouldLogin);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
-        if (store.hasPreviousRideInfo()) {
+        if (store.hasPreviousRideInfo() && !shouldLoginAgain()) {
             startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
             finish();
         } else {
@@ -58,6 +67,10 @@ public class ActivityAuthenticate extends AppCompatActivity {
         } else {
             getFragmentManager().popBackStack();
         }
+    }
+
+    private boolean shouldLoginAgain() {
+        return getIntent() != null && getIntent().getBooleanExtra(SHOULD_RELOGIN, false);
     }
 
     private void addFragmentAuthenticate() {

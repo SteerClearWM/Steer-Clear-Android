@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true" >
 
-    <com.google.android.gms.maps.MapView
-        android:visibility="gone"
-        android:id="@+id/fragment_map_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <steer.clear.view.ViewHeader
         android:id="@+id/fragment_map_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_header_layout_height"
         android:layout_alignParentTop="true"
-        android:text="@string/header_text"
-        android:layout_marginBottom="@dimen/view_header_bottom_margin" />
+        android:text="@string/header_text" />
+
+    <com.google.android.gms.maps.MapView
+        android:visibility="gone"
+        android:layout_below="@id/fragment_map_header"
+        android:id="@+id/fragment_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
    	
    	<steer.clear.view.ViewAutoComplete
         android:id="@+id/fragment_map_pickup"

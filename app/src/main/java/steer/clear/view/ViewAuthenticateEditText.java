@@ -2,6 +2,7 @@ package steer.clear.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.RectF;
@@ -45,6 +46,8 @@ public class ViewAuthenticateEditText extends EditText {
 
     private void init() {
         setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"), Typeface.BOLD);
+        setTextColor(Color.WHITE);
+        setHintTextColor(Color.GRAY);
         setGravity(GravityCompat.START);
         setLines(1);
         setMaxLines(1);

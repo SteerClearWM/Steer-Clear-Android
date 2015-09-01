@@ -30,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -219,6 +220,9 @@ public class FragmentMap extends Fragment
 
     @Override
 	public void onMapReady(GoogleMap map) {
+        UiSettings settings = map.getUiSettings();
+        settings.setCompassEnabled(false);
+        settings.setMyLocationButtonEnabled(false);
         map.setMyLocationEnabled(true);
         map.setOnMapClickListener(this);
         map.setOnMarkerDragListener(this);
@@ -351,6 +355,8 @@ public class FragmentMap extends Fragment
 
     private final AdapterView.OnItemClickListener pickupAdapterViewClick
             = (parent, view, position, id) -> {
+        closeKeyboard(pickupText);
+
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
         loadingDialog.show();
@@ -385,15 +391,13 @@ public class FragmentMap extends Fragment
             animateCameraToLocation(pickupLatLng);
 
             places.release();
-            final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (getView().getWindowToken() != null) {
-                imm.hideSoftInputFromWindow(pickupText.getWindowToken(), 0);
-            }
         });
     };
 
     private final AdapterView.OnItemClickListener dropoffAdapterViewClick
             = (parent, view, position, id) -> {
+        closeKeyboard(dropoffText);
+
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
         loadingDialog.show();
@@ -429,12 +433,15 @@ public class FragmentMap extends Fragment
             animateCameraToLocation(dropoffLatLng);
 
             places.release();
-            final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            if (getView().getWindowToken() != null) {
-                imm.hideSoftInputFromWindow(pickupText.getWindowToken(), 0);
-            }
         });
     };
+
+    private void closeKeyboard(View v) {
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (v.getWindowToken() != null) {
+            imm.hideSoftInputFromWindow(pickupText.getWindowToken(), 0);
+        }
+    }
 
     private void dropMarkerOnMap(LatLng latLng, String whichMarker) {
         switch (whichMarker) {
