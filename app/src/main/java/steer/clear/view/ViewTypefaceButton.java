@@ -39,6 +39,7 @@ public class ViewTypefaceButton extends Button {
     private boolean shouldDrawBorder;
     private boolean isSelected;
     private int preferredTextColor;
+    private static float strokeWidth;
     private int drawableColor;
 
     public ViewTypefaceButton(Context context) {
@@ -88,10 +89,10 @@ public class ViewTypefaceButton extends Button {
         borderPaint = new Paint();
         borderPaint.setAntiAlias(true);
         borderPaint.setColor(getResources().getColor(R.color.wm_silver));
-        borderPaint.setStrokeWidth(10f);
+        strokeWidth = getResources().getDimension(R.dimen.view_typeface_button_border_width);
+        borderPaint.setStrokeWidth(strokeWidth);
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeJoin(Paint.Join.ROUND);
-        borderPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
 
         pulse = new AnimatorSet();
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(this, "scaleX", 1f, .9f);
@@ -116,8 +117,9 @@ public class ViewTypefaceButton extends Button {
         canvas.drawLine(getStartOfRect(), 0, getEndofRect(), 0, borderPaint);
         canvas.drawLine(getStartOfRect(), canvas.getHeight(), getEndofRect(), canvas.getHeight(), borderPaint);
 
-        borderPaint.setStrokeWidth(borderPaint.getStrokeWidth() / 2);
+        borderPaint.setStrokeWidth(strokeWidth / 2);
         canvas.drawLine(getEndofRect(), 0, getEndofRect(), canvas.getHeight(), borderPaint);
+        borderPaint.setStrokeWidth(strokeWidth);
     }
 
     private boolean hasDrawableLeft() {

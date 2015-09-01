@@ -47,7 +47,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
-        if (store.hasPreviousRideInfo() && !shouldLoginAgain()) {
+        if (store.hasPreviousRideInfo() && shouldLoginAgain()) {
             startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
             finish();
         } else {

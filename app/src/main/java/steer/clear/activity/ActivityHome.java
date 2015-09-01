@@ -240,7 +240,6 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onRideObjectReceived(RideObject rideObject) {
-        loadingDialog.dismiss();
         RideObject.RideInfo info = rideObject.getRideInfo();
         String pickupTime = info.getPickupTime();
         int cancelId = info.getId();
@@ -252,11 +251,14 @@ public class ActivityHome extends AppCompatActivity
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(dateFormat.parse(pickupTime));
 
-            startActivity(ActivityEta.newIntent(this,
-                    String.format("%02d : %02d", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
-                    cancelId));
-            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            finish();
+            new Handler().postDelayed(() -> {
+                loadingDialog.dismiss();
+                startActivity(ActivityEta.newIntent(this,
+                        String.format("%02d : %02d", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
+                        cancelId));
+                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                finish();
+            }, 2000);
         } catch (ParseException p) {
             p.printStackTrace();
         }
