@@ -110,5 +110,12 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
         }
     }
 
+    public static void steerClearNotRunning(Context context) {
+        new ErrorDialog(context,
+                context.getResources().getString(R.string.error_dialog_not_running_title),
+                context.getResources().getString(R.string.error_dialog_not_running_body),
+                R.style.DialogTheme).show();
+    }
+
 }
 

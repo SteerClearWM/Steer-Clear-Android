@@ -115,6 +115,7 @@ public class FragmentMap extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        mapView.setVisibility(View.VISIBLE);
 		pickupText.setTextNoFilter(getArguments().getString(PICKUP_TEXT), false);
         dropoffText.setTextNoFilter(getArguments().getString(DROPOFF_TEXT), false);
     }
@@ -123,6 +124,7 @@ public class FragmentMap extends Fragment
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        mapView.setVisibility(View.GONE);
 		getArguments().putString(PICKUP_TEXT, pickupText.getText().toString());
         getArguments().putString(DROPOFF_TEXT, dropoffText.getText().toString());
     }

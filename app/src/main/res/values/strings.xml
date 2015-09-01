@@ -73,6 +73,11 @@
     <string name="error_dialog_unauth_body">We need to log you in again. Pressing "OK" will
         take you back to the login screen.</string>
 
+    <string name="error_dialog_not_running_title">Donezo!</string>
+    <string name="error_dialog_not_running_body">SteerClear has stopped servicing new ride requests.
+        Our hours are Thursday from 9:30PM to 1:30AM, Friday from 9:30PM to 2:30AM, and Saturday
+        from 9:30PM to 2:30AM.</string>
+
     <string name="dialog_cancel_ride_title">Cancel Ride</string>
     <string name="dialog_cancel_ride_body">Would you like to cancel your requested ride? This action
         will destroy all entered data and return to the map.</string>

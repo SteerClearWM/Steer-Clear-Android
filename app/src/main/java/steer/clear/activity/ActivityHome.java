@@ -47,6 +47,7 @@ import steer.clear.util.ErrorDialog;
 import steer.clear.util.LoadingDialog;
 import steer.clear.util.Locationer;
 import steer.clear.util.Logger;
+import steer.clear.util.TimeLock;
 
 public class ActivityHome extends AppCompatActivity
 	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {
@@ -228,15 +229,20 @@ public class ActivityHome extends AppCompatActivity
 
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-        if (!isFinishing()) {
-            loadingDialog.show();
+        if (TimeLock.isSteerClearRunning()) {
+            if (!isFinishing()) {
+                loadingDialog.show();
+            }
+
+            helper.addRide(eventPostPlacesChosen.numPassengers,
+                    pickupLatLng.latitude, pickupLatLng.longitude,
+                    dropoffLatLng.latitude, dropoffLatLng.longitude)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onRideObjectReceived, this::onRideObjectPostError);
+        } else {
+            ErrorDialog.steerClearNotRunning(this);
         }
-        helper.addRide(eventPostPlacesChosen.numPassengers,
-                pickupLatLng.latitude, pickupLatLng.longitude,
-                dropoffLatLng.latitude, dropoffLatLng.longitude)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onRideObjectReceived, this::onRideObjectPostError);
     }
 
     public void onRideObjectReceived(RideObject rideObject) {

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.sql.Time;
+
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
@@ -26,6 +28,7 @@ import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
 import steer.clear.util.Logger;
+import steer.clear.util.TimeLock;
 
 public class ActivityAuthenticate extends AppCompatActivity {
 
@@ -107,20 +110,25 @@ public class ActivityAuthenticate extends AppCompatActivity {
     }
 
     public void onEvent(EventAuthenticate eventAuthenticate) {
-        if (eventAuthenticate.registered) {
-            helper.login(eventAuthenticate.username, eventAuthenticate.password)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(response -> {
-                        parseResponseForCookie(response);
-                        onLoginSuccess(eventAuthenticate.username);
-                    }, this::onLoginError);
+        if (TimeLock.isSteerClearRunning()) {
+            if (eventAuthenticate.registered) {
+                helper.login(eventAuthenticate.username, eventAuthenticate.password)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(response -> {
+                            parseResponseForCookie(response);
+                            onLoginSuccess(eventAuthenticate.username);
+                        }, this::onLoginError);
+            } else {
+                helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
+                                eventAuthenticate.password), this::onRegisterError);
+            }
         } else {
-            helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
-                            eventAuthenticate.password), this::onRegisterError);
+            ErrorDialog.steerClearNotRunning(this);
+            toggleLoadingAnimation();
         }
     }
 
