@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Xfermode;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class ViewTypefaceTextView extends TextView {
         circlePaint.setStyle(Paint.Style.FILL);
         circlePaint.setStrokeJoin(Paint.Join.ROUND);
         circlePaint.setStrokeCap(Paint.Cap.ROUND);
+        circlePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
 
         if (attrs != null) {
             TypedArray typedArray =

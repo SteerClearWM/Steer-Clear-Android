@@ -1,5 +1,6 @@
 package steer.clear.view;
 
+import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
@@ -31,6 +32,7 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
     private final static int BACKGROUND_ANIMATION = 350;
 
     public int count = 0;
+    private boolean canAnimate = true;
 
     public ViewPassengerSelect(Context context) {
         super(context);
@@ -72,13 +74,38 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
             R.id.fragment_passenger_select_5, R.id.fragment_passenger_select_6,
             R.id.fragment_passenger_select_7, R.id.fragment_passenger_select_8})
     public void onClick(View v) {
-        if (v instanceof ViewTypefaceTextView) {
+        if (v instanceof ViewTypefaceTextView && canAnimate) {
+            canAnimate = false;
             ViewTypefaceTextView textView = (ViewTypefaceTextView) v;
-            ObjectAnimator.ofObject(textView, "backgroundColor", new ArgbEvaluator(),
+            ObjectAnimator background =
+                    ObjectAnimator.ofObject(textView, "backgroundColor", new ArgbEvaluator(),
                     Color.WHITE, getResources().getColor(R.color.spirit_gold))
-                    .setDuration(BACKGROUND_ANIMATION)
-                    .start();
+                    .setDuration(BACKGROUND_ANIMATION);
+            background.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    canAnimate = true;
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+            background.start();
+
             count = Integer.valueOf((String) textView.getText().subSequence(0, 1));
+
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
                 View child = linearLayout.getChildAt(i);
                 if (child.getId() != textView.getId()) {
