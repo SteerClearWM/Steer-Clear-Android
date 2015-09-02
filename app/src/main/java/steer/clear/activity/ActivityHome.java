@@ -1,6 +1,5 @@
 package steer.clear.activity;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +46,6 @@ import steer.clear.util.ErrorDialog;
 import steer.clear.util.LoadingDialog;
 import steer.clear.util.Locationer;
 import steer.clear.util.Logger;
-import steer.clear.util.TimeLock;
 
 public class ActivityHome extends AppCompatActivity
 	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {
@@ -215,16 +213,6 @@ public class ActivityHome extends AppCompatActivity
                 eventPlacesChosen.dropoffName);
         ft.addToBackStack(MAP);
         ft.replace(R.id.activity_home_fragment_frame, fragment, POST).commit();
-    }
-
-    public void onEvent(EventChangePlaces eventChangePlaces) {
-        FragmentMap fragmentMap = (FragmentMap) getFragmentManager().findFragmentByTag(MAP);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        if (fragmentMap != null) {
-            ft.replace(R.id.activity_home_fragment_frame, fragmentMap, MAP).commit();
-        } else {
-            ft.replace(R.id.activity_home_fragment_frame, FragmentMap.newInstance(userLatLng), MAP).commit();
-        }
     }
 
 

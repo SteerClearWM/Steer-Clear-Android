@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -24,8 +23,6 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventChangePlaces;
 import steer.clear.event.EventPostPlacesChosen;
-import steer.clear.util.LoadingDialog;
-import steer.clear.util.Logger;
 import steer.clear.view.ViewPassengerSelect;
 import steer.clear.view.ViewTypefaceTextView;
 
@@ -101,11 +98,11 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 				break;
 
 			case R.id.fragment_hail_ride_change_pickup:
-                bus.post(new EventChangePlaces());
+                getActivity().onBackPressed();
 				break;
 
 			case R.id.fragment_hail_ride_change_dropoff:
-				bus.post(new EventChangePlaces());
+				getActivity().onBackPressed();
 				break;
 		}
 	}
