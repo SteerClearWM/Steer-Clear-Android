@@ -44,6 +44,7 @@
     <dimen name="fragment_hail_ride_post_margin_from_bottom">58dp</dimen>
 
     <dimen name="view_passenger_select_height">100dp</dimen>
+    <dimen name="view_passenger_select_margin_bottom">10dp</dimen>
 
     <dimen name="view_eta_dimens">200dp</dimen>
     <dimen name="view_eta_text_size">50sp</dimen>

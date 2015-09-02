@@ -21,7 +21,6 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.event.EventChangePlaces;
 import steer.clear.event.EventPostPlacesChosen;
 import steer.clear.view.ViewPassengerSelect;
 import steer.clear.view.ViewTypefaceTextView;

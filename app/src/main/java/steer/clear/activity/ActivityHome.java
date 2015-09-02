@@ -35,7 +35,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.event.EventChangePlaces;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.event.EventPostPlacesChosen;
 import steer.clear.fragment.FragmentHailRide;

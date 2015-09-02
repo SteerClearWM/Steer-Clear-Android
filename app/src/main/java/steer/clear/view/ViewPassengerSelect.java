@@ -29,8 +29,6 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
 
     @Bind(R.id.fragment_hail_ride_passenger_select_linear_layout) LinearLayout linearLayout;
 
-    private final static int BACKGROUND_ANIMATION = 350;
-
     public int count = 0;
     private boolean canAnimate = true;
 
@@ -77,34 +75,9 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
         if (v instanceof ViewTypefaceTextView && canAnimate) {
             canAnimate = false;
             ViewTypefaceTextView textView = (ViewTypefaceTextView) v;
-            ObjectAnimator background =
-                    ObjectAnimator.ofObject(textView, "backgroundColor", new ArgbEvaluator(),
-                    Color.WHITE, getResources().getColor(R.color.spirit_gold))
-                    .setDuration(BACKGROUND_ANIMATION);
-            background.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
+            textView.animateBackgroundToColor(getResources().getColor(R.color.spirit_gold));
 
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    canAnimate = true;
-                }
-
-                @Override
-                public void onAnimationCancel(Animator animation) {
-
-                }
-
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-
-                }
-            });
-            background.start();
-
-            count = Integer.valueOf((String) textView.getText().subSequence(0, 1));
+            count = Integer.valueOf(textView.getText().toString());
 
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
                 View child = linearLayout.getChildAt(i);
@@ -112,6 +85,7 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
                     child.setBackgroundColor(Color.WHITE);
                 }
             }
+            canAnimate = true;
         }
     }
 

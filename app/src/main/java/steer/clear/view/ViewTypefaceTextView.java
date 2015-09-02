@@ -1,9 +1,12 @@
 package steer.clear.view;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -17,9 +20,13 @@ import steer.clear.util.FontUtils;
 
 public class ViewTypefaceTextView extends TextView {
 
+    private final static int BACKGROUND_ANIMATION = 350;
+
+    private ObjectAnimator backgroundAnimator;
     private Paint circlePaint;
 
     private boolean shouldDrawCircle;
+    private int previousBackgroundAnimatedColor;
 
     public ViewTypefaceTextView(Context context) {
         super(context);
@@ -68,5 +75,26 @@ public class ViewTypefaceTextView extends TextView {
         if (shouldDrawCircle) {
             canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, canvas.getWidth() / 2, circlePaint);
         }
+    }
+
+    public void animateBackgroundToColor(int color) {
+        previousBackgroundAnimatedColor = color;
+        backgroundAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+                Color.WHITE, color)
+                .setDuration(BACKGROUND_ANIMATION);
+        backgroundAnimator.start();
+    }
+
+    public void animateBackgroundToWhite() {
+        if (previousBackgroundAnimatedColor != 0) {
+            backgroundAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+                    previousBackgroundAnimatedColor, Color.WHITE)
+                    .setDuration(BACKGROUND_ANIMATION);
+            backgroundAnimator.start();
+        }
+    }
+
+    public boolean isAnimatingBackground() {
+        return backgroundAnimator != null && backgroundAnimator.isRunning();
     }
 }
