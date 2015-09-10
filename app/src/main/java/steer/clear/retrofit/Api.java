@@ -13,7 +13,7 @@ import steer.clear.pojo.RideObject;
 /**
  * Created by milespeele on 7/2/15.
  */
-public interface ApiInterface {
+public interface Api {
 
     @POST("/rides")
     @Headers({"contentType: application/x-www-form-urlencoded"})

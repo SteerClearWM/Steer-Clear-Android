@@ -18,9 +18,6 @@ import steer.clear.R;
 import steer.clear.activity.ActivityAuthenticate;
 import steer.clear.view.ViewTypefaceTextView;
 
-/**
- * Created by Miles Peele on 8/19/2015.
- */
 public class ErrorDialog extends Dialog implements View.OnClickListener, DialogInterface.OnDismissListener {
 
     @Bind(R.id.error_dialog_title) ViewTypefaceTextView title;

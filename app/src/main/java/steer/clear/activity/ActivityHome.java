@@ -51,9 +51,7 @@ public class ActivityHome extends AppCompatActivity
 
     private static LatLng userLatLng;
 	private static LatLng pickupLatLng;
-	private static CharSequence pickupLocationName;
 	private static LatLng dropoffLatLng;
-	private static CharSequence dropoffLocationName;
 
 	private final static String MAP = "map";
 	private final static String POST = "post";
@@ -65,7 +63,7 @@ public class ActivityHome extends AppCompatActivity
     @Inject Locationer locationer;
     private LoadingDialog loadingDialog;
     private LocationRequest locationRequest;
-	public GoogleApiClient mGoogleApiClient;
+	private GoogleApiClient mGoogleApiClient;
     private AlertDialog settings;
 
     public static Intent newIntent(Context context) {
@@ -203,6 +201,10 @@ public class ActivityHome extends AppCompatActivity
         }
 	}
 
+    public GoogleApiClient getGoogleApiClient() {
+        return mGoogleApiClient;
+    }
+
     public void onEvent(EventPlacesChosen eventPlacesChosen) {
         pickupLatLng = eventPlacesChosen.pickupLatLng;
         dropoffLatLng = eventPlacesChosen.dropoffLatLng;
@@ -213,7 +215,6 @@ public class ActivityHome extends AppCompatActivity
         ft.addToBackStack(MAP);
         ft.replace(R.id.activity_home_fragment_frame, fragment, POST).commit();
     }
-
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
 //        if (TimeLock.isSteerClearRunning()) {

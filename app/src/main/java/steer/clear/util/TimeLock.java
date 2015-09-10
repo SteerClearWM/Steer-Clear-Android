@@ -4,9 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * Created by Miles Peele on 8/29/2015.
- */
 public class TimeLock {
 
     private final static Date thursdayStart = createThursdayStartTime();

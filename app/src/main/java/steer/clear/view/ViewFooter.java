@@ -22,9 +22,6 @@ import steer.clear.R;
 import steer.clear.util.FontUtils;
 import steer.clear.util.Logger;
 
-/**
- * Created by Miles Peele on 8/21/2015.
- */
 public class ViewFooter extends Button {
 
     private final static int BACKGROUND_ANIMATION = 1000;

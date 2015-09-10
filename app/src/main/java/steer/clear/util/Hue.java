@@ -2,10 +2,7 @@ package steer.clear.util;
 
 import android.graphics.Color;
 
-/**
- * Created by Miles Peele on 8/30/2015.
- */
-public class HueFromColor {
+public class Hue {
 
     public static class Hsl {
         public double h, s, l;

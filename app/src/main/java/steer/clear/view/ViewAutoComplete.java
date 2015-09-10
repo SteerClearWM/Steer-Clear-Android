@@ -16,21 +16,15 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceBuffer;
-import com.google.android.gms.location.places.Places;
 
 import java.lang.ref.WeakReference;
 
@@ -38,21 +32,23 @@ import steer.clear.R;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.util.ErrorDialog;
 import steer.clear.util.FontUtils;
+import steer.clear.util.Logger;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
 
     private static final int MESSAGE_TEXT_CHANGED = 100;
     private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
     private static final int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
-    private GoogleApiClient googleApiClient;
 
-    private Drawable drawable;
-
+    private Drawable clearDrawable;
+    private Drawable blockDrawable;
+    private Drawable[] mCompoundDrawables;
     private AnimatorSet test;
+    private Paint ripplePaint;
+
     private boolean startRipple = false;
     private final static int DURATION = 2000;
     private float radius;
-    private Paint ripplePaint;
     private final static int HALF_ALPHA = 128;
 
     private MyHandler mHandler = new MyHandler(this);
@@ -108,13 +104,33 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         setCompoundDrawablePadding(15);
         setSaveEnabled(true);
 
-        drawable = getCompoundDrawables()[2];
+        blockDrawable = getCompoundDrawables()[0];
+        clearDrawable = getCompoundDrawables()[2];
 
         ripplePaint = new Paint();
         ripplePaint.setAntiAlias(true);
         ripplePaint.setStyle(Paint.Style.FILL);
         ripplePaint.setColor(color);
         ripplePaint.setAlpha(HALF_ALPHA);
+
+        addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setCancelDrawableVisible(s.length() != 0);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        setCancelDrawableVisible(false);
     }
 
     @Override
@@ -128,7 +144,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getX() > getWidth() - getPaddingRight() - drawable.getIntrinsicWidth()) {
+            if (event.getX() > getWidth() - getPaddingRight() - clearDrawable.getIntrinsicWidth()) {
                 setText("");
                 mListener.clearClicked(this);
             }
@@ -160,6 +176,26 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
     public void setAutoCompleteListener(AutoCompleteListener listener) {
         mListener = listener;
+    }
+
+    private void setCancelDrawableVisible(boolean hasText) {
+        if (mCompoundDrawables == null) {
+            mCompoundDrawables = getCompoundDrawables();
+        }
+
+        if (hasText) {
+            setCompoundDrawablesWithIntrinsicBounds(
+                    blockDrawable,
+                    mCompoundDrawables[1],
+                    clearDrawable,
+                    mCompoundDrawables[3]);
+        } else {
+            setCompoundDrawablesWithIntrinsicBounds(
+                    blockDrawable,
+                    mCompoundDrawables[1],
+                    null,
+                    mCompoundDrawables[3]);
+        }
     }
 
     public void setTextNoFilter(String text, boolean toFilter) {

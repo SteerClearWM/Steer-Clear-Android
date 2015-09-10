@@ -43,10 +43,6 @@ public class AdapterAutoComplete
         mBounds = bounds;
     }
 
-    public void setBounds(LatLngBounds bounds) {
-        mBounds = bounds;
-    }
-
     @Override
     public int getCount() {
         return mResultList.size();

@@ -18,9 +18,6 @@ import steer.clear.R;
 import steer.clear.event.EventAnimateToMarker;
 import steer.clear.util.Logger;
 
-/**
- * Created by Miles Peele on 8/30/2015.
- */
 public class ViewMarkerSelectLayout extends LinearLayout implements View.OnClickListener {
 
     @Bind(R.id.fragment_map_show_dropoff_location) ViewTypefaceButton pickup;

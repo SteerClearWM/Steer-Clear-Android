@@ -84,17 +84,4 @@ public class ViewTypefaceTextView extends TextView {
                 .setDuration(BACKGROUND_ANIMATION);
         backgroundAnimator.start();
     }
-
-    public void animateBackgroundToWhite() {
-        if (previousBackgroundAnimatedColor != 0) {
-            backgroundAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
-                    previousBackgroundAnimatedColor, Color.WHITE)
-                    .setDuration(BACKGROUND_ANIMATION);
-            backgroundAnimator.start();
-        }
-    }
-
-    public boolean isAnimatingBackground() {
-        return backgroundAnimator != null && backgroundAnimator.isRunning();
-    }
 }

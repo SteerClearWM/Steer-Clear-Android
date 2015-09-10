@@ -7,18 +7,18 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.widget.TextView;
 
 import steer.clear.R;
 import steer.clear.util.FontUtils;
+import steer.clear.util.Logger;
 
-/**
- * Created by Miles Peele on 8/20/2015.
- */
 public class ViewHeader extends TextView {
 
     private Paint borderPaint;

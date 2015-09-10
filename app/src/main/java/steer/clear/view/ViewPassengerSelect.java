@@ -22,9 +22,6 @@ import butterknife.OnClick;
 import steer.clear.R;
 import steer.clear.util.Logger;
 
-/**
- * Created by Miles Peele on 8/22/2015.
- */
 public class ViewPassengerSelect extends ScrollView implements View.OnClickListener {
 
     @Bind(R.id.fragment_hail_ride_passenger_select_linear_layout) LinearLayout linearLayout;
@@ -55,7 +52,8 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
 
     private void init() {
         setVerticalFadingEdgeEnabled(true);
-        setFadingEdgeLength(75);
+        setFadingEdgeLength(Math.round(
+                getResources().getDimension(R.dimen.view_passenger_select_edge_length)));
         setScrollbarFadingEnabled(false);
     }
 

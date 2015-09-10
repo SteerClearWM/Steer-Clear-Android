@@ -190,7 +190,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
                 } else {
                     button.shake();
                     Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_register),
-                            Snackbar.LENGTH_SHORT);
+                            Snackbar.LENGTH_SHORT).show();
                 }
             }
         }

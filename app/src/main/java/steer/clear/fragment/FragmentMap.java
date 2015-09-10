@@ -5,7 +5,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
@@ -56,19 +55,19 @@ import steer.clear.activity.ActivityHome;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.event.EventAnimateToMarker;
 import steer.clear.event.EventPlacesChosen;
-import steer.clear.util.HueFromColor;
+import steer.clear.util.Hue;
 import steer.clear.util.LoadingDialog;
-import steer.clear.util.Logger;
 import steer.clear.view.ViewAutoComplete;
 import steer.clear.view.ViewFooter;
+import steer.clear.view.ViewHeader;
 import steer.clear.view.ViewMarkerSelectLayout;
-import steer.clear.view.ViewTypefaceButton;
 
 public class FragmentMap extends Fragment
 	implements View.OnClickListener, ViewAutoComplete.AutoCompleteListener,
             OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMapClickListener {
 
+    @Bind(R.id.fragment_map_header) ViewHeader header;
 	@Bind(R.id.fragment_map_pickup) ViewAutoComplete pickupText;
     @Bind(R.id.fragment_map_dropoff) ViewAutoComplete dropoffText;
 	@Bind(R.id.fragment_map_view) MapView mapView;
@@ -98,7 +97,7 @@ public class FragmentMap extends Fragment
     private Marker dropoffMarker;
     private AdapterAutoComplete mAdapter;
     private static final LatLngBounds BOUNDS_WILLIAMSBURG = new LatLngBounds(
-			new LatLng(37.247247, -76.752889), new LatLng(37.307280, -76.685511));
+			new LatLng(37.244926, -76.747861), new LatLng(37.295667, -76.686084));
 
 	public FragmentMap() {}
 
@@ -223,11 +222,15 @@ public class FragmentMap extends Fragment
         UiSettings settings = map.getUiSettings();
         settings.setCompassEnabled(false);
         settings.setMyLocationButtonEnabled(false);
+        settings.setIndoorLevelPickerEnabled(false);
         map.setMyLocationEnabled(true);
         map.setOnMapClickListener(this);
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 
+        LatLng userLocation = new LatLng(getArguments().getDouble(USER_LATITUDE),
+                getArguments().getDouble(USER_LONGITUDE));
+        dropMarkerOnMap(userLocation, PICKUP_MARKER_TITLE);
         animateCameraToLocation(new LatLng(getArguments().getDouble(USER_LATITUDE),
                 getArguments().getDouble(USER_LONGITUDE)));
         mapView.setVisibility(View.VISIBLE);
@@ -315,6 +318,31 @@ public class FragmentMap extends Fragment
         }
     }
 
+    @Override
+    public void clearClicked(View v) {
+        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (v.getWindowToken() != null) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+
+        switch (v.getId()) {
+            case R.id.fragment_map_pickup:
+                pickupLatLng = null;
+                pickupName = null;
+                if (pickupMarker != null) {
+                    pickupMarker.remove();
+                }
+                break;
+            case R.id.fragment_map_dropoff:
+                dropoffLatLng = null;
+                dropoffName = null;
+                if (dropoffMarker != null) {
+                    dropoffMarker.remove();
+                }
+                break;
+        }
+    }
+
     public void onEvent(EventAnimateToMarker eventAnimateToMarker) {
         switch (eventAnimateToMarker.buttonId) {
             case R.id.fragment_map_show_pickup_location:
@@ -330,31 +358,13 @@ public class FragmentMap extends Fragment
         }
     }
 
-    @Override
-    public void clearClicked(View v) {
-        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (v.getWindowToken() != null) {
-            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        }
-
-        switch (v.getId()) {
-            case R.id.fragment_map_pickup:
-                pickupLatLng = null;
-                pickupName = null;
-                break;
-            case R.id.fragment_map_dropoff:
-                dropoffLatLng = null;
-                dropoffName = null;
-                break;
-        }
-    }
-
     private GoogleApiClient getGoogleApiClient() {
-        return ((ActivityHome) getActivity()).mGoogleApiClient;
+        return ((ActivityHome) getActivity()).getGoogleApiClient();
     }
 
     private final AdapterView.OnItemClickListener pickupAdapterViewClick
             = (parent, view, position, id) -> {
+
         closeKeyboard(pickupText);
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
@@ -396,6 +406,7 @@ public class FragmentMap extends Fragment
 
     private final AdapterView.OnItemClickListener dropoffAdapterViewClick
             = (parent, view, position, id) -> {
+
         closeKeyboard(dropoffText);
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
@@ -409,7 +420,6 @@ public class FragmentMap extends Fragment
                 return;
             }
 
-            // Get the Place object from the buffer.
             final Place place = places.get(0);
 
             if (!BOUNDS_WILLIAMSBURG.contains(place.getLatLng())) {
@@ -447,24 +457,26 @@ public class FragmentMap extends Fragment
         switch (whichMarker) {
             case PICKUP_MARKER_TITLE:
 
+                MarkerOptions options = new MarkerOptions()
+                        .position(latLng)
+                        .title(PICKUP_MARKER_TITLE)
+                        .icon(BitmapDescriptorFactory.defaultMarker(
+                                Hue.getHue(getResources().getColor(R.color.spirit_gold))))
+                        .draggable(true);
+
                 if (pickupMarker != null) {
                     pickupMarker.remove();
                 }
-                MarkerOptions options = new MarkerOptions()
-                        .position(pickupLatLng)
-                        .title(PICKUP_MARKER_TITLE)
-                        .icon(BitmapDescriptorFactory.defaultMarker(
-                                HueFromColor.getHue(getResources().getColor(R.color.spirit_gold))))
-                        .draggable(true);
+
                 pickupMarker = mapView.getMap().addMarker(options);
                 break;
             case DROPOFF_MARKER_TITLE:
 
                 MarkerOptions options1 = new MarkerOptions()
-                        .position(dropoffLatLng)
+                        .position(latLng)
                         .title(DROPOFF_MARKER_TITLE)
                         .icon(BitmapDescriptorFactory.defaultMarker(
-                                HueFromColor.getHue(getResources().getColor(R.color.wm_green))))
+                                Hue.getHue(getResources().getColor(R.color.wm_green))))
                         .draggable(true);
 
                 if (dropoffMarker != null) {
@@ -510,8 +522,8 @@ public class FragmentMap extends Fragment
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latLng)
                 .zoom(17)
-                .bearing(90)
-                .tilt(30)
+                .bearing(45)
+                .tilt(45)
                 .build();
         mapView.getMap().animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }

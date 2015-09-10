@@ -4,12 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by Miles Peele on 7/25/2015.
- */
 public class Datastore {
 
     private SharedPreferences prefs;
+
     private final static String HAS_REGISTER = "register";
     private final static String ETA = "eta";
     private final static String CANCEL = "CANCEL_ID";

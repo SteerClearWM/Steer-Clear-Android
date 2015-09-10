@@ -15,9 +15,6 @@ import butterknife.ButterKnife;
 import steer.clear.R;
 import steer.clear.view.ViewTypefaceTextView;
 
-/**
- * Created by mbpeele on 8/31/15.
- */
 public class LoadingDialog extends ProgressDialog {
 
     @Bind(R.id.dialog_progress_image) ImageView imageView;

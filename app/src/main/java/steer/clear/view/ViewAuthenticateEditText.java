@@ -15,9 +15,6 @@ import android.widget.EditText;
 import steer.clear.R;
 import steer.clear.util.FontUtils;
 
-/**
- * Created by Miles Peele on 7/25/2015.
- */
 public class ViewAuthenticateEditText extends EditText {
 
     private Paint curPaint;

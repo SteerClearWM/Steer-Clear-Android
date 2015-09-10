@@ -18,9 +18,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-/**
- * Created by Miles Peele on 7/19/2015.
- */
 public class FontUtils {
 
     private static HashMap<String, Typeface> mFontMap;

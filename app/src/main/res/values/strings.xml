@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">SteerClear</string>
-    <string name="url_base">http://steerclear.wm.edu/api</string>
-    <string name="url_authenticate">http://steerclear.wm.edu/</string>
+    <string name="url_base">https://steerclear.wm.edu/api</string>
+    <string name="url_authenticate">https://steerclear.wm.edu/</string>
 
     <string name="header_text">Steer Clear</string>
 

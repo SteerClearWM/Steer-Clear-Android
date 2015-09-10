@@ -28,9 +28,6 @@ import steer.clear.R;
 import steer.clear.util.FontUtils;
 import steer.clear.util.Logger;
 
-/**
- * Created by Miles Peele on 8/22/2015.
- */
 public class ViewTypefaceButton extends Button {
 
     private AnimatorSet pulse;
@@ -38,7 +35,6 @@ public class ViewTypefaceButton extends Button {
 
     private boolean shouldDrawBorder;
     private boolean isSelected;
-    private int preferredTextColor;
     private static float strokeWidth;
     private int drawableColor;
 
@@ -66,15 +62,14 @@ public class ViewTypefaceButton extends Button {
     private void init(AttributeSet attrs) {
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ViewTypefaceButton);
-            preferredTextColor = typedArray.getColor(R.styleable.ViewTypefaceButton_preferredTextColor, Color.WHITE);
-            setTextColor(preferredTextColor);
+
+            setTextColor(typedArray.getColor(R.styleable.ViewTypefaceButton_preferredTextColor, Color.WHITE));
 
             drawableColor = typedArray.getColor(R.styleable.ViewTypefaceButton_drawableColor,
                     Color.WHITE);
 
-            float textSize = typedArray.getDimension(R.styleable.ViewTypefaceButton_preferredTextSize,
-                    getResources().getDimension(R.dimen.view_typeface_button_text_size));
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, typedArray.getDimension(R.styleable.ViewTypefaceButton_preferredTextSize,
+                    getResources().getDimension(R.dimen.view_typeface_button_text_size)));
 
             shouldDrawBorder = typedArray.getBoolean(R.styleable.ViewTypefaceButton_drawBorder,
                     false);
@@ -89,8 +84,10 @@ public class ViewTypefaceButton extends Button {
         borderPaint = new Paint();
         borderPaint.setAntiAlias(true);
         borderPaint.setColor(getResources().getColor(R.color.wm_silver));
+
         strokeWidth = getResources().getDimension(R.dimen.view_typeface_button_border_width);
         borderPaint.setStrokeWidth(strokeWidth);
+
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeJoin(Paint.Join.ROUND);
 
@@ -148,6 +145,13 @@ public class ViewTypefaceButton extends Button {
         }
     }
 
+    public void setNotSelected() {
+        if (isSelected) {
+            changeToWhiteBackground();
+            isSelected = false;
+        }
+    }
+
     private void changeToDrawableColorBackground() {
         ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
                 Color.WHITE, drawableColor)
@@ -156,25 +160,18 @@ public class ViewTypefaceButton extends Button {
         animateTextColorChange(Color.BLACK, Color.WHITE);
     }
 
-    private void animateTextColorChange(int startColor, int endColor) {
-        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
-        colorAnimation.addUpdateListener(animator -> setTextColor((Integer) animator.getAnimatedValue()));
-        colorAnimation.start();
-    }
-
-    public void setNotSelected() {
-        if (isSelected) {
-            changeToWhiteBackground();
-            isSelected = false;
-        }
-    }
-
     private void changeToWhiteBackground() {
         ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
                 drawableColor, Color.WHITE)
                 .setDuration(350)
                 .start();
         animateTextColorChange(Color.WHITE, Color.BLACK);
+    }
+
+    private void animateTextColorChange(int startColor, int endColor) {
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), startColor, endColor);
+        colorAnimation.addUpdateListener(animator -> setTextColor((Integer) animator.getAnimatedValue()));
+        colorAnimation.start();
     }
 
     public void shake() {

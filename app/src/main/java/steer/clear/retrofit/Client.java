@@ -3,42 +3,31 @@ package steer.clear.retrofit;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import java.lang.ref.WeakReference;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import de.greenrobot.event.EventBus;
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 import retrofit.client.OkClient;
 import retrofit.client.Response;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.activity.ActivityAuthenticate;
-import steer.clear.activity.ActivityEta;
-import steer.clear.activity.ActivityHome;
 import steer.clear.pojo.LoginPost;
 import steer.clear.pojo.RegisterPost;
 import steer.clear.pojo.RideObject;
 import steer.clear.pojo.RidePost;
 import steer.clear.util.Datastore;
-import steer.clear.util.Logger;
 
 public class Client {
 
-    private ApiInterface apiInterface;
-    private AuthenticateInterface authenticateInterface;
+    private Api apiInterface;
+    private Authenticate authenticateInterface;
     private Application application;
 
     @Inject Datastore store;
@@ -62,14 +51,14 @@ public class Client {
                 .setClient(okClient)
                 .setRequestInterceptor(interceptor)
                 .build();
-        apiInterface = restAdapter.create(ApiInterface.class);
+        apiInterface = restAdapter.create(Api.class);
 
         RestAdapter adapter = new RestAdapter.Builder()
                 .setEndpoint(application.getResources().getString(R.string.url_authenticate))
                 .setClient(okClient)
                 .setRequestInterceptor(interceptor)
                 .build();
-        authenticateInterface = adapter.create(AuthenticateInterface.class);
+        authenticateInterface = adapter.create(Authenticate.class);
 	}
 
     private boolean checkInternet() {
