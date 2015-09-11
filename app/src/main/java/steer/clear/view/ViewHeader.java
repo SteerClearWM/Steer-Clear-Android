@@ -15,13 +15,22 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
+import de.greenrobot.event.EventBus;
+import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.event.EventAttributions;
+import steer.clear.event.EventLogout;
 import steer.clear.util.FontUtils;
 import steer.clear.util.Logger;
 
 public class ViewHeader extends TextView {
 
     private Paint borderPaint;
+    private Drawable rightDrawable;
+
+    @Inject EventBus bus;
 
     public ViewHeader(Context context) {
         super(context);
@@ -45,6 +54,7 @@ public class ViewHeader extends TextView {
     }
 
     private void init() {
+        ((MainApp) getContext().getApplicationContext()).getApplicationComponent().inject(this);
         setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.header_text_size));
         setGravity(Gravity.CENTER);
@@ -58,11 +68,31 @@ public class ViewHeader extends TextView {
         borderPaint.setStrokeJoin(Paint.Join.ROUND);
         borderPaint.setStrokeCap(Paint.Cap.ROUND);
         borderPaint.setStrokeWidth(20f);
+
+        if (getCompoundDrawables()[2] != null) {
+            rightDrawable = getCompoundDrawables()[2];
+            setCompoundDrawablePadding(rightDrawable.getIntrinsicWidth());
+            setPadding(rightDrawable.getIntrinsicWidth() * 3, getPaddingTop(),
+                    rightDrawable.getIntrinsicWidth(), getPaddingBottom());
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawLine(0, canvas.getHeight(), canvas.getWidth(), canvas.getHeight(), borderPaint);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (rightDrawable != null) {
+                if (event.getX() > getWidth() - getPaddingRight() - rightDrawable.getIntrinsicWidth()) {
+                    bus.post(new EventLogout());
+                }
+            }
+        }
+
+        return super.onTouchEvent(event);
     }
 }

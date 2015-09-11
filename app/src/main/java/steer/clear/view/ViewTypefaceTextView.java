@@ -26,7 +26,6 @@ public class ViewTypefaceTextView extends TextView {
     private Paint circlePaint;
 
     private boolean shouldDrawCircle;
-    private int previousBackgroundAnimatedColor;
 
     public ViewTypefaceTextView(Context context) {
         super(context);
@@ -78,10 +77,15 @@ public class ViewTypefaceTextView extends TextView {
     }
 
     public void animateBackgroundToColor(int color) {
-        previousBackgroundAnimatedColor = color;
-        backgroundAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
-                Color.WHITE, color)
-                .setDuration(BACKGROUND_ANIMATION);
-        backgroundAnimator.start();
+        if (backgroundAnimator == null) {
+            backgroundAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+                    Color.WHITE, color)
+                    .setDuration(BACKGROUND_ANIMATION);
+            backgroundAnimator.start();
+        } else {
+            if (backgroundAnimator.isRunning()) {
+                backgroundAnimator.start();
+            }
+        }
     }
 }

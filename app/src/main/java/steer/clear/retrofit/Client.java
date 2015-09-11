@@ -84,4 +84,6 @@ public class Client {
 	public Observable<Response> cancelRide(int cancelId) {
         return apiInterface.deleteRide(cancelId);
 	}
+
+    public Observable<Response> logout() { return authenticateInterface.logout(); }
 }

@@ -83,5 +83,9 @@
         will destroy all entered data and return to the map.</string>
     <string name="dialog_cancel_ride_pos_button_text">Sure</string>
     <string name="dialog_cancel_ride_neg_button_text">Nah</string>
+
+    <string name="dialog_logout_title">Logout?</string>
+    <string name="dialog_logout_body">Pressing "Sure" will finish your current session and close
+        the app. </string>
     
 </resources>

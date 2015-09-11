@@ -31,10 +31,12 @@ import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import retrofit.RetrofitError;
+import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.event.EventLogout;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.event.EventPostPlacesChosen;
 import steer.clear.fragment.FragmentHailRide;
@@ -269,6 +271,44 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onRideObjectPostError(Throwable throwable) {
+        loadingDialog.dismiss();
+        throwable.printStackTrace();
+        if (throwable instanceof RetrofitError) {
+            RetrofitError error = (RetrofitError) throwable;
+            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
+                    error.getResponse().getStatus() : 404).show();
+        } else {
+            ErrorDialog.createFromHttpErrorCode(this, 404).show();
+        }
+    }
+
+    public void onEvent(EventLogout eventLogout) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme)
+                .setTitle(getResources().getString(R.string.dialog_logout_title))
+                .setMessage(getResources().getString(R.string.dialog_logout_body))
+                .setPositiveButton(
+                        getResources().getString(R.string.dialog_cancel_ride_pos_button_text),
+                        (dialog, which) -> {
+                            loadingDialog.show();
+                            helper.logout()
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(this::onLogoutSuccessful, this::onLogoutUnsuccessful);
+                        }).setNegativeButton(
+                            getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
+                            (dialog, which) -> {
+                                dialog.dismiss();
+                        });
+
+        alertDialog.show();
+    }
+
+    public void onLogoutSuccessful(Response response) {
+        loadingDialog.dismiss();
+        finish();
+    }
+
+    public void onLogoutUnsuccessful(Throwable throwable) {
         loadingDialog.dismiss();
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {

@@ -11,6 +11,7 @@ import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
+import steer.clear.view.ViewHeader;
 import steer.clear.view.ViewMarkerSelectLayout;
 
 /**
@@ -31,4 +32,5 @@ public interface ApplicationComponent {
     void inject(Client client);
 
     void inject(ViewMarkerSelectLayout markerSelectLayout);
+    void inject(ViewHeader viewHeader);
 }

@@ -2,6 +2,7 @@ package steer.clear.retrofit;
 
 import retrofit.client.Response;
 import retrofit.http.Body;
+import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 import rx.Observable;
@@ -20,4 +21,7 @@ public interface Authenticate {
     @POST("/register")
     @Headers({"contentType: application/x-www-form-urlencoded"})
     Observable<Response> register(@Body RegisterPost login);
+
+    @GET("/logout")
+    Observable<Response> logout();
 }
