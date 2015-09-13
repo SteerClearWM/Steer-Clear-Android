@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
@@ -29,11 +30,13 @@ import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventAuthenticate;
+import steer.clear.event.EventContactUs;
 import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Datastore;
-import steer.clear.util.LoadingDialog;
+import steer.clear.util.Logger;
 import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewTypefaceButton;
+import steer.clear.view.ViewTypefaceTextView;
 
 public class FragmentAuthenticate extends Fragment implements View.OnClickListener {
 
@@ -47,6 +50,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Nullable @Bind(R.id.fragment_authenticate_phone) ViewAuthenticateEditText phone;
     @Nullable @Bind(R.id.fragment_authenticate_register_prompt) TextView prompt;
     @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
+    @Bind(R.id.fragment_authenticate_contact_us) ViewTypefaceTextView contactUs;
 
     @Inject EventBus bus;
     @Inject Datastore store;
@@ -82,7 +86,9 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
                 inflater.inflate(R.layout.fragment_authenticate_register, container, false);
         ButterKnife.bind(this, v);
 
-        if (prompt != null) { prompt.setText(createSpan()); }
+        if (prompt != null) { prompt.setText(createRegisterPromptSpan()); }
+
+        contactUs.setText(createContactUsSpan());
 
         username.setText(store.getUsername());
 
@@ -127,7 +133,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         button.togglePulse();
     }
 
-    private SpannableString createSpan() {
+    private SpannableString createRegisterPromptSpan() {
         prompt.setMovementMethod(LinkMovementMethod.getInstance());
 
         SpannableString styledString = new SpannableString(getResources().getString(R.string.fragment_authenticate_register_prompt));
@@ -141,12 +147,35 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
             @Override
             public void updateDrawState(TextPaint ds) { ds.setUnderlineText(false); }
         };
-        styledString.setSpan(clickableSpan, 23, styledString.length(), 0);
+        styledString.setSpan(clickableSpan, 23, styledString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         styledString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.spirit_gold)),
                 23, styledString.length(), 0);
         return styledString;
     }
+
+    private SpannableString createContactUsSpan() {
+        contactUs.setMovementMethod(LinkMovementMethod.getInstance());
+
+        SpannableString spannableString = new SpannableString(getResources().getString(R.string.fragment_authenticate_contact_prompt));
+
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                bus.post(new EventContactUs());
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) { ds.setUnderlineText(false); }
+        };
+
+        spannableString.setSpan(clickableSpan, 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.spirit_gold)),
+                30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannableString;
+    }
+
 
     private boolean validateUsername() {
         return !username.getEnteredText().isEmpty();

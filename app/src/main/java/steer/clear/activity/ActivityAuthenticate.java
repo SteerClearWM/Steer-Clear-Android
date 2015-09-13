@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -20,6 +21,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import steer.clear.event.EventAuthenticate;
+import steer.clear.event.EventContactUs;
 import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Datastore;
 import steer.clear.MainApp;
@@ -98,6 +100,16 @@ public class ActivityAuthenticate extends AppCompatActivity {
                     .add(R.id.activity_authenticate_root,
                             FragmentAuthenticate.newInstance(store.checkRegistered()), AUTHENTICATE_TAG)
                     .commit();
+        }
+    }
+
+    public void onEvent(EventContactUs eventContactUs) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"steerclear@email.wm.edu"});
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Steer Clear Question from the Android App");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
         }
     }
 

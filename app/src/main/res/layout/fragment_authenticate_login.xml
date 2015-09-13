@@ -72,4 +72,14 @@
         android:textColor="@android:color/white"
         android:gravity="center" />
 
+    <steer.clear.view.ViewTypefaceTextView
+        android:id="@+id/fragment_authenticate_contact_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
+        android:clickable="true"
+        android:textColor="@android:color/white"
+        android:gravity="center" />
+
 </RelativeLayout>

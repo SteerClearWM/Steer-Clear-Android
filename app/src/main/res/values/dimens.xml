@@ -21,6 +21,7 @@
     <dimen name="fragment_authenticate_button_horizontal_margin">65dp</dimen>
     <dimen name="fragment_authenticate_button_text_size">35sp</dimen>
     <dimen name="fragment_authenticate_button_height">45dp</dimen>
+    <dimen name="fragment_authenticate_button_bottom_margin">50dp</dimen>
     <dimen name="fragment_authenticate_edittext_text_size">30sp</dimen>
     <dimen name="fragment_authenticate_edittext_horizontal_margin">30dp</dimen>
     <dimen name="fragment_authenticate_edittext_height">45dp</dimen>
