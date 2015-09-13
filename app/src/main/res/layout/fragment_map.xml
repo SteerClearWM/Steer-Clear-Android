@@ -12,9 +12,7 @@
         android:layout_height="@dimen/view_header_layout_height"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/header_text"
-        android:drawableRight="@drawable/ic_power_settings_new_white_24dp"
-        android:drawableEnd="@drawable/ic_power_settings_new_white_24dp" />
+        android:text="@string/header_text" />
 
     <steer.clear.view.ViewFooter
         android:id="@+id/fragment_map_post"

@@ -50,7 +50,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Nullable @Bind(R.id.fragment_authenticate_phone) ViewAuthenticateEditText phone;
     @Nullable @Bind(R.id.fragment_authenticate_register_prompt) TextView prompt;
     @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
-    @Bind(R.id.fragment_authenticate_contact_us) ViewTypefaceTextView contactUs;
 
     @Inject EventBus bus;
     @Inject Datastore store;
@@ -87,8 +86,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         ButterKnife.bind(this, v);
 
         if (prompt != null) { prompt.setText(createRegisterPromptSpan()); }
-
-        contactUs.setText(createContactUsSpan());
 
         username.setText(store.getUsername());
 
@@ -153,29 +150,6 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
                 23, styledString.length(), 0);
         return styledString;
     }
-
-    private SpannableString createContactUsSpan() {
-        contactUs.setMovementMethod(LinkMovementMethod.getInstance());
-
-        SpannableString spannableString = new SpannableString(getResources().getString(R.string.fragment_authenticate_contact_prompt));
-
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                bus.post(new EventContactUs());
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) { ds.setUnderlineText(false); }
-        };
-
-        spannableString.setSpan(clickableSpan, 30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.spirit_gold)),
-                30, spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spannableString;
-    }
-
 
     private boolean validateUsername() {
         return !username.getEnteredText().isEmpty();

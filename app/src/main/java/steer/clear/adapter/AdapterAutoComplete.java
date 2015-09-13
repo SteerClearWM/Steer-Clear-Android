@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class AdapterAutoComplete
     private Context mContext;
 
     public AdapterAutoComplete(Context context, int resource, GoogleApiClient googleApiClient,
-            LatLngBounds bounds) {
+                               LatLngBounds bounds) {
         super(context, resource);
         mContext = context;
         mGoogleApiClient = googleApiClient;

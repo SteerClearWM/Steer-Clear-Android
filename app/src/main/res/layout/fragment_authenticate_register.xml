@@ -20,6 +20,8 @@
 
     <steer.clear.view.ViewAuthenticateEditText
         android:id="@+id/fragment_authenticate_username"
+        android:drawableLeft="@drawable/user"
+        android:drawableStart="@drawable/user"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_authenticate_edittext_height"
         android:layout_marginLeft="@dimen/fragment_authenticate_edittext_horizontal_margin"
@@ -34,6 +36,8 @@
     <steer.clear.view.ViewAuthenticateEditText
         android:id="@+id/fragment_authenticate_password"
         android:layout_width="match_parent"
+        android:drawableStart="@drawable/lock"
+        android:drawableLeft="@drawable/lock"
         android:layout_height="@dimen/fragment_authenticate_edittext_height"
         android:layout_marginLeft="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
@@ -47,6 +51,8 @@
     <steer.clear.view.ViewAuthenticateEditText
         android:id="@+id/fragment_authenticate_phone"
         android:layout_width="match_parent"
+        android:drawableLeft="@drawable/phone"
+        android:drawableStart="@drawable/phone"
         android:layout_height="@dimen/fragment_authenticate_edittext_height"
         android:layout_marginLeft="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
@@ -72,16 +78,6 @@
         android:text="@string/fragment_authenticate_register_text"
         android:textSize="@dimen/fragment_authenticate_button_text_size"
         android:layout_centerHorizontal="true"
-        app:preferredTextColor="@color/wm_green"/>
-
-    <steer.clear.view.ViewTypefaceTextView
-        android:id="@+id/fragment_authenticate_contact_us"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
-        android:clickable="true"
-        android:textColor="@android:color/white"
-        android:gravity="center" />
+        app:preferredTextColor="@color/wm_green" />
 
 </RelativeLayout>
