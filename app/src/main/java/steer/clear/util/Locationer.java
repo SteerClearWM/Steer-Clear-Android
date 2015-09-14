@@ -37,6 +37,21 @@ public class Locationer implements android.location.LocationListener {
         locationManager.removeUpdates(this);
     }
 
+    public void resumeListeningForLocation() {
+        isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (isGpsEnabled) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+                    this);
+        }
+
+        if (isNetworkEnabled) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
+                    this);
+        }
+    }
+
     public Location getLocation() {
         if (lastKnown != null) {
             return lastKnown;

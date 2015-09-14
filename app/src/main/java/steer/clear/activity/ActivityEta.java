@@ -103,7 +103,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     @Override
     @OnClick(R.id.activity_eta_cancel_ride)
     public void onClick(View v) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme)
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.AlertDialogTheme)
             .setTitle(getResources().getString(R.string.dialog_cancel_ride_title))
             .setMessage(getResources().getString(R.string.dialog_cancel_ride_body))
             .setPositiveButton(

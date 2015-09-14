@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import java.sql.Time;
-
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
@@ -18,19 +16,14 @@ import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import steer.clear.event.EventAuthenticate;
-import steer.clear.event.EventContactUs;
-import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Datastore;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
-import steer.clear.util.Logger;
-import steer.clear.util.TimeLock;
 
 public class ActivityAuthenticate extends AppCompatActivity {
 
@@ -103,7 +96,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
         }
     }
 
-    public void onEvent(EventContactUs eventContactUs) {
+    public void contactUs() {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"steerclear@email.wm.edu"});
@@ -113,7 +106,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
         }
     }
 
-    public void onEvent(EventGoToRegister eventGoToRegister) {
+    public void goToRegister() {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         ft.addToBackStack(LOGIN_TAG)
                 .replace(R.id.activity_authenticate_root,

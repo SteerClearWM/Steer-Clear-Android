@@ -20,10 +20,8 @@ import javax.inject.Inject;
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.event.EventAttributions;
 import steer.clear.event.EventLogout;
 import steer.clear.util.FontUtils;
-import steer.clear.util.Logger;
 
 public class ViewHeader extends TextView {
 

@@ -1,12 +1,10 @@
 package steer.clear.util;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import android.widget.Button;
@@ -75,35 +73,36 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
                 return new ErrorDialog(context,
                         context.getResources().getString(R.string.error_dialog_bad_creds_title),
                         context.getResources().getString(R.string.error_dialog_bad_creds_body),
-                        R.style.DialogTheme);
+                        R.style.AlertDialogTheme);
             case 409:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_user_exists_title),
                         context.getResources().getString(R.string.error_dialog_user_exists_body),
-                        R.style.DialogTheme);
+                        R.style.AlertDialogTheme);
             case 404:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_no_internet_title),
                         context.getResources().getString(R.string.error_dialog_no_internet_body),
-                        R.style.DialogTheme);
+                        R.style.AlertDialogTheme);
             case 401:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_unauth_title),
                         context.getResources().getString(R.string.error_dialog_unauth_body),
-                        R.style.DialogTheme);
+                        R.style.AlertDialogTheme);
             default:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_general_title),
                         context.getResources().getString(R.string.error_dialog_general_body),
-                        R.style.DialogTheme);
+                        R.style.AlertDialogTheme);
         }
     }
 
     public static void createFromGoogleCode(Context context, int code) {
         switch (code) {
             case 7:
+            case 16:
                 break;
             default:
                 new ErrorDialog(context,
                         context.getResources().getString(R.string.error_dialog_general_title),
                         context.getResources().getString(R.string.error_dialog_general_body),
-                        R.style.DialogTheme).show();
+                        R.style.AlertDialogTheme).show();
         }
     }
 
@@ -111,7 +110,7 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
         new ErrorDialog(context,
                 context.getResources().getString(R.string.error_dialog_not_running_title),
                 context.getResources().getString(R.string.error_dialog_not_running_body),
-                R.style.DialogTheme).show();
+                R.style.AlertDialogTheme).show();
     }
 
 }

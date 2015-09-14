@@ -92,15 +92,22 @@ public class ActivityHome extends AppCompatActivity
 				.build();
 
         locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setInterval(60 * 100000)        // 30 seconds, in milliseconds
+                .setFastestInterval(10000); // 1 second, in milliseconds
 	}
 
     @Override
     protected void onPause() {
         super.onPause();
         getWindow().setBackgroundDrawable(null);
+        stopLocationUpdates();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resumeLocationUpdates();
     }
 
     @Override
@@ -113,6 +120,12 @@ public class ActivityHome extends AppCompatActivity
 				}
 			}
 		}
+
+        if (userLatLng != null && settings != null) {
+            if (settings.isShowing()) {
+                settings.hide();
+            }
+        }
 	}
 
 	@Override
@@ -158,6 +171,14 @@ public class ActivityHome extends AppCompatActivity
     private void stopLocationUpdates() {
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         locationer.stopListeningForLocation();
+    }
+
+    private void resumeLocationUpdates() {
+        locationer.resumeListeningForLocation();
+        locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setInterval(60 * 100000)        // 30 seconds, in milliseconds
+                .setFastestInterval(10000); // 1 second, in milliseconds
     }
 
     @Override
@@ -283,7 +304,7 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onEvent(EventLogout eventLogout) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme)
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.AlertDialogTheme)
                 .setTitle(getResources().getString(R.string.dialog_logout_title))
                 .setMessage(getResources().getString(R.string.dialog_logout_body))
                 .setPositiveButton(

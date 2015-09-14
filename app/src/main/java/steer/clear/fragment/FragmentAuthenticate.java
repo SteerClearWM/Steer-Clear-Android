@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -29,11 +31,9 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.activity.ActivityAuthenticate;
 import steer.clear.event.EventAuthenticate;
-import steer.clear.event.EventContactUs;
-import steer.clear.event.EventGoToRegister;
 import steer.clear.util.Datastore;
-import steer.clear.util.Logger;
 import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewTypefaceButton;
 import steer.clear.view.ViewTypefaceTextView;
@@ -50,6 +50,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     @Nullable @Bind(R.id.fragment_authenticate_phone) ViewAuthenticateEditText phone;
     @Nullable @Bind(R.id.fragment_authenticate_register_prompt) TextView prompt;
     @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
+    @Bind(R.id.fragment_authenticate_contact_us) Button contactUs;
 
     @Inject EventBus bus;
     @Inject Datastore store;
@@ -138,7 +139,7 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                bus.post(new EventGoToRegister());
+                ((ActivityAuthenticate) getActivity()).goToRegister();
             }
 
             @Override
@@ -172,30 +173,37 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
     public String getPassword() { return password.getEnteredText(); }
 
     @Override
-    @OnClick(R.id.fragment_authenticate_button)
+    @OnClick({R.id.fragment_authenticate_button, R.id.fragment_authenticate_contact_us})
     public void onClick(View v) {
-        if (!button.isPulseRunning()) {
-            if (getArguments().getBoolean(REGISTERED_KEY)) {
-                if (validateUsername() && validatePassword()) {
-                    togglePulse();
-                    bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                            "", getArguments().getBoolean(REGISTERED_KEY)));
-                } else {
-                    button.shake();
-                    Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_login),
-                            Snackbar.LENGTH_SHORT).show();
+        switch (v.getId()) {
+            case R.id.fragment_authenticate_button:
+                if (!button.isPulseRunning()) {
+                    if (getArguments().getBoolean(REGISTERED_KEY)) {
+                        if (validateUsername() && validatePassword()) {
+                            togglePulse();
+                            bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+                                    "", getArguments().getBoolean(REGISTERED_KEY)));
+                        } else {
+                            button.shake();
+                            Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_login),
+                                    Snackbar.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        if (validateUsername() && validatePassword() && validatePhoneNumber()) {
+                            togglePulse();
+                            bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
+                                    formatPhoneNumber(), getArguments().getBoolean(REGISTERED_KEY)));
+                        } else {
+                            button.shake();
+                            Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_register),
+                                    Snackbar.LENGTH_SHORT).show();
+                        }
+                    }
                 }
-            } else {
-                if (validateUsername() && validatePassword() && validatePhoneNumber()) {
-                    togglePulse();
-                    bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                            formatPhoneNumber(), getArguments().getBoolean(REGISTERED_KEY)));
-                } else {
-                    button.shake();
-                    Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_register),
-                            Snackbar.LENGTH_SHORT).show();
-                }
-            }
+                break;
+            case R.id.fragment_authenticate_contact_us:
+                ((ActivityAuthenticate) getActivity()).contactUs();
+                break;
         }
     }
 }

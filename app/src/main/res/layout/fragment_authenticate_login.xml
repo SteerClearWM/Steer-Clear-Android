@@ -20,8 +20,6 @@
 
     <steer.clear.view.ViewAuthenticateEditText
         android:id="@+id/fragment_authenticate_username"
-        android:drawableLeft="@drawable/user"
-        android:drawableStart="@drawable/user"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fragment_authenticate_edittext_height"
         android:layout_marginLeft="@dimen/fragment_authenticate_edittext_horizontal_margin"
@@ -37,8 +35,6 @@
     <steer.clear.view.ViewAuthenticateEditText
         android:id="@+id/fragment_authenticate_password"
         android:layout_width="match_parent"
-        android:drawableStart="@drawable/lock"
-        android:drawableLeft="@drawable/lock"
         android:layout_height="@dimen/fragment_authenticate_edittext_height"
         android:layout_marginLeft="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginStart="@dimen/fragment_authenticate_edittext_horizontal_margin"
@@ -75,5 +71,24 @@
         android:clickable="true"
         android:textColor="@android:color/white"
         android:gravity="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_authenticate_contact_us"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:text="Contact Us!"
+        android:textColor="@color/spirit_gold"
+        android:layout_marginBottom="@dimen/fragment_authenticate_contact_button_margin"
+        android:layout_marginRight="@dimen/fragment_authenticate_contact_button_margin"
+        android:layout_marginEnd="@dimen/fragment_authenticate_contact_button_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:drawablePadding="@dimen/fragment_authenticate_contact_button_padding"
+        android:drawableEnd="@drawable/ic_mail_white_24dp"
+        android:drawableRight="@drawable/ic_mail_white_24dp" />
 
 </RelativeLayout>
