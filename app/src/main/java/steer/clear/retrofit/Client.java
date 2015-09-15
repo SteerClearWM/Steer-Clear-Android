@@ -85,5 +85,7 @@ public class Client {
         return apiInterface.deleteRide(cancelId);
 	}
 
+    public Observable<Response> checkRideStatus(int cancelId) { return apiInterface.checkRideStatus(cancelId); }
+
     public Observable<Response> logout() { return authenticateInterface.logout(); }
 }

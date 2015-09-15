@@ -46,7 +46,7 @@ public class FragmentAuthenticate extends Fragment
     private final static String USERNAME_KEY = "user";
     private final static String PASSWORD_KEY = "pass";
     private final static String REGISTERED_KEY = "registered";
-    private final static int ANIMATION_DURATION = 1300;
+    private final static int ANIMATION_DURATION = 1500;
 
     @Bind(R.id.fragment_authenticate_username) ViewAuthenticateEditText username;
     @Bind(R.id.fragment_authenticate_password) ViewAuthenticateEditText password;

@@ -16,6 +16,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.util.Datastore;
@@ -24,6 +25,7 @@ import steer.clear.R;
 import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
+import steer.clear.util.Logger;
 
 public class ActivityAuthenticate extends AppCompatActivity {
 
@@ -58,15 +60,17 @@ public class ActivityAuthenticate extends AppCompatActivity {
         }
 
         if (store.hasPreviousRideInfo()) {
-            startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
+            startActivity(ActivityEta.newIntent(ActivityAuthenticate.this, store.getEta(), store.getCancelId()));
             finish();
-        } else {
-            setContentView(R.layout.activity_authenticate);
 
-            bus.register(this);
-
-            addFragmentAuthenticate();
+            return;
         }
+
+        setContentView(R.layout.activity_authenticate);
+
+        bus.register(this);
+
+        addFragmentAuthenticate();
     }
 
     @Override
@@ -206,6 +210,7 @@ public class ActivityAuthenticate extends AppCompatActivity {
         toggleLoadingAnimation();
         startActivity(ActivityHome.newIntent(this));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
     public void onLoginError(Throwable throwable) {

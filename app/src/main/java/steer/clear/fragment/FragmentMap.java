@@ -57,6 +57,7 @@ import steer.clear.event.EventAnimateToMarker;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.util.Hue;
 import steer.clear.util.LoadingDialog;
+import steer.clear.util.Logger;
 import steer.clear.view.ViewAutoComplete;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewHeader;
@@ -80,10 +81,10 @@ public class FragmentMap extends Fragment
 
     private final static Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
 
-	private LatLng pickupLatLng;
-	private CharSequence pickupName;
-    private LatLng dropoffLatLng;
-    private CharSequence dropoffName;
+	private static LatLng pickupLatLng;
+	private static CharSequence pickupName;
+    private static LatLng dropoffLatLng;
+    private static CharSequence dropoffName;
 
 	private final static String PICKUP_TEXT = "pickupText";
     private final static String DROPOFF_TEXT = "dropoffText";
@@ -195,7 +196,7 @@ public class FragmentMap extends Fragment
 	    }
 
         mapView.getMapAsync(this);
-	}
+    }
 
     @Override
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
@@ -230,9 +231,18 @@ public class FragmentMap extends Fragment
 
         LatLng userLocation = new LatLng(getArguments().getDouble(USER_LATITUDE),
                 getArguments().getDouble(USER_LONGITUDE));
-        dropMarkerOnMap(userLocation, PICKUP_MARKER_TITLE);
-        animateCameraToLocation(new LatLng(getArguments().getDouble(USER_LATITUDE),
-                getArguments().getDouble(USER_LONGITUDE)));
+        if (pickupLatLng != null) {
+            dropMarkerOnMap(pickupLatLng, PICKUP_MARKER_TITLE);
+            animateCameraToLocation(pickupLatLng);
+        } else {
+            dropMarkerOnMap(userLocation, PICKUP_MARKER_TITLE);
+            animateCameraToLocation(userLocation);
+        }
+
+        if (dropoffLatLng != null) {
+            dropMarkerOnMap(dropoffLatLng, DROPOFF_MARKER_TITLE);
+        }
+
         mapView.setVisibility(View.VISIBLE);
 	}
 
