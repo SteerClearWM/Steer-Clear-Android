@@ -80,6 +80,7 @@ public class ViewTypefaceButton extends Button {
         }
         setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
         setGravity(Gravity.CENTER);
+        setCompoundDrawablePadding(10);
 
         borderPaint = new Paint();
         borderPaint.setAntiAlias(true);

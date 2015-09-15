@@ -28,6 +28,9 @@
         android:layout_marginEnd="@dimen/fragment_authenticate_edittext_horizontal_margin"
         android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_logo"
+        android:textCursorDrawable="@null"
+        android:drawableStart="@drawable/user"
+        android:drawableLeft="@drawable/user"
         android:inputType="text"
         android:hint="@string/fragment_authenticate_username_hint" />
 
@@ -42,6 +45,9 @@
         android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_username"
         android:inputType="text|textPassword"
+        android:textCursorDrawable="@null"
+        android:drawableLeft="@drawable/lock"
+        android:drawableStart="@drawable/lock"
         android:hint="@string/fragment_authenticate_password_hint" />
 
     <steer.clear.view.ViewAuthenticateEditText
@@ -55,6 +61,9 @@
         android:layout_marginBottom="@dimen/fragment_authenticate_edittext_vertical_margin"
         android:layout_below="@id/fragment_authenticate_password"
         android:inputType="phone"
+        android:textCursorDrawable="@null"
+        android:drawableStart="@drawable/phone"
+        android:drawableLeft="@drawable/phone"
         android:hint="@string/fragment_authenticate_phone_hint" />
 
     <steer.clear.view.ViewTypefaceButton
@@ -74,19 +83,18 @@
         android:layout_centerHorizontal="true"
         app:preferredTextColor="@color/wm_green" />
 
-    <ImageButton
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_authenticate_contact_us"
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:background="@null"
-        android:text="Contact Us!"
         android:textColor="@color/spirit_gold"
         android:layout_marginBottom="@dimen/fragment_authenticate_contact_button_margin"
         android:layout_marginRight="@dimen/fragment_authenticate_contact_button_margin"
         android:layout_marginEnd="@dimen/fragment_authenticate_contact_button_margin"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:drawablePadding="@dimen/fragment_authenticate_contact_button_padding"

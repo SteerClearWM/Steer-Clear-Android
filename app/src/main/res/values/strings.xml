@@ -13,7 +13,7 @@
     <string name="fragment_authenticate_password_hint">W&amp;M PASSWORD</string>
     <string name="fragment_authenticate_phone_hint">PHONE (ex. 7577577577) </string>
     <string name="fragment_authenticate_register_prompt">Don\'t have an account? REGISTER</string>
-    <string name="fragment_authenticate_contact_prompt">Questions, Comments, Concerns? CONTACT US</string>
+    <string name="fragment_authenticate_contact_prompt">Questions, Comments, Concerns? Contact Us!</string>
     <string name="fragment_authenticate_error_login">Must be a valid W&amp;M Username and Password.</string>
     <string name="fragment_authenticate_error_register">Must be a valid W&amp;M Username, Password and Phone Number</string>
 

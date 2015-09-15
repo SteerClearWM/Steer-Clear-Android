@@ -92,7 +92,7 @@ public class ActivityHome extends AppCompatActivity
 				.build();
 
         locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                .setPriority(LocationRequest.PRIORITY_LOW_POWER)
                 .setInterval(60 * 100000)        // 30 seconds, in milliseconds
                 .setFastestInterval(10000); // 1 second, in milliseconds
 	}
@@ -169,16 +169,20 @@ public class ActivityHome extends AppCompatActivity
 	}
 
     private void stopLocationUpdates() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        if (mGoogleApiClient.isConnected()) {
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        }
         locationer.stopListeningForLocation();
     }
 
     private void resumeLocationUpdates() {
-        locationer.resumeListeningForLocation();
-        locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                .setInterval(60 * 100000)        // 30 seconds, in milliseconds
-                .setFastestInterval(10000); // 1 second, in milliseconds
+        if (userLatLng == null) {
+            locationer.resumeListeningForLocation();
+            locationRequest = LocationRequest.create()
+                    .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
+                    .setInterval(60 * 100000)        // 30 seconds, in milliseconds
+                    .setFastestInterval(10000); // 1 second, in milliseconds
+        }
     }
 
     @Override

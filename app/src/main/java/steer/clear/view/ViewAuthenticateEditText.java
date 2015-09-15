@@ -52,7 +52,7 @@ public class ViewAuthenticateEditText extends EditText {
         getBackground().setColorFilter(getResources().getColor(R.color.spirit_gold), PorterDuff.Mode.SRC_ATOP);
 
         if (getCompoundDrawables()[0] != null) {
-            getCompoundDrawables()[0].setBounds(0, 0, 50, 50);
+            setCompoundDrawablePadding(10);
         }
     }
 

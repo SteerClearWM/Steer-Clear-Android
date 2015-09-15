@@ -22,12 +22,14 @@ import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
@@ -38,7 +40,8 @@ import steer.clear.view.ViewAuthenticateEditText;
 import steer.clear.view.ViewTypefaceButton;
 import steer.clear.view.ViewTypefaceTextView;
 
-public class FragmentAuthenticate extends Fragment implements View.OnClickListener {
+public class FragmentAuthenticate extends Fragment
+        implements View.OnClickListener, View.OnLongClickListener {
 
     private final static String USERNAME_KEY = "user";
     private final static String PASSWORD_KEY = "pass";
@@ -205,5 +208,14 @@ public class FragmentAuthenticate extends Fragment implements View.OnClickListen
                 ((ActivityAuthenticate) getActivity()).contactUs();
                 break;
         }
+    }
+
+    @Override
+    @OnLongClick(R.id.fragment_authenticate_contact_us)
+    public boolean onLongClick(View v) {
+        Toast.makeText(getActivity(),
+                getResources().getString(R.string.fragment_authenticate_contact_prompt),
+                Toast.LENGTH_SHORT).show();
+        return true;
     }
 }
