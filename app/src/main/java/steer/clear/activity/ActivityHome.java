@@ -161,10 +161,12 @@ public class ActivityHome extends AppCompatActivity
 
 	private void showMapStuff(LatLng userLatLng) {
         stopLocationUpdates();
+
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
                 FragmentMap.newInstance(userLatLng), MAP);
 		fragmentTransaction.commit();
+
         new Handler().postDelayed(() -> getWindow().setBackgroundDrawable(null), 3000);
 	}
 
@@ -244,20 +246,6 @@ public class ActivityHome extends AppCompatActivity
     }
 
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-//        if (TimeLock.isSteerClearRunning()) {
-//            if (!isFinishing()) {
-//                loadingDialog.show();
-//            }
-//
-//            helper.addRide(eventPostPlacesChosen.numPassengers,
-//                    pickupLatLng.latitude, pickupLatLng.longitude,
-//                    dropoffLatLng.latitude, dropoffLatLng.longitude)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(this::onRideObjectReceived, this::onRideObjectPostError);
-//        } else {
-//            ErrorDialog.steerClearNotRunning(this);
-//        }
         if (!isFinishing()) {
             loadingDialog.show();
         }
@@ -282,14 +270,12 @@ public class ActivityHome extends AppCompatActivity
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(dateFormat.parse(pickupTime));
 
-            new Handler().postDelayed(() -> {
-                loadingDialog.dismiss();
-                startActivity(ActivityEta.newIntent(this,
-                        String.format("%02d : %02d", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
-                        cancelId));
-                overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                finish();
-            }, 2000);
+            loadingDialog.dismiss();
+            startActivity(ActivityEta.newIntent(this,
+                    String.format("%02d : %02d", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
+                    cancelId));
+            overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            finish();
         } catch (ParseException p) {
             p.printStackTrace();
         }
@@ -330,6 +316,7 @@ public class ActivityHome extends AppCompatActivity
 
     public void onLogoutSuccessful(Response response) {
         loadingDialog.dismiss();
+        startActivity(ActivityAuthenticate.newIntent(this, true));
         finish();
     }
 
@@ -338,8 +325,11 @@ public class ActivityHome extends AppCompatActivity
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
-            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
-                    error.getResponse().getStatus() : 404).show();
+            if (error.getResponse() != null) {
+                ErrorDialog.createFromHttpErrorCode(this, error.getResponse().getStatus()).show();
+            } else {
+                ErrorDialog.createFromHttpErrorCode(this, 404).show();
+            }
         } else {
             ErrorDialog.createFromHttpErrorCode(this, 404).show();
         }

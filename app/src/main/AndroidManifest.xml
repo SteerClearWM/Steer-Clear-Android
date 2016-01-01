@@ -50,6 +50,7 @@
         <activity
             android:name=".activity.ActivityEta"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
 

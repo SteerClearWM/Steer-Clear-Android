@@ -86,7 +86,7 @@
     <string name="dialog_cancel_ride_neg_button_text">Nah</string>
 
     <string name="dialog_logout_title">Logout?</string>
-    <string name="dialog_logout_body">Pressing \'Sure\' will finish your current session and close
-        the app. </string>
+    <string name="dialog_logout_body">Pressing \'Sure\' will finish your current session and take
+    you back to the login screen.</string>
     
 </resources>

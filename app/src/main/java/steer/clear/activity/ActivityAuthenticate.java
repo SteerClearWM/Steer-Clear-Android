@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.lang.ref.WeakReference;
+
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
@@ -34,37 +36,16 @@ public class ActivityAuthenticate extends AppCompatActivity {
     @Inject EventBus bus;
 
     private static final String LOGIN_TAG = "login";
-    private static final String REGISTER_TAG = "register";
     private static final String AUTHENTICATE_TAG = "authenticate";
-    private static final String SHOULD_RELOGIN = "whatever";
 
     public static Intent newIntent(Context context, boolean shouldLogin) {
-        Intent intent = new Intent(context, ActivityAuthenticate.class);
-        intent.putExtra(SHOULD_RELOGIN, shouldLogin);
-        return intent;
+        return new Intent(context, ActivityAuthenticate.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((MainApp) getApplication()).getApplicationComponent().inject(this);
-
-        if (shouldLoginAgain()) {
-            setContentView(R.layout.activity_authenticate);
-
-            bus.register(this);
-
-            addFragmentAuthenticate();
-
-            return;
-        }
-
-        if (store.hasPreviousRideInfo()) {
-            startActivity(ActivityEta.newIntent(ActivityAuthenticate.this, store.getEta(), store.getCancelId()));
-            finish();
-
-            return;
-        }
 
         setContentView(R.layout.activity_authenticate);
 
@@ -83,27 +64,17 @@ public class ActivityAuthenticate extends AppCompatActivity {
         }
     }
 
-    private boolean shouldLoginAgain() {
-        return getIntent() != null && getIntent().getBooleanExtra(SHOULD_RELOGIN, false);
-    }
-
     private void addFragmentAuthenticate() {
-        FragmentManager manager = getFragmentManager();
-        FragmentAuthenticate login = (FragmentAuthenticate) manager.findFragmentByTag(AUTHENTICATE_TAG);
-        if (login != null) {
-            manager.beginTransaction().show(login).commit();
-        } else {
-            manager.beginTransaction()
-                    .add(R.id.activity_authenticate_root,
-                            FragmentAuthenticate.newInstance(store.checkRegistered()), AUTHENTICATE_TAG)
-                    .commit();
-        }
+        getFragmentManager().beginTransaction()
+                .add(R.id.activity_authenticate_root,
+                        FragmentAuthenticate.newInstance(store.checkRegistered()), AUTHENTICATE_TAG)
+                .commit();
     }
 
     public void contactUs() {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"steerclear@email.wm.edu"});
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"steerclear@email.wm.edu"});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Steer Clear Question from the Android App");
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
@@ -119,26 +90,8 @@ public class ActivityAuthenticate extends AppCompatActivity {
     }
 
     public void onEvent(EventAuthenticate eventAuthenticate) {
-//        if (TimeLock.isSteerClearRunning()) {
-//            if (eventAuthenticate.registered) {
-//                helper.login(eventAuthenticate.username, eventAuthenticate.password)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(response -> {
-//                            parseResponseForCookie(response);
-//                            onLoginSuccess(eventAuthenticate.username);
-//                        }, this::onLoginError);
-//            } else {
-//                helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
-//                                eventAuthenticate.password), this::onRegisterError);
-//            }
-//        } else {
-//            ErrorDialog.steerClearNotRunning(this);
-//            toggleLoadingAnimation();
-//        }
+        toggleLoadingAnimation();
+
         if (eventAuthenticate.registered) {
             helper.login(eventAuthenticate.username, eventAuthenticate.password)
                     .subscribeOn(Schedulers.io())
@@ -151,8 +104,9 @@ public class ActivityAuthenticate extends AppCompatActivity {
             helper.register(eventAuthenticate.username, eventAuthenticate.password, eventAuthenticate.phone)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(Response -> onRegisterSuccess(eventAuthenticate.username,
-                            eventAuthenticate.password), this::onRegisterError);
+                    .subscribe(response ->
+                                    onRegisterSuccess(eventAuthenticate.username, eventAuthenticate.password),
+                            this::onRegisterError);
         }
     }
 
@@ -241,5 +195,4 @@ public class ActivityAuthenticate extends AppCompatActivity {
         FragmentAuthenticate fragmentAuthenticate = (FragmentAuthenticate) getFragmentManager().findFragmentByTag(AUTHENTICATE_TAG);
         return fragmentAuthenticate != null ? fragmentAuthenticate.getPassword() : "";
     }
-
 }

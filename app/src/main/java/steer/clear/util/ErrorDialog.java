@@ -86,6 +86,11 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_unauth_title),
                         context.getResources().getString(R.string.error_dialog_unauth_body),
                         R.style.AlertDialogTheme);
+            case 503:
+                return new ErrorDialog(context,
+                        context.getResources().getString(R.string.error_dialog_not_running_title),
+                        context.getResources().getString(R.string.error_dialog_not_running_body),
+                        R.style.AlertDialogTheme);
             default:
                 return new ErrorDialog(context, context.getResources().getString(R.string.error_dialog_general_title),
                         context.getResources().getString(R.string.error_dialog_general_body),
@@ -96,6 +101,7 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
     public static void createFromGoogleCode(Context context, int code) {
         switch (code) {
             case 7:
+            case 13:
             case 16:
                 break;
             default:
@@ -104,13 +110,6 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
                         context.getResources().getString(R.string.error_dialog_general_body),
                         R.style.AlertDialogTheme).show();
         }
-    }
-
-    public static void steerClearNotRunning(Context context) {
-        new ErrorDialog(context,
-                context.getResources().getString(R.string.error_dialog_not_running_title),
-                context.getResources().getString(R.string.error_dialog_not_running_body),
-                R.style.AlertDialogTheme).show();
     }
 
 }

@@ -137,9 +137,8 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
 
     public void onRideCancelError(Throwable throwable) {
         loadingDialog.dismiss();
-        // FOR DEBUG
-//        saveInfo = false;
-//        store.clearRideInfo();
+        saveInfo = false;
+        store.clearRideInfo();
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
@@ -149,5 +148,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         } else {
             ErrorDialog.createFromHttpErrorCode(this, 404).show();
         }
+        startActivity(ActivityHome.newIntent(this));
+        finish();
     }
 }

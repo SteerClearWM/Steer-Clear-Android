@@ -464,6 +464,7 @@ public class FragmentMap extends Fragment
     }
 
     private void dropMarkerOnMap(LatLng latLng, String whichMarker) {
+        loadingDialog.show();
         switch (whichMarker) {
             case PICKUP_MARKER_TITLE:
 
@@ -495,6 +496,7 @@ public class FragmentMap extends Fragment
                 dropoffMarker = mapView.getMap().addMarker(options1);
                 break;
         }
+        loadingDialog.dismiss();
     }
 
     private void reverseGeocodeLocation(LatLng latLng, String whichMarker) {

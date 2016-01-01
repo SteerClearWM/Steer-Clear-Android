@@ -26,4 +26,7 @@ public interface Api {
 
     @GET("/rides/{rideId}")
     Observable<Response> checkRideStatus(@Path("rideId") int cancelId);
+
+    @GET("/index")
+    Observable<Response> checkCookie();
 }
