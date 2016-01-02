@@ -29,7 +29,6 @@ import java.lang.ref.WeakReference;
 
 import steer.clear.R;
 import steer.clear.adapter.AdapterAutoComplete;
-import steer.clear.util.ErrorDialog;
 import steer.clear.util.TextUtils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
@@ -41,13 +40,6 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     private Drawable clearDrawable;
     private Drawable blockDrawable;
     private Drawable[] mCompoundDrawables;
-    private AnimatorSet test;
-    private Paint ripplePaint;
-
-    private boolean startRipple = false;
-    private final static int DURATION = 2000;
-    private float radius;
-    private final static int HALF_ALPHA = 128;
 
     private MyHandler mHandler = new MyHandler(this);
     private final static class MyHandler extends Handler {
@@ -100,16 +92,9 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         setEllipsize(android.text.TextUtils.TruncateAt.END);
         setTypeface(TextUtils.getStaticTypeFace(getContext(), TextUtils.FONT_NAME));
         setCompoundDrawablePadding(15);
-        setSaveEnabled(true);
 
         blockDrawable = getCompoundDrawables()[0];
         clearDrawable = getCompoundDrawables()[2];
-
-        ripplePaint = new Paint();
-        ripplePaint.setAntiAlias(true);
-        ripplePaint.setStyle(Paint.Style.FILL);
-        ripplePaint.setColor(color);
-        ripplePaint.setAlpha(HALF_ALPHA);
 
         addTextChangedListener(new TextWatcher() {
             @Override
@@ -132,14 +117,6 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (startRipple) {
-            canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, radius, ripplePaint);
-        }
-    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (event.getX() > getWidth() - getPaddingRight() - clearDrawable.getIntrinsicWidth()) {
@@ -158,18 +135,12 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
     @Override
     protected void performFiltering(CharSequence text, int keyCode) {
-        startRippleAnimation();
         mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
     }
 
     protected void handlerFilter(CharSequence msg, int delay) {
         super.performFiltering(msg, delay);
-        stopRippleAnimation();
-        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (cm.getActiveNetworkInfo() == null) {
-            ErrorDialog.createFromHttpErrorCode(getContext(), 404).show();
-        }
     }
 
     public void setAutoCompleteListener(AutoCompleteListener listener) {
@@ -194,63 +165,5 @@ public class ViewAutoComplete extends AutoCompleteTextView {
                     null,
                     mCompoundDrawables[3]);
         }
-    }
-
-    public void setTextNoFilter(String text, boolean toFilter) {
-        if (android.os.Build.VERSION.SDK_INT >= 17) {
-            setText(text, toFilter);
-        } else {
-            AdapterAutoComplete test = (AdapterAutoComplete) getAdapter();
-            setAdapter(null);
-            setText(text);
-            setAdapter(test);
-        }
-    }
-
-    public void startRippleAnimation() {
-        startRipple = true;
-
-        if (test == null) {
-            test = new AnimatorSet();
-
-            ObjectAnimator radius = ObjectAnimator.ofFloat(this, "radius", 0, getMeasuredWidth());
-            radius.setDuration(DURATION);
-            radius.setRepeatCount(ValueAnimator.INFINITE);
-
-            ObjectAnimator alpha =  ObjectAnimator.ofObject(ripplePaint, "alpha",
-                    new ArgbEvaluator(), HALF_ALPHA, 0);
-            alpha.setDuration(DURATION);
-            alpha.setRepeatCount(ValueAnimator.INFINITE);
-
-            test.playTogether(radius, alpha);
-            test.start();
-        } else {
-            if (!test.isRunning()) {
-                test.start();
-            }
-        }
-    }
-
-    public void stopRippleAnimation() {
-        new Handler().postDelayed(() -> startRipple = false, 350);
-    }
-
-    public float getRadius() {
-        return radius;
-    }
-
-    public void setRadius(float radius) {
-        this.radius = radius;
-        invalidate();
-    }
-
-    @Override
-    public Parcelable onSaveInstanceState() {
-        return super.onSaveInstanceState();
-    }
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(state);
     }
 }

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import steer.clear.util.ErrorDialog;
 import steer.clear.util.Logg;
 
 public class AdapterAutoComplete
@@ -117,7 +116,6 @@ public class AdapterAutoComplete
             if (!status.isSuccess()) {
                 Logg.log("Error contacting API: " + status.toString());
                 Logg.log("STATUS CODE: " + status.getStatusCode());
-                ErrorDialog.createFromGoogleCode(getContext(), status.getStatusCode());
                 autocompletePredictions.release();
                 return null;
             }

@@ -21,7 +21,7 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
-import steer.clear.util.ErrorDialog;
+import steer.clear.util.ErrorUtils;
 
 public class ActivityAuthenticate extends ActivityBase {
 
@@ -88,7 +88,9 @@ public class ActivityAuthenticate extends ActivityBase {
                 register();
             }
         } else {
-            ErrorDialog.createFromHttpErrorCode(this, ErrorDialog.NO_INTERNET).show();
+            Snackbar.make(fragmentAuthenticate.getView(),
+                    ErrorUtils.getMessage(this, ErrorUtils.NO_INTERNET),
+                    Snackbar.LENGTH_LONG).show();
         }
     }
 

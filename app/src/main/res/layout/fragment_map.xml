@@ -110,7 +110,7 @@
             android:background="@null" />
     </steer.clear.view.ViewMarkerSelectLayout>
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:layout_width="@dimen/fragment_map_my_location_dimens"
         android:layout_height="@dimen/fragment_map_my_location_dimens"
         android:src="@drawable/location"

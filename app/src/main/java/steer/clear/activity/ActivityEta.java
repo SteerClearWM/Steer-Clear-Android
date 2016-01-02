@@ -20,7 +20,6 @@ import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
-import steer.clear.util.ErrorDialog;
 import steer.clear.util.LoadingDialog;
 import steer.clear.util.Logg;
 import steer.clear.view.ViewFooter;
@@ -136,19 +135,19 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     }
 
     public void onRideCancelError(Throwable throwable) {
-        loadingDialog.dismiss();
-        saveInfo = false;
-        store.clearRideInfo();
-        throwable.printStackTrace();
-        if (throwable instanceof RetrofitError) {
-            RetrofitError error = (RetrofitError) throwable;
-            Logg.log("CODE: " + error.getResponse().getStatus());
-            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
-                    error.getResponse().getStatus() : 404).show();
-        } else {
-            ErrorDialog.createFromHttpErrorCode(this, 404).show();
-        }
-        startActivity(ActivityHome.newIntent(this));
-        finish();
+//        loadingDialog.dismiss();
+//        saveInfo = false;
+//        store.clearRideInfo();
+//        throwable.printStackTrace();
+//        if (throwable instanceof RetrofitError) {
+//            RetrofitError error = (RetrofitError) throwable;
+//            Logg.log("CODE: " + error.getResponse().getStatus());
+//            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
+//                    error.getResponse().getStatus() : 404).show();
+//        } else {
+//            ErrorDialog.createFromHttpErrorCode(this, 404).show();
+//        }
+//        startActivity(ActivityHome.newIntent(this));
+//        finish();
     }
 }

@@ -31,7 +31,6 @@ import steer.clear.pojo.RegisterPost;
 import steer.clear.pojo.RideObject;
 import steer.clear.pojo.RidePost;
 import steer.clear.util.Datastore;
-import steer.clear.util.ErrorDialog;
 
 public class Client {
 

@@ -57,6 +57,7 @@ import steer.clear.event.EventAnimateToMarker;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.util.Hue;
 import steer.clear.util.LoadingDialog;
+import steer.clear.util.ViewUtils;
 import steer.clear.view.ViewAutoComplete;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewHeader;
@@ -114,8 +115,8 @@ public class FragmentMap extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
-		pickupText.setTextNoFilter(getArguments().getString(PICKUP_TEXT), false);
-        dropoffText.setTextNoFilter(getArguments().getString(DROPOFF_TEXT), false);
+		pickupText.setText(getArguments().getString(PICKUP_TEXT), false);
+        dropoffText.setText(getArguments().getString(DROPOFF_TEXT), false);
     }
 
     @Override
@@ -147,22 +148,16 @@ public class FragmentMap extends Fragment
     }
 
 	@Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainApp) activity.getApplication()).getApplicationComponent().inject(this);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
 
-        geocoder = new Geocoder(activity, Locale.US);
+        geocoder = new Geocoder(context, Locale.US);
 
-        loadingDialog = new LoadingDialog(activity, R.style.ProgressDialogTheme);
+        loadingDialog = new LoadingDialog(context, R.style.ProgressDialogTheme);
 
         bus.register(this);
     }
-	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setRetainInstance(true);
-	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -190,8 +185,8 @@ public class FragmentMap extends Fragment
         super.onActivityCreated(savedInstanceState);
 
 	    if (savedInstanceState != null) {
-			pickupText.setTextNoFilter(savedInstanceState.getString(PICKUP_TEXT), false);
-            dropoffText.setTextNoFilter(savedInstanceState.getString(DROPOFF_TEXT), false);
+			pickupText.setText(savedInstanceState.getString(PICKUP_TEXT), false);
+            dropoffText.setText(savedInstanceState.getString(DROPOFF_TEXT), false);
 	    }
 
         mapView.getMapAsync(this);
@@ -202,14 +197,14 @@ public class FragmentMap extends Fragment
         AnimatorSet animatorSet = new AnimatorSet();
         if (enter) {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), "scaleX", .45f, 1f),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", .45f, 1f),
-                    ObjectAnimator.ofFloat(getActivity(), "alpha", 0f, 1f));
+                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, .45f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, .45f, 1f),
+                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 0f, 1f));
         } else {
             animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), "scaleX", 1f, .45f),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 1f, .45f),
-                    ObjectAnimator.ofFloat(getActivity(), "alpha", 1f, 0f));
+                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, 1f, .45f),
+                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_Y, 1f, .45f),
+                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 1f, 0f));
         }
 
         animatorSet.setDuration(1000);
@@ -512,14 +507,14 @@ public class FragmentMap extends Fragment
                                 pickupLatLng = new LatLng(address.getLatitude(), address.getLongitude());
                                 pickupName = address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1);
-                                pickupText.setTextNoFilter(address.getAddressLine(0) + ", " +
+                                pickupText.setText(address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1), false);
                                 break;
                             case DROPOFF_MARKER_TITLE:
                                 dropoffLatLng = new LatLng(address.getLatitude(), address.getLongitude());
                                 dropoffName = address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1);
-                                dropoffText.setTextNoFilter(address.getAddressLine(0) + ", " +
+                                dropoffText.setText(address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1), false);
                                 break;
                         }

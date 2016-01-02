@@ -11,6 +11,9 @@ import android.view.View;
 public class ViewUtils {
 
     public final static String BACKGROUND_COLOR = "backgroundColor";
+    public final static String SCALE_X = "scaleX";
+    public final static String SCALE_Y = "scaleY";
+    public final static String ALPHA = "alpha";
     public final static int DEFAULT_VISBILITY_DURATION = 350;
 
     public static ObjectAnimator invisible(View view, int duration) {
