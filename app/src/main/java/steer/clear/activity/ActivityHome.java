@@ -58,9 +58,9 @@ public class ActivityHome extends AppCompatActivity
     private final static String POST = "post";
     private static final int REQUEST_RESOLVE_ERROR = 1001;
 
-    private static LatLng userLatLng;
-	private static LatLng pickupLatLng;
-	private static LatLng dropoffLatLng;
+    private LatLng userLatLng;
+	private LatLng pickupLatLng;
+	private LatLng dropoffLatLng;
 
 	@Inject Client helper;
     @Inject EventBus bus;

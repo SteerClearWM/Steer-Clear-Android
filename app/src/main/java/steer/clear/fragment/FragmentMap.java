@@ -79,12 +79,10 @@ public class FragmentMap extends Fragment
     @Inject EventBus bus;
     private LoadingDialog loadingDialog;
 
-    private final static Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
-
-	private static LatLng pickupLatLng;
-	private static CharSequence pickupName;
-    private static LatLng dropoffLatLng;
-    private static CharSequence dropoffName;
+	private LatLng pickupLatLng;
+	private CharSequence pickupName;
+    private LatLng dropoffLatLng;
+    private CharSequence dropoffName;
 
 	private final static String PICKUP_TEXT = "pickupText";
     private final static String DROPOFF_TEXT = "dropoffText";
@@ -115,16 +113,12 @@ public class FragmentMap extends Fragment
     public void onResume() {
         super.onResume();
         mapView.onResume();
-		pickupText.setText(getArguments().getString(PICKUP_TEXT), false);
-        dropoffText.setText(getArguments().getString(DROPOFF_TEXT), false);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mapView.onPause();
-		getArguments().putString(PICKUP_TEXT, pickupText.getText().toString());
-        getArguments().putString(DROPOFF_TEXT, dropoffText.getText().toString());
     }
     
     @Override
@@ -208,7 +202,7 @@ public class FragmentMap extends Fragment
         }
 
         animatorSet.setDuration(1000);
-        animatorSet.setInterpolator(INTERPOLATOR);
+        animatorSet.setInterpolator(new FastOutSlowInInterpolator());
         return animatorSet;
     }
 
@@ -287,7 +281,6 @@ public class FragmentMap extends Fragment
 
     @Override
     public void onMarkerDragStart(Marker marker) {
-
     }
 
     @Override
@@ -494,6 +487,25 @@ public class FragmentMap extends Fragment
     }
 
     private void reverseGeocodeLocation(LatLng latLng, String whichMarker) {
+        if (!BOUNDS_WILLIAMSBURG.contains(latLng)) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.fragment_map_no_service),
+                    Toast.LENGTH_SHORT).show();
+
+            switch (whichMarker) {
+                case PICKUP_MARKER_TITLE:
+                    if (pickupLatLng != null) {
+                        pickupMarker.setPosition(pickupLatLng);
+                    }
+                    break;
+                case DROPOFF_MARKER_TITLE:
+                    if (dropoffLatLng != null) {
+                        dropoffMarker.setPosition(dropoffLatLng);
+                    }
+                    break;
+            }
+            return;
+        }
+
         loadingDialog.show();
         try {
             Observable.just(geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1))
