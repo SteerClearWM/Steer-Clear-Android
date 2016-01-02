@@ -14,6 +14,7 @@ import android.util.TypedValue;
 
 import steer.clear.R;
 import steer.clear.util.TextUtils;
+import steer.clear.util.ViewUtils;
 
 public class ViewTypefaceButton extends AppCompatButton {
 
@@ -129,7 +130,7 @@ public class ViewTypefaceButton extends AppCompatButton {
     }
 
     private void changeToDrawableColorBackground() {
-        ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+        ObjectAnimator.ofObject(this, ViewUtils.BACKGROUND_COLOR, new ArgbEvaluator(),
                 Color.WHITE, drawableColor)
                 .setDuration(350)
                 .start();
@@ -137,7 +138,7 @@ public class ViewTypefaceButton extends AppCompatButton {
     }
 
     private void changeToWhiteBackground() {
-        ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+        ObjectAnimator.ofObject(this, ViewUtils.BACKGROUND_COLOR, new ArgbEvaluator(),
                 drawableColor, Color.WHITE)
                 .setDuration(350)
                 .start();

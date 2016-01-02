@@ -73,9 +73,9 @@ public class ViewMarkerSelectLayout extends LinearLayout implements View.OnClick
     }
 
     public int getIdOfSelectedButton() {
-        if (pickup.isSelected()) {
+        if (pickup.isChosen()) {
             return pickup.getId();
-        } else if (dropoff.isSelected()) {
+        } else if (dropoff.isChosen()) {
             return dropoff.getId();
         } else {
             return -1;

@@ -21,6 +21,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.event.EventLogout;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
 import steer.clear.util.LoadingDialog;
@@ -115,6 +116,10 @@ public class ActivityEta extends ActivityBase implements View.OnClickListener {
             });
 
         alertDialog.show();
+    }
+
+    public void onEvent(EventLogout eventLogout) {
+
     }
 
     private void cancelRide() {
