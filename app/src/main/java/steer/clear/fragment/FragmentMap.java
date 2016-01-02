@@ -474,7 +474,7 @@ public class FragmentMap extends Fragment
                         .position(latLng)
                         .title(DROPOFF_MARKER_TITLE)
                         .icon(BitmapDescriptorFactory.defaultMarker(
-                                Hue.getHue(getResources().getColor(R.color.accent))))
+                                Hue.getHue(getResources().getColor(R.color.primary_dark))))
                         .draggable(true);
 
                 if (dropoffMarker != null) {

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,10 +30,7 @@ import java.util.TimeZone;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
@@ -48,7 +44,6 @@ import steer.clear.pojo.RideObject;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorUtils;
 import steer.clear.util.LoadingDialog;
-import steer.clear.util.Locationer;
 import steer.clear.util.Logg;
 
 public class ActivityHome extends AppCompatActivity
@@ -64,7 +59,6 @@ public class ActivityHome extends AppCompatActivity
 
 	@Inject Client helper;
     @Inject EventBus bus;
-    @Inject Locationer locationer;
     private LoadingDialog loadingDialog;
     private LocationRequest locationRequest;
 	private GoogleApiClient mGoogleApiClient;
@@ -155,13 +149,7 @@ public class ActivityHome extends AppCompatActivity
             } else {
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                         locationRequest, this);
-                currentLocation = locationer.getLocation();
-                if (currentLocation != null) {
-                    userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                    showMapStuff(userLatLng);
-                } else {
-                    showSettingsAlert();
-                }
+                showSettingsAlert();
             }
         }
 	}
@@ -169,6 +157,24 @@ public class ActivityHome extends AppCompatActivity
     @Override
     public void onConnectionSuspended(int cause) {
 
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if (connectionResult.hasResolution()) {
+            try {
+                connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Logg.log("CONNECTION FAILED WITH CODE: " + connectionResult.getErrorCode());
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
 	private void showMapStuff(LatLng userLatLng) {
@@ -184,12 +190,10 @@ public class ActivityHome extends AppCompatActivity
         if (mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
-        locationer.stopListeningForLocation();
     }
 
     private void resumeLocationUpdates() {
         if (userLatLng == null) {
-            locationer.resumeListeningForLocation();
             locationRequest = LocationRequest.create()
                     .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
                     .setInterval(60 * 100000)        // 30 seconds, in milliseconds
@@ -220,24 +224,6 @@ public class ActivityHome extends AppCompatActivity
         if (!settings.isShowing()) {
             settings.show();
         }
-    }
-
-	@Override
-	public void onConnectionFailed(ConnectionResult connectionResult) {
-        if (connectionResult.hasResolution()) {
-            try {
-                connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
-            } catch (IntentSender.SendIntentException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Logg.log("CONNECTION FAILED WITH CODE: " + connectionResult.getErrorCode());
-        }
-	}
-
-    @Override
-    public void onLocationChanged(Location location) {
-        userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
     public GoogleApiClient getGoogleApiClient() {

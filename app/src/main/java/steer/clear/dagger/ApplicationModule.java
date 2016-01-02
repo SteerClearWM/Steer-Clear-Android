@@ -9,8 +9,6 @@ import dagger.Provides;
 import de.greenrobot.event.EventBus;
 import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
-import steer.clear.util.LoadingDialog;
-import steer.clear.util.Locationer;
 
 /**
  * Created by Miles Peele on 6/20/2015.
@@ -46,9 +44,5 @@ public class ApplicationModule {
     public EventBus getEventBus() {
         return new EventBus();
     }
-
-    @Provides
-    @Singleton
-    public Locationer getLocationer() { return new Locationer(mApplication); }
 
 }
