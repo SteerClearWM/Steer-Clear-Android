@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="vertical"
+    android:animateLayoutChanges="false"
+    android:id="@+id/fragment_authenticate_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/fragment_authenticate_logo"
+        android:layout_width="@dimen/fragment_authenticate_logo_size"
+        android:layout_height="@dimen/fragment_authenticate_logo_size"
+        android:layout_margin="@dimen/fragment_authenticate_logo_vertical_margin"
+        android:foregroundGravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/start_screen_logo"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY" />
+
+    <steer.clear.view.ViewTypefaceEditText
+        android:id="@+id/fragment_authenticate_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginBottom="@dimen/fragment_authenticate_vertical_margin"
+        android:drawableStart="@drawable/user"
+        android:drawableLeft="@drawable/user"
+        android:hint="@string/fragment_authenticate_username_hint"
+        android:textColor="@android:color/white"
+        android:inputType="text"
+        tools:text="USERNAME" />
+
+    <steer.clear.view.ViewTypefaceEditText
+        android:id="@+id/fragment_authenticate_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginBottom="@dimen/fragment_authenticate_vertical_margin"
+        android:drawableLeft="@drawable/lock"
+        android:drawableStart="@drawable/lock"
+        android:inputType="text|textPassword"
+        android:textColor="@android:color/white"
+        android:hint="@string/fragment_authenticate_password_hint"
+        tools:text="PASWORD" />
+
+    <steer.clear.view.ViewTypefaceEditText
+        android:id="@+id/fragment_authenticate_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:gravity="center"
+        android:visibility="invisible"
+        android:layout_marginStart="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginBottom="@dimen/fragment_authenticate_vertical_margin"
+        android:drawableStart="@drawable/phone"
+        android:drawableLeft="@drawable/phone"
+        android:textColor="@android:color/white"
+        android:hint="@string/fragment_authenticate_phone_hint" />
+
+    <steer.clear.view.ViewTypefaceButton
+        android:id="@+id/fragment_authenticate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_authenticate_horizontal_margin"
+        android:layout_marginBottom="@dimen/fragment_authenticate_vertical_margin"
+        android:text="@string/fragment_authenticate_login_text"
+        android:textSize="@dimen/fragment_authenticate_text_size"
+        app:preferredTextColor="@color/primary_dark" />
+
+    <steer.clear.view.ViewTypefaceTextView
+        android:id="@+id/fragment_authenticate_register_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:textColor="@android:color/white"
+        android:gravity="center" />
+
+</LinearLayout>

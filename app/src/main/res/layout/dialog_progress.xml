@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/dialog_progress_image"
+        android:layout_width="@dimen/fragment_authenticate_logo_size"
+        android:layout_height="@dimen/fragment_authenticate_logo_size"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+    <steer.clear.view.ViewTypefaceTextView
+        android:id="@+id/dialog_progress_text"
+        android:layout_below="@id/dialog_progress_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/view_eta_text_size"
+        android:text="@string/dialog_progress_text" />
+
+</RelativeLayout>

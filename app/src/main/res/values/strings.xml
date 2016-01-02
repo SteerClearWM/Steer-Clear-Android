@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SteerClear</string>
+    <string name="url_base">https://steerclear.wm.edu/api</string>
+    <string name="url_authenticate">https://steerclear.wm.edu/</string>
+
+    <string name="contact_email">steerclear@email.wm.edu</string>
+    <string name="contact_email_title">Steer-Clear-Android</string>
+
+    <string name="header_text">Steer Clear</string>
+
+    <string name="activity_home_menu_logout">Logout</string>
+
+    <string name="fragment_authenticate_register_text">REGISTER</string>
+    <string name="fragment_authenticate_login_text">LOGIN</string>
+    <string name="fragment_authenticate_username_hint">W&amp;M USERNAME (ex. wtreveley) </string>
+    <string name="fragment_authenticate_password_hint">W&amp;M PASSWORD</string>
+    <string name="fragment_authenticate_phone_hint">PHONE (ex. 7577577577) </string>
+    <string name="fragment_authenticate_register_prompt">Don\'t have an account? REGISTER</string>
+    <string name="fragment_authenticate_fail">Unable to verify your account</string>
+    <string name="fragment_authenticate_username_fail">Must be lowercase.</string>
+    <string name="fragment_authenticate_password_fail">Must not be empty</string>
+    <string name="fragment_authenticate_phone_fail">Must match xxx-xxx-xxxx</string>
+
+    <string name="fragment_map_marker_drop_hint">Select "Pick Up" or "Drop Off" then click a
+        location on the map</string>
+    <string name="fragment_map_marker_drop_pickup">Pick Up</string>
+    <string name="fragment_map_marker_drop_dropoff">Drop Off</string>
+    <string name="fragment_map_pickup_hint">Select a Pick Up Location</string>
+    <string name="fragment_map_dropoff_hint">Select a Drop Off Location</string>
+    <string name="fragment_map_pickup_snackbar_text">Select a Pick Up Location</string>
+    <string name="fragment_map_dropoff_snackbar_text">Select a Drop Off Location </string>
+    <string name="fragment_map_same_location">Pick Up and Drop Off Cannot Be the Same Location</string>
+    <string name="fragment_map_no_service">SteerClear Does Not Service This Location</string>
+    <string name="fragment_map_footer_text">CONFIRM RIDE</string>
+    <string name="fragment_map_marker_hint">Long-press then drag the marker to select a location</string>
+    
+    <string name="fragment_hail_ride_passenger_select_prompt">PASSENGERS:</string>
+    <string name="fragment_hail_ride_pickup_header">PICKUP LOCATION:</string>
+    <string name="fragment_hail_ride_dropoff_header">DROPOFF LOCATION:</string>
+    <string name="fragment_hail_ride_post">REQUEST RIDE</string>
+    <string name="fragment_hail_ride_no_passengers">You Can\'t Have 0 Passengers</string>
+
+    <string name="activity_eta_cancel_ride">CANCEL RIDE</string>
+    <string name="activity_eta_formatted_title">Your ride will \n arrive at:</string>
+
+    <string name="toast_pickup_dropoff_same">Your pickup and dropoff cannot be the same location</string>
+    <string name="toast_google_client_connection_lost">Connection to internet has been lost, re-enable to continue using</string>
+    <string name="toast_too_far_for_steer_clear">SteerClear does not service this location</string>
+    <string name="toast_must_choose_location">Choose a location first!</string>
+
+    <string name="dialog_progress_text">Loading…</string>
+
+    <string name="snackbar_unknown_error">Unknown error occurred. Try again in a sec</string>
+    <string name="snackbar_general_error">Something went wrong moe.</string>
+    <string name="snackbar_no_internet">Couldn\'t establish an internet connection.</string>
+    <string name="snackbar_unauthorized">Need to log you in, sorry!</string>
+    <string name="snackbar_invalid_creds">Could not verify credentials</string>
+
+    <string name="dialog_no_gps_title">GPS Settings</string>
+    <string name="dialog_no_gps_body">Couldn\'t grab your GPS, which we need. Do you want to go to your settings
+        menu to enable? This app will close if you press \'Cancel\'.</string>
+    <string name="dialog_no_gps_pos_button_text">Settings</string>
+    <string name="dialog_no_gps_neg_button_text">Cancel</string>
+
+    <string name="error_dialog_not_running_title">Donezo!</string>
+    <string name="error_dialog_not_running_body">SteerClear has stopped servicing new ride requests.
+        Our hours are Thursday from 9:30PM to 1:30AM, Friday from 9:30PM to 2:30AM, and Saturday
+        from 9:30PM to 2:30AM.</string>
+
+    <string name="dialog_cancel_ride_title">Cancel Ride</string>
+    <string name="dialog_cancel_ride_body">Would you like to cancel your requested ride? This action
+        will take you back to the map screen..</string>
+    <string name="dialog_cancel_ride_pos_button_text">Sure</string>
+    <string name="dialog_cancel_ride_neg_button_text">Nah</string>
+
+    <string name="dialog_logout_title">Logout?</string>
+    <string name="dialog_logout_body">Pressing \'Sure\' will finish your current session and take
+        you back to the login screen.</string>
+    
+</resources>

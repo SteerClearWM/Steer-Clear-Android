@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<steer.clear.view.ViewPassengerSelect
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragment_hail_ride_passenger_select_linear_layout"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragment_passenger_select_1"
+            android:text="1"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_passenger_select_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_passenger_select_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_passenger_select_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_passenger_select_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_passenger_select_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_passenger_select_7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="7"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+        <steer.clear.view.ViewTypefaceTextView
+            android:id="@+id/fragment_passenger_select_8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="8"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/view_passenger_select_margin_bottom"
+            android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@android:color/black"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+</steer.clear.view.ViewPassengerSelect>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true" >
+
+    <steer.clear.view.ViewHeader
+        android:id="@+id/fragment_map_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_header_layout_height"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/header_text"
+        android:drawableRight="@drawable/ic_power_settings_new_white_24dp"
+        android:drawableEnd="@drawable/ic_power_settings_new_white_24dp" />
+
+    <steer.clear.view.ViewFooter
+        android:id="@+id/fragment_map_post"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_footer_layout_height"
+        android:text="@string/fragment_map_footer_text"
+        android:layout_alignParentBottom="true" />
+
+    <com.google.android.gms.maps.MapView
+        android:visibility="gone"
+        android:layout_below="@id/fragment_map_header"
+        android:layout_above="@id/fragment_map_post"
+        android:id="@+id/fragment_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+   	
+   	<steer.clear.view.ViewAutoComplete
+        android:id="@+id/fragment_map_pickup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_map_header"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_marginStart="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginLeft="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:hint="@string/fragment_map_pickup_hint"
+        android:textCursorDrawable="@null"
+        android:drawableLeft="@drawable/gold_block"
+        android:drawableStart="@drawable/gold_block"
+        android:drawableRight="@drawable/ic_clear_black_24dp"
+        android:drawableEnd="@drawable/ic_clear_black_24dp" />
+
+    <steer.clear.view.ViewAutoComplete
+        android:id="@+id/fragment_map_dropoff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_map_pickup"
+        android:layout_marginStart="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginLeft="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:hint="@string/fragment_map_dropoff_hint"
+        android:textCursorDrawable="@null"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:drawableStart="@drawable/green_block"
+        android:drawableLeft="@drawable/green_block"
+        android:drawableRight="@drawable/ic_clear_black_24dp"
+        android:drawableEnd="@drawable/ic_clear_black_24dp" />
+
+    <steer.clear.view.ViewMarkerSelectLayout
+        android:id="@+id/fragment_map_marker_select_layout"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_above="@id/fragment_map_post"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_marginBottom="@dimen/view_footer_top_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/view_footer_layout_height" >
+
+        <steer.clear.view.ViewTypefaceButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_map_show_pickup_location"
+            android:drawableStart="@drawable/gold_block"
+            android:drawableLeft="@drawable/gold_block"
+            android:text="@string/fragment_map_marker_drop_pickup"
+            android:paddingRight="@dimen/view_typeface_button_padding"
+            android:paddingEnd="@dimen/view_typeface_button_padding"
+            android:textAllCaps="true"
+            app:preferredTextColor="@android:color/black"
+            app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
+            app:drawBorder="true"
+            app:fillOnClick="true"
+            app:drawableColor="@color/accent"
+            android:background="@null" />
+
+        <steer.clear.view.ViewTypefaceButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_map_show_dropoff_location"
+            android:drawableEnd="@drawable/green_block"
+            android:drawableRight="@drawable/green_block"
+            android:text="@string/fragment_map_marker_drop_dropoff"
+            android:drawablePadding="5dp"
+            android:paddingLeft="@dimen/view_typeface_button_padding"
+            android:textAllCaps="true"
+            app:preferredTextColor="@android:color/black"
+            app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
+            app:drawBorder="true"
+            app:fillOnClick="true"
+            app:drawableColor="@color/primary_dark"
+            android:background="@null" />
+    </steer.clear.view.ViewMarkerSelectLayout>
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:layout_width="@dimen/fragment_map_my_location_dimens"
+        android:layout_height="@dimen/fragment_map_my_location_dimens"
+        android:src="@drawable/location"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_above="@id/fragment_map_post"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:background="@android:drawable/dialog_holo_light_frame"
+        android:layout_alignBottom="@id/fragment_map_marker_select_layout"
+        android:padding="@dimen/fragment_map_my_location_padding"
+        android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
+        android:id="@+id/fragment_map_current_location" />
+
+</RelativeLayout>

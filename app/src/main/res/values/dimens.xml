@@ -1,0 +1,60 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="header_text_size">20sp</dimen>
+    <dimen name="footer_text_size">20sp</dimen>
+
+    <dimen name="view_typeface_button_text_size">20sp</dimen>
+    <dimen name="view_typeface_button_small_text_size">12sp</dimen>
+    <dimen name="view_typeface_button_padding">10dp</dimen>
+    <dimen name="view_typeface_button_border_width">7dp</dimen>
+
+    <dimen name="fragment_map_my_location_dimens">48dp</dimen>
+    <dimen name="fragment_map_my_location_padding">10dp</dimen>
+
+    <dimen name="fragment_authenticate_logo_size">150dp</dimen>
+    <dimen name="fragment_authenticate_logo_vertical_margin">50dp</dimen>
+    <dimen name="fragment_authenticate_text_size">30sp</dimen>
+    <dimen name="fragment_authenticate_horizontal_margin">30dp</dimen>
+    <dimen name="fragment_authenticate_vertical_margin">20dp</dimen>
+
+    <dimen name="fragment_map_autocomplete_horizontal_margin">30dp</dimen>
+    <dimen name="view_autocomplete_text_size">20sp</dimen>
+
+    <dimen name="view_change_location_margin_start">15dp</dimen>
+    <dimen name="view_change_location_padding_start">5dp</dimen>
+    <dimen name="view_change_location_text_size">20sp</dimen>
+
+    <dimen name="fragment_hail_ride_header_bottom_margin">40dp</dimen>
+    <dimen name="fragment_hail_ride_layout_bottom_margin">45dp</dimen>
+    <dimen name="fragment_hail_ride_internal_layout_bottom_margin">10dp</dimen>
+    <dimen name="fragment_hail_ride_location_text_size">17sp</dimen>
+    <dimen name="fragment_hail_ride_post_margin">30dp</dimen>
+    <dimen name="fragment_hail_ride_post_ride_margin">125dp</dimen>
+    <dimen name="fragment_hail_ride_dropoff_margin">25dp</dimen>
+    <dimen name="fragment_hail_ride_post_margin_from_bottom">58dp</dimen>
+
+    <dimen name="view_passenger_select_height">100dp</dimen>
+    <dimen name="view_passenger_select_margin_bottom">10dp</dimen>
+    <dimen name="view_passenger_select_edge_length">75dp</dimen>
+
+    <dimen name="view_eta_dimens">200dp</dimen>
+    <dimen name="view_eta_text_size">50sp</dimen>
+    <dimen name="view_eta_prefix_text_size">30sp</dimen>
+    <dimen name="view_eta_prefix_horizontal_margin">50dp</dimen>
+    <dimen name="activity_eta_header_bottom_margin">60dp</dimen>
+
+    <dimen name="view_header_layout_height">48dp</dimen>
+    <dimen name="view_header_bottom_margin">10dp</dimen>
+
+    <dimen name="view_footer_layout_height">48dp</dimen>
+    <dimen name="view_footer_top_margin">10dp</dimen>
+
+    <dimen name="dialog_title_text_size">20sp</dimen>
+    <dimen name="dialog_body_text_size">15sp</dimen>
+    <dimen name="dialog_view_vertical_margin">15dp</dimen>
+    <dimen name="dialog_view_horizontal_margin">25dp</dimen>
+</resources>

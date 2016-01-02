@@ -1,13 +1,38 @@
+<<<<<<< HEAD
 # Built application files
 *.apk
 *.ap_
 
 # Files for the Dalvik VM
+=======
+.idea/
+*.log
+*.iml
+local.properties
+*.DS_Store
+external_data/
+target/
+gen/
+classes/
+.classpath
+.project
+gen-external-apklibs/
+.settings/
+tmp/
+
+.DS_Store
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+>>>>>>> Refactoring
 *.dex
 
 # Java class files
 *.class
 
+<<<<<<< HEAD
 # Generated files
 bin/
 gen/
@@ -68,3 +93,21 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+=======
+# generated files
+bin/
+
+# Android Studio
+/*/gradle.properties
+.gradle
+/*/local.properties
+/*/out
+/*/*/build
+/*/*/production
+*.iws
+*.ipr
+*~
+*.swp
+build/
+app/src/main/res/values/keys.xml
+>>>>>>> Refactoring
