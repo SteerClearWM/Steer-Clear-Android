@@ -7,6 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import java.util.Observable;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -14,6 +16,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
@@ -25,7 +28,7 @@ import steer.clear.util.Logg;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewTypefaceTextView;
 
-public class ActivityEta extends AppCompatActivity implements View.OnClickListener {
+public class ActivityEta extends ActivityBase implements View.OnClickListener {
 
     @Bind(R.id.activity_eta_time_prefix) ViewTypefaceTextView prefix;
     @Bind(R.id.activity_eta_time) ViewTypefaceTextView etaTime;
@@ -38,8 +41,6 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     public final static String ETA = "eta";
     public final static String CANCEL = "CANCEL_ID";
 
-    @Inject Client helper;
-    @Inject Datastore store;
     private LoadingDialog loadingDialog;
 
     public static Intent newIntent(Context context, String eta, int cancelId) {
@@ -56,8 +57,6 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
         ButterKnife.bind(this);
-
-        ((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
 
         if (savedInstanceState != null) {
             cancelId = savedInstanceState.getInt(CANCEL);
@@ -79,7 +78,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    protected void onSaveInstanceState (Bundle outState) {
+    protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(ETA, eta);
         outState.putInt(CANCEL, cancelId);
@@ -122,32 +121,32 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         loadingDialog.show();
         saveInfo = false;
         store.clearRideInfo();
-        helper.cancelRide(cancelId)
+
+        Subscriber<Response> rideCancelSubscriber = new Subscriber<Response>() {
+            @Override
+            public void onCompleted() {
+                removeSubscription(this);
+                loadingDialog.dismiss();
+                startActivity(ActivityHome.newIntent(ActivityEta.this));
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                saveInfo = false;
+                onCompleted();
+            }
+
+            @Override
+            public void onNext(Response response) {
+
+            }
+        };
+
+        addSubscription(helper.cancelRide(cancelId)
                 .subscribeOn(Schedulers.io())
+                .onExceptionResumeNext(rx.Observable.<Response>empty())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onRideCanceled, this::onRideCancelError);
-    }
-
-    public void onRideCanceled(Response response) {
-        loadingDialog.dismiss();
-        startActivity(ActivityHome.newIntent(this));
-        finish();
-    }
-
-    public void onRideCancelError(Throwable throwable) {
-//        loadingDialog.dismiss();
-//        saveInfo = false;
-//        store.clearRideInfo();
-//        throwable.printStackTrace();
-//        if (throwable instanceof RetrofitError) {
-//            RetrofitError error = (RetrofitError) throwable;
-//            Logg.log("CODE: " + error.getResponse().getStatus());
-//            ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
-//                    error.getResponse().getStatus() : 404).show();
-//        } else {
-//            ErrorDialog.createFromHttpErrorCode(this, 404).show();
-//        }
-//        startActivity(ActivityHome.newIntent(this));
-//        finish();
+                .subscribe(rideCancelSubscriber));
     }
 }

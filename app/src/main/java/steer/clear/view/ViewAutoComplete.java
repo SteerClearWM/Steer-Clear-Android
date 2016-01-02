@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -23,6 +24,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 
 import java.lang.ref.WeakReference;
@@ -164,6 +166,14 @@ public class ViewAutoComplete extends AutoCompleteTextView {
                     mCompoundDrawables[1],
                     null,
                     mCompoundDrawables[3]);
+        }
+    }
+
+    public void closeKeyboard() {
+        final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        IBinder binder = getWindowToken();
+        if (binder != null) {
+            imm.hideSoftInputFromWindow(getWindowToken(), 0);
         }
     }
 }

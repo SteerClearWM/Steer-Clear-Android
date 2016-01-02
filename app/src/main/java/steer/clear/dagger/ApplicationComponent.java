@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import steer.clear.activity.ActivityAuthenticate;
+import steer.clear.activity.ActivityBase;
 import steer.clear.activity.ActivityEta;
 import steer.clear.activity.ActivityHome;
 import steer.clear.fragment.FragmentAuthenticate;
@@ -20,9 +21,7 @@ import steer.clear.view.ViewMarkerSelectLayout;
 @Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
 
-    void inject(ActivityHome activity);
-    void inject(ActivityEta activity);
-    void inject(ActivityAuthenticate activityAuthenticate);
+    void inject(ActivityBase activityBase);
 
     void inject(FragmentMap fragmentMap);
     void inject(FragmentHailRide fragmentHailRide);

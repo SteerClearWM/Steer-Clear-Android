@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.EventLog;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,12 +34,17 @@ import java.util.TimeZone;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
+import retrofit.client.Response;
+import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.observables.ConnectableObservable;
 import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.event.EventLogout;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.event.EventPostPlacesChosen;
 import steer.clear.fragment.FragmentHailRide;
@@ -46,19 +55,14 @@ import steer.clear.util.ErrorUtils;
 import steer.clear.util.LoadingDialog;
 import steer.clear.util.Logg;
 
-public class ActivityHome extends AppCompatActivity
+public class ActivityHome extends ActivityBase
 	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {
 
     private final static String MAP = "map";
     private final static String POST = "post";
     private static final int REQUEST_RESOLVE_ERROR = 1001;
 
-    private LatLng userLatLng;
-	private LatLng pickupLatLng;
-	private LatLng dropoffLatLng;
-
-	@Inject Client helper;
-    @Inject EventBus bus;
+    private LatLng userLatLng, pickupLatLng, dropoffLatLng;
     private LoadingDialog loadingDialog;
     private LocationRequest locationRequest;
 	private GoogleApiClient mGoogleApiClient;
@@ -73,11 +77,7 @@ public class ActivityHome extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-		((MainApp) getApplicationContext()).getApplicationComponent().inject(this);
-
         loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
-
-        bus.register(this);
 
 		mGoogleApiClient = new GoogleApiClient.Builder(this)
 				.enableAutoManage(this, 0, this)
@@ -103,12 +103,6 @@ public class ActivityHome extends AppCompatActivity
     protected void onResume() {
         super.onResume();
         resumeLocationUpdates();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        rideSubsriber.unsubscribe();
     }
 
     @Override
@@ -241,59 +235,114 @@ public class ActivityHome extends AppCompatActivity
         ft.replace(R.id.activity_home_fragment_frame, fragment, POST).commit();
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-        if (!isFinishing()) {
-            loadingDialog.show();
-        }
-
-        helper.addRide(eventPostPlacesChosen.numPassengers,
+        addSubscription(helper.addRide(eventPostPlacesChosen.numPassengers,
                 pickupLatLng.latitude, pickupLatLng.longitude,
                 dropoffLatLng.latitude, dropoffLatLng.longitude)
-                .doOnError(new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Snackbar.make(getFragmentManager().findFragmentById(R.id.activity_home_fragment_frame).getView(),
-                                ErrorUtils.getMessage(ActivityHome.this, throwable),
-                                Snackbar.LENGTH_LONG).show();
-                    }
-                })
+                .doOnError(this::handleError)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(rideSubsriber);
+                .subscribe(createRideSubscriber()));
     }
 
-    private Subscriber<RideObject> rideSubsriber = new Subscriber<RideObject>() {
-        @Override
-        public void onCompleted() {
+    @SuppressWarnings("unused")
+    public void onEvent(EventLogout eventLogout) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.AlertDialogTheme)
+                .setTitle(getResources().getString(R.string.dialog_logout_title))
+                .setMessage(getResources().getString(R.string.dialog_logout_body))
+                .setPositiveButton(
+                        getResources().getString(R.string.dialog_cancel_ride_pos_button_text),
+                        (dialog, which) -> {
+                            logout();
+                        }).setNegativeButton(
+                        getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
+                        (dialog, which) -> {
+                            dialog.dismiss();
+                        });
 
-        }
+        alertDialog.show();
+    }
 
-        @Override
-        public void onError(Throwable e) {
-        }
+    private void logout() {
+        Subscriber<Response> logoutSubscriber = new Subscriber<Response>() {
+            @Override
+            public void onCompleted() {
+                removeSubscription(this);
+                loadingDialog.dismiss();
+                startActivity(ActivityAuthenticate.newIntent(ActivityHome.this, true));
+                finish();
+            }
 
-        @Override
-        public void onNext(RideObject rideObject) {
-            RideObject.RideInfo info = rideObject.getRideInfo();
-            String pickupTime = info.getPickupTime();
-            int cancelId = info.getId();
-            try {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss",
-                        Locale.US);
-                dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
+            @Override
+            public void onError(Throwable e) {
+            }
 
-                Calendar calendar = new GregorianCalendar();
-                calendar.setTime(dateFormat.parse(pickupTime));
+            @Override
+            public void onNext(Response response) {
+
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                loadingDialog.show();
+            }
+        };
+
+        addSubscription(helper.logout()
+                .subscribeOn(Schedulers.io())
+                .retry()
+                .onErrorResumeNext(Observable.<Response>empty())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(logoutSubscriber));
+    }
+
+    private Subscriber<RideObject> createRideSubscriber() {
+        return new Subscriber<RideObject>() {
+
+            int hour, minute, cancelId;
+
+            @Override
+            public void onCompleted() {
+                removeSubscription(this);
 
                 loadingDialog.dismiss();
                 startActivity(ActivityEta.newIntent(ActivityHome.this,
-                        String.format("%02d : %02d", calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE)),
-                        cancelId));
+                        String.format("%02d : %02d", hour, minute), cancelId));
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 finish();
-            } catch (ParseException p) {
-                p.printStackTrace();
             }
-        }
-    };
+
+            @Override
+            public void onError(Throwable e) {
+            }
+
+            @Override
+            public void onNext(RideObject rideObject) {
+                RideObject.RideInfo info = rideObject.getRideInfo();
+                String pickupTime = info.getPickupTime();
+                cancelId = info.getId();
+                try {
+                    SimpleDateFormat dateFormat =
+                            new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss", Locale.US);
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
+
+                    Calendar calendar = new GregorianCalendar();
+                    calendar.setTime(dateFormat.parse(pickupTime));
+
+                    hour = calendar.get(Calendar.HOUR);
+                    minute = calendar.get(Calendar.MINUTE);
+                } catch (ParseException p) {
+                    p.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                loadingDialog.show();
+            }
+        };
+    }
 }

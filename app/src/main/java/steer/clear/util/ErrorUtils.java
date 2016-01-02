@@ -1,24 +1,11 @@
 package steer.clear.util;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.view.View;
-import android.widget.Button;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import steer.clear.R;
-import steer.clear.activity.ActivityAuthenticate;
-import steer.clear.view.ViewTypefaceButton;
-import steer.clear.view.ViewTypefaceTextView;
 
 public class ErrorUtils {
 
@@ -45,17 +32,15 @@ public class ErrorUtils {
         Resources resources = context.getResources();
         switch (code) {
             case 400:
-                return resources.getString(R.string.error_dialog_bad_creds_body);
-            case 409:
-                return resources.getString(R.string.error_dialog_user_exists_body);
+                return resources.getString(R.string.snackbar_unknown_error);
             case 404:
-                return resources.getString(R.string.error_dialog_no_internet_body);
+                return resources.getString(R.string.snackbar_no_internet);
             case 401:
-                return resources.getString(R.string.error_dialog_unauth_body);
+                return resources.getString(R.string.snackbar_unauthorized);
             case 503:
                 return resources.getString(R.string.error_dialog_not_running_body);
             default:
-                return resources.getString(R.string.error_dialog_general_body);
+                return resources.getString(R.string.snackbar_general_error);
         }
     }
 

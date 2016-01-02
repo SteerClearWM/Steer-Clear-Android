@@ -1,5 +1,6 @@
 package steer.clear.fragment;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
@@ -68,20 +69,24 @@ public class FragmentAuthenticate extends Fragment
     }
 
     public boolean onBackPressed() {
-        if (editPhone.getVisibility() == View.VISIBLE) {
-            editUsername.clearFocus();
-            editPassword.clearFocus();
-            editPhone.clearFocus();
-
+        boolean isPhoneVisible = editPhone.getVisibility() == View.VISIBLE;
+        if (isPhoneVisible) {
             ViewUtils.invisible(editPhone, ViewUtils.DEFAULT_VISBILITY_DURATION).start();
             ViewUtils.visible(prompt);
             button.animateTextColorChange(Color.TRANSPARENT, button.getCurrentTextColor());
             button.setText(R.string.fragment_authenticate_login_text);
-
-            return true;
         }
 
-        return false;
+        return isPhoneVisible;
+    }
+
+    @Override
+    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
+        if (enter) {
+            return super.onCreateAnimator(transit, enter, nextAnim);
+        } else {
+            return ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 1f, 0f).setDuration(350);
+        }
     }
 
     @Override
@@ -167,12 +172,10 @@ public class FragmentAuthenticate extends Fragment
     private boolean validatePhoneNumber() {
         String phone = editPhone.getEnteredText();
         boolean matches = phone.matches("([0-9]{10})");
-        boolean empty = phone.isEmpty();
-        Logg.log(empty, matches);
-        if (empty || !matches) {
+        if (!matches) {
             editPhone.setError(getResources().getString(R.string.fragment_authenticate_phone_fail));
         }
-        return matches && empty;
+        return matches;
     }
 
     private String formatPhoneNumber() {
@@ -208,8 +211,8 @@ public class FragmentAuthenticate extends Fragment
             public void run() {
                 Rect delegateArea = new Rect();
                 prompt.getHitRect(delegateArea);
-                delegateArea.top += prompt.getHeight() / 2;
-                delegateArea.bottom += prompt.getHeight() / 2;
+                delegateArea.top += prompt.getHeight();
+                delegateArea.bottom += prompt.getHeight();
 
                 TouchDelegate touchDelegate = new TouchDelegate(delegateArea, prompt);
 

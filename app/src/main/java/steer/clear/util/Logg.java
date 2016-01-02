@@ -102,7 +102,7 @@ public class Logg {
     }
 
     public static void log(String string, Throwable throwable) {
-        mainLog(string + throwable.getLocalizedMessage());
+        mainLog(string + ", " + throwable.getLocalizedMessage());
     }
 
     public static void log(String... strings) {
@@ -139,27 +139,5 @@ public class Logg {
         builder.append(string);
         builder.append(", ");
         log(bools);
-    }
-
-    public static void log(RectF rectF) {
-        builder.append(rectF.left);
-        builder.append(", ");
-        builder.append(rectF.top);
-        builder.append(", ");
-        builder.append(rectF.right);
-        builder.append(", ");
-        builder.append(rectF.bottom);
-        mainLog(builder.toString());
-    }
-
-    public static void log (Rect rectF) {
-        builder.append(rectF.left);
-        builder.append(", ");
-        builder.append(rectF.top);
-        builder.append(", ");
-        builder.append(rectF.right);
-        builder.append(", ");
-        builder.append(rectF.bottom);
-        mainLog(builder.toString());
     }
 }

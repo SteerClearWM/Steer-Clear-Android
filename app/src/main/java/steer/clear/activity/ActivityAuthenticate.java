@@ -15,6 +15,7 @@ import retrofit.client.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.util.Datastore;
 import steer.clear.MainApp;
@@ -22,39 +23,44 @@ import steer.clear.R;
 import steer.clear.fragment.FragmentAuthenticate;
 import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorUtils;
+import steer.clear.util.Logg;
 
 public class ActivityAuthenticate extends ActivityBase {
-
-    @Inject Client helper;
-    @Inject Datastore store;
-    @Inject EventBus bus;
 
     @Bind(R.id.fragment_authenticate_logo) AppCompatImageView logo;
 
     private String username, password, phone;
-    private Subscriber<Response> loginSubscriber, registerSubscriber;
     private FragmentAuthenticate fragmentAuthenticate;
 
     public static Intent newIntent(Context context, boolean shouldLogin) {
-        return new Intent(context, ActivityAuthenticate.class);
+        Intent intent = new Intent(context, ActivityAuthenticate.class);
+        intent.putExtra("shouldLogin", shouldLogin);
+        return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((MainApp) getApplication()).getApplicationComponent().inject(this);
 
-        bus.register(this);
+        Intent intent = getIntent();
 
+        if (intent != null && intent.getBooleanExtra("shouldLogin", false)) {
+            addFragmentAuthenticate();
+            return;
+        }
         if (store.hasCookie()) {
             startActivity(ActivityHome.newIntent(this));
         } else {
-            fragmentAuthenticate = FragmentAuthenticate.newInstance();
-
-            getFragmentManager().beginTransaction()
-                    .add(android.R.id.content, fragmentAuthenticate)
-                    .commit();
+            addFragmentAuthenticate();
         }
+    }
+
+    private void addFragmentAuthenticate() {
+        fragmentAuthenticate = FragmentAuthenticate.newInstance();
+
+        getFragmentManager().beginTransaction()
+                .add(android.R.id.content, fragmentAuthenticate)
+                .commit();
     }
 
     @Override
@@ -64,46 +70,35 @@ public class ActivityAuthenticate extends ActivityBase {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (registerSubscriber != null) {
-            registerSubscriber.unsubscribe();
-        }
-
-        if (loginSubscriber != null) {
-            loginSubscriber.unsubscribe();
-        }
-    }
-
+    @SuppressWarnings("unused")
     public void onEvent(EventAuthenticate eventAuthenticate) {
-        if (hasInternet()) {
-            username = eventAuthenticate.username;
-            password = eventAuthenticate.password;
-            phone = eventAuthenticate.phone;
+        username = eventAuthenticate.username;
+        password = eventAuthenticate.password;
+        phone = eventAuthenticate.phone;
 
-            if (phone == null) {
-                login();
-            } else {
-                register();
-            }
+        if (phone == null) {
+            login();
         } else {
-            Snackbar.make(fragmentAuthenticate.getView(),
-                    ErrorUtils.getMessage(this, ErrorUtils.NO_INTERNET),
-                    Snackbar.LENGTH_LONG).show();
+            register();
         }
     }
 
     private void register() {
-        registerSubscriber = new Subscriber<Response>() {
+        Subscriber<Response> registerSubscriber = new Subscriber<Response>() {
             @Override
             public void onCompleted() {
+                removeSubscription(this);
                 login();
             }
 
             @Override
             public void onError(Throwable throwable) {
-                fragmentAuthenticate.toggleAnimation();
+                if (ErrorUtils.getErrorCode(throwable) == 409) {
+                    onCompleted();
+                } else {
+                    fragmentAuthenticate.toggleAnimation();
+                    handleError(throwable, R.string.snackbar_unauthorized);
+                }
             }
 
             @Override
@@ -113,25 +108,28 @@ public class ActivityAuthenticate extends ActivityBase {
             }
         };
 
-        helper.register(username, password, phone)
-                .doOnError(throwable -> showAuthenticationFailedSnackbar())
+        addSubscription(helper.register(username, password, phone)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(registerSubscriber);
+                .subscribe(registerSubscriber));
 
         fragmentAuthenticate.toggleAnimation();
     }
 
     private void login() {
-        loginSubscriber = new Subscriber<Response>() {
+        Subscriber<Response> loginSubscriber = new Subscriber<Response>() {
             @Override
             public void onCompleted() {
-                fragmentAuthenticate.toggleAnimation();
+                if (fragmentAuthenticate != null) {
+                    fragmentAuthenticate.toggleAnimation();
+                }
                 startActivity(ActivityHome.newIntent(ActivityAuthenticate.this));
+                removeSubscription(this);
             }
 
             @Override
-            public void onError(Throwable e) {
+            public void onError(Throwable throwable) {
                 fragmentAuthenticate.toggleAnimation();
+                handleError(throwable, R.string.snackbar_invalid_creds);
             }
 
             @Override
@@ -145,19 +143,13 @@ public class ActivityAuthenticate extends ActivityBase {
             }
         };
 
-        helper.login(username, password)
-                .doOnError(throwable -> showAuthenticationFailedSnackbar())
+        addSubscription(helper.login(username, password)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginSubscriber);
+                .subscribe(loginSubscriber));
 
-        if (!fragmentAuthenticate.isAnimating()) {
+        if (fragmentAuthenticate != null && !fragmentAuthenticate.isAnimating()) {
             fragmentAuthenticate.toggleAnimation();
         }
-    }
-
-    public void showAuthenticationFailedSnackbar() {
-        Snackbar.make(fragmentAuthenticate.getView(),
-                R.string.fragment_authenticate_fail,
-                Snackbar.LENGTH_LONG).show();
     }
 }

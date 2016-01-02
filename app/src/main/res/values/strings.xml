@@ -10,6 +10,8 @@
 
     <string name="header_text">Steer Clear</string>
 
+    <string name="activity_home_menu_logout">Logout</string>
+
     <string name="fragment_authenticate_register_text">REGISTER</string>
     <string name="fragment_authenticate_login_text">LOGIN</string>
     <string name="fragment_authenticate_username_hint">W&amp;M USERNAME (ex. wtreveley) </string>
@@ -50,33 +52,17 @@
 
     <string name="dialog_progress_text">Loading…</string>
 
-    <string name="error_dialog_pos_button_text">OK</string>
-
-    <string name="error_dialog_bad_creds_title">Check It Twice!</string>
-    <string name="error_dialog_bad_creds_body">Looks like either your username or password
-        is incorrect.</string>
-
-    <string name="error_dialog_general_title">Something Went Wrong</string>
-    <string name="error_dialog_general_body">Don\'t look at me. It\'s not my fault. Try
-        retrying whatever you were trying to do.</string>
-
-    <string name="error_dialog_user_exists_title">The User DOES Exist!</string>
-    <string name="error_dialog_user_exists_body">It seems you already have an account.
-        Pressing "OK" will log you in.</string>
-
-    <string name="error_dialog_no_internet_title">Jefferson, We Have a Problem</string>
-    <string name="error_dialog_no_internet_body">Couldn\'t establish a connection. Try connecting to
-        data, or reconnecting your WiFi.</string>
+    <string name="snackbar_unknown_error">Unknown error occurred. Try again in a sec</string>
+    <string name="snackbar_general_error">Something went wrong moe.</string>
+    <string name="snackbar_no_internet">Couldn\'t establish an internet connection.</string>
+    <string name="snackbar_unauthorized">Need to log you in, sorry!</string>
+    <string name="snackbar_invalid_creds">Could not verify credentials</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
     <string name="dialog_no_gps_body">Couldn\'t grab your GPS, which we need. Do you want to go to your settings
         menu to enable? This app will close if you press \'Cancel\'.</string>
     <string name="dialog_no_gps_pos_button_text">Settings</string>
     <string name="dialog_no_gps_neg_button_text">Cancel</string>
-
-    <string name="error_dialog_unauth_title">Our bad!</string>
-    <string name="error_dialog_unauth_body">We need to log you in again. Pressing "OK" will
-        take you back to the login screen.</string>
 
     <string name="error_dialog_not_running_title">Donezo!</string>
     <string name="error_dialog_not_running_body">SteerClear has stopped servicing new ride requests.
@@ -91,6 +77,6 @@
 
     <string name="dialog_logout_title">Logout?</string>
     <string name="dialog_logout_body">Pressing \'Sure\' will finish your current session and take
-    you back to the login screen.</string>
+        you back to the login screen.</string>
     
 </resources>

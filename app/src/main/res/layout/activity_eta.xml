@@ -19,6 +19,7 @@
         android:layout_height="@dimen/view_eta_dimens"
         android:gravity="center"
         android:textSize="@dimen/view_eta_text_size"
+        android:textColor="@color/primary_dark"
         android:layout_centerInParent="true"
         app:drawCircle="true"
         tools:text="11:49" />
@@ -32,6 +33,7 @@
         android:layout_marginRight="@dimen/view_eta_prefix_horizontal_margin"
         android:text="@string/activity_eta_formatted_title"
         android:textSize="@dimen/view_eta_prefix_text_size"
+        android:textColor="@color/accent"
         android:layout_above="@id/activity_eta_time"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_centerHorizontal="true" />

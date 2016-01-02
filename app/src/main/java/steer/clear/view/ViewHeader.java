@@ -18,11 +18,13 @@ import javax.inject.Inject;
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.event.EventLogout;
 import steer.clear.util.TextUtils;
 
 public class ViewHeader extends AppCompatTextView {
 
     private Paint borderPaint;
+    private Drawable rightDrawable;
 
     @Inject EventBus bus;
 
@@ -56,11 +58,31 @@ public class ViewHeader extends AppCompatTextView {
         borderPaint.setStrokeJoin(Paint.Join.ROUND);
         borderPaint.setStrokeCap(Paint.Cap.ROUND);
         borderPaint.setStrokeWidth(20f);
+
+        if (getCompoundDrawables()[2] != null) {
+            rightDrawable = getCompoundDrawables()[2];
+            setCompoundDrawablePadding(rightDrawable.getIntrinsicWidth());
+            setPadding(rightDrawable.getIntrinsicWidth() * 3, getPaddingTop(),
+                    rightDrawable.getIntrinsicWidth(), getPaddingBottom());
+        }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawLine(0, canvas.getHeight(), canvas.getWidth(), canvas.getHeight(), borderPaint);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (rightDrawable != null) {
+                if (event.getX() > getWidth() - getPaddingRight() - rightDrawable.getIntrinsicWidth()) {
+                    bus.post(new EventLogout());
+                }
+            }
+        }
+
+        return super.onTouchEvent(event);
     }
 }

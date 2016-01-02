@@ -38,8 +38,8 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 
 	@Inject EventBus bus;
 
-	private final static String PICKUP = "pickupText";
-	private final static String DROPOFF = "dropoffText";
+	private final static String PICKUP = "editPickup";
+	private final static String DROPOFF = "editDropoff";
 
 	public FragmentHailRide(){}
 

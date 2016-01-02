@@ -3,7 +3,6 @@ package steer.clear.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.location.Address;
@@ -11,10 +10,10 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -65,35 +64,31 @@ import steer.clear.view.ViewMarkerSelectLayout;
 
 public class FragmentMap extends Fragment
 	implements View.OnClickListener, ViewAutoComplete.AutoCompleteListener,
-            OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener,
+        OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMapClickListener {
 
     @Bind(R.id.fragment_map_header) ViewHeader header;
-	@Bind(R.id.fragment_map_pickup) ViewAutoComplete pickupText;
-    @Bind(R.id.fragment_map_dropoff) ViewAutoComplete dropoffText;
+	@Bind(R.id.fragment_map_pickup) ViewAutoComplete editPickup;
+    @Bind(R.id.fragment_map_dropoff) ViewAutoComplete editDropoff;
 	@Bind(R.id.fragment_map_view) MapView mapView;
-    @Bind(R.id.fragment_map_post) ViewFooter confirm;
-    @Bind(R.id.fragment_map_current_location) ImageButton myLocation;
+    @Bind(R.id.fragment_map_post) ViewFooter confirmView;
+    @Bind(R.id.fragment_map_current_location) AppCompatImageButton myLocationButton;
     @Bind(R.id.fragment_map_marker_select_layout) ViewMarkerSelectLayout viewMarkerSelectLayout;
 
     @Inject EventBus bus;
     private LoadingDialog loadingDialog;
 
-	private LatLng pickupLatLng;
-	private CharSequence pickupName;
-    private LatLng dropoffLatLng;
-    private CharSequence dropoffName;
-
-	private final static String PICKUP_TEXT = "pickupText";
-    private final static String DROPOFF_TEXT = "dropoffText";
+	private LatLng pickupLatLng, dropoffLatLng;
+	private CharSequence pickupName, dropoffName;
+	private final static String PICKUP_TEXT = "editPickup";
+    private final static String DROPOFF_TEXT = "editDropoff";
     private final static String USER_LATITUDE = "lat";
     private final static String USER_LONGITUDE = "lng";
     private final static String PICKUP_MARKER_TITLE = "Pick Up Location";
     private final static String DROPOFF_MARKER_TITLE = "Drop Off Location";
 
     private Geocoder geocoder;
-    private Marker pickupMarker;
-    private Marker dropoffMarker;
+    private Marker pickupMarker, dropoffMarker;
     private AdapterAutoComplete mAdapter;
     private static final LatLngBounds BOUNDS_WILLIAMSBURG = new LatLngBounds(
 			new LatLng(37.244926, -76.747861), new LatLng(37.295667, -76.686084));
@@ -125,8 +120,8 @@ public class FragmentMap extends Fragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
-        outState.putString(PICKUP_TEXT, pickupText.getText().toString());
-        outState.putString(DROPOFF_TEXT, dropoffText.getText().toString());
+        outState.putString(PICKUP_TEXT, editPickup.getText().toString());
+        outState.putString(DROPOFF_TEXT, editDropoff.getText().toString());
     }
 
     @Override
@@ -152,8 +147,8 @@ public class FragmentMap extends Fragment
 
         bus.register(this);
     }
-	
-	@Override
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 		ButterKnife.bind(this, rootView);
@@ -161,13 +156,13 @@ public class FragmentMap extends Fragment
         mAdapter = new AdapterAutoComplete(getActivity(), R.layout.adapter_view,
                 getGoogleApiClient(), BOUNDS_WILLIAMSBURG);
 
-		pickupText.setAdapter(mAdapter);
-        pickupText.setAutoCompleteListener(this);
-        pickupText.setOnItemClickListener(pickupAdapterViewClick);
+		editPickup.setAdapter(mAdapter);
+        editPickup.setAutoCompleteListener(this);
+        editPickup.setOnItemClickListener(pickupAdapterViewClick);
 
-        dropoffText.setAdapter(mAdapter);
-        dropoffText.setAutoCompleteListener(this);
-        dropoffText.setOnItemClickListener(dropoffAdapterViewClick);
+        editDropoff.setAdapter(mAdapter);
+        editDropoff.setAutoCompleteListener(this);
+        editDropoff.setOnItemClickListener(dropoffAdapterViewClick);
 
 		mapView.onCreate(savedInstanceState);
 
@@ -179,8 +174,8 @@ public class FragmentMap extends Fragment
         super.onActivityCreated(savedInstanceState);
 
 	    if (savedInstanceState != null) {
-			pickupText.setText(savedInstanceState.getString(PICKUP_TEXT), false);
-            dropoffText.setText(savedInstanceState.getString(DROPOFF_TEXT), false);
+			editPickup.setText(savedInstanceState.getString(PICKUP_TEXT), false);
+            editDropoff.setText(savedInstanceState.getString(DROPOFF_TEXT), false);
 	    }
 
         mapView.getMapAsync(this);
@@ -299,9 +294,9 @@ public class FragmentMap extends Fragment
         switch (v.getId()) {
             case R.id.fragment_map_post:
                 if (pickupLatLng == null) {
-                    Snackbar.make(getView(), getResources().getString(R.string.fragment_map_pickup_snackbar_text), Snackbar.LENGTH_SHORT).show();
+                    editPickup.setError(getResources().getString(R.string.fragment_map_pickup_snackbar_text));
                 } else if (dropoffLatLng == null) {
-                    Snackbar.make(getView(), getResources().getString(R.string.fragment_map_dropoff_snackbar_text), Snackbar.LENGTH_SHORT).show();
+                    editDropoff.setError(getResources().getString(R.string.fragment_map_dropoff_snackbar_text));
                 } else if (pickupLatLng.equals(dropoffLatLng)) {
                     Snackbar.make(getView(), getResources().getString(R.string.fragment_map_same_location), Snackbar.LENGTH_SHORT).show();
                 } else {
@@ -340,6 +335,7 @@ public class FragmentMap extends Fragment
         }
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(EventAnimateToMarker eventAnimateToMarker) {
         switch (eventAnimateToMarker.buttonId) {
             case R.id.fragment_map_show_pickup_location:
@@ -362,7 +358,7 @@ public class FragmentMap extends Fragment
     private final AdapterView.OnItemClickListener pickupAdapterViewClick
             = (parent, view, position, id) -> {
 
-        closeKeyboard(pickupText);
+        editPickup.closeKeyboard();
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
@@ -383,7 +379,7 @@ public class FragmentMap extends Fragment
                         Toast.LENGTH_SHORT).show();
                 pickupLatLng = null;
                 pickupName = null;
-                pickupText.setText("");
+                editPickup.setText("");
                 loadingDialog.dismiss();
                 return;
             }
@@ -404,7 +400,7 @@ public class FragmentMap extends Fragment
     private final AdapterView.OnItemClickListener dropoffAdapterViewClick
             = (parent, view, position, id) -> {
 
-        closeKeyboard(dropoffText);
+        editDropoff.closeKeyboard();
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
@@ -425,7 +421,7 @@ public class FragmentMap extends Fragment
                         Toast.LENGTH_SHORT).show();
                 dropoffLatLng = null;
                 dropoffName = null;
-                dropoffText.setText("");
+                editDropoff.setText("");
                 loadingDialog.dismiss();
                 return;
             }
@@ -442,13 +438,6 @@ public class FragmentMap extends Fragment
             places.release();
         });
     };
-
-    private void closeKeyboard(View v) {
-        final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (v.getWindowToken() != null) {
-            imm.hideSoftInputFromWindow(pickupText.getWindowToken(), 0);
-        }
-    }
 
     private void dropMarkerOnMap(LatLng latLng, String whichMarker) {
         loadingDialog.show();
@@ -519,14 +508,14 @@ public class FragmentMap extends Fragment
                                 pickupLatLng = new LatLng(address.getLatitude(), address.getLongitude());
                                 pickupName = address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1);
-                                pickupText.setText(address.getAddressLine(0) + ", " +
+                                editPickup.setText(address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1), false);
                                 break;
                             case DROPOFF_MARKER_TITLE:
                                 dropoffLatLng = new LatLng(address.getLatitude(), address.getLongitude());
                                 dropoffName = address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1);
-                                dropoffText.setText(address.getAddressLine(0) + ", " +
+                                editDropoff.setText(address.getAddressLine(0) + ", " +
                                         address.getAddressLine(1), false);
                                 break;
                         }
