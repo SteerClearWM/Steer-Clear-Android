@@ -31,7 +31,6 @@
 
         <activity
             android:name=".activity.ActivityHome"
-            android:theme="@style/ActivityAuthenticateTheme"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" >
         </activity>
