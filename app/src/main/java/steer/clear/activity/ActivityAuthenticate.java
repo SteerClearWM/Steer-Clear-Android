@@ -46,11 +46,15 @@ public class ActivityAuthenticate extends ActivityBase {
 
         bus.register(this);
 
-        fragmentAuthenticate = FragmentAuthenticate.newInstance();
+        if (store.hasCookie()) {
+            startActivity(ActivityHome.newIntent(this));
+        } else {
+            fragmentAuthenticate = FragmentAuthenticate.newInstance();
 
-        getFragmentManager().beginTransaction()
-                .add(android.R.id.content, fragmentAuthenticate)
-                .commit();
+            getFragmentManager().beginTransaction()
+                    .add(android.R.id.content, fragmentAuthenticate)
+                    .commit();
+        }
     }
 
     @Override

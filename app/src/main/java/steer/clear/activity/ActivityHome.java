@@ -99,7 +99,6 @@ public class ActivityHome extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
-        getWindow().setBackgroundDrawable(null);
         stopLocationUpdates();
     }
 
@@ -131,7 +130,7 @@ public class ActivityHome extends AppCompatActivity
 	public void onBackPressed() {
         int count = getFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
-            moveTaskToBack(true);
+            super.onBackPressed();
 	    } else {
 	        getFragmentManager().popBackStack();
 		}
@@ -165,8 +164,6 @@ public class ActivityHome extends AppCompatActivity
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
                 FragmentMap.newInstance(userLatLng), MAP);
 		fragmentTransaction.commit();
-
-        new Handler().postDelayed(() -> getWindow().setBackgroundDrawable(null), 3000);
 	}
 
     private void stopLocationUpdates() {

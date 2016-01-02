@@ -75,4 +75,8 @@ public class Datastore {
     public String getCookie() {
         return getPrefs().getString(COOKIE, "");
     }
+
+    public boolean hasCookie() {
+        return !getPrefs().getString(COOKIE, "").isEmpty();
+    }
 }
