@@ -89,6 +89,7 @@
             app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
             app:drawBorder="true"
             app:fillOnClick="true"
+            app:drawableColor="@color/accent"
             android:background="@null" />
 
         <steer.clear.view.ViewTypefaceButton
@@ -105,6 +106,7 @@
             app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
             app:drawBorder="true"
             app:fillOnClick="true"
+            app:drawableColor="@color/primary_dark"
             android:background="@null" />
     </steer.clear.view.ViewMarkerSelectLayout>
 

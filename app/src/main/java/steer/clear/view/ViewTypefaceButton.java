@@ -1,6 +1,7 @@
 package steer.clear.view;
 
 import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -20,6 +21,8 @@ public class ViewTypefaceButton extends AppCompatButton {
 
     private boolean shouldDrawBorder;
     private float strokeWidth;
+    private boolean isChosen;
+    private int drawableColor;
 
     public ViewTypefaceButton(Context context) {
         super(context);
@@ -44,6 +47,9 @@ public class ViewTypefaceButton extends AppCompatButton {
 
             setTextSize(TypedValue.COMPLEX_UNIT_PX, typedArray.getDimension(R.styleable.ViewTypefaceButton_preferredTextSize,
                     getResources().getDimension(R.dimen.view_typeface_button_text_size)));
+
+            drawableColor = typedArray.getColor(R.styleable.ViewTypefaceButton_drawableColor,
+                    Color.WHITE);
 
             shouldDrawBorder = typedArray.getBoolean(R.styleable.ViewTypefaceButton_drawBorder,
                     false);
@@ -102,5 +108,39 @@ public class ViewTypefaceButton extends AppCompatButton {
         colorAnimation.setEvaluator(new ArgbEvaluator());
         colorAnimation.addUpdateListener(animator -> setTextColor((Integer) animator.getAnimatedValue()));
         colorAnimation.start();
+    }
+
+    public boolean isChosen() {
+        return isChosen;
+    }
+
+    public void setSelected() {
+        if (!isChosen) {
+            changeToDrawableColorBackground();
+            isChosen = true;
+        }
+    }
+
+    public void setNotSelected() {
+        if (isChosen) {
+            changeToWhiteBackground();
+            isChosen = false;
+        }
+    }
+
+    private void changeToDrawableColorBackground() {
+        ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+                Color.WHITE, drawableColor)
+                .setDuration(350)
+                .start();
+        animateTextColorChange(Color.BLACK, Color.WHITE);
+    }
+
+    private void changeToWhiteBackground() {
+        ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
+                drawableColor, Color.WHITE)
+                .setDuration(350)
+                .start();
+        animateTextColorChange(Color.WHITE, Color.BLACK);
     }
 }
