@@ -36,7 +36,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.event.EventLogout;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.event.EventPostPlacesChosen;
 import steer.clear.fragment.FragmentHailRide;
@@ -46,7 +45,7 @@ import steer.clear.retrofit.Client;
 import steer.clear.util.ErrorDialog;
 import steer.clear.util.LoadingDialog;
 import steer.clear.util.Locationer;
-import steer.clear.util.Logger;
+import steer.clear.util.Logg;
 
 public class ActivityHome extends AppCompatActivity
 	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {
@@ -226,7 +225,7 @@ public class ActivityHome extends AppCompatActivity
                 e.printStackTrace();
             }
         } else {
-            Logger.log("CONNECTION FAILED WITH CODE: " + connectionResult.getErrorCode());
+            Logg.log("CONNECTION FAILED WITH CODE: " + connectionResult.getErrorCode());
         }
 	}
 
@@ -293,26 +292,26 @@ public class ActivityHome extends AppCompatActivity
         }
     }
 
-    public void onEvent(EventLogout eventLogout) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.AlertDialogTheme)
-                .setTitle(getResources().getString(R.string.dialog_logout_title))
-                .setMessage(getResources().getString(R.string.dialog_logout_body))
-                .setPositiveButton(
-                        getResources().getString(R.string.dialog_cancel_ride_pos_button_text),
-                        (dialog, which) -> {
-                            loadingDialog.show();
-                            helper.logout()
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(this::onLogoutSuccessful, this::onLogoutUnsuccessful);
-                        }).setNegativeButton(
-                            getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
-                            (dialog, which) -> {
-                                dialog.dismiss();
-                        });
-
-        alertDialog.show();
-    }
+//    public void onEvent(EventLogout eventLogout) {
+//        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this, R.style.AlertDialogTheme)
+//                .setTitle(getResources().getString(R.string.dialog_logout_title))
+//                .setMessage(getResources().getString(R.string.dialog_logout_body))
+//                .setPositiveButton(
+//                        getResources().getString(R.string.dialog_cancel_ride_pos_button_text),
+//                        (dialog, which) -> {
+//                            loadingDialog.show();
+//                            helper.logout()
+//                                    .subscribeOn(Schedulers.io())
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .subscribe(this::onLogoutSuccessful, this::onLogoutUnsuccessful);
+//                        }).setNegativeButton(
+//                            getResources().getString(R.string.dialog_cancel_ride_neg_button_text),
+//                            (dialog, which) -> {
+//                                dialog.dismiss();
+//                        });
+//
+//        alertDialog.show();
+//    }
 
     public void onLogoutSuccessful(Response response) {
         loadingDialog.dismiss();

@@ -2,7 +2,6 @@ package steer.clear.view;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -10,16 +9,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.Xfermode;
-import android.os.Build;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.widget.TextView;
 
 import steer.clear.R;
-import steer.clear.util.FontUtils;
+import steer.clear.util.TextUtils;
 
-public class ViewTypefaceTextView extends TextView {
+public class ViewTypefaceTextView extends AppCompatTextView {
 
     private final static int BACKGROUND_ANIMATION = 350;
 
@@ -43,18 +39,12 @@ public class ViewTypefaceTextView extends TextView {
         init(attrs);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ViewTypefaceTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs);
-    }
-
     private void init(AttributeSet attrs) {
-        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
+        setTypeface(TextUtils.getStaticTypeFace(getContext(), TextUtils.FONT_NAME));
 
         circlePaint = new Paint();
         circlePaint.setAntiAlias(true);
-        circlePaint.setColor(getResources().getColor(R.color.wm_silver));
+        circlePaint.setColor(getResources().getColor(R.color.secondary_text));
         circlePaint.setStyle(Paint.Style.FILL);
         circlePaint.setStrokeJoin(Paint.Join.ROUND);
         circlePaint.setStrokeCap(Paint.Cap.ROUND);

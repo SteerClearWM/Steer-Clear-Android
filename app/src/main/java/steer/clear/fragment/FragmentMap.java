@@ -57,7 +57,6 @@ import steer.clear.event.EventAnimateToMarker;
 import steer.clear.event.EventPlacesChosen;
 import steer.clear.util.Hue;
 import steer.clear.util.LoadingDialog;
-import steer.clear.util.Logger;
 import steer.clear.view.ViewAutoComplete;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewHeader;
@@ -472,7 +471,7 @@ public class FragmentMap extends Fragment
                         .position(latLng)
                         .title(PICKUP_MARKER_TITLE)
                         .icon(BitmapDescriptorFactory.defaultMarker(
-                                Hue.getHue(getResources().getColor(R.color.spirit_gold))))
+                                Hue.getHue(getResources().getColor(R.color.accent))))
                         .draggable(true);
 
                 if (pickupMarker != null) {
@@ -487,7 +486,7 @@ public class FragmentMap extends Fragment
                         .position(latLng)
                         .title(DROPOFF_MARKER_TITLE)
                         .icon(BitmapDescriptorFactory.defaultMarker(
-                                Hue.getHue(getResources().getColor(R.color.wm_green))))
+                                Hue.getHue(getResources().getColor(R.color.accent))))
                         .draggable(true);
 
                 if (dropoffMarker != null) {

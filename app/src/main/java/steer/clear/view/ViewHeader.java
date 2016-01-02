@@ -1,6 +1,5 @@
 package steer.clear.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,22 +7,20 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
-import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.event.EventLogout;
-import steer.clear.util.FontUtils;
+import steer.clear.util.TextUtils;
 
-public class ViewHeader extends TextView {
+public class ViewHeader extends AppCompatTextView {
 
     private Paint borderPaint;
     private Drawable rightDrawable;
@@ -45,22 +42,16 @@ public class ViewHeader extends TextView {
         init();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ViewHeader(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
     private void init() {
         ((MainApp) getContext().getApplicationContext()).getApplicationComponent().inject(this);
-        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
+        setTypeface(TextUtils.getStaticTypeFace(getContext(), TextUtils.FONT_NAME));
         setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.header_text_size));
         setGravity(Gravity.CENTER);
         setTextColor(Color.WHITE);
-        setBackgroundColor(getResources().getColor(R.color.wm_green));
+        setBackgroundColor(getResources().getColor(R.color.primary_dark));
 
         borderPaint = new Paint();
-        borderPaint.setColor(getResources().getColor(R.color.spirit_gold));
+        borderPaint.setColor(getResources().getColor(R.color.accent));
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
         borderPaint.setStrokeJoin(Paint.Join.ROUND);
@@ -86,7 +77,7 @@ public class ViewHeader extends TextView {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (rightDrawable != null) {
                 if (event.getX() > getWidth() - getPaddingRight() - rightDrawable.getIntrinsicWidth()) {
-                    bus.post(new EventLogout());
+//                        bus.post(new EventLogout());
                 }
             }
         }

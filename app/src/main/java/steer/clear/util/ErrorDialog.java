@@ -12,20 +12,25 @@ import android.widget.Button;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 import steer.clear.R;
 import steer.clear.activity.ActivityAuthenticate;
+import steer.clear.view.ViewTypefaceButton;
 import steer.clear.view.ViewTypefaceTextView;
 
 public class ErrorDialog extends Dialog implements View.OnClickListener, DialogInterface.OnDismissListener {
 
     @Bind(R.id.error_dialog_title) ViewTypefaceTextView title;
     @Bind(R.id.error_dialog_body) ViewTypefaceTextView body;
-    @Bind(R.id.error_dialog_pos_button) Button posButton;
+    @Bind(R.id.error_dialog_pos_button) ViewTypefaceButton posButton;
 
     private String titleText;
     private String bodyText;
 
-    protected ErrorDialog(Context context, String titleText, String bodyText, int theme) {
+    public final static int NO_INTERNET = 404;
+
+    public ErrorDialog(Context context, String titleText, String bodyText, int theme) {
         super(context, theme);
         this.titleText = titleText;
         this.bodyText = bodyText;
@@ -51,19 +56,21 @@ public class ErrorDialog extends Dialog implements View.OnClickListener, DialogI
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.error_dialog_pos_button:
-                if (titleText.equals(getContext().getResources().getString(R.string.error_dialog_unauth_title))) {
-                    getContext().startActivity(
-                            ActivityAuthenticate.newIntent(getContext(), true),
-                            ActivityOptionsCompat.makeCustomAnimation(getContext(),
-                                    android.R.anim.fade_in,
-                                    android.R.anim.fade_out).toBundle());
-                    if (getContext() instanceof Activity) {
-                        ((Activity) getContext()).finish();
-                    }
-                } else {
-                    dismiss();
-                }
+                dismiss();
                 break;
+        }
+    }
+
+    public static void createFromNetworkError(Context context, Throwable throwable) {
+        if (throwable instanceof RetrofitError) {
+            Response error = ((RetrofitError) throwable).getResponse();
+            if (error != null) {
+                createFromHttpErrorCode(context, error.getStatus()).show();
+            } else {
+                createFromHttpErrorCode(context, NO_INTERNET).show();
+            }
+        } else {
+            createFromHttpErrorCode(context, NO_INTERNET).show();
         }
     }
 

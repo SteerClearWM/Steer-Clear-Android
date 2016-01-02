@@ -1,10 +1,7 @@
 package steer.clear.retrofit;
 
-import android.util.Log;
-
 import retrofit.RequestInterceptor;
 import steer.clear.util.Datastore;
-import steer.clear.util.Logger;
 
 /**
  * Created by Miles Peele on 8/31/2015.

@@ -22,7 +22,7 @@ import steer.clear.retrofit.Client;
 import steer.clear.util.Datastore;
 import steer.clear.util.ErrorDialog;
 import steer.clear.util.LoadingDialog;
-import steer.clear.util.Logger;
+import steer.clear.util.Logg;
 import steer.clear.view.ViewFooter;
 import steer.clear.view.ViewTypefaceTextView;
 
@@ -142,7 +142,7 @@ public class ActivityEta extends AppCompatActivity implements View.OnClickListen
         throwable.printStackTrace();
         if (throwable instanceof RetrofitError) {
             RetrofitError error = (RetrofitError) throwable;
-            Logger.log("CODE: " + error.getResponse().getStatus());
+            Logg.log("CODE: " + error.getResponse().getStatus());
             ErrorDialog.createFromHttpErrorCode(this, error.getResponse() != null ?
                     error.getResponse().getStatus() : 404).show();
         } else {

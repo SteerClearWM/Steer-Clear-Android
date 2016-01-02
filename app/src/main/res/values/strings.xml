@@ -5,6 +5,9 @@
     <string name="url_base">https://steerclear.wm.edu/api</string>
     <string name="url_authenticate">https://steerclear.wm.edu/</string>
 
+    <string name="contact_email">steerclear@email.wm.edu</string>
+    <string name="contact_email_title">Steer-Clear-Android</string>
+
     <string name="header_text">Steer Clear</string>
 
     <string name="fragment_authenticate_register_text">REGISTER</string>
@@ -13,9 +16,10 @@
     <string name="fragment_authenticate_password_hint">W&amp;M PASSWORD</string>
     <string name="fragment_authenticate_phone_hint">PHONE (ex. 7577577577) </string>
     <string name="fragment_authenticate_register_prompt">Don\'t have an account? REGISTER</string>
-    <string name="fragment_authenticate_contact_prompt">Questions, Comments, Concerns? Contact Us!</string>
-    <string name="fragment_authenticate_error_login">Must be a valid W&amp;M Username and Password.</string>
-    <string name="fragment_authenticate_error_register">Must be a valid W&amp;M Username, Password and Phone Number</string>
+    <string name="fragment_authenticate_fail">Unable to verify your account</string>
+    <string name="fragment_authenticate_username_fail">Must be lowercase.</string>
+    <string name="fragment_authenticate_password_fail">Must not be empty</string>
+    <string name="fragment_authenticate_phone_fail">Must match xxx-xxx-xxxx</string>
 
     <string name="fragment_map_marker_drop_hint">Select "Pick Up" or "Drop Off" then click a
         location on the map</string>

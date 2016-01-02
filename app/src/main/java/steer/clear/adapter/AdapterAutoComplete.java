@@ -1,11 +1,9 @@
 package steer.clear.adapter;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -13,7 +11,6 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.AutocompletePredictionBuffer;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import java.util.ArrayList;
@@ -21,7 +18,7 @@ import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import steer.clear.util.ErrorDialog;
-import steer.clear.util.Logger;
+import steer.clear.util.Logg;
 
 public class AdapterAutoComplete
         extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {
@@ -118,8 +115,8 @@ public class AdapterAutoComplete
             // Confirm that the query completed successfully, otherwise return null
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
-                Logger.log("Error contacting API: " + status.toString());
-                Logger.log("STATUS CODE: " + status.getStatusCode());
+                Logg.log("Error contacting API: " + status.toString());
+                Logg.log("STATUS CODE: " + status.getStatusCode());
                 ErrorDialog.createFromGoogleCode(getContext(), status.getStatusCode());
                 autocompletePredictions.release();
                 return null;

@@ -1,97 +1,99 @@
 package steer.clear.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
+import android.animation.ValueAnimator;
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Interpolator;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.animation.LinearInterpolator;
+import android.widget.LinearLayout;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
-import steer.clear.activity.ActivityAuthenticate;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.util.Datastore;
-import steer.clear.view.ViewAuthenticateEditText;
+import steer.clear.util.Logg;
+import steer.clear.util.ViewUtils;
+import steer.clear.view.ViewTypefaceEditText;
 import steer.clear.view.ViewTypefaceButton;
 import steer.clear.view.ViewTypefaceTextView;
 
 public class FragmentAuthenticate extends Fragment
-        implements View.OnClickListener, View.OnLongClickListener {
+        implements View.OnClickListener {
 
     private final static String USERNAME_KEY = "user";
     private final static String PASSWORD_KEY = "pass";
-    private final static String REGISTERED_KEY = "registered";
-    private final static int ANIMATION_DURATION = 1500;
 
-    @Bind(R.id.fragment_authenticate_username) ViewAuthenticateEditText username;
-    @Bind(R.id.fragment_authenticate_password) ViewAuthenticateEditText password;
-    @Nullable @Bind(R.id.fragment_authenticate_phone) ViewAuthenticateEditText phone;
-    @Nullable @Bind(R.id.fragment_authenticate_register_prompt) TextView prompt;
+    @Bind(R.id.fragment_authenticate_root) LinearLayout root;
+    @Bind(R.id.fragment_authenticate_logo) AppCompatImageView logo;
+    @Bind(R.id.fragment_authenticate_username) ViewTypefaceEditText editUsername;
+    @Bind(R.id.fragment_authenticate_password) ViewTypefaceEditText editPassword;
+    @Bind(R.id.fragment_authenticate_phone) ViewTypefaceEditText editPhone;
+    @Bind(R.id.fragment_authenticate_register_prompt) ViewTypefaceTextView prompt;
     @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
-    @Bind(R.id.fragment_authenticate_contact_us) Button contactUs;
+
+    private ObjectAnimator rotation;
 
     @Inject EventBus bus;
     @Inject Datastore store;
 
-    private static final Interpolator INTERPOLATOR = new AccelerateDecelerateInterpolator();
-
     public FragmentAuthenticate() {}
 
-    public static FragmentAuthenticate newInstance(boolean hasRegistered) {
-        FragmentAuthenticate fragmentAuthenticate = new FragmentAuthenticate();
-        Bundle args = new Bundle();
-        args.putBoolean(REGISTERED_KEY, hasRegistered);
-        fragmentAuthenticate.setArguments(args);
-        return fragmentAuthenticate;
+    public static FragmentAuthenticate newInstance() {
+        return new FragmentAuthenticate();
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainApp) activity.getApplication()).getApplicationComponent().inject(this);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+    public boolean onBackPressed() {
+        if (editPhone.getVisibility() == View.VISIBLE) {
+            editUsername.clearFocus();
+            editPassword.clearFocus();
+            editPhone.clearFocus();
+
+            ViewUtils.invisible(editPhone, ViewUtils.DEFAULT_VISBILITY_DURATION).start();
+            ViewUtils.visible(prompt);
+            button.animateTextColorChange(Color.TRANSPARENT, button.getCurrentTextColor());
+            button.setText(R.string.fragment_authenticate_login_text);
+
+            return true;
+        }
+
+        return false;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = (getArguments().getBoolean(REGISTERED_KEY)) ?
-                inflater.inflate(R.layout.fragment_authenticate_login, container, false) :
-                inflater.inflate(R.layout.fragment_authenticate_register, container, false);
+        View v = inflater.inflate(R.layout.fragment_authenticate, container, false);
         ButterKnife.bind(this, v);
 
-        if (prompt != null) { prompt.setText(createRegisterPromptSpan()); }
+        prompt.setText(createRegisterPromptSpan());
 
-        username.setText(store.getUsername());
+        editUsername.setText(store.getUsername());
+
+        extendTouchArea();
 
         return v;
     }
@@ -100,38 +102,37 @@ public class FragmentAuthenticate extends Fragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
-            username.setText(savedInstanceState.getString(USERNAME_KEY));
-            password.setText(savedInstanceState.getString(PASSWORD_KEY));
+            editUsername.setText(savedInstanceState.getString(USERNAME_KEY));
+            editPassword.setText(savedInstanceState.getString(PASSWORD_KEY));
         }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putString(USERNAME_KEY, username.getEnteredText());
-        outState.putString(PASSWORD_KEY, password.getEnteredText());
+        outState.putString(USERNAME_KEY, editUsername.getEnteredText());
+        outState.putString(PASSWORD_KEY, editPassword.getEnteredText());
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        AnimatorSet animator = new AnimatorSet();
-        if (enter) {
-            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 0f, 1f),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 0f, 1f),
-                    ObjectAnimator.ofFloat(getActivity(), "alpha", 0f, 1f));
-        } else {
-            animator.playTogether(ObjectAnimator.ofFloat(getActivity(), "scaleX", 1f, .45f),
-                    ObjectAnimator.ofFloat(getActivity(), "alpha", 1f, .45f),
-                    ObjectAnimator.ofFloat(getActivity(), "scaleY", 1f, 0f));
+    @OnClick({R.id.fragment_authenticate_button})
+    public void onClick(View v) {
+        if (!isAnimating()) {
+            if (editPhone.getVisibility() != View.VISIBLE) {
+                if (validateUsername() && validatePassword()) {
+                    bus.post(new EventAuthenticate(editUsername.getEnteredText(),
+                            editPassword.getEnteredText()));
+                }
+            } else {
+                boolean user = validateUsername();
+                boolean pass = validatePassword();
+                boolean phone = validatePhoneNumber();
+                if (user && pass && phone) {
+                    bus.post(new EventAuthenticate(editUsername.getEnteredText(),
+                            editPassword.getEnteredText(), formatPhoneNumber()));
+                }
+            }
         }
-
-        animator.setDuration(ANIMATION_DURATION);
-        animator.setInterpolator(INTERPOLATOR);
-        return animator;
-    }
-
-    public void togglePulse() {
-        button.togglePulse();
     }
 
     private SpannableString createRegisterPromptSpan() {
@@ -139,83 +140,91 @@ public class FragmentAuthenticate extends Fragment
 
         SpannableString styledString = new SpannableString(getResources().getString(R.string.fragment_authenticate_register_prompt));
 
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                ((ActivityAuthenticate) getActivity()).goToRegister();
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) { ds.setUnderlineText(false); }
-        };
         styledString.setSpan(clickableSpan, 23, styledString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        styledString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.spirit_gold)),
+        styledString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.accent)),
                 23, styledString.length(), 0);
+
         return styledString;
     }
 
     private boolean validateUsername() {
-        return !username.getEnteredText().isEmpty();
+        boolean isLowerCase = editUsername.getEnteredText().matches("[a-z]+");
+        if (!isLowerCase) {
+            editUsername.setError(getResources().getString(R.string.fragment_authenticate_username_fail));
+        }
+        return isLowerCase;
     }
 
     private boolean validatePassword() {
-        return !password.getEnteredText().isEmpty();
+        boolean isEmpty = editPassword.getEnteredText().isEmpty();
+        if (isEmpty) {
+            editPassword.setError(getResources().getString(R.string.fragment_authenticate_password_fail));
+        }
+        return !isEmpty;
     }
 
     private boolean validatePhoneNumber() {
-        return phone.getEnteredText().matches("([0-9]{10})");
+        String phone = editPhone.getEnteredText();
+        boolean matches = phone.matches("([0-9]{10})");
+        boolean empty = phone.isEmpty();
+        Logg.log(empty, matches);
+        if (empty || !matches) {
+            editPhone.setError(getResources().getString(R.string.fragment_authenticate_phone_fail));
+        }
+        return matches && empty;
     }
 
     private String formatPhoneNumber() {
-        return "+1" + phone.getEnteredText();
+        return "+1" + editPhone.getEnteredText();
     }
 
-    public String getUsername() { return username.getEnteredText(); }
-
-    public String getPassword() { return password.getEnteredText(); }
-
-    @Override
-    @OnClick({R.id.fragment_authenticate_button, R.id.fragment_authenticate_contact_us})
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fragment_authenticate_button:
-                if (!button.isPulseRunning()) {
-                    if (getArguments().getBoolean(REGISTERED_KEY)) {
-                        if (validateUsername() && validatePassword()) {
-                            togglePulse();
-                            bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                                    "", getArguments().getBoolean(REGISTERED_KEY)));
-                        } else {
-                            button.shake();
-                            Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_login),
-                                    Snackbar.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        if (validateUsername() && validatePassword() && validatePhoneNumber()) {
-                            togglePulse();
-                            bus.post(new EventAuthenticate(username.getEnteredText(), password.getEnteredText(),
-                                    formatPhoneNumber(), getArguments().getBoolean(REGISTERED_KEY)));
-                        } else {
-                            button.shake();
-                            Snackbar.make(getView(), getResources().getString(R.string.fragment_authenticate_error_register),
-                                    Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-                break;
-            case R.id.fragment_authenticate_contact_us:
-                ((ActivityAuthenticate) getActivity()).contactUs();
-                break;
+    public void toggleAnimation() {
+        if (rotation == null) {
+            rotation = ObjectAnimator.ofFloat(logo, View.ROTATION,
+                    logo.getRotation(), logo.getRotation() + 360f);
+            rotation.setRepeatMode(ValueAnimator.RESTART);
+            rotation.setRepeatCount(ValueAnimator.INFINITE);
+            rotation.setInterpolator(new LinearInterpolator());
+            rotation.setDuration(1000);
+            rotation.start();
+        } else {
+            if (rotation.isRunning()) {
+                rotation.setRepeatCount(0);
+                rotation.setRepeatMode(0);
+            } else {
+                rotation.start();
+            }
         }
     }
 
-    @Override
-    @OnLongClick(R.id.fragment_authenticate_contact_us)
-    public boolean onLongClick(View v) {
-        Toast.makeText(getActivity(),
-                getResources().getString(R.string.fragment_authenticate_contact_prompt),
-                Toast.LENGTH_SHORT).show();
-        return true;
+    public boolean isAnimating() {
+        return rotation != null && rotation.isRunning();
     }
+
+    private void extendTouchArea() {
+        root.post(new Runnable() {
+            @Override
+            public void run() {
+                Rect delegateArea = new Rect();
+                prompt.getHitRect(delegateArea);
+                delegateArea.top += prompt.getHeight() / 2;
+                delegateArea.bottom += prompt.getHeight() / 2;
+
+                TouchDelegate touchDelegate = new TouchDelegate(delegateArea, prompt);
+
+                ((View) prompt.getParent()).setTouchDelegate(touchDelegate);
+            }
+        });
+    }
+
+    private final ClickableSpan clickableSpan = new ClickableSpan() {
+        @Override
+        public void onClick(View widget) {
+            ViewUtils.visible(editPhone);
+            ViewUtils.invisible(prompt, ViewUtils.DEFAULT_VISBILITY_DURATION).start();
+            button.animateTextColorChange(Color.TRANSPARENT, button.getCurrentTextColor());
+            button.setText(R.string.fragment_authenticate_register_text);
+        }
+    };
 }

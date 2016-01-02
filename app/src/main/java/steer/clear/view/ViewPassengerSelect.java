@@ -1,26 +1,18 @@
 package steer.clear.view;
 
-import android.animation.Animator;
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import steer.clear.R;
-import steer.clear.util.Logger;
 
 public class ViewPassengerSelect extends ScrollView implements View.OnClickListener {
 
@@ -73,7 +65,7 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
         if (v instanceof ViewTypefaceTextView && canAnimate) {
             canAnimate = false;
             ViewTypefaceTextView textView = (ViewTypefaceTextView) v;
-            textView.animateBackgroundToColor(getResources().getColor(R.color.spirit_gold));
+            textView.animateBackgroundToColor(getResources().getColor(R.color.accent));
 
             count = Integer.valueOf(textView.getText().toString());
 

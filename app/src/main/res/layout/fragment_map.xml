@@ -46,8 +46,7 @@
         android:drawableLeft="@drawable/gold_block"
         android:drawableStart="@drawable/gold_block"
         android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:drawableEnd="@drawable/ic_clear_black_24dp"
-        app:highlightColor="@color/spirit_gold" />
+        android:drawableEnd="@drawable/ic_clear_black_24dp" />
 
     <steer.clear.view.ViewAutoComplete
         android:id="@+id/fragment_map_dropoff"
@@ -64,8 +63,7 @@
         android:drawableStart="@drawable/green_block"
         android:drawableLeft="@drawable/green_block"
         android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:drawableEnd="@drawable/ic_clear_black_24dp"
-        app:highlightColor="@color/wm_green" />
+        android:drawableEnd="@drawable/ic_clear_black_24dp" />
 
     <steer.clear.view.ViewMarkerSelectLayout
         android:id="@+id/fragment_map_marker_select_layout"
@@ -91,7 +89,6 @@
             app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
             app:drawBorder="true"
             app:fillOnClick="true"
-            app:drawableColor="@color/spirit_gold"
             android:background="@null" />
 
         <steer.clear.view.ViewTypefaceButton
@@ -108,7 +105,6 @@
             app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
             app:drawBorder="true"
             app:fillOnClick="true"
-            app:drawableColor="@color/wm_green"
             android:background="@null" />
     </steer.clear.view.ViewMarkerSelectLayout>
 

@@ -18,7 +18,6 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -31,8 +30,7 @@ import java.lang.ref.WeakReference;
 import steer.clear.R;
 import steer.clear.adapter.AdapterAutoComplete;
 import steer.clear.util.ErrorDialog;
-import steer.clear.util.FontUtils;
-import steer.clear.util.Logger;
+import steer.clear.util.TextUtils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
 
@@ -99,8 +97,8 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         setSingleLine(true);
         setGravity(Gravity.START | Gravity.CENTER);
         setHorizontallyScrolling(true);
-        setEllipsize(TextUtils.TruncateAt.END);
-        setTypeface(FontUtils.getStaticTypeFace(getContext(), "Avenir.otf"));
+        setEllipsize(android.text.TextUtils.TruncateAt.END);
+        setTypeface(TextUtils.getStaticTypeFace(getContext(), TextUtils.FONT_NAME));
         setCompoundDrawablePadding(15);
         setSaveEnabled(true);
 

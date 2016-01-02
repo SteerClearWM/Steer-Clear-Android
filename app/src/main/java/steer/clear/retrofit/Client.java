@@ -70,11 +70,6 @@ public class Client {
         authenticateInterface = adapter.create(Authenticate.class);
 	}
 
-    private boolean checkInternet() {
-        ConnectivityManager cm = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
-
     public Observable<Response> checkCookie() {
         return apiInterface.checkCookie();
     }
@@ -87,11 +82,10 @@ public class Client {
         return authenticateInterface.register(new RegisterPost(username, password, phone));
     }
 
-	public Observable<RideObject> addRide(final Integer num_passengers,
-                        final Double start_latitude, final Double start_longitude,
-			            final Double end_latitude, final Double end_longitude) {
-        return apiInterface.addRide(new RidePost(num_passengers, start_latitude,
-                start_longitude, end_latitude, end_longitude));
+	public Observable<RideObject> addRide(final Integer numPassengers,
+                        final Double startLag, final Double startLong,
+			            final Double endLat, final Double endLong) {
+        return apiInterface.addRide(new RidePost(numPassengers, startLag, startLong, endLat, endLong));
 	}
 
 	public Observable<Response> cancelRide(int cancelId) {

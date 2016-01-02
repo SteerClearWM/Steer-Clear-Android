@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -18,9 +19,10 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class FontUtils {
+public class TextUtils {
 
     private static HashMap<String, Typeface> mFontMap;
+    public final static String FONT_NAME = "Avenir.otf";
 
     private static void initializeFontMap(Context context) {
         mFontMap = new HashMap<>();

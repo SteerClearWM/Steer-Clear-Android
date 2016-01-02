@@ -17,18 +17,9 @@
 
     <dimen name="fragment_authenticate_logo_size">150dp</dimen>
     <dimen name="fragment_authenticate_logo_vertical_margin">50dp</dimen>
-    <dimen name="fragment_authenticate_register_top_margin">265dp</dimen>
-    <dimen name="fragment_authenticate_button_horizontal_margin">65dp</dimen>
-    <dimen name="fragment_authenticate_button_text_size">35sp</dimen>
-    <dimen name="fragment_authenticate_button_height">45dp</dimen>
-    <dimen name="fragment_authenticate_button_bottom_margin">50dp</dimen>
-    <dimen name="fragment_authenticate_edittext_text_size">30sp</dimen>
-    <dimen name="fragment_authenticate_edittext_horizontal_margin">30dp</dimen>
-    <dimen name="fragment_authenticate_edittext_height">45dp</dimen>
-    <dimen name="fragment_authenticate_edittext_vertical_margin">20dp</dimen>
-    <dimen name="fragment_authenticate_login_password_margin_bottom">85dp</dimen>
-    <dimen name="fragment_authenticate_contact_button_margin">15dp</dimen>
-    <dimen name="fragment_authenticate_contact_button_padding">7dp</dimen>
+    <dimen name="fragment_authenticate_text_size">30sp</dimen>
+    <dimen name="fragment_authenticate_horizontal_margin">30dp</dimen>
+    <dimen name="fragment_authenticate_vertical_margin">20dp</dimen>
 
     <dimen name="fragment_map_autocomplete_horizontal_margin">30dp</dimen>
     <dimen name="view_autocomplete_text_size">20sp</dimen>

@@ -26,11 +26,11 @@ public class Datastore {
         return prefs;
     }
 
-    public void userHasRegistered() {
+    public void putUserHasRegistered() {
         getEditor().putBoolean(HAS_REGISTER, true).commit();
     }
 
-    public boolean checkRegistered() {
+    public boolean isRegistered() {
         return getPrefs().getBoolean(HAS_REGISTER, false);
     }
 

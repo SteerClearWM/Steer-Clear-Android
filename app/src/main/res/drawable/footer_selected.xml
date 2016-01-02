@@ -4,6 +4,6 @@
     android:shape="rectangle" >
 
     <solid
-        android:color="@color/selected_wm_green" />
+        android:color="@color/primary_light" />
 
 </shape>

@@ -28,6 +28,7 @@ tmp/
 bin/
 
 # Android Studio
+/*/gradle.properties
 .gradle
 /*/local.properties
 /*/out

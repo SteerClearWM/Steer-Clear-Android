@@ -4,7 +4,7 @@
     android:shape="rectangle" >
 
     <solid
-        android:color="@color/spirit_gold" />
+        android:color="@color/accent" />
 
     <size
         android:height="40dp"

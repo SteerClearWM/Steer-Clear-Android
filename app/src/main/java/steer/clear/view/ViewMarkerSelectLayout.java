@@ -16,7 +16,6 @@ import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventAnimateToMarker;
-import steer.clear.util.Logger;
 
 public class ViewMarkerSelectLayout extends LinearLayout implements View.OnClickListener {
 
@@ -61,13 +60,9 @@ public class ViewMarkerSelectLayout extends LinearLayout implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_map_show_dropoff_location:
-                pickup.setSelected();
-                dropoff.setNotSelected();
                 bus.post(new EventAnimateToMarker(pickup.getId()));
                 break;
             case R.id.fragment_map_show_pickup_location:
-                dropoff.setSelected();
-                pickup.setNotSelected();
                 bus.post(new EventAnimateToMarker(dropoff.getId()));
                 break;
         }
