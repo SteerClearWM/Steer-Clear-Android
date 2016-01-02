@@ -21,7 +21,7 @@
         android:layout_below="@id/fragment_hail_ride_header"
         android:layout_marginBottom="@dimen/fragment_hail_ride_layout_bottom_margin" >
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             style="?android:attr/borderlessButtonStyle"
             android:id="@+id/fragment_hail_ride_change_pickup"
             android:layout_width="wrap_content"
@@ -30,7 +30,6 @@
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
         <steer.clear.view.ViewTypefaceTextView
@@ -38,14 +37,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@color/accent"
             android:text="@string/fragment_hail_ride_pickup_header"
             android:singleLine="true"
             android:maxLines="1"
             android:lines="1"
-            android:layout_marginLeft="@dimen/view_change_location_margin_start"
             android:layout_marginStart="@dimen/view_change_location_margin_start"
             android:layout_marginBottom="@dimen/fragment_hail_ride_internal_layout_bottom_margin"
-            android:layout_toLeftOf="@+id/fragment_hail_ride_change_pickup"
             android:layout_toStartOf="@+id/fragment_hail_ride_change_pickup"
             tools:text="HEADER GOES HERE"/>
 
@@ -57,9 +55,7 @@
             android:id="@+id/fragment_hail_ride_pickup_location"
             tools:text="FOOTER GOES HERE"
             android:layout_below="@id/fragment_hail_ride_pickup_location_header"
-            android:layout_alignLeft="@id/fragment_hail_ride_pickup_location_header"
             android:layout_alignStart="@id/fragment_hail_ride_pickup_location_header"
-            android:layout_toLeftOf="@+id/fragment_hail_ride_change_pickup"
             android:layout_toStartOf="@+id/fragment_hail_ride_change_pickup" />
 
     </RelativeLayout>
@@ -71,7 +67,7 @@
         android:layout_marginBottom="@dimen/fragment_hail_ride_layout_bottom_margin"
         android:layout_below="@id/fragment_hail_ride_pickup_layout" >
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             style="?android:attr/borderlessButtonStyle"
             android:id="@+id/fragment_hail_ride_change_dropoff"
             android:layout_width="wrap_content"
@@ -80,7 +76,6 @@
             android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
         <steer.clear.view.ViewTypefaceTextView
@@ -88,14 +83,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/view_change_location_text_size"
+            android:textColor="@color/primary_dark"
             android:text="@string/fragment_hail_ride_dropoff_header"
-            android:layout_marginLeft="@dimen/view_change_location_margin_start"
             android:layout_marginStart="@dimen/view_change_location_margin_start"
             android:layout_marginBottom="@dimen/fragment_hail_ride_internal_layout_bottom_margin"
             android:singleLine="true"
             android:maxLines="1"
             android:lines="1"
-            android:layout_toLeftOf="@+id/fragment_hail_ride_change_dropoff"
             android:layout_toStartOf="@+id/fragment_hail_ride_change_dropoff"
             tools:text="HEADER GOES HERE"/>
 
@@ -107,9 +101,7 @@
             android:id="@+id/fragment_hail_ride_dropoff_location"
             tools:text="FOOTER GOES HERE"
             android:layout_below="@id/fragment_hail_ride_dropoff_location_header"
-            android:layout_alignLeft="@id/fragment_hail_ride_dropoff_location_header"
             android:layout_alignStart="@id/fragment_hail_ride_dropoff_location_header"
-            android:layout_toLeftOf="@+id/fragment_hail_ride_change_dropoff"
             android:layout_toStartOf="@+id/fragment_hail_ride_change_dropoff" />
 
     </RelativeLayout>
@@ -120,8 +112,8 @@
         android:id="@+id/fragment_hail_ride_passenger_select_header"
         android:text="@string/fragment_hail_ride_passenger_select_prompt"
         android:gravity="center"
+        android:textColor="@color/accent"
         android:textSize="@dimen/view_change_location_text_size"
-        android:layout_marginLeft="@dimen/view_change_location_margin_start"
         android:layout_marginStart="@dimen/view_change_location_margin_start"
         android:layout_below="@id/fragment_hail_ride_dropoff_layout"/>
 
@@ -133,7 +125,7 @@
         android:layout_alignParentBottom="true" />
 
     <include
-        layout="@layout/fragment_hail_ride_passenger_select"
+        layout="@layout/fragment_hail_ride_change_passenger"
         android:id="@+id/fragment_hail_ride_passenger_select"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"

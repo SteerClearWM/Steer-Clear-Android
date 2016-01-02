@@ -36,12 +36,10 @@ public class Client {
 
     private Api apiInterface;
     private Authenticate authenticateInterface;
-    private Application application;
 
     @Inject Datastore store;
 
 	public Client(Application application) {
-        this.application = application;
         ((MainApp) application).getApplicationComponent().inject(this);
 
         Interceptor interceptor = new Interceptor(store);
