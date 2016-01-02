@@ -23,9 +23,6 @@
         <item name="icon">@color/icons</item>
         <item name="windowActionBarOverlay">true</item>
         <item name="dialogTheme">@style/AlertDialogTheme</item>
-    </style>
-
-    <style name="ActivityAuthenticateTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/road</item>
     </style>
 

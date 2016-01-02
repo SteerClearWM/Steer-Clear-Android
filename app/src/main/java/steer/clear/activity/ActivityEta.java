@@ -2,6 +2,8 @@ package steer.clear.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -71,6 +73,8 @@ public class ActivityEta extends ActivityBase implements View.OnClickListener {
         }
 
         loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
+
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
     }
 
     @Override

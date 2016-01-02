@@ -38,3 +38,5 @@ bin/
 *~
 *.swp
 build/
+
+./my-release-key.key
