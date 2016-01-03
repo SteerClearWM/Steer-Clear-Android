@@ -51,12 +51,16 @@ public class ActivityAuthenticate extends ActivityBase {
         }
 
         if (store.hasPreviousRideInfo()) {
-            startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
+            Intent eta = ActivityEta.newIntent(this, store.getEta(), store.getCancelId());
+            eta.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(eta);
             return;
         }
 
         if (store.hasCookie()) {
-            startActivity(ActivityHome.newIntent(this));
+            Intent home = ActivityHome.newIntent(this);
+            home.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(home);
         } else {
             addFragmentAuthenticate();
         }
@@ -130,7 +134,10 @@ public class ActivityAuthenticate extends ActivityBase {
                 if (fragmentAuthenticate != null) {
                     fragmentAuthenticate.toggleAnimation();
                 }
-                startActivity(ActivityHome.newIntent(ActivityAuthenticate.this));
+
+                Intent home = ActivityHome.newIntent(ActivityAuthenticate.this);
+                home.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(home);
             }
 
             @Override
