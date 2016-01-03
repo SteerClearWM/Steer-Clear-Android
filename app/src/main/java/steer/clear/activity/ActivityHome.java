@@ -286,6 +286,7 @@ public class ActivityHome extends ActivityBase
 
             @Override
             public void onError(Throwable e) {
+                onCompleted();
             }
 
             @Override
@@ -302,7 +303,6 @@ public class ActivityHome extends ActivityBase
 
         addSubscription(helper.logout()
                 .subscribeOn(Schedulers.io())
-                .retry()
                 .onErrorResumeNext(Observable.<Response>empty())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(logoutSubscriber));

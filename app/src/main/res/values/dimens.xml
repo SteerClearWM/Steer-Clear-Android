@@ -15,7 +15,7 @@
     <dimen name="fragment_map_my_location_dimens">48dp</dimen>
     <dimen name="fragment_map_my_location_padding">10dp</dimen>
 
-    <dimen name="fragment_authenticate_logo_size">150dp</dimen>
+    <dimen name="fragment_authenticate_logo_size">125dp</dimen>
     <dimen name="fragment_authenticate_logo_vertical_margin">50dp</dimen>
     <dimen name="fragment_authenticate_text_size">30sp</dimen>
     <dimen name="fragment_authenticate_horizontal_margin">30dp</dimen>

@@ -38,6 +38,8 @@ public class ErrorUtils {
                 return resources.getString(R.string.snackbar_no_internet);
             case 401:
                 return resources.getString(R.string.snackbar_unauthorized);
+            case 500:
+                return resources.getString(R.string.snackbar_internal_server_error);
             case 503:
                 return resources.getString(R.string.error_dialog_not_running_body);
             default:

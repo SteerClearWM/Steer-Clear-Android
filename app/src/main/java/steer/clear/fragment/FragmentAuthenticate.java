@@ -29,6 +29,8 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import steer.clear.MainApp;
 import steer.clear.R;
+import steer.clear.activity.ActivityAuthenticate;
+import steer.clear.activity.ActivityHome;
 import steer.clear.event.EventAuthenticate;
 import steer.clear.util.Datastore;
 import steer.clear.util.Logg;
@@ -120,23 +122,30 @@ public class FragmentAuthenticate extends Fragment
     }
 
     @Override
-    @OnClick({R.id.fragment_authenticate_button})
+    @OnClick({R.id.fragment_authenticate_button, R.id.fragment_authenticate_email})
     public void onClick(View v) {
-        if (!isAnimating()) {
-            if (editPhone.getVisibility() != View.VISIBLE) {
-                if (validateUsername() && validatePassword()) {
-                    bus.post(new EventAuthenticate(editUsername.getEnteredText(),
-                            editPassword.getEnteredText()));
+        switch (v.getId()) {
+            case R.id.fragment_authenticate_button:
+                if (!isAnimating()) {
+                    if (editPhone.getVisibility() != View.VISIBLE) {
+                        if (validateUsername() && validatePassword()) {
+                            bus.post(new EventAuthenticate(editUsername.getEnteredText(),
+                                    editPassword.getEnteredText()));
+                        }
+                    } else {
+                        boolean user = validateUsername();
+                        boolean pass = validatePassword();
+                        boolean phone = validatePhoneNumber();
+                        if (user && pass && phone) {
+                            bus.post(new EventAuthenticate(editUsername.getEnteredText(),
+                                    editPassword.getEnteredText(), formatPhoneNumber()));
+                        }
+                    }
                 }
-            } else {
-                boolean user = validateUsername();
-                boolean pass = validatePassword();
-                boolean phone = validatePhoneNumber();
-                if (user && pass && phone) {
-                    bus.post(new EventAuthenticate(editUsername.getEnteredText(),
-                            editPassword.getEnteredText(), formatPhoneNumber()));
-                }
-            }
+                break;
+            case R.id.fragment_authenticate_email:
+                ((ActivityAuthenticate) getActivity()).contact();
+                break;
         }
     }
 

@@ -105,6 +105,8 @@ public class ActivityBase extends AppCompatActivity {
     }
 
     public void handleError(String message) {
+        Logg.log(getClass().getName(), message);
+
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 }

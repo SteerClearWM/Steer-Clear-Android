@@ -57,6 +57,8 @@
     <string name="snackbar_no_internet">Couldn\'t establish an internet connection.</string>
     <string name="snackbar_unauthorized">Need to log you in, sorry!</string>
     <string name="snackbar_invalid_creds">Could not verify credentials</string>
+    <string name="snackbar_internal_server_error">Unknown error. Try closing the app and retrying</string>
+    <string name="snackbar_no_email">Can\'t open email app, try installing one</string>
 
     <string name="dialog_no_gps_title">GPS Settings</string>
     <string name="dialog_no_gps_body">Couldn\'t grab your GPS, which we need. Do you want to go to your settings
