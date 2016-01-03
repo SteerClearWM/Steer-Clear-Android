@@ -7,7 +7,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "Steer.Clear"
+        applicationId "steerclear.wm"
         minSdkVersion 18
         targetSdkVersion 23
         versionCode buildVersionCode()

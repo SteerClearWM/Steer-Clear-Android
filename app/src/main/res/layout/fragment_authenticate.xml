@@ -32,7 +32,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 
-    <Steer.Clear.view.ViewTypefaceEditText
+    <steerclear.wm.view.ViewTypefaceEditText
         android:id="@+id/fragment_authenticate_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:inputType="text"
         tools:text="USERNAME" />
 
-    <Steer.Clear.view.ViewTypefaceEditText
+    <steerclear.wm.view.ViewTypefaceEditText
         android:id="@+id/fragment_authenticate_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         android:hint="@string/fragment_authenticate_password_hint"
         tools:text="PASWORD" />
 
-    <Steer.Clear.view.ViewTypefaceEditText
+    <steerclear.wm.view.ViewTypefaceEditText
         android:id="@+id/fragment_authenticate_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
         android:textColor="@android:color/white"
         android:hint="@string/fragment_authenticate_phone_hint" />
 
-    <Steer.Clear.view.ViewTypefaceButton
+    <steerclear.wm.view.ViewTypefaceButton
         android:id="@+id/fragment_authenticate_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         android:textSize="@dimen/fragment_authenticate_text_size"
         app:preferredTextColor="@color/primary_dark" />
 
-    <Steer.Clear.view.ViewTypefaceTextView
+    <steerclear.wm.view.ViewTypefaceTextView
         android:id="@+id/fragment_authenticate_register_prompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

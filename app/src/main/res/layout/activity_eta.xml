@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <Steer.Clear.view.ViewHeader
+    <steerclear.wm.view.ViewHeader
         android:id="@+id/activity_eta_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_header_layout_height"
@@ -13,7 +13,7 @@
         android:text="@string/header_text"
         android:layout_marginBottom="@dimen/activity_eta_header_bottom_margin" />
 
-    <Steer.Clear.view.ViewTypefaceTextView
+    <steerclear.wm.view.ViewTypefaceTextView
         android:id="@+id/activity_eta_time"
         android:layout_width="@dimen/view_eta_dimens"
         android:layout_height="@dimen/view_eta_dimens"
@@ -24,7 +24,7 @@
         app:drawCircle="true"
         tools:text="11:49" />
 
-    <Steer.Clear.view.ViewTypefaceTextView
+    <steerclear.wm.view.ViewTypefaceTextView
         android:id="@+id/activity_eta_time_prefix"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:layout_centerHorizontal="true" />
 
-    <Steer.Clear.view.ViewFooter
+    <steerclear.wm.view.ViewFooter
         android:id="@+id/activity_eta_cancel_ride"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_footer_layout_height"

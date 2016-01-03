@@ -2,7 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="1"
-    package="Steer.Clear" >
+    package="steerclear.wm" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -13,12 +13,12 @@
 
     <application
         android:icon="@drawable/ic_launcher"
-        android:name="Steer.Clear.MainApp"
+        android:name="steerclear.wm.MainApp"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name="Steer.Clear.activity.ActivityAuthenticate"
+            android:name="steerclear.wm.activity.ActivityAuthenticate"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
             <intent-filter>
@@ -29,13 +29,13 @@
         </activity>
 
         <activity
-            android:name="Steer.Clear.activity.ActivityHome"
+            android:name="steerclear.wm.activity.ActivityHome"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name="Steer.Clear.activity.ActivityEta"
+            android:name="steerclear.wm.activity.ActivityEta"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
