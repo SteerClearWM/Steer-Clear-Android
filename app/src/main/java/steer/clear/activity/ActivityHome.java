@@ -343,8 +343,6 @@ public class ActivityHome extends ActivityBase
 
                     hour = calendar.get(Calendar.HOUR);
                     minute = calendar.get(Calendar.MINUTE);
-
-                    Logg.log(hour, minute, cancelId);
                 } catch (ParseException p) {
                     p.printStackTrace();
                 }

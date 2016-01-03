@@ -4,6 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 public class Datastore {
 
     private SharedPreferences prefs;
@@ -65,7 +70,17 @@ public class Datastore {
     }
 
     public boolean hasPreviousRideInfo() {
-        return !getPrefs().getString(ETA, "").isEmpty();
+        boolean hasPrevInfo = !getPrefs().getString(ETA, "").isEmpty();
+        if (hasPrevInfo) {
+            String[] time = getEta().split(":");
+            int hour = Integer.valueOf(time[0].replace(" ", ""));
+
+            Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.US);
+            int hourNow = calendar.get(Calendar.HOUR);
+
+            return Math.abs(hourNow - hour) <= 3;
+        }
+        return hasPrevInfo;
     }
 
     public void putCookie(String cookie) {

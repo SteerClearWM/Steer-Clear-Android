@@ -71,7 +71,7 @@
 
     <string name="dialog_cancel_ride_title">Cancel Ride</string>
     <string name="dialog_cancel_ride_body">Would you like to cancel your requested ride? This action
-        will take you back to the map screen..</string>
+        will take you back to the map screen.</string>
     <string name="dialog_cancel_ride_pos_button_text">Sure</string>
     <string name="dialog_cancel_ride_neg_button_text">Nah</string>
 

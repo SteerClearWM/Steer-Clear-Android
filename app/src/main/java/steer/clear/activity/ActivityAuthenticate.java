@@ -48,6 +48,12 @@ public class ActivityAuthenticate extends ActivityBase {
             addFragmentAuthenticate();
             return;
         }
+
+        if (store.hasPreviousRideInfo()) {
+            startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
+            return;
+        }
+
         if (store.hasCookie()) {
             startActivity(ActivityHome.newIntent(this));
         } else {
