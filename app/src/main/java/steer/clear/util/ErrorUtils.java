@@ -9,6 +9,7 @@ import steer.clear.R;
 
 public class ErrorUtils {
 
+    public final static int UNAUTHORIZED = 401;
     public final static int NO_INTERNET = 404;
 
     public static int getErrorCode(Throwable throwable) {

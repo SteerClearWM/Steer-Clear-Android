@@ -86,7 +86,7 @@ public class ActivityBase extends AppCompatActivity {
                     @Override
                     public void onDismissed(Snackbar snackbar, int event) {
                         super.onDismissed(snackbar, event);
-                        if (code == 409) {
+                        if (code == ErrorUtils.UNAUTHORIZED) {
                             startActivity(ActivityAuthenticate.newIntent(ActivityBase.this, true));
                             finish();
                         }
@@ -98,20 +98,9 @@ public class ActivityBase extends AppCompatActivity {
     public void handleError(Throwable throwable, @StringRes int resId) {
         Logg.log(getClass().getName(), throwable);
 
-        int code = ErrorUtils.getErrorCode(throwable);
         Snackbar.make(findViewById(android.R.id.content),
                 resId,
                 Snackbar.LENGTH_LONG)
-                .setCallback(new Snackbar.Callback() {
-                    @Override
-                    public void onDismissed(Snackbar snackbar, int event) {
-                        super.onDismissed(snackbar, event);
-                        if (code == 401) {
-                            startActivity(ActivityAuthenticate.newIntent(ActivityBase.this, true));
-                            finish();
-                        }
-                    }
-                })
                 .show();
     }
 
