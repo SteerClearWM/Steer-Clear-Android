@@ -6,13 +6,8 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
+import android.os.PersistableBundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.EventLog;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,18 +26,11 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import javax.inject.Inject;
-
-import de.greenrobot.event.EventBus;
 import retrofit.client.Response;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.observables.ConnectableObservable;
 import rx.schedulers.Schedulers;
-import steer.clear.MainApp;
 import steer.clear.R;
 import steer.clear.event.EventLogout;
 import steer.clear.event.EventPlacesChosen;
@@ -50,8 +38,6 @@ import steer.clear.event.EventPostPlacesChosen;
 import steer.clear.fragment.FragmentHailRide;
 import steer.clear.fragment.FragmentMap;
 import steer.clear.pojo.RideObject;
-import steer.clear.retrofit.Client;
-import steer.clear.util.ErrorUtils;
 import steer.clear.util.LoadingDialog;
 import steer.clear.util.Logg;
 
@@ -60,6 +46,8 @@ public class ActivityHome extends ActivityBase
 
     private final static String MAP = "map";
     private final static String POST = "post";
+    private final static String SAVE_PICKUP = "pickupLatLng";
+    private final static String SAVE_DROPOFF = "dropoffLatLng";
     private static final int REQUEST_RESOLVE_ERROR = 1001;
 
     private LatLng userLatLng, pickupLatLng, dropoffLatLng;
@@ -92,6 +80,27 @@ public class ActivityHome extends ActivityBase
                 .setInterval(60 * 100000)        // 30 seconds, in milliseconds
                 .setFastestInterval(10000); // 1 second, in milliseconds
 	}
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        if (pickupLatLng != null && dropoffLatLng != null) {
+            outState.putParcelable(SAVE_PICKUP, pickupLatLng);
+            outState.putParcelable(SAVE_DROPOFF, dropoffLatLng);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        LatLng pickup = savedInstanceState.getParcelable(SAVE_PICKUP);
+        LatLng dropoff = savedInstanceState.getParcelable(SAVE_DROPOFF);
+
+        if (pickup != null && dropoff != null) {
+            dropoffLatLng = pickup;
+            pickupLatLng = dropoff;
+        }
+    }
 
     @Override
     protected void onPause() {
@@ -139,7 +148,7 @@ public class ActivityHome extends ActivityBase
             Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (currentLocation != null) {
                 userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-				showMapStuff(userLatLng);
+				showMapFragment(userLatLng);
             } else {
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                         locationRequest, this);
@@ -171,7 +180,7 @@ public class ActivityHome extends ActivityBase
         userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
-	private void showMapStuff(LatLng userLatLng) {
+	private void showMapFragment(LatLng userLatLng) {
         stopLocationUpdates();
 
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -224,13 +233,14 @@ public class ActivityHome extends ActivityBase
         return mGoogleApiClient;
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(EventPlacesChosen eventPlacesChosen) {
         pickupLatLng = eventPlacesChosen.pickupLatLng;
         dropoffLatLng = eventPlacesChosen.dropoffLatLng;
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        FragmentHailRide fragment = FragmentHailRide.newInstance(eventPlacesChosen.pickupName,
-                eventPlacesChosen.dropoffName);
+        FragmentHailRide fragment = FragmentHailRide.newInstance(
+                eventPlacesChosen.pickupName, eventPlacesChosen.dropoffName);
         ft.addToBackStack(MAP);
         ft.replace(R.id.activity_home_fragment_frame, fragment, POST).commit();
     }
@@ -333,6 +343,8 @@ public class ActivityHome extends ActivityBase
 
                     hour = calendar.get(Calendar.HOUR);
                     minute = calendar.get(Calendar.MINUTE);
+
+                    Logg.log(hour, minute, cancelId);
                 } catch (ParseException p) {
                     p.printStackTrace();
                 }

@@ -97,7 +97,7 @@ public class ActivityAuthenticate extends ActivityBase {
                     onCompleted();
                 } else {
                     fragmentAuthenticate.toggleAnimation();
-                    handleError(throwable, R.string.snackbar_unauthorized);
+                    handleError(throwable, R.string.snackbar_invalid_creds);
                 }
             }
 
@@ -119,11 +119,11 @@ public class ActivityAuthenticate extends ActivityBase {
         Subscriber<Response> loginSubscriber = new Subscriber<Response>() {
             @Override
             public void onCompleted() {
+                removeSubscription(this);
                 if (fragmentAuthenticate != null) {
                     fragmentAuthenticate.toggleAnimation();
                 }
                 startActivity(ActivityHome.newIntent(ActivityAuthenticate.this));
-                removeSubscription(this);
             }
 
             @Override
