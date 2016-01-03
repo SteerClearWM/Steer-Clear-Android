@@ -39,4 +39,5 @@ bin/
 *.swp
 build/
 
-./my-release-key.key
+steerclear.keystore
+gradle.properties

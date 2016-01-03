@@ -1,10 +1,10 @@
-package steer.clear;
+package Steer.Clear;
 
 import android.app.Application;
 
-import steer.clear.dagger.ApplicationComponent;
-import steer.clear.dagger.ApplicationModule;
-import steer.clear.dagger.DaggerApplicationComponent;
+import Steer.Clear.dagger.ApplicationComponent;
+import Steer.Clear.dagger.ApplicationModule;
+import Steer.Clear.dagger.DaggerApplicationComponent;
 
 /**
  * Created by milespeele on 7/2/15.

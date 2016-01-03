@@ -1,4 +1,4 @@
-package steer.clear.retrofit;
+package Steer.Clear.retrofit;
 
 import retrofit.client.Response;
 import retrofit.http.Body;
@@ -6,8 +6,8 @@ import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 import rx.Observable;
-import steer.clear.pojo.LoginPost;
-import steer.clear.pojo.RegisterPost;
+import Steer.Clear.pojo.LoginPost;
+import Steer.Clear.pojo.RegisterPost;
 
 /**
  * Created by Miles Peele on 7/25/2015.

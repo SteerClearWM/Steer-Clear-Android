@@ -1,7 +1,5 @@
-package steer.clear.util;
+package Steer.Clear.util;
 
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.Log;
 
 /**

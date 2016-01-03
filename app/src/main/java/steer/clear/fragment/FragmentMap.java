@@ -1,4 +1,4 @@
-package steer.clear.fragment;
+package Steer.Clear.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -48,19 +47,19 @@ import de.greenrobot.event.EventBus;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.activity.ActivityHome;
-import steer.clear.adapter.AdapterAutoComplete;
-import steer.clear.event.EventAnimateToMarker;
-import steer.clear.event.EventPlacesChosen;
-import steer.clear.util.Hue;
-import steer.clear.util.LoadingDialog;
-import steer.clear.util.ViewUtils;
-import steer.clear.view.ViewAutoComplete;
-import steer.clear.view.ViewFooter;
-import steer.clear.view.ViewHeader;
-import steer.clear.view.ViewMarkerSelectLayout;
+import Steer.Clear.MainApp;
+import Steer.Clear.R;
+import Steer.Clear.activity.ActivityHome;
+import Steer.Clear.adapter.AdapterAutoComplete;
+import Steer.Clear.event.EventAnimateToMarker;
+import Steer.Clear.event.EventPlacesChosen;
+import Steer.Clear.util.Hue;
+import Steer.Clear.util.LoadingDialog;
+import Steer.Clear.util.ViewUtils;
+import Steer.Clear.view.ViewAutoComplete;
+import Steer.Clear.view.ViewFooter;
+import Steer.Clear.view.ViewHeader;
+import Steer.Clear.view.ViewMarkerSelectLayout;
 
 public class FragmentMap extends Fragment
 	implements View.OnClickListener, ViewAutoComplete.AutoCompleteListener,

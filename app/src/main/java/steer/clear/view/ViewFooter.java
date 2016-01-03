@@ -1,4 +1,4 @@
-package steer.clear.view;
+package Steer.Clear.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 
-import steer.clear.R;
-import steer.clear.util.TextUtils;
+import Steer.Clear.R;
+import Steer.Clear.util.TextUtils;
 
 public class ViewFooter extends AppCompatButton {
 

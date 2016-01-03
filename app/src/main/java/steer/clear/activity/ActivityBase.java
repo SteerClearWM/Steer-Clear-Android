@@ -1,26 +1,23 @@
-package steer.clear.activity;
+package Steer.Clear.activity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.retrofit.Client;
-import steer.clear.util.Datastore;
-import steer.clear.util.ErrorUtils;
-import steer.clear.util.Logg;
+import Steer.Clear.MainApp;
+import Steer.Clear.R;
+import Steer.Clear.retrofit.Client;
+import Steer.Clear.util.Datastore;
+import Steer.Clear.util.ErrorUtils;
+import Steer.Clear.util.Logg;
 
 /**
  * Created by mbpeele on 1/1/16.

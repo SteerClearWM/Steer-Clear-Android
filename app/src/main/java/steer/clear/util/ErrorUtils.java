@@ -1,11 +1,11 @@
-package steer.clear.util;
+package Steer.Clear.util;
 
 import android.content.Context;
 import android.content.res.Resources;
 
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import steer.clear.R;
+import Steer.Clear.R;
 
 public class ErrorUtils {
 

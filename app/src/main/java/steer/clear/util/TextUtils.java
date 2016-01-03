@@ -1,23 +1,11 @@
-package steer.clear.util;
+package Steer.Clear.util;
 
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class TextUtils {
 

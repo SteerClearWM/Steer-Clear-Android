@@ -1,4 +1,4 @@
-package steer.clear.activity;
+package Steer.Clear.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,30 +6,20 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-
-import java.util.Observable;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
-import retrofit.RetrofitError;
 import retrofit.client.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.event.EventLogout;
-import steer.clear.retrofit.Client;
-import steer.clear.util.Datastore;
-import steer.clear.util.LoadingDialog;
-import steer.clear.util.Logg;
-import steer.clear.view.ViewFooter;
-import steer.clear.view.ViewTypefaceTextView;
+import Steer.Clear.R;
+import Steer.Clear.event.EventLogout;
+import Steer.Clear.util.LoadingDialog;
+import Steer.Clear.view.ViewFooter;
+import Steer.Clear.view.ViewTypefaceTextView;
 
 public class ActivityEta extends ActivityBase implements View.OnClickListener {
 

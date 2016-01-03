@@ -1,4 +1,4 @@
-package steer.clear.view;
+package Steer.Clear.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,10 +16,10 @@ import android.view.MotionEvent;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.event.EventLogout;
-import steer.clear.util.TextUtils;
+import Steer.Clear.MainApp;
+import Steer.Clear.R;
+import Steer.Clear.event.EventLogout;
+import Steer.Clear.util.TextUtils;
 
 public class ViewHeader extends AppCompatTextView {
 

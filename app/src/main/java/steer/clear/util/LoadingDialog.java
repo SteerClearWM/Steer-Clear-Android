@@ -1,19 +1,17 @@
-package steer.clear.util;
+package Steer.Clear.util;
 
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import steer.clear.R;
-import steer.clear.view.ViewTypefaceTextView;
+import Steer.Clear.R;
+import Steer.Clear.view.ViewTypefaceTextView;
 
 public class LoadingDialog extends ProgressDialog {
 

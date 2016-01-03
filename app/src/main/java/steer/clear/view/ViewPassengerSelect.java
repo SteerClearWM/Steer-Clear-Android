@@ -1,4 +1,4 @@
-package steer.clear.view;
+package Steer.Clear.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,7 +12,7 @@ import android.widget.ScrollView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import steer.clear.R;
+import Steer.Clear.R;
 
 public class ViewPassengerSelect extends ScrollView implements View.OnClickListener {
 

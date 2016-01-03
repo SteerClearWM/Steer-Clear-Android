@@ -1,4 +1,4 @@
-package steer.clear.view;
+package Steer.Clear.view;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -12,8 +12,8 @@ import android.graphics.PorterDuffXfermode;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
-import steer.clear.R;
-import steer.clear.util.TextUtils;
+import Steer.Clear.R;
+import Steer.Clear.util.TextUtils;
 
 public class ViewTypefaceTextView extends AppCompatTextView {
 

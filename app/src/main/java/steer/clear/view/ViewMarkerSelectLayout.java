@@ -1,4 +1,4 @@
-package steer.clear.view;
+package Steer.Clear.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -13,9 +13,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.event.EventAnimateToMarker;
+import Steer.Clear.MainApp;
+import Steer.Clear.R;
+import Steer.Clear.event.EventAnimateToMarker;
 
 public class ViewMarkerSelectLayout extends LinearLayout implements View.OnClickListener {
 

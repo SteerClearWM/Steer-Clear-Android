@@ -1,22 +1,15 @@
-package steer.clear.view;
+package Steer.Clear.view;
 
-import android.animation.AnimatorSet;
-import android.animation.ArgbEvaluator;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -29,9 +22,8 @@ import android.widget.AutoCompleteTextView;
 
 import java.lang.ref.WeakReference;
 
-import steer.clear.R;
-import steer.clear.adapter.AdapterAutoComplete;
-import steer.clear.util.TextUtils;
+import Steer.Clear.R;
+import Steer.Clear.util.TextUtils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
 

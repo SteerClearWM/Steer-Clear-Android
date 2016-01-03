@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true" >
 
-    <steer.clear.view.ViewHeader
+    <Steer.Clear.view.ViewHeader
         android:id="@+id/fragment_map_header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_header_layout_height"
@@ -16,7 +16,7 @@
         android:drawableRight="@drawable/ic_power_settings_new_white_24dp"
         android:drawableEnd="@drawable/ic_power_settings_new_white_24dp" />
 
-    <steer.clear.view.ViewFooter
+    <Steer.Clear.view.ViewFooter
         android:id="@+id/fragment_map_post"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_footer_layout_height"
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
    	
-   	<steer.clear.view.ViewAutoComplete
+   	<Steer.Clear.view.ViewAutoComplete
         android:id="@+id/fragment_map_pickup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
         android:drawableRight="@drawable/ic_clear_black_24dp"
         android:drawableEnd="@drawable/ic_clear_black_24dp" />
 
-    <steer.clear.view.ViewAutoComplete
+    <Steer.Clear.view.ViewAutoComplete
         android:id="@+id/fragment_map_dropoff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         android:drawableRight="@drawable/ic_clear_black_24dp"
         android:drawableEnd="@drawable/ic_clear_black_24dp" />
 
-    <steer.clear.view.ViewMarkerSelectLayout
+    <Steer.Clear.view.ViewMarkerSelectLayout
         android:id="@+id/fragment_map_marker_select_layout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/view_footer_layout_height" >
 
-        <steer.clear.view.ViewTypefaceButton
+        <Steer.Clear.view.ViewTypefaceButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/fragment_map_show_pickup_location"
@@ -92,7 +92,7 @@
             app:drawableColor="@color/accent"
             android:background="@null" />
 
-        <steer.clear.view.ViewTypefaceButton
+        <Steer.Clear.view.ViewTypefaceButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/fragment_map_show_dropoff_location"
@@ -108,7 +108,7 @@
             app:fillOnClick="true"
             app:drawableColor="@color/primary_dark"
             android:background="@null" />
-    </steer.clear.view.ViewMarkerSelectLayout>
+    </Steer.Clear.view.ViewMarkerSelectLayout>
 
     <android.support.v7.widget.AppCompatImageButton
         android:layout_width="@dimen/fragment_map_my_location_dimens"

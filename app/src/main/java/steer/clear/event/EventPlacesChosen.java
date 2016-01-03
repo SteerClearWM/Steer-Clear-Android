@@ -1,4 +1,4 @@
-package steer.clear.event;
+package Steer.Clear.event;
 
 import com.google.android.gms.maps.model.LatLng;
 

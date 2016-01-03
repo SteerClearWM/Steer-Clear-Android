@@ -1,14 +1,9 @@
-package steer.clear.retrofit;
+package Steer.Clear.retrofit;
 
-import android.app.Activity;
 import android.app.Application;
-import android.app.Dialog;
-import android.content.Context;
-import android.net.ConnectivityManager;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import java.lang.ref.WeakReference;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
@@ -16,21 +11,16 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import retrofit.RestAdapter;
-import retrofit.RetrofitError;
 import retrofit.client.OkClient;
 import retrofit.client.Response;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.activity.ActivityAuthenticate;
-import steer.clear.pojo.LoginPost;
-import steer.clear.pojo.RegisterPost;
-import steer.clear.pojo.RideObject;
-import steer.clear.pojo.RidePost;
-import steer.clear.util.Datastore;
+import Steer.Clear.MainApp;
+import Steer.Clear.R;
+import Steer.Clear.pojo.LoginPost;
+import Steer.Clear.pojo.RegisterPost;
+import Steer.Clear.pojo.RideObject;
+import Steer.Clear.pojo.RidePost;
+import Steer.Clear.util.Datastore;
 
 public class Client {
 

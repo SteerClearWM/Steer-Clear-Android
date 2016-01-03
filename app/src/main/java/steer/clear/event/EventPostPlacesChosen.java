@@ -1,6 +1,4 @@
-package steer.clear.event;
-
-import com.google.android.gms.maps.model.LatLng;
+package Steer.Clear.event;
 
 /**
  * Created by Miles Peele on 8/19/2015.

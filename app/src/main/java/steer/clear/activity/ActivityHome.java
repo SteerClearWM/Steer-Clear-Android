@@ -1,4 +1,4 @@
-package steer.clear.activity;
+package Steer.Clear.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -31,15 +31,15 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import steer.clear.R;
-import steer.clear.event.EventLogout;
-import steer.clear.event.EventPlacesChosen;
-import steer.clear.event.EventPostPlacesChosen;
-import steer.clear.fragment.FragmentHailRide;
-import steer.clear.fragment.FragmentMap;
-import steer.clear.pojo.RideObject;
-import steer.clear.util.LoadingDialog;
-import steer.clear.util.Logg;
+import Steer.Clear.R;
+import Steer.Clear.event.EventLogout;
+import Steer.Clear.event.EventPlacesChosen;
+import Steer.Clear.event.EventPostPlacesChosen;
+import Steer.Clear.fragment.FragmentHailRide;
+import Steer.Clear.fragment.FragmentMap;
+import Steer.Clear.pojo.RideObject;
+import Steer.Clear.util.LoadingDialog;
+import Steer.Clear.util.Logg;
 
 public class ActivityHome extends ActivityBase
 	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {

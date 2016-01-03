@@ -1,4 +1,4 @@
-package steer.clear.pojo;
+package Steer.Clear.pojo;
 
 /**
  * Created by milespeele on 7/2/15.

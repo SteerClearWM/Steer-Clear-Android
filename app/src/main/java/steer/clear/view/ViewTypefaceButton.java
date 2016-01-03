@@ -1,4 +1,4 @@
-package steer.clear.view;
+package Steer.Clear.view;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
@@ -12,9 +12,9 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
-import steer.clear.R;
-import steer.clear.util.TextUtils;
-import steer.clear.util.ViewUtils;
+import Steer.Clear.R;
+import Steer.Clear.util.TextUtils;
+import Steer.Clear.util.ViewUtils;
 
 public class ViewTypefaceButton extends AppCompatButton {
 

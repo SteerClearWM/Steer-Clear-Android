@@ -1,30 +1,21 @@
-package steer.clear.activity;
+package Steer.Clear.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatImageView;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
-import de.greenrobot.event.EventBus;
 import retrofit.client.Header;
 import retrofit.client.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
-import steer.clear.event.EventAuthenticate;
-import steer.clear.util.Datastore;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.fragment.FragmentAuthenticate;
-import steer.clear.retrofit.Client;
-import steer.clear.util.ErrorUtils;
-import steer.clear.util.Logg;
+import Steer.Clear.event.EventAuthenticate;
+import Steer.Clear.R;
+import Steer.Clear.fragment.FragmentAuthenticate;
+import Steer.Clear.util.ErrorUtils;
 
 public class ActivityAuthenticate extends ActivityBase {
 

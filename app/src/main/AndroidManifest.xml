@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="steer.clear"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:versionCode="1"
-    android:versionName="1.0" >
+    package="Steer.Clear" >
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,30 +12,30 @@
     <uses-permission android:name="android.permission.LOCATION" />
 
     <application
-        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:name=".MainApp"
+        android:name="Steer.Clear.MainApp"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".activity.ActivityAuthenticate"
+            android:name="Steer.Clear.activity.ActivityAuthenticate"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" >
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".activity.ActivityHome"
+            android:name="Steer.Clear.activity.ActivityHome"
             android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name=".activity.ActivityEta"
+            android:name="Steer.Clear.activity.ActivityEta"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >

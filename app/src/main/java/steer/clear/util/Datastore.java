@@ -1,11 +1,10 @@
-package steer.clear.util;
+package Steer.Clear.util;
 
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 

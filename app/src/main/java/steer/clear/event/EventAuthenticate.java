@@ -1,4 +1,4 @@
-package steer.clear.event;
+package Steer.Clear.event;
 
 /**
  * Created by Miles Peele on 8/20/2015.

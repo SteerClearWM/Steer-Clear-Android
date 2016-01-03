@@ -1,4 +1,4 @@
-package steer.clear.adapter;
+package Steer.Clear.adapter;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-import steer.clear.util.Logg;
+import Steer.Clear.util.Logg;
 
 public class AdapterAutoComplete
         extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {

@@ -1,18 +1,15 @@
-package steer.clear.dagger;
+package Steer.Clear.dagger;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
-import steer.clear.activity.ActivityAuthenticate;
-import steer.clear.activity.ActivityBase;
-import steer.clear.activity.ActivityEta;
-import steer.clear.activity.ActivityHome;
-import steer.clear.fragment.FragmentAuthenticate;
-import steer.clear.fragment.FragmentHailRide;
-import steer.clear.fragment.FragmentMap;
-import steer.clear.retrofit.Client;
-import steer.clear.view.ViewHeader;
-import steer.clear.view.ViewMarkerSelectLayout;
+import Steer.Clear.activity.ActivityBase;
+import Steer.Clear.fragment.FragmentAuthenticate;
+import Steer.Clear.fragment.FragmentHailRide;
+import Steer.Clear.fragment.FragmentMap;
+import Steer.Clear.retrofit.Client;
+import Steer.Clear.view.ViewHeader;
+import Steer.Clear.view.ViewMarkerSelectLayout;
 
 /**
  * Created by Miles Peele on 6/20/2015.

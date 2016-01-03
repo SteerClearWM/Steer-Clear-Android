@@ -1,4 +1,4 @@
-package steer.clear.util;
+package Steer.Clear.util;
 
 import android.graphics.Color;
 

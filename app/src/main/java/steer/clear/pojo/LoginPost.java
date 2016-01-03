@@ -1,4 +1,4 @@
-package steer.clear.pojo;
+package Steer.Clear.pojo;
 
 public class LoginPost {
 

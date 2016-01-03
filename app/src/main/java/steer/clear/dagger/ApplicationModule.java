@@ -1,4 +1,4 @@
-package steer.clear.dagger;
+package Steer.Clear.dagger;
 
 import android.app.Application;
 
@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
-import steer.clear.retrofit.Client;
-import steer.clear.util.Datastore;
+import Steer.Clear.retrofit.Client;
+import Steer.Clear.util.Datastore;
 
 /**
  * Created by Miles Peele on 6/20/2015.

@@ -1,7 +1,7 @@
-package steer.clear.retrofit;
+package Steer.Clear.retrofit;
 
 import retrofit.RequestInterceptor;
-import steer.clear.util.Datastore;
+import Steer.Clear.util.Datastore;
 
 /**
  * Created by Miles Peele on 8/31/2015.

@@ -1,4 +1,4 @@
-package steer.clear.fragment;
+package Steer.Clear.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -27,17 +27,15 @@ import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.activity.ActivityAuthenticate;
-import steer.clear.activity.ActivityHome;
-import steer.clear.event.EventAuthenticate;
-import steer.clear.util.Datastore;
-import steer.clear.util.Logg;
-import steer.clear.util.ViewUtils;
-import steer.clear.view.ViewTypefaceEditText;
-import steer.clear.view.ViewTypefaceButton;
-import steer.clear.view.ViewTypefaceTextView;
+import Steer.Clear.MainApp;
+import Steer.Clear.R;
+import Steer.Clear.activity.ActivityAuthenticate;
+import Steer.Clear.event.EventAuthenticate;
+import Steer.Clear.util.Datastore;
+import Steer.Clear.util.ViewUtils;
+import Steer.Clear.view.ViewTypefaceEditText;
+import Steer.Clear.view.ViewTypefaceButton;
+import Steer.Clear.view.ViewTypefaceTextView;
 
 public class FragmentAuthenticate extends Fragment
         implements View.OnClickListener {

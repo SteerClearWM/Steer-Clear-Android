@@ -1,8 +1,7 @@
-package steer.clear.fragment;
+package Steer.Clear.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -19,13 +18,13 @@ import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
-import steer.clear.MainApp;
-import steer.clear.R;
-import steer.clear.event.EventPostPlacesChosen;
-import steer.clear.util.ViewUtils;
-import steer.clear.view.ViewFooter;
-import steer.clear.view.ViewPassengerSelect;
-import steer.clear.view.ViewTypefaceTextView;
+import Steer.Clear.MainApp;
+import Steer.Clear.R;
+import Steer.Clear.event.EventPostPlacesChosen;
+import Steer.Clear.util.ViewUtils;
+import Steer.Clear.view.ViewFooter;
+import Steer.Clear.view.ViewPassengerSelect;
+import Steer.Clear.view.ViewTypefaceTextView;
 
 public class FragmentHailRide extends Fragment implements OnClickListener {
 
