@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.LOCATION" />
 
     <application
+        android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
         android:name="steerclear.wm.MainApp"
         android:label="@string/app_name"
