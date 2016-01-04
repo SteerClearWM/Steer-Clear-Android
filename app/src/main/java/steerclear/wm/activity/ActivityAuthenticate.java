@@ -62,8 +62,12 @@ public class ActivityAuthenticate extends ActivityBase {
 
     @Override
     public void onBackPressed() {
-        if (!fragmentAuthenticate.onBackPressed()) {
+        if (fragmentAuthenticate == null) {
             super.onBackPressed();
+        } else {
+            if (!fragmentAuthenticate.onBackPressed()) {
+                super.onBackPressed();
+            }
         }
     }
 

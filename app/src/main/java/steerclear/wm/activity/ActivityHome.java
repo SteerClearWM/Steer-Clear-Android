@@ -172,7 +172,7 @@ public class ActivityHome extends ActivityBase
 	public void onBackPressed() {
         int count = getFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
-            super.onBackPressed();
+            finishAffinity();
 	    } else {
 	        getFragmentManager().popBackStack();
 		}
