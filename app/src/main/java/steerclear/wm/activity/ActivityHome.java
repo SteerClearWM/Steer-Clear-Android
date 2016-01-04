@@ -58,7 +58,6 @@ public class ActivityHome extends ActivityBase
 
     private LatLng userLatLng, pickupLatLng, dropoffLatLng;
     private LoadingDialog loadingDialog;
-    private LocationRequest locationRequest;
 	private GoogleApiClient mGoogleApiClient;
     private AlertDialog settings;
 
@@ -81,11 +80,6 @@ public class ActivityHome extends ActivityBase
                     .addConnectionCallbacks(this)
                     .addApi(LocationServices.API)
                     .build();
-
-            locationRequest = LocationRequest.create()
-                    .setPriority(LocationRequest.PRIORITY_LOW_POWER)
-                    .setInterval(60 * 100000)        // 30 seconds, in milliseconds
-                    .setFastestInterval(10000); // 1 second, in milliseconds
         }
 	}
 
@@ -105,11 +99,6 @@ public class ActivityHome extends ActivityBase
                             .addConnectionCallbacks(this)
                             .addApi(LocationServices.API)
                             .build();
-
-                    locationRequest = LocationRequest.create()
-                            .setPriority(LocationRequest.PRIORITY_LOW_POWER)
-                            .setInterval(60 * 100000)        // 30 seconds, in milliseconds
-                            .setFastestInterval(10000); // 1 second, in milliseconds
                 } else {
                     finishAffinity();
                 }
@@ -136,18 +125,6 @@ public class ActivityHome extends ActivityBase
             dropoffLatLng = pickup;
             pickupLatLng = dropoff;
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopLocationUpdates();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        resumeLocationUpdates();
     }
 
     @Override
@@ -186,8 +163,6 @@ public class ActivityHome extends ActivityBase
                 userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 				showMapFragment(userLatLng);
             } else {
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                        locationRequest, this);
                 showSettingsAlert();
             }
         }
@@ -230,28 +205,11 @@ public class ActivityHome extends ActivityBase
     }
 
 	private void showMapFragment(LatLng userLatLng) {
-        stopLocationUpdates();
-
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
                 FragmentMap.newInstance(userLatLng), MAP);
 		fragmentTransaction.commit();
 	}
-
-    private void stopLocationUpdates() {
-        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
-    }
-
-    private void resumeLocationUpdates() {
-        if (userLatLng == null) {
-            locationRequest = LocationRequest.create()
-                    .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY)
-                    .setInterval(60 * 100000)        // 30 seconds, in milliseconds
-                    .setFastestInterval(10000); // 1 second, in milliseconds
-        }
-    }
 
     public void showSettingsAlert() {
         if (settings == null) {
@@ -267,7 +225,7 @@ public class ActivityHome extends ActivityBase
 
             alertDialog.setNegativeButton(getResources().getString(R.string.dialog_no_gps_neg_button_text),
                     (dialog, which) -> {
-                        finish();
+                        finishAffinity();
                     });
             settings = alertDialog.create();
             settings.show();
