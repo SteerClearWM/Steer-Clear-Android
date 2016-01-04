@@ -70,6 +70,7 @@ public class Datastore {
 
     public boolean hasPreviousRideInfo() {
         boolean hasPrevInfo = !getPrefs().getString(ETA, "").isEmpty();
+
         if (hasPrevInfo) {
             String[] time = getEta().split(":");
             int hour = Integer.valueOf(time[0].replace(" ", ""));
@@ -79,6 +80,7 @@ public class Datastore {
 
             return Math.abs(hourNow - hour) <= 3;
         }
+
         return hasPrevInfo;
     }
 

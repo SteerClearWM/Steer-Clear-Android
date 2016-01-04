@@ -168,7 +168,9 @@ public class ActivityAuthenticate extends ActivityBase {
     public void contact() {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {"steerclear@email.wm.edu"});
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {
+                getResources().getString(R.string.contact_email)
+        });
         intent.putExtra(Intent.EXTRA_SUBJECT, "Steer Clear Question from the Android App");
 
         if (intent.resolveActivity(getPackageManager()) != null) {

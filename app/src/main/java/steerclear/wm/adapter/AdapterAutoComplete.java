@@ -17,7 +17,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
+import rx.Notification;
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 import steerclear.wm.util.Logg;
 
 public class AdapterAutoComplete
@@ -87,35 +92,30 @@ public class AdapterAutoComplete
      * @see Places#GEO_DATA_API#getAutocomplete(CharSequence)
      */
     private ArrayList<AdapterAutoCompleteItem> getAutocomplete(CharSequence constraint) {
-        if (mGoogleApiClient.isConnected()) {
-            PendingResult<AutocompletePredictionBuffer> results =
-            		Places.GeoDataApi
-                            .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
-                                    mBounds, null);
+        PendingResult<AutocompletePredictionBuffer> results =
+                Places.GeoDataApi
+                        .getAutocompletePredictions(mGoogleApiClient, constraint.toString(), mBounds, null);
 
-            AutocompletePredictionBuffer autocompletePredictions = results.await(15, TimeUnit.SECONDS);
+        AutocompletePredictionBuffer autocompletePredictions = results.await(15, TimeUnit.SECONDS);
 
-            final Status status = autocompletePredictions.getStatus();
-            if (!status.isSuccess()) {
-                Logg.log("Error contacting API: " + status.toString());
-                Logg.log("STATUS CODE: " + status.getStatusCode());
-                autocompletePredictions.release();
-                return null;
-            }
-
-            Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
-            ArrayList resultList = new ArrayList<>(autocompletePredictions.getCount());
-            while (iterator.hasNext()) {
-                AutocompletePrediction prediction = iterator.next();
-                resultList.add(new AdapterAutoCompleteItem(prediction.getPlaceId(), prediction.getDescription()));
-            }
-
+        final Status status = autocompletePredictions.getStatus();
+        if (!status.isSuccess()) {
+            Logg.log("Error contacting API: " + status.toString());
+            Logg.log("STATUS CODE: " + status.getStatusCode());
             autocompletePredictions.release();
-
-            return resultList;
+            return null;
         }
 
-        return null;
+        Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
+        ArrayList resultList = new ArrayList<>(autocompletePredictions.getCount());
+        while (iterator.hasNext()) {
+            AutocompletePrediction prediction = iterator.next();
+            resultList.add(new AdapterAutoCompleteItem(prediction.getPlaceId(), prediction.getDescription()));
+        }
+
+        autocompletePredictions.release();
+
+        return resultList;
     }
 
     /**

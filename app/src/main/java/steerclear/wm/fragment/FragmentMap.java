@@ -188,12 +188,10 @@ public class FragmentMap extends Fragment
         if (enter) {
             animatorSet.playTogether(
                     ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, .45f, 1f),
-                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, .45f, 1f),
                     ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 0f, 1f));
         } else {
             animatorSet.playTogether(
                     ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, 1f, .45f),
-                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_Y, 1f, .45f),
                     ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 1f, 0f));
         }
 
