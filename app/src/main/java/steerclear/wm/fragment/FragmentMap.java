@@ -3,6 +3,7 @@ package steerclear.wm.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.location.Address;
@@ -150,6 +151,12 @@ public class FragmentMap extends Fragment
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainApp) activity.getApplicationContext()).getApplicationComponent().inject(this);
+    }
+
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 		ButterKnife.bind(this, rootView);
@@ -206,8 +213,8 @@ public class FragmentMap extends Fragment
         settings.setCompassEnabled(false);
         settings.setMyLocationButtonEnabled(false);
         settings.setIndoorLevelPickerEnabled(false);
-        map.setMyLocationEnabled(true);
         map.setOnMapClickListener(this);
+        map.setMyLocationEnabled(true);
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 

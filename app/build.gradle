@@ -27,11 +27,19 @@ android {
         }
     }
 
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
         }
     }
 }
@@ -57,5 +65,11 @@ def Integer buildVersionCode() {
     def code = project.hasProperty('versionCode') ? versionCode.toInteger() : -1
     println "VersionCode is set to $code"
     return code
+}
+
+def String buildVersionName() {
+    def string = versionName
+    println "VersionName is set to $string"
+    return string
 }
 

@@ -3,11 +3,13 @@ package steerclear.wm.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -32,6 +34,7 @@ import steerclear.wm.R;
 import steerclear.wm.activity.ActivityAuthenticate;
 import steerclear.wm.event.EventAuthenticate;
 import steerclear.wm.util.Datastore;
+import steerclear.wm.util.Logg;
 import steerclear.wm.util.ViewUtils;
 import steerclear.wm.view.ViewTypefaceEditText;
 import steerclear.wm.view.ViewTypefaceButton;
@@ -50,6 +53,7 @@ public class FragmentAuthenticate extends Fragment
     @Bind(R.id.fragment_authenticate_phone) ViewTypefaceEditText editPhone;
     @Bind(R.id.fragment_authenticate_register_prompt) ViewTypefaceTextView prompt;
     @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
+    @Bind(R.id.fragment_authenticate_email) AppCompatImageButton emailButton;
 
     private ObjectAnimator rotation;
 
@@ -66,6 +70,12 @@ public class FragmentAuthenticate extends Fragment
     public void onAttach(Context context) {
         super.onAttach(context);
         ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainApp) activity.getApplicationContext()).getApplicationComponent().inject(this);
     }
 
     public boolean onBackPressed() {
@@ -223,7 +233,7 @@ public class FragmentAuthenticate extends Fragment
 
                 TouchDelegate touchDelegate = new TouchDelegate(delegateArea, prompt);
 
-                ((View) prompt.getParent()).setTouchDelegate(touchDelegate);
+                root.setTouchDelegate(touchDelegate);
             }
         });
     }

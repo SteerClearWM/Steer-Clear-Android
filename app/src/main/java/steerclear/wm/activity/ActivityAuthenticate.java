@@ -96,6 +96,9 @@ public class ActivityAuthenticate extends ActivityBase {
         Subscriber<Response> registerSubscriber = new Subscriber<Response>() {
             @Override
             public void onCompleted() {
+                store.putUserHasRegistered();
+                store.putUsername(username);
+
                 removeSubscription(this);
                 login();
             }
@@ -112,8 +115,6 @@ public class ActivityAuthenticate extends ActivityBase {
 
             @Override
             public void onNext(Response response) {
-                store.putUserHasRegistered();
-                store.putUsername(username);
             }
 
             @Override

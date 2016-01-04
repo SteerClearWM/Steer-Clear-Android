@@ -2,6 +2,7 @@ package steerclear.wm.fragment;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -56,6 +57,12 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 	public void onAttach(Context context) {
 		super.onAttach(context);
 		((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		((MainApp) activity.getApplicationContext()).getApplicationComponent().inject(this);
 	}
 
 	@Override

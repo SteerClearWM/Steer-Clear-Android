@@ -107,8 +107,8 @@ public class ActivityHome extends ActivityBase
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState){
-            super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         if (pickupLatLng != null && dropoffLatLng != null) {
             outState.putParcelable(SAVE_PICKUP, pickupLatLng);
             outState.putParcelable(SAVE_DROPOFF, dropoffLatLng);
@@ -116,8 +116,8 @@ public class ActivityHome extends ActivityBase
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-            super.onRestoreInstanceState(savedInstanceState);
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
         LatLng pickup = savedInstanceState.getParcelable(SAVE_PICKUP);
         LatLng dropoff = savedInstanceState.getParcelable(SAVE_DROPOFF);
 
