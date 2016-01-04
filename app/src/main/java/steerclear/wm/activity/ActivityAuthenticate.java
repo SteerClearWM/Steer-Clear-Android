@@ -27,8 +27,6 @@ public class ActivityAuthenticate extends ActivityBase {
 
     @Bind(R.id.fragment_authenticate_logo) AppCompatImageView logo;
 
-    private static final int REQUEST_LOCATION = 10;
-
     private String username, password, phone;
     private FragmentAuthenticate fragmentAuthenticate;
 
@@ -66,23 +64,6 @@ public class ActivityAuthenticate extends ActivityBase {
     public void onBackPressed() {
         if (!fragmentAuthenticate.onBackPressed()) {
             super.onBackPressed();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
-                                           @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_LOCATION: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (fragmentAuthenticate == null) {
-                        addFragmentAuthenticate();
-                    }
-                } else {
-                    finish();
-                }
-            }
         }
     }
 
