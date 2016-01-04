@@ -88,10 +88,6 @@ public class AdapterAutoComplete
      */
     private ArrayList<AdapterAutoCompleteItem> getAutocomplete(CharSequence constraint) {
         if (mGoogleApiClient.isConnected()) {
-            Observable.just(Places.GeoDataApi
-                    .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
-                            mBounds, null));
-
             PendingResult<AutocompletePredictionBuffer> results =
             		Places.GeoDataApi
                             .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
