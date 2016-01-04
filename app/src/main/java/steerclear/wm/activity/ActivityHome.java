@@ -1,12 +1,17 @@
 package steerclear.wm.activity;
 
+import android.Manifest;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -49,6 +54,7 @@ public class ActivityHome extends ActivityBase
     private final static String SAVE_PICKUP = "pickupLatLng";
     private final static String SAVE_DROPOFF = "dropoffLatLng";
     private static final int REQUEST_RESOLVE_ERROR = 1001;
+    private static final int REQUEST_LOCATION = 10;
 
     private LatLng userLatLng, pickupLatLng, dropoffLatLng;
     private LoadingDialog loadingDialog;
@@ -65,25 +71,55 @@ public class ActivityHome extends ActivityBase
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 
-        loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
+        if (arePermissionsGranted()) {
+            loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
 
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-				.enableAutoManage(this, 0, this)
-				.addApi(Places.GEO_DATA_API)
-				.addApi(Places.PLACE_DETECTION_API)
-				.addConnectionCallbacks(this)
-				.addApi(LocationServices.API)
-				.build();
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, 0, this)
+                    .addApi(Places.GEO_DATA_API)
+                    .addApi(Places.PLACE_DETECTION_API)
+                    .addConnectionCallbacks(this)
+                    .addApi(LocationServices.API)
+                    .build();
 
-        locationRequest = LocationRequest.create()
-                .setPriority(LocationRequest.PRIORITY_LOW_POWER)
-                .setInterval(60 * 100000)        // 30 seconds, in milliseconds
-                .setFastestInterval(10000); // 1 second, in milliseconds
+            locationRequest = LocationRequest.create()
+                    .setPriority(LocationRequest.PRIORITY_LOW_POWER)
+                    .setInterval(60 * 100000)        // 30 seconds, in milliseconds
+                    .setFastestInterval(10000); // 1 second, in milliseconds
+        }
 	}
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
+
+                    mGoogleApiClient = new GoogleApiClient.Builder(this)
+                            .enableAutoManage(this, 0, this)
+                            .addApi(Places.GEO_DATA_API)
+                            .addApi(Places.PLACE_DETECTION_API)
+                            .addConnectionCallbacks(this)
+                            .addApi(LocationServices.API)
+                            .build();
+
+                    locationRequest = LocationRequest.create()
+                            .setPriority(LocationRequest.PRIORITY_LOW_POWER)
+                            .setInterval(60 * 100000)        // 30 seconds, in milliseconds
+                            .setFastestInterval(10000); // 1 second, in milliseconds
+                } else {
+                    finishAffinity();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState){
+            super.onSaveInstanceState(outState, outPersistentState);
         if (pickupLatLng != null && dropoffLatLng != null) {
             outState.putParcelable(SAVE_PICKUP, pickupLatLng);
             outState.putParcelable(SAVE_DROPOFF, dropoffLatLng);
@@ -91,8 +127,8 @@ public class ActivityHome extends ActivityBase
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+            super.onRestoreInstanceState(savedInstanceState);
         LatLng pickup = savedInstanceState.getParcelable(SAVE_PICKUP);
         LatLng dropoff = savedInstanceState.getParcelable(SAVE_DROPOFF);
 
@@ -180,6 +216,19 @@ public class ActivityHome extends ActivityBase
         userLatLng = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
+    private boolean arePermissionsGranted() {
+        String fineLocation = Manifest.permission.ACCESS_FINE_LOCATION;
+
+        int finePermission = ContextCompat.checkSelfPermission(this, fineLocation);
+
+        if (finePermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {fineLocation}, REQUEST_LOCATION);
+            return false;
+        }
+
+        return true;
+    }
+
 	private void showMapFragment(LatLng userLatLng) {
         stopLocationUpdates();
 
@@ -190,7 +239,7 @@ public class ActivityHome extends ActivityBase
 	}
 
     private void stopLocationUpdates() {
-        if (mGoogleApiClient.isConnected()) {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
     }

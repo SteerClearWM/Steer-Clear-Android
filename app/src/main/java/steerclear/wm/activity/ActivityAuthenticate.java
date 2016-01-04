@@ -1,9 +1,14 @@
 package steerclear.wm.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 
 import butterknife.Bind;
@@ -16,10 +21,13 @@ import steerclear.wm.event.EventAuthenticate;
 import steerclear.wm.R;
 import steerclear.wm.fragment.FragmentAuthenticate;
 import steerclear.wm.util.ErrorUtils;
+import steerclear.wm.util.Logg;
 
 public class ActivityAuthenticate extends ActivityBase {
 
     @Bind(R.id.fragment_authenticate_logo) AppCompatImageView logo;
+
+    private static final int REQUEST_LOCATION = 10;
 
     private String username, password, phone;
     private FragmentAuthenticate fragmentAuthenticate;
@@ -33,6 +41,7 @@ public class ActivityAuthenticate extends ActivityBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_authenticate);
 
         Intent intent = getIntent();
 
@@ -42,27 +51,15 @@ public class ActivityAuthenticate extends ActivityBase {
         }
 
         if (store.hasPreviousRideInfo()) {
-            Intent eta = ActivityEta.newIntent(this, store.getEta(), store.getCancelId());
-            eta.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(eta);
+            startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
             return;
         }
 
         if (store.hasCookie()) {
-            Intent home = ActivityHome.newIntent(this);
-            home.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(home);
+            startActivity(ActivityHome.newIntent(this));
         } else {
             addFragmentAuthenticate();
         }
-    }
-
-    private void addFragmentAuthenticate() {
-        fragmentAuthenticate = FragmentAuthenticate.newInstance();
-
-        getFragmentManager().beginTransaction()
-                .add(android.R.id.content, fragmentAuthenticate)
-                .commit();
     }
 
     @Override
@@ -70,6 +67,31 @@ public class ActivityAuthenticate extends ActivityBase {
         if (!fragmentAuthenticate.onBackPressed()) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (fragmentAuthenticate == null) {
+                        addFragmentAuthenticate();
+                    }
+                } else {
+                    finish();
+                }
+            }
+        }
+    }
+
+    private void addFragmentAuthenticate() {
+        fragmentAuthenticate = FragmentAuthenticate.newInstance();
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.activity_authenticate_root, fragmentAuthenticate)
+                .commit();
     }
 
     @SuppressWarnings("unused")
@@ -108,13 +130,17 @@ public class ActivityAuthenticate extends ActivityBase {
                 store.putUserHasRegistered();
                 store.putUsername(username);
             }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                fragmentAuthenticate.toggleAnimation();
+            }
         };
 
         addSubscription(helper.register(username, password, phone)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(registerSubscriber));
-
-        fragmentAuthenticate.toggleAnimation();
     }
 
     private void login() {
@@ -122,13 +148,9 @@ public class ActivityAuthenticate extends ActivityBase {
             @Override
             public void onCompleted() {
                 removeSubscription(this);
-                if (fragmentAuthenticate != null) {
-                    fragmentAuthenticate.toggleAnimation();
-                }
 
-                Intent home = ActivityHome.newIntent(ActivityAuthenticate.this);
-                home.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                startActivity(home);
+                startActivity(ActivityHome.newIntent(ActivityAuthenticate.this));
+                finish();
             }
 
             @Override
@@ -146,16 +168,20 @@ public class ActivityAuthenticate extends ActivityBase {
                     }
                 }
             }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                if (fragmentAuthenticate != null && !fragmentAuthenticate.isAnimating()) {
+                    fragmentAuthenticate.toggleAnimation();
+                }
+            }
         };
 
         addSubscription(helper.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loginSubscriber));
-
-        if (fragmentAuthenticate != null && !fragmentAuthenticate.isAnimating()) {
-            fragmentAuthenticate.toggleAnimation();
-        }
     }
 
     public void contact() {
