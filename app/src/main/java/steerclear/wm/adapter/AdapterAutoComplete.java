@@ -17,25 +17,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
+import rx.Observable;
 import steerclear.wm.util.Logg;
 
 public class AdapterAutoComplete
         extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {
 
-    private static final String TAG = "PlaceAutocompleteAdapter";
-
     private ArrayList<AdapterAutoCompleteItem> mResultList;
-
-     final GoogleApiClient mGoogleApiClient;
-
+    private final GoogleApiClient mGoogleApiClient;
     private LatLngBounds mBounds;
-
-    private Context mContext;
 
     public AdapterAutoComplete(Context context, int resource, GoogleApiClient googleApiClient,
                                LatLngBounds bounds) {
         super(context, resource);
-        mContext = context;
         mGoogleApiClient = googleApiClient;
         mBounds = bounds;
     }
@@ -57,12 +51,9 @@ public class AdapterAutoComplete
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new FilterResults();
-                // Skip the autocomplete query if no constraints are given.
                 if (constraint != null) {
-                    // Query the autocomplete API for the (constraint) search string.
                     mResultList = getAutocomplete(constraint);
                     if (mResultList != null) {
-                        // The API successfully returned results.
                         results.values = mResultList;
                         results.count = mResultList.size();
                     }
@@ -73,10 +64,8 @@ public class AdapterAutoComplete
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results != null && results.count > 0) {
-                    // The API returned at least one result, update the data.
                     notifyDataSetChanged();
                 } else {
-                    // The API did not return any results, invalidate the data set.
                     notifyDataSetInvalidated();
                 }
             }
@@ -99,19 +88,17 @@ public class AdapterAutoComplete
      */
     private ArrayList<AdapterAutoCompleteItem> getAutocomplete(CharSequence constraint) {
         if (mGoogleApiClient.isConnected()) {
+            Observable.just(Places.GeoDataApi
+                    .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
+                            mBounds, null));
 
-            // Submit the query to the autocomplete API and retrieve a PendingResult that will
-            // contain the results when the query completes.
             PendingResult<AutocompletePredictionBuffer> results =
             		Places.GeoDataApi
                             .getAutocompletePredictions(mGoogleApiClient, constraint.toString(),
                                     mBounds, null);
 
-            // This method should have been called off the main UI thread. Block and wait for at most 15s
-            // for a result from the API.
             AutocompletePredictionBuffer autocompletePredictions = results.await(15, TimeUnit.SECONDS);
 
-            // Confirm that the query completed successfully, otherwise return null
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
                 Logg.log("Error contacting API: " + status.toString());
@@ -120,22 +107,18 @@ public class AdapterAutoComplete
                 return null;
             }
 
-            // Copy the results into our own data structure, because we can't hold onto the buffer.
-            // AutocompletePrediction objects encapsulate the API response (place ID and description).
-
             Iterator<AutocompletePrediction> iterator = autocompletePredictions.iterator();
             ArrayList resultList = new ArrayList<>(autocompletePredictions.getCount());
             while (iterator.hasNext()) {
                 AutocompletePrediction prediction = iterator.next();
-                // Get the details of this prediction and copy it into a new PlaceAutocomplete object
                 resultList.add(new AdapterAutoCompleteItem(prediction.getPlaceId(), prediction.getDescription()));
             }
 
-            // Release the buffer now that all data has been copied.
             autocompletePredictions.release();
 
             return resultList;
         }
+
         return null;
     }
 

@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -46,6 +47,7 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;
@@ -396,8 +398,7 @@ public class FragmentMap extends Fragment
         });
     };
 
-    private final AdapterView.OnItemClickListener dropoffAdapterViewClick
-            = (parent, view, position, id) -> {
+    private final AdapterView.OnItemClickListener dropoffAdapterViewClick = (parent, view, position, id) -> {
 
         editDropoff.closeKeyboard();
 

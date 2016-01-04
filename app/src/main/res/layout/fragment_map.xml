@@ -46,7 +46,8 @@
         android:drawableLeft="@drawable/gold_block"
         android:drawableStart="@drawable/gold_block"
         android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:drawableEnd="@drawable/ic_clear_black_24dp" />
+        android:drawableEnd="@drawable/ic_clear_black_24dp"
+        app:highlightColor="@color/accent" />
 
     <steerclear.wm.view.ViewAutoComplete
         android:id="@+id/fragment_map_dropoff"
@@ -63,7 +64,8 @@
         android:drawableStart="@drawable/green_block"
         android:drawableLeft="@drawable/green_block"
         android:drawableRight="@drawable/ic_clear_black_24dp"
-        android:drawableEnd="@drawable/ic_clear_black_24dp" />
+        android:drawableEnd="@drawable/ic_clear_black_24dp"
+        app:highlightColor="@color/primary_dark" />
 
     <steerclear.wm.view.ViewMarkerSelectLayout
         android:id="@+id/fragment_map_marker_select_layout"

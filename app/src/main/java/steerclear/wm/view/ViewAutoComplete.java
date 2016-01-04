@@ -3,6 +3,7 @@ package steerclear.wm.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -18,11 +19,18 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Filterable;
+import android.widget.ListAdapter;
+import android.widget.ProgressBar;
 
 import java.lang.ref.WeakReference;
 
 import steerclear.wm.R;
+import steerclear.wm.adapter.AdapterAutoComplete;
+import steerclear.wm.util.Logg;
 import steerclear.wm.util.TextUtils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
@@ -31,9 +39,9 @@ public class ViewAutoComplete extends AutoCompleteTextView {
     private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
     private static final int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
 
-    private Drawable clearDrawable;
-    private Drawable blockDrawable;
+    private Drawable clearDrawable, blockDrawable;
     private Drawable[] mCompoundDrawables;
+    private AdapterAutoComplete mAdapter;
 
     private MyHandler mHandler = new MyHandler(this);
     private final static class MyHandler extends Handler {
@@ -85,7 +93,7 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         setHorizontallyScrolling(true);
         setEllipsize(android.text.TextUtils.TruncateAt.END);
         setTypeface(TextUtils.getStaticTypeFace(getContext(), TextUtils.FONT_NAME));
-        setCompoundDrawablePadding(15);
+        setCompoundDrawablePadding(getResources().getDimensionPixelSize(R.dimen.fragment_map_autocomplete_view_padding));
 
         blockDrawable = getCompoundDrawables()[0];
         clearDrawable = getCompoundDrawables()[2];
@@ -93,7 +101,6 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -103,11 +110,15 @@ public class ViewAutoComplete extends AutoCompleteTextView {
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
         setCancelDrawableVisible(false);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
     }
 
     @Override
