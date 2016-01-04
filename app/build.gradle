@@ -11,6 +11,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 23
         versionCode buildVersionCode()
+        versionName buildVersionName()
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
@@ -68,7 +69,7 @@ def Integer buildVersionCode() {
 }
 
 def String buildVersionName() {
-    def string = versionName
+    def string = project.hasProperty('versionName') ? versionName : "Could not find versionName prop"
     println "VersionName is set to $string"
     return string
 }

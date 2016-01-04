@@ -154,6 +154,12 @@ public class FragmentMap extends Fragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         ((MainApp) activity.getApplicationContext()).getApplicationComponent().inject(this);
+
+        geocoder = new Geocoder(activity, Locale.US);
+
+        loadingDialog = new LoadingDialog(activity, R.style.ProgressDialogTheme);
+
+        bus.register(this);
     }
 
     @Override
