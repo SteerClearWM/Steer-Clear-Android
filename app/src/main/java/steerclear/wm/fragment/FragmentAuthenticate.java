@@ -4,11 +4,11 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.SpannableString;
@@ -72,12 +72,6 @@ public class FragmentAuthenticate extends Fragment
         ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainApp) activity.getApplicationContext()).getApplicationComponent().inject(this);
-    }
-
     public boolean onBackPressed() {
         boolean isPhoneVisible = editPhone.getVisibility() == View.VISIBLE;
         if (isPhoneVisible) {
@@ -88,15 +82,6 @@ public class FragmentAuthenticate extends Fragment
         }
 
         return isPhoneVisible;
-    }
-
-    @Override
-    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        if (enter) {
-            return super.onCreateAnimator(transit, enter, nextAnim);
-        } else {
-            return ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 1f, 0f).setDuration(350);
-        }
     }
 
     @Override
@@ -116,6 +101,7 @@ public class FragmentAuthenticate extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         if (savedInstanceState != null) {
             editUsername.setText(savedInstanceState.getString(USERNAME_KEY));
             editPassword.setText(savedInstanceState.getString(PASSWORD_KEY));

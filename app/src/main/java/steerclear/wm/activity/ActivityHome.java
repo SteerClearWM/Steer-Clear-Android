@@ -1,8 +1,8 @@
 package steerclear.wm.activity;
 
 import android.Manifest;
-import android.app.FragmentTransaction;
 import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -147,11 +147,11 @@ public class ActivityHome extends ActivityBase
 
 	@Override
 	public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
+        int count = getSupportFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
             finishAffinity();
 	    } else {
-	        getFragmentManager().popBackStack();
+            getSupportFragmentManager().popBackStack();
 		}
 	}
 
@@ -205,7 +205,7 @@ public class ActivityHome extends ActivityBase
     }
 
 	private void showMapFragment(LatLng userLatLng) {
-		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
                 FragmentMap.newInstance(userLatLng), MAP);
 		fragmentTransaction.commit();
@@ -245,7 +245,7 @@ public class ActivityHome extends ActivityBase
         pickupLatLng = eventPlacesChosen.pickupLatLng;
         dropoffLatLng = eventPlacesChosen.dropoffLatLng;
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         FragmentHailRide fragment = FragmentHailRide.newInstance(
                 eventPlacesChosen.pickupName, eventPlacesChosen.dropoffName);
         ft.addToBackStack(MAP);

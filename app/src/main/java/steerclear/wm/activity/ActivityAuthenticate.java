@@ -74,7 +74,7 @@ public class ActivityAuthenticate extends ActivityBase {
     private void addFragmentAuthenticate() {
         fragmentAuthenticate = FragmentAuthenticate.newInstance();
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .add(R.id.activity_authenticate_root, fragmentAuthenticate)
                 .commit();
     }

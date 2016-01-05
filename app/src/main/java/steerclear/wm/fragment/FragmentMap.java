@@ -4,12 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
@@ -78,7 +78,6 @@ public class FragmentMap extends Fragment
     @Bind(R.id.fragment_map_marker_select_layout) ViewMarkerSelectLayout viewMarkerSelectLayout;
 
     @Inject EventBus bus;
-    private LoadingDialog loadingDialog;
 
 	private LatLng pickupLatLng, dropoffLatLng;
 	private CharSequence pickupName, dropoffName;
@@ -105,19 +104,27 @@ public class FragmentMap extends Fragment
 		frag.setArguments(args);
 		return frag;
 	}
-	
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
+    }
+
 	@Override
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        bus.register(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mapView.onPause();
+        bus.unregister(this);
     }
-    
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -136,30 +143,6 @@ public class FragmentMap extends Fragment
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
-    }
-
-	@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
-
-        geocoder = new Geocoder(context, Locale.US);
-
-        loadingDialog = new LoadingDialog(context, R.style.ProgressDialogTheme);
-
-        bus.register(this);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainApp) activity.getApplicationContext()).getApplicationComponent().inject(this);
-
-        geocoder = new Geocoder(activity, Locale.US);
-
-        loadingDialog = new LoadingDialog(activity, R.style.ProgressDialogTheme);
-
-        bus.register(this);
     }
 
     @Override
@@ -196,31 +179,12 @@ public class FragmentMap extends Fragment
     }
 
     @Override
-    public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-        AnimatorSet animatorSet = new AnimatorSet();
-        if (enter) {
-            animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, .45f, 1f),
-                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 0f, 1f));
-        } else {
-            animatorSet.playTogether(
-                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.SCALE_X, 1f, .45f),
-                    ObjectAnimator.ofFloat(getActivity(), ViewUtils.ALPHA, 1f, 0f));
-        }
-
-        animatorSet.setDuration(1000);
-        animatorSet.setInterpolator(new FastOutSlowInInterpolator());
-        return animatorSet;
-    }
-
-    @Override
 	public void onMapReady(GoogleMap map) {
         UiSettings settings = map.getUiSettings();
         settings.setCompassEnabled(false);
         settings.setMyLocationButtonEnabled(false);
         settings.setIndoorLevelPickerEnabled(false);
         map.setOnMapClickListener(this);
-        map.setMyLocationEnabled(true);
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 
@@ -374,7 +338,6 @@ public class FragmentMap extends Fragment
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
-        loadingDialog.show();
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
@@ -392,11 +355,8 @@ public class FragmentMap extends Fragment
                 pickupLatLng = null;
                 pickupName = null;
                 editPickup.setText("");
-                loadingDialog.dismiss();
                 return;
             }
-
-            loadingDialog.dismiss();
 
             pickupLatLng = place.getLatLng();
             pickupName = place.getAddress();
@@ -415,7 +375,6 @@ public class FragmentMap extends Fragment
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
-        loadingDialog.show();
 
         PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
@@ -433,11 +392,8 @@ public class FragmentMap extends Fragment
                 dropoffLatLng = null;
                 dropoffName = null;
                 editDropoff.setText("");
-                loadingDialog.dismiss();
                 return;
             }
-
-            loadingDialog.dismiss();
 
             dropoffLatLng = place.getLatLng();
             dropoffName = place.getAddress();
@@ -451,7 +407,6 @@ public class FragmentMap extends Fragment
     };
 
     private void dropMarkerOnMap(LatLng latLng, String whichMarker) {
-        loadingDialog.show();
         switch (whichMarker) {
             case PICKUP_MARKER_TITLE:
 
@@ -483,7 +438,6 @@ public class FragmentMap extends Fragment
                 dropoffMarker = mapView.getMap().addMarker(options1);
                 break;
         }
-        loadingDialog.dismiss();
     }
 
     private void reverseGeocodeLocation(LatLng latLng, String whichMarker) {
@@ -506,13 +460,11 @@ public class FragmentMap extends Fragment
             return;
         }
 
-        loadingDialog.show();
         try {
             Observable.just(geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(addresses -> {
-                        loadingDialog.dismiss();
                         Address address = addresses.get(0);
                         switch (whichMarker) {
                             case PICKUP_MARKER_TITLE:
