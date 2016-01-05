@@ -157,7 +157,7 @@ public class FragmentAuthenticate extends Fragment
     }
 
     private boolean validateUsername() {
-        boolean isLowerCase = editUsername.getEnteredText().matches("[a-z]+");
+        boolean isLowerCase = editUsername.getEnteredText().matches("^[a-zA-Z0-9]*$");
         if (!isLowerCase) {
             editUsername.setError(getResources().getString(R.string.fragment_authenticate_username_fail));
         }
