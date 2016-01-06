@@ -7,6 +7,9 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
@@ -29,10 +32,13 @@ public class ActivityBase extends AppCompatActivity {
     @Inject EventBus bus;
 
     private CompositeSubscription compositeSubscription;
+    private Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ((MainApp) getApplication()).getApplicationComponent().inject(this);
+        MainApp mainApp = (MainApp) getApplication();
+        mainApp.getApplicationComponent().inject(this);
+        tracker = mainApp.getDefaultTracker();
         compositeSubscription = new CompositeSubscription();
         super.onCreate(savedInstanceState);
     }
@@ -47,6 +53,14 @@ public class ActivityBase extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         bus.register(this);
+
+        tracker.setScreenName("BUTT");
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Share")
+                .build());
     }
 
     @Override

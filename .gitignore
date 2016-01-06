@@ -39,6 +39,7 @@ bin/
 *.swp
 build/
 
+app/google-services.json
 steerclear.keystore
 gradle.properties
 app/src/main/res/values/keys.xml

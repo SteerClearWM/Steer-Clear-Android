@@ -2,6 +2,9 @@ package steerclear.wm;
 
 import android.app.Application;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
+
 import steerclear.wm.dagger.ApplicationComponent;
 import steerclear.wm.dagger.ApplicationModule;
 import steerclear.wm.dagger.DaggerApplicationComponent;
@@ -12,6 +15,7 @@ import steerclear.wm.dagger.DaggerApplicationComponent;
 public class MainApp extends Application {
 
     private ApplicationComponent component;
+    private Tracker mTracker;
 
     @Override
     public void onCreate() {
@@ -21,7 +25,15 @@ public class MainApp extends Application {
                 .build();
     }
 
-    public ApplicationComponent getApplicationComponent() {
+    synchronized public Tracker getDefaultTracker() {
+        if (mTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            mTracker = analytics.newTracker(R.string.trackingKey);
+        }
+        return mTracker;
+    }
+
+    synchronized public ApplicationComponent getApplicationComponent() {
         return component;
     }
 }
