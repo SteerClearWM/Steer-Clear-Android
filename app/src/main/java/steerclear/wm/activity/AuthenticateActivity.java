@@ -1,19 +1,12 @@
 package steerclear.wm.activity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 
-import java.sql.Time;
-
 import butterknife.Bind;
+import icepick.State;
 import retrofit.client.Header;
 import retrofit.client.Response;
 import rx.Subscriber;
@@ -21,21 +14,22 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steerclear.wm.event.EventAuthenticate;
 import steerclear.wm.R;
-import steerclear.wm.fragment.FragmentAuthenticate;
+import steerclear.wm.fragment.AuthenticateFragment;
+import steerclear.wm.util.ActivitySubscriber;
 import steerclear.wm.util.ErrorUtils;
-import steerclear.wm.util.Logg;
-import steerclear.wm.util.TimeLock;
 
-public class ActivityAuthenticate extends ActivityBase {
+public class AuthenticateActivity extends BaseActivity {
 
     @Bind(R.id.fragment_authenticate_logo) AppCompatImageView logo;
 
-    private String username, password, phone;
-    private FragmentAuthenticate fragmentAuthenticate;
+    private final static String RELOGIN = "relogin";
+
+    @State String username, password, phone;
+    private AuthenticateFragment authenticateFragment;
 
     public static Intent newIntent(Context context, boolean shouldLogin) {
-        Intent intent = new Intent(context, ActivityAuthenticate.class);
-        intent.putExtra("shouldLogin", shouldLogin);
+        Intent intent = new Intent(context, AuthenticateActivity.class);
+        intent.putExtra(RELOGIN, shouldLogin);
         return intent;
     }
 
@@ -46,18 +40,18 @@ public class ActivityAuthenticate extends ActivityBase {
 
         Intent intent = getIntent();
 
-        if (intent != null && intent.getBooleanExtra("shouldLogin", false)) {
+        if (intent != null && intent.getBooleanExtra(RELOGIN, false)) {
             addFragmentAuthenticate();
             return;
         }
 
         if (store.hasPreviousRideInfo()) {
-            startActivity(ActivityEta.newIntent(this, store.getEta(), store.getCancelId()));
+            startActivity(EtaActivity.newIntent(this, store.getEta(), store.getCancelId()));
             return;
         }
 
         if (store.hasCookie()) {
-            startActivity(ActivityHome.newIntent(this));
+            startActivity(HomeActivity.newIntent(this));
         } else {
             addFragmentAuthenticate();
         }
@@ -65,20 +59,20 @@ public class ActivityAuthenticate extends ActivityBase {
 
     @Override
     public void onBackPressed() {
-        if (fragmentAuthenticate == null) {
+        if (authenticateFragment == null) {
             super.onBackPressed();
         } else {
-            if (!fragmentAuthenticate.onBackPressed()) {
+            if (!authenticateFragment.onBackPressed()) {
                 super.onBackPressed();
             }
         }
     }
 
     private void addFragmentAuthenticate() {
-        fragmentAuthenticate = FragmentAuthenticate.newInstance();
+        authenticateFragment = AuthenticateFragment.newInstance();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.activity_authenticate_root, fragmentAuthenticate)
+                .add(R.id.activity_authenticate_root, authenticateFragment)
                 .commit();
     }
 
@@ -96,13 +90,11 @@ public class ActivityAuthenticate extends ActivityBase {
     }
 
     private void register() {
-        Subscriber<Response> registerSubscriber = new Subscriber<Response>() {
+        Subscriber<Response> registerSubscriber = new ActivitySubscriber<Response>(this) {
             @Override
             public void onCompleted() {
                 store.putUserHasRegistered();
                 store.putUsername(username);
-
-                removeSubscription(this);
                 login();
             }
 
@@ -111,7 +103,7 @@ public class ActivityAuthenticate extends ActivityBase {
                 if (ErrorUtils.getErrorCode(throwable) == 409) {
                     onCompleted();
                 } else {
-                    fragmentAuthenticate.toggleAnimation();
+                    authenticateFragment.toggleAnimation();
                     handleError(throwable, R.string.snackbar_invalid_creds);
                 }
             }
@@ -123,28 +115,27 @@ public class ActivityAuthenticate extends ActivityBase {
             @Override
             public void onStart() {
                 super.onStart();
-                fragmentAuthenticate.toggleAnimation();
+                authenticateFragment.toggleAnimation();
             }
         };
 
-        addSubscription(helper.register(username, password, phone)
+        helper.register(username, password, phone)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(registerSubscriber));
+                .subscribe(registerSubscriber);
     }
 
     private void login() {
-        Subscriber<Response> loginSubscriber = new Subscriber<Response>() {
+        Subscriber<Response> loginSubscriber = new ActivitySubscriber<Response>(this) {
             @Override
             public void onCompleted() {
-                removeSubscription(this);
-
-                startActivity(ActivityHome.newIntent(ActivityAuthenticate.this));
+                startActivity(HomeActivity.newIntent(AuthenticateActivity.this));
                 finish();
             }
 
             @Override
             public void onError(Throwable throwable) {
-                fragmentAuthenticate.toggleAnimation();
+                authenticateFragment.toggleAnimation();
                 handleError(throwable, R.string.snackbar_invalid_creds);
             }
 
@@ -153,7 +144,6 @@ public class ActivityAuthenticate extends ActivityBase {
                 for (Header header: response.getHeaders()) {
                     if (header.getName().contains("Set-Cookie")) {
                         store.putCookie(header.getValue());
-                        break;
                     }
                 }
             }
@@ -161,15 +151,15 @@ public class ActivityAuthenticate extends ActivityBase {
             @Override
             public void onStart() {
                 super.onStart();
-                if (fragmentAuthenticate != null && !fragmentAuthenticate.isAnimating()) {
-                    fragmentAuthenticate.toggleAnimation();
+                if (authenticateFragment != null && !authenticateFragment.isAnimating()) {
+                    authenticateFragment.toggleAnimation();
                 }
             }
         };
 
-        addSubscription(helper.login(username, password)
+        helper.login(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginSubscriber));
+                .subscribe(loginSubscriber);
     }
 }

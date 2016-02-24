@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import steerclear.wm.R;
+import steerclear.wm.util.Logg;
 
 public class ViewPassengerSelect extends ScrollView implements View.OnClickListener {
 
@@ -57,17 +59,19 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
     }
 
     @Override
-    @OnClick({R.id.fragment_passenger_select_1,R.id.fragment_passenger_select_2,
+    @OnClick({R.id.fragment_passenger_select_1, R.id.fragment_passenger_select_2,
             R.id.fragment_passenger_select_3, R.id.fragment_passenger_select_4,
             R.id.fragment_passenger_select_5, R.id.fragment_passenger_select_6,
             R.id.fragment_passenger_select_7, R.id.fragment_passenger_select_8})
     public void onClick(View v) {
-        if (v instanceof ViewTypefaceTextView && canAnimate) {
-            canAnimate = false;
+        Logg.log(v instanceof ViewTypefaceTextView);
+        if (v instanceof ViewTypefaceTextView) {
             ViewTypefaceTextView textView = (ViewTypefaceTextView) v;
-            textView.animateBackgroundToColor(getResources().getColor(R.color.accent));
+            textView.animateBackgroundToColor(ContextCompat.getColor(getContext(), R.color.accent));
 
             count = Integer.valueOf(textView.getText().toString());
+
+            Logg.log(count);
 
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
                 View child = linearLayout.getChildAt(i);
@@ -75,7 +79,6 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
                     child.setBackgroundColor(Color.WHITE);
                 }
             }
-            canAnimate = true;
         }
     }
 

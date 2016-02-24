@@ -3,10 +3,10 @@ package steerclear.wm.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import steerclear.wm.activity.ActivityBase;
-import steerclear.wm.fragment.FragmentAuthenticate;
-import steerclear.wm.fragment.FragmentHailRide;
-import steerclear.wm.fragment.FragmentMap;
+import steerclear.wm.activity.BaseActivity;
+import steerclear.wm.fragment.AuthenticateFragment;
+import steerclear.wm.fragment.HailRideFragment;
+import steerclear.wm.fragment.MapFragment;
 import steerclear.wm.retrofit.Client;
 import steerclear.wm.view.ViewHeader;
 import steerclear.wm.view.ViewMarkerSelectLayout;
@@ -18,11 +18,11 @@ import steerclear.wm.view.ViewMarkerSelectLayout;
 @Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
 
-    void inject(ActivityBase activityBase);
+    void inject(BaseActivity baseActivity);
 
-    void inject(FragmentMap fragmentMap);
-    void inject(FragmentHailRide fragmentHailRide);
-    void inject(FragmentAuthenticate fragmentAuthenticate);
+    void inject(MapFragment mapFragment);
+    void inject(HailRideFragment hailRideFragment);
+    void inject(AuthenticateFragment authenticateFragment);
 
     void inject(Client client);
 

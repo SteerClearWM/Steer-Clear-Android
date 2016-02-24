@@ -21,7 +21,7 @@ import steerclear.wm.util.LoadingDialog;
 import steerclear.wm.view.ViewFooter;
 import steerclear.wm.view.ViewTypefaceTextView;
 
-public class ActivityEta extends ActivityBase implements View.OnClickListener {
+public class EtaActivity extends BaseActivity implements View.OnClickListener {
 
     @Bind(R.id.activity_eta_time_prefix) ViewTypefaceTextView prefix;
     @Bind(R.id.activity_eta_time) ViewTypefaceTextView etaTime;
@@ -37,9 +37,9 @@ public class ActivityEta extends ActivityBase implements View.OnClickListener {
     private LoadingDialog loadingDialog;
 
     public static Intent newIntent(Context context, String eta, int cancelId) {
-        Intent etaActivity = new Intent(context, ActivityEta.class);
-        etaActivity.putExtra(ActivityEta.ETA, eta);
-        etaActivity.putExtra(ActivityEta.CANCEL, cancelId);
+        Intent etaActivity = new Intent(context, EtaActivity.class);
+        etaActivity.putExtra(EtaActivity.ETA, eta);
+        etaActivity.putExtra(EtaActivity.CANCEL, cancelId);
         etaActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         etaActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return etaActivity;
@@ -126,7 +126,7 @@ public class ActivityEta extends ActivityBase implements View.OnClickListener {
             public void onCompleted() {
                 removeSubscription(this);
                 loadingDialog.dismiss();
-                startActivity(ActivityHome.newIntent(ActivityEta.this));
+                startActivity(HomeActivity.newIntent(EtaActivity.this));
                 finish();
             }
 

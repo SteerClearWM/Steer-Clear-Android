@@ -1,12 +1,7 @@
 package steerclear.wm.fragment;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -25,14 +20,12 @@ import de.greenrobot.event.EventBus;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;
 import steerclear.wm.event.EventPostPlacesChosen;
-import steerclear.wm.util.Logg;
 import steerclear.wm.util.TimeLock;
-import steerclear.wm.util.ViewUtils;
 import steerclear.wm.view.ViewFooter;
 import steerclear.wm.view.ViewPassengerSelect;
 import steerclear.wm.view.ViewTypefaceTextView;
 
-public class FragmentHailRide extends Fragment implements OnClickListener {
+public class HailRideFragment extends Fragment implements OnClickListener {
 
 	@Bind(R.id.fragment_hail_ride_pickup_location) ViewTypefaceTextView pickupLocation;
 	@Bind(R.id.fragment_hail_ride_change_pickup) AppCompatImageButton changePickup;
@@ -46,11 +39,11 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 	private final static String PICKUP = "editPickup";
 	private final static String DROPOFF = "editDropoff";
 
-	public FragmentHailRide(){}
+	public HailRideFragment(){}
 
-	public static FragmentHailRide newInstance(CharSequence pickupLocationName,
+	public static HailRideFragment newInstance(CharSequence pickupLocationName,
 											   CharSequence dropoffLocationName) {
-		FragmentHailRide frag = new FragmentHailRide();
+		HailRideFragment frag = new HailRideFragment();
 		Bundle args = new Bundle();
 		args.putCharSequence(PICKUP, pickupLocationName);
 		args.putCharSequence(DROPOFF, dropoffLocationName);

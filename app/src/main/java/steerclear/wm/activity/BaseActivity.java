@@ -3,6 +3,7 @@ package steerclear.wm.activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.google.android.gms.analytics.Tracker;
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
+import icepick.Icepick;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 import steerclear.wm.MainApp;
@@ -25,7 +27,7 @@ import steerclear.wm.util.Logg;
 /**
  * Created by mbpeele on 1/1/16.
  */
-public class ActivityBase extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
 
     @Inject Client helper;
     @Inject Datastore store;
@@ -36,11 +38,18 @@ public class ActivityBase extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         MainApp mainApp = (MainApp) getApplication();
         mainApp.getApplicationComponent().inject(this);
         tracker = mainApp.getDefaultTracker();
         compositeSubscription = new CompositeSubscription();
-        super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override
@@ -70,11 +79,7 @@ public class ActivityBase extends AppCompatActivity {
     }
 
     public void addSubscription(Subscription subscription) {
-        if (hasInternet()) {
-            compositeSubscription.add(subscription);
-        } else {
-            handleError(getResources().getString(R.string.snackbar_no_internet));
-        }
+        compositeSubscription.add(subscription);
     }
 
     public void removeSubscription(Subscription subscribtion) {
@@ -98,7 +103,7 @@ public class ActivityBase extends AppCompatActivity {
                     public void onDismissed(Snackbar snackbar, int event) {
                         super.onDismissed(snackbar, event);
                         if (code == ErrorUtils.UNAUTHORIZED) {
-                            startActivity(ActivityAuthenticate.newIntent(ActivityBase.this, true));
+                            startActivity(AuthenticateActivity.newIntent(BaseActivity.this, true));
                             finish();
                         }
                     }

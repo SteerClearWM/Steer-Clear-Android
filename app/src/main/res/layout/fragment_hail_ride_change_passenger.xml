@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_hail_ride_passenger_select_linear_layout"
-        android:clickable="false"
         android:orientation="vertical">
 
         <steerclear.wm.view.ViewTypefaceTextView

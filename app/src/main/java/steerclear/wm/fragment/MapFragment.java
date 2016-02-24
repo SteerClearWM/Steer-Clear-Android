@@ -1,16 +1,10 @@
 package steerclear.wm.fragment;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +31,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -46,25 +39,24 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
+import icepick.State;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;
-import steerclear.wm.activity.ActivityHome;
+import steerclear.wm.activity.HomeActivity;
 import steerclear.wm.adapter.AdapterAutoComplete;
 import steerclear.wm.event.EventAnimateToMarker;
 import steerclear.wm.event.EventPlacesChosen;
 import steerclear.wm.util.Hue;
-import steerclear.wm.util.LoadingDialog;
-import steerclear.wm.util.ViewUtils;
+import steerclear.wm.util.Logg;
 import steerclear.wm.view.ViewAutoComplete;
 import steerclear.wm.view.ViewFooter;
 import steerclear.wm.view.ViewHeader;
 import steerclear.wm.view.ViewMarkerSelectLayout;
 
-public class FragmentMap extends Fragment
+public class MapFragment extends BaseFragment
 	implements View.OnClickListener, ViewAutoComplete.AutoCompleteListener,
         OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener,
         GoogleMap.OnMapClickListener {
@@ -79,14 +71,13 @@ public class FragmentMap extends Fragment
 
     @Inject EventBus bus;
 
-	private LatLng pickupLatLng, dropoffLatLng;
-	private CharSequence pickupName, dropoffName;
-	private final static String PICKUP_TEXT = "editPickup";
-    private final static String DROPOFF_TEXT = "editDropoff";
-    private final static String USER_LATITUDE = "lat";
-    private final static String USER_LONGITUDE = "lng";
+    private final static String USER_LOCATION = "user";
+    private final static String PICKUP_LATLNG = "pickup";
+    private final static String DROPOFF_LATLNG = "dropoff";
     private final static String PICKUP_MARKER_TITLE = "Pick Up Location";
     private final static String DROPOFF_MARKER_TITLE = "Drop Off Location";
+    private LatLng pickupLatLng, dropoffLatLng;
+    @State CharSequence pickupName, dropoffName;
 
     private Geocoder geocoder;
     private Marker pickupMarker, dropoffMarker;
@@ -94,13 +85,12 @@ public class FragmentMap extends Fragment
     private static final LatLngBounds BOUNDS_WILLIAMSBURG = new LatLngBounds(
 			new LatLng(37.244926, -76.747861), new LatLng(37.295667, -76.686084));
 
-	public FragmentMap() {}
+	public MapFragment() {}
 
-	public static FragmentMap newInstance(LatLng userLocation) {
-		FragmentMap frag = new FragmentMap();
+	public static MapFragment newInstance(LatLng userLocation) {
+		MapFragment frag = new MapFragment();
 		Bundle args = new Bundle();
-        args.putDouble(USER_LATITUDE, userLocation.latitude);
-        args.putDouble(USER_LONGITUDE, userLocation.longitude);
+        args.putParcelable(USER_LOCATION, userLocation);
 		frag.setArguments(args);
 		return frag;
 	}
@@ -130,8 +120,8 @@ public class FragmentMap extends Fragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
-        outState.putString(PICKUP_TEXT, editPickup.getText().toString());
-        outState.putString(DROPOFF_TEXT, editDropoff.getText().toString());
+        outState.putParcelable(PICKUP_LATLNG, pickupLatLng);
+        outState.putParcelable(DROPOFF_LATLNG, dropoffLatLng);
     }
 
     @Override
@@ -172,8 +162,11 @@ public class FragmentMap extends Fragment
         super.onActivityCreated(savedInstanceState);
 
 	    if (savedInstanceState != null) {
-			editPickup.setText(savedInstanceState.getString(PICKUP_TEXT), false);
-            editDropoff.setText(savedInstanceState.getString(DROPOFF_TEXT), false);
+			editPickup.setText(pickupName);
+            editDropoff.setText(dropoffName);
+
+            pickupLatLng = savedInstanceState.getParcelable(PICKUP_LATLNG);
+            dropoffLatLng = savedInstanceState.getParcelable(DROPOFF_LATLNG);
 	    }
 
         mapView.getMapAsync(this);
@@ -189,8 +182,7 @@ public class FragmentMap extends Fragment
         map.setOnMarkerDragListener(this);
         map.setOnMarkerClickListener(this);
 
-        LatLng userLocation = new LatLng(getArguments().getDouble(USER_LATITUDE),
-                getArguments().getDouble(USER_LONGITUDE));
+        LatLng userLocation = getArguments().getParcelable(USER_LOCATION);
         if (pickupLatLng != null) {
             dropMarkerOnMap(pickupLatLng, PICKUP_MARKER_TITLE);
             animateCameraToLocation(pickupLatLng);
@@ -281,8 +273,7 @@ public class FragmentMap extends Fragment
                 }
                 break;
             case R.id.fragment_map_current_location:
-                animateCameraToLocation(new LatLng(getArguments().getDouble(USER_LATITUDE),
-                        getArguments().getDouble(USER_LONGITUDE)));
+                animateCameraToLocation(getArguments().getParcelable(USER_LOCATION));
                 break;
         }
     }
@@ -329,12 +320,11 @@ public class FragmentMap extends Fragment
     }
 
     private GoogleApiClient getGoogleApiClient() {
-        return ((ActivityHome) getActivity()).getGoogleApiClient();
+        return ((HomeActivity) getActivity()).getGoogleApiClient();
     }
 
     private final AdapterView.OnItemClickListener pickupAdapterViewClick
             = (parent, view, position, id) -> {
-
         editPickup.closeKeyboard();
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
@@ -370,8 +360,8 @@ public class FragmentMap extends Fragment
         });
     };
 
-    private final AdapterView.OnItemClickListener dropoffAdapterViewClick = (parent, view, position, id) -> {
-
+    private final AdapterView.OnItemClickListener dropoffAdapterViewClick
+            = (parent, view, position, id) -> {
         editDropoff.closeKeyboard();
 
         final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);

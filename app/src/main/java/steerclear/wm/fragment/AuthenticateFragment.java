@@ -1,15 +1,12 @@
 package steerclear.wm.fragment;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -31,16 +28,14 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;
-import steerclear.wm.activity.ActivityAuthenticate;
 import steerclear.wm.event.EventAuthenticate;
 import steerclear.wm.util.Datastore;
-import steerclear.wm.util.Logg;
 import steerclear.wm.util.ViewUtils;
 import steerclear.wm.view.ViewTypefaceEditText;
 import steerclear.wm.view.ViewTypefaceButton;
 import steerclear.wm.view.ViewTypefaceTextView;
 
-public class FragmentAuthenticate extends Fragment
+public class AuthenticateFragment extends Fragment
         implements View.OnClickListener {
 
     private final static String USERNAME_KEY = "user";
@@ -59,10 +54,10 @@ public class FragmentAuthenticate extends Fragment
     @Inject EventBus bus;
     @Inject Datastore store;
 
-    public FragmentAuthenticate() {}
+    public AuthenticateFragment() {}
 
-    public static FragmentAuthenticate newInstance() {
-        return new FragmentAuthenticate();
+    public static AuthenticateFragment newInstance() {
+        return new AuthenticateFragment();
     }
 
     @Override
@@ -205,18 +200,15 @@ public class FragmentAuthenticate extends Fragment
     }
 
     private void extendTouchArea() {
-        root.post(new Runnable() {
-            @Override
-            public void run() {
-                Rect delegateArea = new Rect();
-                prompt.getHitRect(delegateArea);
-                delegateArea.top += prompt.getHeight();
-                delegateArea.bottom += prompt.getHeight();
+        root.post(() -> {
+            Rect delegateArea = new Rect();
+            prompt.getHitRect(delegateArea);
+            delegateArea.top += prompt.getHeight();
+            delegateArea.bottom += prompt.getHeight();
 
-                TouchDelegate touchDelegate = new TouchDelegate(delegateArea, prompt);
+            TouchDelegate touchDelegate = new TouchDelegate(delegateArea, prompt);
 
-                root.setTouchDelegate(touchDelegate);
-            }
+            root.setTouchDelegate(touchDelegate);
         });
     }
 

@@ -2,6 +2,7 @@ package steerclear.wm.view;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -19,7 +20,6 @@ public class ViewTypefaceTextView extends AppCompatTextView {
 
     private final static int BACKGROUND_ANIMATION = 350;
 
-    private ObjectAnimator backgroundAnimator;
     private Paint circlePaint;
 
     private boolean shouldDrawCircle;
@@ -68,15 +68,8 @@ public class ViewTypefaceTextView extends AppCompatTextView {
     }
 
     public void animateBackgroundToColor(int color) {
-        if (backgroundAnimator == null) {
-            backgroundAnimator = ObjectAnimator.ofObject(this, "backgroundColor", new ArgbEvaluator(),
-                    Color.WHITE, color)
-                    .setDuration(BACKGROUND_ANIMATION);
-            backgroundAnimator.start();
-        } else {
-            if (backgroundAnimator.isRunning()) {
-                backgroundAnimator.start();
-            }
-        }
+        ObjectAnimator.ofArgb(this, "backgroundColor", color)
+                .setDuration(BACKGROUND_ANIMATION)
+                .start();
     }
 }

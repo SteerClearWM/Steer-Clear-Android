@@ -8,7 +8,6 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,7 +18,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
@@ -31,6 +29,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import icepick.State;
 import retrofit.client.Response;
 import rx.Observable;
 import rx.Subscriber;
@@ -40,13 +39,14 @@ import steerclear.wm.R;
 import steerclear.wm.event.EventLogout;
 import steerclear.wm.event.EventPlacesChosen;
 import steerclear.wm.event.EventPostPlacesChosen;
-import steerclear.wm.fragment.FragmentHailRide;
-import steerclear.wm.fragment.FragmentMap;
+import steerclear.wm.fragment.HailRideFragment;
+import steerclear.wm.fragment.MapFragment;
 import steerclear.wm.pojo.RideObject;
+import steerclear.wm.util.ActivitySubscriber;
 import steerclear.wm.util.LoadingDialog;
 import steerclear.wm.util.Logg;
 
-public class ActivityHome extends ActivityBase
+public class HomeActivity extends BaseActivity
 	implements OnConnectionFailedListener, ConnectionCallbacks, LocationListener {
 
     private final static String MAP = "map";
@@ -56,13 +56,13 @@ public class ActivityHome extends ActivityBase
     private static final int REQUEST_RESOLVE_ERROR = 1001;
     private static final int REQUEST_LOCATION = 10;
 
-    private LatLng userLatLng, pickupLatLng, dropoffLatLng;
+    @State LatLng userLatLng, pickupLatLng, dropoffLatLng;
     private LoadingDialog loadingDialog;
 	private GoogleApiClient mGoogleApiClient;
     private AlertDialog settings;
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, ActivityHome.class);
+        return new Intent(context, HomeActivity.class);
     }
 
 	@Override
@@ -107,27 +107,6 @@ public class ActivityHome extends ActivityBase
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (pickupLatLng != null && dropoffLatLng != null) {
-            outState.putParcelable(SAVE_PICKUP, pickupLatLng);
-            outState.putParcelable(SAVE_DROPOFF, dropoffLatLng);
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        LatLng pickup = savedInstanceState.getParcelable(SAVE_PICKUP);
-        LatLng dropoff = savedInstanceState.getParcelable(SAVE_DROPOFF);
-
-        if (pickup != null && dropoff != null) {
-            dropoffLatLng = pickup;
-            pickupLatLng = dropoff;
-        }
-    }
-
-    @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_RESOLVE_ERROR) {
 			if (resultCode == RESULT_OK) {
@@ -145,11 +124,25 @@ public class ActivityHome extends ActivityBase
         }
 	}
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SAVE_PICKUP, pickupLatLng);
+        outState.putParcelable(SAVE_DROPOFF, dropoffLatLng);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        pickupLatLng = savedInstanceState.getParcelable(SAVE_PICKUP);
+        dropoffLatLng = savedInstanceState.getParcelable(SAVE_DROPOFF);
+    }
+
 	@Override
 	public void onBackPressed() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
 	    if (count == 0) {
-            finishAffinity();
+            super.onBackPressed();
 	    } else {
             getSupportFragmentManager().popBackStack();
 		}
@@ -161,7 +154,10 @@ public class ActivityHome extends ActivityBase
             Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (currentLocation != null) {
                 userLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-				showMapFragment(userLatLng);
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.activity_home_fragment_frame, MapFragment.newInstance(userLatLng), MAP)
+                        .commit();
             } else {
                 showSettingsAlert();
             }
@@ -204,13 +200,6 @@ public class ActivityHome extends ActivityBase
         return true;
     }
 
-	private void showMapFragment(LatLng userLatLng) {
-		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-		fragmentTransaction.replace(R.id.activity_home_fragment_frame,
-                FragmentMap.newInstance(userLatLng), MAP);
-		fragmentTransaction.commit();
-	}
-
     public void showSettingsAlert() {
         if (settings == null) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
@@ -246,7 +235,7 @@ public class ActivityHome extends ActivityBase
         dropoffLatLng = eventPlacesChosen.dropoffLatLng;
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        FragmentHailRide fragment = FragmentHailRide.newInstance(
+        HailRideFragment fragment = HailRideFragment.newInstance(
                 eventPlacesChosen.pickupName, eventPlacesChosen.dropoffName);
         ft.addToBackStack(MAP);
         ft.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
@@ -255,13 +244,13 @@ public class ActivityHome extends ActivityBase
 
     @SuppressWarnings("unused")
     public void onEvent(EventPostPlacesChosen eventPostPlacesChosen) {
-        addSubscription(helper.addRide(eventPostPlacesChosen.numPassengers,
+        helper.addRide(eventPostPlacesChosen.numPassengers,
                 pickupLatLng.latitude, pickupLatLng.longitude,
                 dropoffLatLng.latitude, dropoffLatLng.longitude)
                 .doOnError(this::handleError)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(createRideSubscriber()));
+                .subscribe(createRideSubscriber());
     }
 
     @SuppressWarnings("unused")
@@ -283,12 +272,12 @@ public class ActivityHome extends ActivityBase
     }
 
     private void logout() {
-        Subscriber<Response> logoutSubscriber = new Subscriber<Response>() {
+        Subscriber<Response> logoutSubscriber = new ActivitySubscriber<Response>(this) {
             @Override
             public void onCompleted() {
                 removeSubscription(this);
                 loadingDialog.dismiss();
-                startActivity(ActivityAuthenticate.newIntent(ActivityHome.this, true));
+                startActivity(AuthenticateActivity.newIntent(HomeActivity.this, true));
                 finish();
             }
 
@@ -309,15 +298,15 @@ public class ActivityHome extends ActivityBase
             }
         };
 
-        addSubscription(helper.logout()
+        helper.logout()
                 .subscribeOn(Schedulers.io())
                 .onErrorResumeNext(Observable.<Response>empty())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(logoutSubscriber));
+                .subscribe(logoutSubscriber);
     }
 
     private Subscriber<RideObject> createRideSubscriber() {
-        return new Subscriber<RideObject>() {
+        return new ActivitySubscriber<RideObject>(this) {
 
             int hour, minute, cancelId;
 
@@ -326,7 +315,7 @@ public class ActivityHome extends ActivityBase
                 removeSubscription(this);
 
                 loadingDialog.dismiss();
-                startActivity(ActivityEta.newIntent(ActivityHome.this,
+                startActivity(EtaActivity.newIntent(HomeActivity.this,
                         String.format("%02d : %02d", hour, minute), cancelId));
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 finish();
