@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
@@ -68,8 +69,20 @@ public class ViewTypefaceTextView extends AppCompatTextView {
     }
 
     public void animateBackgroundToColor(int color) {
-        ObjectAnimator.ofArgb(this, "backgroundColor", color)
-                .setDuration(BACKGROUND_ANIMATION)
-                .start();
+        ValueAnimator valueAnimator;
+        if (getBackground() instanceof ColorDrawable) {
+            valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(),
+                    ((ColorDrawable) getBackground()).getColor(), color);
+        } else {
+            valueAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), Color.WHITE, color);
+        }
+        valueAnimator.setDuration(BACKGROUND_ANIMATION);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setBackgroundColor((int) animation.getAnimatedValue());
+            }
+        });
+        valueAnimator.start();
     }
 }

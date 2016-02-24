@@ -27,7 +27,7 @@ import steerclear.wm.util.Logg;
 /**
  * Created by mbpeele on 1/1/16.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Inject Client helper;
     @Inject Datastore store;
@@ -47,8 +47,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
     }
 

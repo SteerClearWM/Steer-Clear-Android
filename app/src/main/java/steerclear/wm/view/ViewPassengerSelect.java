@@ -71,8 +71,6 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
 
             count = Integer.valueOf(textView.getText().toString());
 
-            Logg.log(count);
-
             for (int i = 0; i < linearLayout.getChildCount(); i++) {
                 View child = linearLayout.getChildAt(i);
                 if (child.getId() != textView.getId()) {

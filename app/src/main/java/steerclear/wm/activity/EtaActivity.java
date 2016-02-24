@@ -11,6 +11,7 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
+import icepick.State;
 import retrofit.client.Response;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -27,9 +28,9 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.activity_eta_time) ViewTypefaceTextView etaTime;
     @Bind(R.id.activity_eta_cancel_ride) ViewFooter cancelRide;
 
-    private int cancelId;
-    private String eta;
-    private boolean saveInfo = true;
+    @State int cancelId;
+    @State String eta;
+    @State boolean saveInfo = true;
 
     public final static String ETA = "eta";
     public final static String CANCEL = "CANCEL_ID";
@@ -73,7 +74,7 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(ETA, eta);
         outState.putInt(CANCEL, cancelId);
