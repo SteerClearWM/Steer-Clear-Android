@@ -62,6 +62,8 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'me.grantland:autofittextview:0.2.1'
     compile "com.android.support:support-v4:23.1.1"
+    compile 'frankiesardo:icepick:3.1.0'
+    provided 'frankiesardo:icepick-processor:3.1.0'
     provided 'com.google.dagger:dagger-compiler:2.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 }
