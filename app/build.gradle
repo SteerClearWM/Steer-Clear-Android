@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "steerclear.wm"
-        minSdkVersion 18
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode buildVersionCode()
         versionName buildVersionName()
