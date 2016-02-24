@@ -11,6 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 
+import java.sql.Time;
+
 import butterknife.Bind;
 import retrofit.client.Header;
 import retrofit.client.Response;
@@ -22,6 +24,7 @@ import steerclear.wm.R;
 import steerclear.wm.fragment.FragmentAuthenticate;
 import steerclear.wm.util.ErrorUtils;
 import steerclear.wm.util.Logg;
+import steerclear.wm.util.TimeLock;
 
 public class ActivityAuthenticate extends ActivityBase {
 
@@ -168,20 +171,5 @@ public class ActivityAuthenticate extends ActivityBase {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loginSubscriber));
-    }
-
-    public void contact() {
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[] {
-                getResources().getString(R.string.contact_email)
-        });
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Steer Clear Question from the Android App");
-
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            handleError(getString(R.string.snackbar_no_email));
-        }
     }
 }

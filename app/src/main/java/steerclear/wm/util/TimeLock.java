@@ -21,72 +21,77 @@ public class TimeLock {
     public static boolean isSteerClearRunning() {
         Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.US);
         Date rightNow = calendar.getTime();
+        int ampm = calendar.get(Calendar.AM_PM);
         switch (calendar.get(Calendar.DAY_OF_WEEK)) {
             case Calendar.THURSDAY:
                 return rightNow.after(thursdayStart);
             case Calendar.FRIDAY:
-                return (calendar.get(Calendar.AM_PM) == Calendar.AM) ?
-                        rightNow.before(fridayEnd) : rightNow.after(fridayStart);
+                if (ampm == Calendar.AM) {
+                    return rightNow.before(thursdayEnd);
+                } else {
+                    return rightNow.after(fridayStart);
+                }
             case Calendar.SATURDAY:
-                return (calendar.get(Calendar.AM_PM) == Calendar.AM) ?
-                        rightNow.before(saturdayEnd) : rightNow.after(saturdayStart);
+                if (ampm == Calendar.AM) {
+                    return rightNow.before(fridayEnd);
+                } else {
+                    return rightNow.after(saturdayStart);
+                }
             case Calendar.SUNDAY:
                 return rightNow.before(saturdayEnd);
         }
+
+
         return false;
     }
 
     private static Date createThursdayStartTime() {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-        calendar.set(Calendar.HOUR, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 22);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
         return calendar.getTime();
     }
 
     private static Date createThursdayEndTime() {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        calendar.set(Calendar.HOUR, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 1);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
         return calendar.getTime();
     }
 
     private static Date createFridayStartTime() {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        calendar.set(Calendar.HOUR, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
         return calendar.getTime();
     }
 
     private static Date createFridayEndTIme() {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        calendar.set(Calendar.HOUR, 2);
+        calendar.set(Calendar.HOUR_OF_DAY, 2);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
         return calendar.getTime();
     }
 
     private static Date createSaturdayStartTime() {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-        calendar.set(Calendar.HOUR, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.AM_PM, Calendar.PM);
         return calendar.getTime();
     }
 
     private static Date createSaturdayEndTime() {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        calendar.set(Calendar.HOUR, 2);
+        calendar.set(Calendar.HOUR_OF_DAY, 2);
         calendar.set(Calendar.MINUTE, 30);
-        calendar.set(Calendar.AM_PM, Calendar.AM);
         return calendar.getTime();
     }
+
+
 }

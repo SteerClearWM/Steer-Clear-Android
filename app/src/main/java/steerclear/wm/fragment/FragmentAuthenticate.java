@@ -53,7 +53,6 @@ public class FragmentAuthenticate extends Fragment
     @Bind(R.id.fragment_authenticate_phone) ViewTypefaceEditText editPhone;
     @Bind(R.id.fragment_authenticate_register_prompt) ViewTypefaceTextView prompt;
     @Bind(R.id.fragment_authenticate_button) ViewTypefaceButton button;
-    @Bind(R.id.fragment_authenticate_email) AppCompatImageButton emailButton;
 
     private ObjectAnimator rotation;
 
@@ -116,7 +115,7 @@ public class FragmentAuthenticate extends Fragment
     }
 
     @Override
-    @OnClick({R.id.fragment_authenticate_button, R.id.fragment_authenticate_email})
+    @OnClick({R.id.fragment_authenticate_button})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_authenticate_button:
@@ -136,9 +135,6 @@ public class FragmentAuthenticate extends Fragment
                         }
                     }
                 }
-                break;
-            case R.id.fragment_authenticate_email:
-                ((ActivityAuthenticate) getActivity()).contact();
                 break;
         }
     }

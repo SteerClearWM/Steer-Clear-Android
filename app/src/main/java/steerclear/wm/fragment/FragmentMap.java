@@ -109,6 +109,7 @@ public class FragmentMap extends Fragment
     public void onAttach(Context context) {
         super.onAttach(context);
         ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
+        geocoder = new Geocoder(context, Locale.US);
     }
 
 	@Override

@@ -3,7 +3,10 @@ package steerclear.wm.fragment;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -22,6 +25,8 @@ import de.greenrobot.event.EventBus;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;
 import steerclear.wm.event.EventPostPlacesChosen;
+import steerclear.wm.util.Logg;
+import steerclear.wm.util.TimeLock;
 import steerclear.wm.util.ViewUtils;
 import steerclear.wm.view.ViewFooter;
 import steerclear.wm.view.ViewPassengerSelect;
@@ -78,11 +83,21 @@ public class FragmentHailRide extends Fragment implements OnClickListener {
 		switch(v.getId()) {
 			case R.id.fragment_hail_ride_footer:
 				if (passengerSelect.getPassengers() != 0) {
-                    bus.post(new EventPostPlacesChosen(passengerSelect.getPassengers()));
+					if (TimeLock.isSteerClearRunning()) {
+						bus.post(new EventPostPlacesChosen(passengerSelect.getPassengers()));
+					} else {
+						AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+						builder.setTitle(R.string.error_dialog_not_running_title);
+						builder.setMessage(R.string.error_dialog_not_running_body);
+						builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                            dialog.dismiss();
+                        });
+						builder.show();
+					}
 				} else {
                     Snackbar.make(getView(),
-                            getResources().getString(R.string.fragment_hail_ride_no_passengers),
-                            Snackbar.LENGTH_SHORT).show();
+							getResources().getString(R.string.fragment_hail_ride_no_passengers),
+							Snackbar.LENGTH_SHORT).show();
 				}
 				break;
 

@@ -249,6 +249,7 @@ public class ActivityHome extends ActivityBase
         FragmentHailRide fragment = FragmentHailRide.newInstance(
                 eventPlacesChosen.pickupName, eventPlacesChosen.dropoffName);
         ft.addToBackStack(MAP);
+        ft.setCustomAnimations(R.anim.scale_in, R.anim.scale_out);
         ft.replace(R.id.activity_home_fragment_frame, fragment, POST).commit();
     }
 

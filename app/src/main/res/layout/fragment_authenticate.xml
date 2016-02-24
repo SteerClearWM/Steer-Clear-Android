@@ -12,15 +12,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/fragment_authenticate_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_email"
-        android:layout_gravity="end"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY" />
-
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/fragment_authenticate_logo"
         android:layout_width="@dimen/fragment_authenticate_logo_size"
