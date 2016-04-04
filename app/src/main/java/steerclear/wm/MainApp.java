@@ -8,6 +8,8 @@ import com.google.android.gms.analytics.Tracker;
 import steerclear.wm.dagger.ApplicationComponent;
 import steerclear.wm.dagger.ApplicationModule;
 import steerclear.wm.dagger.DaggerApplicationComponent;
+import steerclear.wm.util.Logg;
+import steerclear.wm.util.TimeLock;
 
 /**
  * Created by milespeele on 7/2/15.
