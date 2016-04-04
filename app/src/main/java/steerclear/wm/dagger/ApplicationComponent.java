@@ -3,13 +3,13 @@ package steerclear.wm.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import steerclear.wm.activity.BaseActivity;
-import steerclear.wm.fragment.AuthenticateFragment;
-import steerclear.wm.fragment.HailRideFragment;
-import steerclear.wm.fragment.MapFragment;
-import steerclear.wm.retrofit.Client;
-import steerclear.wm.view.ViewHeader;
-import steerclear.wm.view.ViewMarkerSelectLayout;
+import steerclear.wm.ui.activity.BaseActivity;
+import steerclear.wm.ui.fragment.AuthenticateFragment;
+import steerclear.wm.ui.fragment.HailRideFragment;
+import steerclear.wm.ui.fragment.MapFragment;
+import steerclear.wm.data.retrofit.Client;
+import steerclear.wm.ui.view.ViewHeader;
+import steerclear.wm.ui.view.ViewMarkerSelectLayout;
 
 /**
  * Created by Miles Peele on 6/20/2015.

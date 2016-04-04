@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<steerclear.wm.view.ViewPassengerSelect
+<steerclear.wm.ui.view.ViewPassengerSelect
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent" >
@@ -10,7 +10,7 @@
         android:id="@+id/fragment_hail_ride_passenger_select_linear_layout"
         android:orientation="vertical">
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fragment_passenger_select_1"
@@ -21,7 +21,7 @@
             android:textColor="@android:color/black"
             android:clickable="true" />
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:id="@+id/fragment_passenger_select_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:textColor="@android:color/black"
             android:clickable="true" />
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:id="@+id/fragment_passenger_select_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:textColor="@android:color/black"
             android:clickable="true" />
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:id="@+id/fragment_passenger_select_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:textColor="@android:color/black"
             android:clickable="true" />
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:id="@+id/fragment_passenger_select_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             android:textColor="@android:color/black"
             android:clickable="true" />
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:id="@+id/fragment_passenger_select_6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:textColor="@android:color/black"
             android:clickable="true" />
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:id="@+id/fragment_passenger_select_7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
             android:textColor="@android:color/black"
             android:clickable="true" />
 
-        <steerclear.wm.view.ViewTypefaceTextView
+        <steerclear.wm.ui.view.ViewTypefaceTextView
             android:id="@+id/fragment_passenger_select_8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,4 +100,4 @@
 
     </LinearLayout>
 
-</steerclear.wm.view.ViewPassengerSelect>
+</steerclear.wm.ui.view.ViewPassengerSelect>

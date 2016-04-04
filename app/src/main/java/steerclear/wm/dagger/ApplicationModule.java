@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
-import steerclear.wm.retrofit.Client;
-import steerclear.wm.util.Datastore;
+import steerclear.wm.data.retrofit.Client;
+import steerclear.wm.data.Datastore;
 
 /**
  * Created by Miles Peele on 6/20/2015.

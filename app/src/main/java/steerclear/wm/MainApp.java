@@ -17,7 +17,6 @@ import steerclear.wm.util.TimeLock;
 public class MainApp extends Application {
 
     private ApplicationComponent component;
-    private Tracker mTracker;
 
     @Override
     public void onCreate() {
@@ -25,14 +24,6 @@ public class MainApp extends Application {
         component = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .build();
-    }
-
-    synchronized public Tracker getDefaultTracker() {
-        if (mTracker == null) {
-            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-            mTracker = analytics.newTracker(R.string.trackingKey);
-        }
-        return mTracker;
     }
 
     synchronized public ApplicationComponent getApplicationComponent() {

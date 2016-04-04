@@ -15,7 +15,7 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true" />
 
-    <steerclear.wm.view.ViewTypefaceTextView
+    <steerclear.wm.ui.view.ViewTypefaceTextView
         android:id="@+id/dialog_progress_text"
         android:layout_below="@id/dialog_progress_image"
         android:layout_width="match_parent"
