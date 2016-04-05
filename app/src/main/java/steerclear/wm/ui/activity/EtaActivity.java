@@ -1,6 +1,5 @@
 package steerclear.wm.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -8,16 +7,22 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 
-import butterknife.ButterKnife;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
+
 import butterknife.Bind;
 import butterknife.OnClick;
-import icepick.State;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steerclear.wm.R;
+import steerclear.wm.data.model.RideObject;
+import steerclear.wm.data.ActivitySubscriber;
 import steerclear.wm.ui.LoadingDialog;
 import steerclear.wm.ui.view.ViewFooter;
 import steerclear.wm.ui.view.ViewTypefaceTextView;
@@ -28,70 +33,46 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.activity_eta_time) ViewTypefaceTextView etaTime;
     @Bind(R.id.activity_eta_cancel_ride) ViewFooter cancelRide;
 
-    @State int cancelId;
-    @State String eta;
-    @State boolean saveInfo = true;
-
-    public final static String ETA = "eta";
-    public final static String CANCEL = "CANCEL_ID";
-
     private LoadingDialog loadingDialog;
-
-    public static Intent newIntent(Context context, String eta, int cancelId) {
-        Intent etaActivity = new Intent(context, EtaActivity.class);
-        etaActivity.putExtra(EtaActivity.ETA, eta);
-        etaActivity.putExtra(EtaActivity.CANCEL, cancelId);
-        etaActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        etaActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return etaActivity;
-    }
+    private RideObject rideObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eta);
-        ButterKnife.bind(this);
-
-        if (savedInstanceState != null) {
-            cancelId = savedInstanceState.getInt(CANCEL);
-            eta = savedInstanceState.getString(ETA);
-            etaTime.setText(eta);
-        } else {
-            Intent extras = getIntent();
-            eta = extras.getStringExtra(ETA);
-            cancelId = extras.getIntExtra(CANCEL, 0);
-            etaTime.setText(eta);
-        }
 
         loadingDialog = new LoadingDialog(this, R.style.ProgressDialogTheme);
 
+        rideObject = store.getRideObject();
+
+        setEtaTime();
+
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+    }
+
+    private void setEtaTime() {
+        RideObject.RideInfo info = rideObject.getRideInfo();
+        String pickupTime = info.getPickupTime();
+        try {
+            SimpleDateFormat dateFormat =
+                    new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss", Locale.US);
+            dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
+
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(dateFormat.parse(pickupTime));
+
+            int hour = calendar.get(Calendar.HOUR);
+            int minute = calendar.get(Calendar.MINUTE);
+            String format = String.format(Locale.getDefault(), "%02d : %02d", hour, minute);
+            etaTime.setText(format);
+        } catch (ParseException p) {
+            p.printStackTrace();
+        }
     }
 
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(ETA, eta);
-        outState.putInt(CANCEL, cancelId);
-    }
-
-    @Override
-    protected void onPause() {
-        if (saveInfo) { store.putRideInfo(eta, cancelId); }
-        super.onPause();
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        eta = savedInstanceState.getString(ETA);
-        cancelId = savedInstanceState.getInt(CANCEL);
-        etaTime.setText(eta);
     }
 
     @Override
@@ -115,21 +96,19 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
 
     private void cancelRide() {
         loadingDialog.show();
-        saveInfo = false;
         store.clearRideInfo();
 
-        Subscriber<ResponseBody> rideCancelSubscriber = new Subscriber<ResponseBody>() {
+        Subscriber<ResponseBody> rideCancelSubscriber = new ActivitySubscriber<ResponseBody>(this) {
             @Override
             public void onCompleted() {
                 removeSubscription(this);
                 loadingDialog.dismiss();
-                startActivity(HomeActivity.newIntent(EtaActivity.this));
+                startActivity(new Intent(EtaActivity.this, HomeActivity.class));
                 finish();
             }
 
             @Override
             public void onError(Throwable e) {
-                saveInfo = false;
                 onCompleted();
             }
 
@@ -139,10 +118,9 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
             }
         };
 
-        addSubscription(helper.cancelRide(cancelId)
+        helper.cancelRide(rideObject.ride.id)
                 .subscribeOn(Schedulers.io())
-//                .onExceptionResumeNext(rx.Observable.<Response>empty())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(rideCancelSubscriber));
+                .subscribe(rideCancelSubscriber);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -14,14 +15,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import butterknife.Bind;
-import icepick.State;
-import okhttp3.Response;
+import okhttp3.Cookie;
 import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steerclear.wm.R;
-import steerclear.wm.data.rx.ActivitySubscriber;
+import steerclear.wm.data.ActivitySubscriber;
 import steerclear.wm.ui.view.ViewTypefaceButton;
 import steerclear.wm.ui.view.ViewTypefaceEditText;
 import steerclear.wm.ui.view.ViewTypefaceTextView;
@@ -56,34 +56,37 @@ public class AuthenticateActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authenticate);
 
-//        if (getIntent().getBooleanExtra(RELOGIN, false)) {
-//        }
+        if (getIntent().getBooleanExtra(RELOGIN, false)) {
+            prompt.setText(createRegisterPromptSpan());
 
-        if (store.hasPreviousRideInfo()) {
-            startActivity(EtaActivity.newIntent(this, store.getEta(), store.getCancelId()));
+            editUsername.setText(store.getUsername());
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean shouldRegister = editPhone.getVisibility() == View.VISIBLE;
+                    if (shouldRegister) {
+                        register();
+                    } else {
+                        login();
+                    }
+                }
+            });
+            return;
+        }
+
+        if (store.isRideInfoValid()) {
+            startActivity(new Intent(this, EtaActivity.class));
             return;
         }
 
         if (store.hasCookie()) {
-            startActivity(HomeActivity.newIntent(this));
-            return;
-        }
-
-        prompt.setText(createRegisterPromptSpan());
-
-        editUsername.setText(store.getUsername());
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean shouldRegister = editPhone.getVisibility() == View.VISIBLE;
-                if (shouldRegister) {
-                    register();
-                } else {
-                    login();
-                }
+            Cookie cookie = store.getCookie();
+            long expiresAt = cookie.expiresAt();
+            if (expiresAt > SystemClock.elapsedRealtime()) {
+                startActivity(new Intent(this, HomeActivity.class));
             }
-        });
+        }
     }
 
     @Override
@@ -139,26 +142,6 @@ public class AuthenticateActivity extends BaseActivity {
                     store.putUsername(editUsername.getEnteredText());
                     login();
                 }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    if (ErrorUtils.getErrorCode(throwable) == 409) {
-                        onCompleted();
-                    } else {
-//                    authenticateFragment.toggleAnimation();
-                        handleError(throwable, R.string.snackbar_invalid_creds);
-                    }
-                }
-
-                @Override
-                public void onNext(ResponseBody ResponseBody) {
-                }
-
-                @Override
-                public void onStart() {
-                    super.onStart();
-//                authenticateFragment.toggleAnimation();
-                }
             };
 
             helper.register(editUsername.getEnteredText(), editPassword.getEnteredText(), editPhone.getEnteredText())
@@ -175,31 +158,8 @@ public class AuthenticateActivity extends BaseActivity {
             Subscriber<ResponseBody> loginSubscriber = new ActivitySubscriber<ResponseBody>(this) {
                 @Override
                 public void onCompleted() {
-                    startActivity(HomeActivity.newIntent(AuthenticateActivity.this));
+                    startActivity(new Intent(AuthenticateActivity.this, HomeActivity.class));
                     finish();
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-//                authenticateFragment.toggleAnimation();
-                    handleError(throwable, R.string.snackbar_invalid_creds);
-                }
-
-                @Override
-                public void onNext(ResponseBody response) {
-//                    for (Header header: response.getHeaders()) {
-//                        if (header.getName().contains("Set-Cookie")) {
-//                            store.putCookie(header.getValue());
-//                        }
-//                    }
-                }
-
-                @Override
-                public void onStart() {
-                    super.onStart();
-//                if (authenticateFragment != null && !authenticateFragment.isAnimating()) {
-//                    authenticateFragment.toggleAnimation();
-//                }
                 }
             };
 

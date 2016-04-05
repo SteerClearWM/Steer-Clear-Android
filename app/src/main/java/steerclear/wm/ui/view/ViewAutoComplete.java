@@ -3,30 +3,15 @@ package steerclear.wm.ui.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Message;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.lang.ref.WeakReference;
-
 import steerclear.wm.R;
-import steerclear.wm.data.AdapterAutoComplete;
 import steerclear.wm.util.TextUtils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {

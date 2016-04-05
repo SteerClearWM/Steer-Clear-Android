@@ -1,9 +1,6 @@
 package steerclear.wm.ui.activity;
 
 import android.Manifest;
-import android.content.Context;
-import android.graphics.Color;
-import android.location.LocationManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -16,7 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,13 +22,6 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import butterknife.Bind;
 import icepick.State;
@@ -45,14 +34,14 @@ import steerclear.wm.data.LocationService;
 import steerclear.wm.data.SimpleLocationListener;
 import steerclear.wm.ui.LoadingDialog;
 import steerclear.wm.ui.fragment.HailRideFragment;
-import steerclear.wm.ui.fragment.IRideConfirm;
+import steerclear.wm.ui.fragment.IRideRequestFlow;
 import steerclear.wm.ui.fragment.MapFragment;
 import steerclear.wm.data.model.RideObject;
-import steerclear.wm.data.rx.ActivitySubscriber;
+import steerclear.wm.data.ActivitySubscriber;
 import steerclear.wm.util.Logg;
 
 public class HomeActivity extends BaseActivity
-	implements OnConnectionFailedListener, ConnectionCallbacks, IRideConfirm {
+	implements OnConnectionFailedListener, ConnectionCallbacks, IRideRequestFlow {
 
     private final static String MAP = "map";
     private final static String POST = "post";
@@ -67,10 +56,6 @@ public class HomeActivity extends BaseActivity
     @State LatLng userLatLng, pickupLatLng, dropoffLatLng;
     private LoadingDialog loadingDialog;
 	private GoogleApiClient mGoogleApiClient;
-
-    public static Intent newIntent(Context context) {
-        return new Intent(context, HomeActivity.class);
-    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +90,7 @@ public class HomeActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.activity_home_menu_logout:
-                onLogout();
+                logout();
                 return true;
         }
 
@@ -187,7 +172,9 @@ public class HomeActivity extends BaseActivity
             }
         }
 
-        showMap(userLatLng);
+        if (userLatLng != null) {
+            showMap(userLatLng);
+        }
 	}
 
     private void showMap(LatLng latLng) {
@@ -269,41 +256,19 @@ public class HomeActivity extends BaseActivity
     public void onRideConfirm(int numberOfPassengers) {
         Subscriber<RideObject> subscriber = new ActivitySubscriber<RideObject>(this) {
 
-            int hour, minute, cancelId;
-
             @Override
             public void onCompleted() {
                 loadingDialog.dismiss();
 
-                String format = String.format(Locale.getDefault(), "%02d : %02d", hour, minute);
-                startActivity(EtaActivity.newIntent(HomeActivity.this, format, cancelId));
+                startActivity(new Intent(HomeActivity.this, EtaActivity.class));
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 
                 finish();
             }
 
             @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
             public void onNext(RideObject rideObject) {
-                RideObject.RideInfo info = rideObject.getRideInfo();
-                String pickupTime = info.getPickupTime();
-                cancelId = info.getId();
-                try {
-                    SimpleDateFormat dateFormat =
-                            new SimpleDateFormat("E, dd MMM yyyy hh:mm:ss", Locale.US);
-                    dateFormat.setTimeZone(TimeZone.getTimeZone("est"));
-
-                    Calendar calendar = new GregorianCalendar();
-                    calendar.setTime(dateFormat.parse(pickupTime));
-
-                    hour = calendar.get(Calendar.HOUR);
-                    minute = calendar.get(Calendar.MINUTE);
-                } catch (ParseException p) {
-                    p.printStackTrace();
-                }
+                store.putRideObject(rideObject);
             }
 
             @Override
@@ -320,13 +285,11 @@ public class HomeActivity extends BaseActivity
                 .subscribe(subscriber);
     }
 
-    @Override
-    public void onLogout() {
+    public void logout() {
         Subscriber<ResponseBody> logoutSubscriber = new ActivitySubscriber<ResponseBody>(this) {
             @Override
             public void onCompleted() {
 //                store.putCookie("");
-                removeSubscription(this);
                 loadingDialog.dismiss();
                 startActivity(AuthenticateActivity.newIntent(HomeActivity.this, false));
                 finish();
@@ -335,11 +298,6 @@ public class HomeActivity extends BaseActivity
             @Override
             public void onError(Throwable e) {
                 onCompleted();
-            }
-
-            @Override
-            public void onNext(ResponseBody response) {
-
             }
 
             @Override

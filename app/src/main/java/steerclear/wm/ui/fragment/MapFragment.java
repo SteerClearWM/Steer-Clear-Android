@@ -5,10 +5,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.AppCompatImageButton;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -16,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
@@ -44,15 +39,13 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steerclear.wm.R;
+import steerclear.wm.data.model.AutoCompleteItem;
 import steerclear.wm.ui.CancelDetector;
-import steerclear.wm.ui.activity.HomeActivity;
-import steerclear.wm.data.AdapterAutoComplete;
+import steerclear.wm.data.AutoCompleteAdapter;
 import steerclear.wm.ui.view.ViewTypefaceButton;
 import steerclear.wm.util.Hue;
 import steerclear.wm.ui.view.ViewAutoComplete;
 import steerclear.wm.ui.view.ViewFooter;
-import steerclear.wm.ui.view.ViewHeader;
-import steerclear.wm.util.Logg;
 import steerclear.wm.util.ViewUtils;
 
 public class MapFragment extends BaseFragment
@@ -74,8 +67,8 @@ public class MapFragment extends BaseFragment
     @State LatLng pickupLatLng, dropoffLatLng;
     private Geocoder geocoder;
     private Marker pickupMarker, dropoffMarker;
-    private AdapterAutoComplete mAdapter;
-    private IRideConfirm iRideConfirm;
+    private AutoCompleteAdapter mAdapter;
+    private IRideRequestFlow iRideRequestFlow;
     private static final LatLngBounds BOUNDS_WILLIAMSBURG = new LatLngBounds(
 			new LatLng(37.244926, -76.747861), new LatLng(37.295667, -76.686084));
 
@@ -93,8 +86,8 @@ public class MapFragment extends BaseFragment
     public void onAttach(Context context) {
         super.onAttach(context);
         geocoder = new Geocoder(context, Locale.US);
-        mAdapter = new AdapterAutoComplete(context, R.layout.adapter_view,
-                getGoogleApiClient(), BOUNDS_WILLIAMSBURG);
+        mAdapter = new AutoCompleteAdapter(context, R.layout.adapter_view,
+                iRideRequestFlow.getGoogleApiClient(), BOUNDS_WILLIAMSBURG);
     }
 
     @Override
@@ -117,7 +110,7 @@ public class MapFragment extends BaseFragment
 
     @Override
     protected Map<Object, Class> getCastMap() {
-        return Collections.singletonMap(iRideConfirm, IRideConfirm.class);
+        return Collections.singletonMap(iRideRequestFlow, IRideRequestFlow.class);
     }
 
     @Override
@@ -248,7 +241,7 @@ public class MapFragment extends BaseFragment
                 } else if (pickupLatLng.equals(dropoffLatLng)) {
                     Snackbar.make(getView(), getResources().getString(R.string.fragment_map_same_location), Snackbar.LENGTH_SHORT).show();
                 } else {
-                    iRideConfirm.onLocationConfirm(pickupLatLng, pickupName,
+                    iRideRequestFlow.onLocationConfirm(pickupLatLng, pickupName,
                             dropoffLatLng, dropoffName);
                 }
                 break;
@@ -293,18 +286,15 @@ public class MapFragment extends BaseFragment
         }
     }
 
-    private GoogleApiClient getGoogleApiClient() {
-        return ((HomeActivity) getActivity()).getGoogleApiClient();
-    }
-
     private final AdapterView.OnItemClickListener pickupAdapterViewClick
             = (parent, view, position, id) -> {
         ViewUtils.closeKeyboard(editPickup);
 
-        final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
+        final AutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
 
-        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
+        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(
+                iRideRequestFlow.getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
             if (!places.getStatus().isSuccess()) {
                 places.release();
@@ -338,10 +328,11 @@ public class MapFragment extends BaseFragment
             = (parent, view, position, id) -> {
         ViewUtils.closeKeyboard(editDropoff);
 
-        final AdapterAutoComplete.AdapterAutoCompleteItem item = mAdapter.getItem(position);
+        final AutoCompleteItem item = mAdapter.getItem(position);
         final String placeId = String.valueOf(item.placeId);
 
-        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(getGoogleApiClient(), placeId);
+        PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(
+                iRideRequestFlow.getGoogleApiClient(), placeId);
         placeResult.setResultCallback(places -> {
             if (!places.getStatus().isSuccess()) {
                 places.release();

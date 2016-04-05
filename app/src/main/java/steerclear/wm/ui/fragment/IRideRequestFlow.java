@@ -6,7 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by mbpeele on 4/4/16.
  */
-public interface IRideConfirm {
+public interface IRideRequestFlow {
 
     GoogleApiClient getGoogleApiClient();
 
@@ -14,6 +14,4 @@ public interface IRideConfirm {
                            LatLng dropoffLatLng, CharSequence dropoffName);
 
     void onRideConfirm(int numberOfPassengers);
-
-    void onLogout();
 }

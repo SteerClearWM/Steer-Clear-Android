@@ -36,14 +36,16 @@ public class SteerClearClient {
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        SteerClearInterceptor steerClearInterceptor = new SteerClearInterceptor(store);
+
         CookieJar cookieJar = new SteerClearCookieHandler(store);
+
+        SteerClearErrorHandler errorHandler = new SteerClearErrorHandler();
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .followRedirects(true)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
-//                .addInterceptor(steerClearInterceptor)
+                .addInterceptor(errorHandler)
                 .cookieJar(cookieJar)
                 .build();
 
@@ -63,10 +65,6 @@ public class SteerClearClient {
                 .build();
         auth = adapter.create(ISteerClearAuth.class);
 	}
-
-    public Observable<ResponseBody> checkCookie() {
-        return api.checkCookie();
-    }
 
     public Observable<ResponseBody> login(String username, String password) {
         return auth.login(new LoginPost(username, password));

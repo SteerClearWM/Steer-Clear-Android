@@ -33,14 +33,14 @@ public class StorableCookie {
         hostOnly = cookie.hostOnly();
     }
 
-    public static Cookie toCookie(StorableCookie storableCookie) {
+    public Cookie toCookie() {
         return new Cookie.Builder()
-                .name(storableCookie.name)
-                .value(storableCookie.value)
-                .domain(storableCookie.domain)
-                .expiresAt(storableCookie.expiresAt)
-                .hostOnlyDomain(storableCookie.domain)
-                .path(storableCookie.path)
+                .name(name)
+                .value(value)
+                .domain(domain)
+                .expiresAt(expiresAt)
+                .hostOnlyDomain(domain)
+                .path(path)
                 .build();
     }
 }

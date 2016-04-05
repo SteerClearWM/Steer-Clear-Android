@@ -17,16 +17,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
+import steerclear.wm.data.model.AutoCompleteItem;
 import steerclear.wm.util.Logg;
 
-public class AdapterAutoComplete
-        extends ArrayAdapter<AdapterAutoComplete.AdapterAutoCompleteItem> implements Filterable {
+public class AutoCompleteAdapter
+        extends ArrayAdapter<AutoCompleteItem> implements Filterable {
 
-    private ArrayList<AdapterAutoCompleteItem> mResultList;
+    private ArrayList<AutoCompleteItem> mResultList;
     private final GoogleApiClient mGoogleApiClient;
     private LatLngBounds mBounds;
 
-    public AdapterAutoComplete(Context context, int resource, GoogleApiClient googleApiClient,
+    public AutoCompleteAdapter(Context context, int resource, GoogleApiClient googleApiClient,
                                LatLngBounds bounds) {
         super(context, resource);
         mGoogleApiClient = googleApiClient;
@@ -39,7 +40,7 @@ public class AdapterAutoComplete
     }
 
     @Override
-    public AdapterAutoCompleteItem getItem(int position) {
+    public AutoCompleteItem getItem(int position) {
         return mResultList.get(position);
     }
 
@@ -85,7 +86,7 @@ public class AdapterAutoComplete
      * @return Results from the autocomplete API or null if the query was not successful.
      * @see Places#GEO_DATA_API#getAutocomplete(CharSequence)
      */
-    private ArrayList<AdapterAutoCompleteItem> getAutocomplete(CharSequence constraint) {
+    private ArrayList<AutoCompleteItem> getAutocomplete(CharSequence constraint) {
         PendingResult<AutocompletePredictionBuffer> results =
                 Places.GeoDataApi
                         .getAutocompletePredictions(mGoogleApiClient, constraint.toString(), mBounds, null);
@@ -104,30 +105,11 @@ public class AdapterAutoComplete
         ArrayList resultList = new ArrayList<>(autocompletePredictions.getCount());
         while (iterator.hasNext()) {
             AutocompletePrediction prediction = iterator.next();
-            resultList.add(new AdapterAutoCompleteItem(prediction.getPlaceId(), prediction.getDescription()));
+            resultList.add(new AutoCompleteItem(prediction.getPlaceId(), prediction.getDescription()));
         }
 
         autocompletePredictions.release();
 
         return resultList;
-    }
-
-    /**
-     * Holder for Places Geo Data Autocomplete API results.
-     */
-    public class AdapterAutoCompleteItem {
-
-        public CharSequence placeId;
-        public CharSequence description;
-
-        AdapterAutoCompleteItem(CharSequence placeId, CharSequence description) {
-            this.placeId = placeId;
-            this.description = description;
-        }
-
-        @Override
-        public String toString() {
-            return description.toString();
-        }
     }
 }

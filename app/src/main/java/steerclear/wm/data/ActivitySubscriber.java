@@ -1,4 +1,4 @@
-package steerclear.wm.data.rx;
+package steerclear.wm.data;
 
 import android.support.annotation.Nullable;
 

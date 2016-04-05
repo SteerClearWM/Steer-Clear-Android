@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/fragment_map_autocomplete_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@android:drawable/dialog_holo_light_frame"
         android:layout_marginStart="@dimen/fragment_map_autocomplete_margin"
         android:layout_marginLeft="@dimen/fragment_map_autocomplete_margin"

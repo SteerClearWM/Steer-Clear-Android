@@ -6,19 +6,12 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <steerclear.wm.ui.view.ViewHeader
-        android:id="@+id/fragment_hail_ride_header"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_header_layout_height"
-        android:layout_alignParentTop="true"
-        android:text="@string/header_text"
-        android:layout_marginBottom="@dimen/fragment_hail_ride_header_bottom_margin" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragment_hail_ride_pickup_layout"
-        android:layout_below="@id/fragment_hail_ride_header"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/fragment_hail_ride_header_bottom_margin"
         android:layout_marginBottom="@dimen/fragment_hail_ride_layout_bottom_margin" >
 
         <android.support.v7.widget.AppCompatImageButton

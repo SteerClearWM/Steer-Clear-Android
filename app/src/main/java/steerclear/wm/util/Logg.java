@@ -23,6 +23,14 @@ public class Logg {
         builder.setLength(0);
     }
 
+    public static void log(Long... longs) {
+        for (long longVal: longs) {
+            builder.append(longVal);
+            builder.append(", ");
+        }
+        mainLog(builder.toString());
+    }
+
     public static void log(Double... doubles) {
         for (double doubleVal: doubles) {
             builder.append(doubleVal);
