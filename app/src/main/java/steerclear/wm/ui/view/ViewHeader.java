@@ -16,10 +16,8 @@ import android.view.MotionEvent;
 
 import javax.inject.Inject;
 
-import de.greenrobot.event.EventBus;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;
-import steerclear.wm.data.event.EventLogout;
 import steerclear.wm.util.TextUtils;
 
 public class ViewHeader extends AppCompatTextView {

@@ -21,13 +21,15 @@ class SteerClearInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        if (store.getCookie().isEmpty()) {
-            return chain.proceed(chain.request());
-        } else {
-            Request newRequest = chain.request().newBuilder()
-                    .header("Cookie", store.getCookie())
-                    .build();
-            return chain.proceed(newRequest);
-        }
+//        Logg.log("INTERCEPT COOKIE IS EMPTY: ", store.getCookie().isEmpty());
+//        if (store.getCookie().isEmpty()) {
+//            return chain.proceed(chain.request());
+//        } else {
+//            Request newRequest = chain.request().newBuilder()
+//                    .header("Cookie", store.getCookie())
+//                    .build();
+//            return chain.proceed(newRequest);
+//        }
+        return null;
     }
 }

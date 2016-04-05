@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-import de.greenrobot.event.EventBus;
 import icepick.Icepick;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;

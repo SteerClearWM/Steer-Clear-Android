@@ -191,7 +191,6 @@ public class HomeActivity extends BaseActivity
 	}
 
     private void showMap(LatLng latLng) {
-        Logg.log(latLng.latitude, latLng.longitude);
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.findFragmentByTag(MAP) == null) {
             fragmentManager.beginTransaction()
@@ -326,7 +325,7 @@ public class HomeActivity extends BaseActivity
         Subscriber<ResponseBody> logoutSubscriber = new ActivitySubscriber<ResponseBody>(this) {
             @Override
             public void onCompleted() {
-                store.putCookie("");
+//                store.putCookie("");
                 removeSubscription(this);
                 loadingDialog.dismiss();
                 startActivity(AuthenticateActivity.newIntent(HomeActivity.this, false));

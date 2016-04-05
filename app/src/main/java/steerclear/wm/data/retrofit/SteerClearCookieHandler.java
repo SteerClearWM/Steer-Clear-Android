@@ -24,23 +24,19 @@ class SteerClearCookieHandler implements CookieJar {
 
     @Override
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-//        for (Header header: response.getHeaders()) {
-//            if (header.getName().contains("Set-Cookie")) {
-//                store.putCookie(header.getValue());
-//            }
-//        }
-        Logg.log("COOKIES: ", cookies.size());
         for (Cookie cookie: cookies) {
-            if (cookie.name().contains("Set-Cookie")) {
-                Logg.log("IS A SET COOKIE");
-                dataStore.putCookie(cookie.value());
+            if (cookie.name().contains("session")) {
+                dataStore.putCookie(cookie);
             }
         }
     }
 
     @Override
     public List<Cookie> loadForRequest(HttpUrl url) {
-//        return Collections.singletonList(dataStore.getCookie());
-        return null;
+        if (dataStore.getCookie() == null) {
+            return Collections.emptyList();
+        } else {
+            return Collections.singletonList(dataStore.getCookie());
+        }
     }
 }

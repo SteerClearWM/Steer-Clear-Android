@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import okhttp3.Cookie;
+import steerclear.wm.data.model.StorableCookie;
 
 public class DataStore {
 
@@ -90,15 +91,29 @@ public class DataStore {
         return hasPrevInfo;
     }
 
-    public void putCookie(String cookie) {
-        getEditor().putString(COOKIE, cookie).commit();
-//        getEditor().putString(COOKIE, gson.toJson(cookie)).commit();
+//    public void putCookie(String cookie) {
+//        getEditor().putString(COOKIE, cookie).commit();
+////        getEditor().putString(COOKIE, gson.toJson(cookie)).commit();
+//    }
+//
+//    public String getCookie() {
+////        String json = prefs.getString(COOKIE, "");
+////        return gson.fromJson(json, Cookie.class);
+//        return prefs.getString(COOKIE, "");
+//    }
+
+    public void putCookie(Cookie cookie) {
+        getEditor().putString(COOKIE, gson.toJson(new StorableCookie(cookie))).commit();
     }
 
-    public String getCookie() {
-//        String json = prefs.getString(COOKIE, "");
-//        return gson.fromJson(json, Cookie.class);
-        return prefs.getString(COOKIE, "");
+    public Cookie getCookie() {
+        String cookieString = getPrefs().getString(COOKIE, "");
+        StorableCookie storableCookie = gson.fromJson(cookieString, StorableCookie.class);
+        if (storableCookie == null) {
+            return null;
+        }
+
+        return StorableCookie.toCookie(storableCookie);
     }
 
     public boolean hasCookie() {

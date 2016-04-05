@@ -6,7 +6,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import de.greenrobot.event.EventBus;
 import steerclear.wm.data.DataStore;
 import steerclear.wm.data.retrofit.SteerClearClient;
 
@@ -37,12 +36,6 @@ public class ApplicationModule {
     @Singleton
     public DataStore getDatastore(Application mApplication) {
         return new DataStore(mApplication);
-    }
-
-    @Provides
-    @Singleton
-    public EventBus getEventBus() {
-        return new EventBus();
     }
 
 }

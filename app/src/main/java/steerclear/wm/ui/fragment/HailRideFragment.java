@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
-import de.greenrobot.event.EventBus;
 import icepick.State;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;

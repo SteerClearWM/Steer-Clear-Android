@@ -18,7 +18,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steerclear.wm.R;
-import steerclear.wm.data.event.EventLogout;
 import steerclear.wm.ui.LoadingDialog;
 import steerclear.wm.ui.view.ViewFooter;
 import steerclear.wm.ui.view.ViewTypefaceTextView;
@@ -112,10 +111,6 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
             });
 
         alertDialog.show();
-    }
-
-    public void onEvent(EventLogout eventLogout) {
-
     }
 
     private void cancelRide() {

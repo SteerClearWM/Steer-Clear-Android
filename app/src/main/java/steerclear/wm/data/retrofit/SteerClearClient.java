@@ -40,12 +40,11 @@ public class SteerClearClient {
         CookieJar cookieJar = new SteerClearCookieHandler(store);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//                .followRedirects(true)
-//                .followSslRedirects(true)
+                .followRedirects(true)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
-                .addInterceptor(steerClearInterceptor)
-//                .cookieJar(cookieJar)
+//                .addInterceptor(steerClearInterceptor)
+                .cookieJar(cookieJar)
                 .build();
 
         Retrofit restAdapter = new Retrofit.Builder()

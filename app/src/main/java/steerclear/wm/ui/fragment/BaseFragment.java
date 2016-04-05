@@ -31,8 +31,6 @@ public abstract class BaseFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
 
-        ((MainApp) context.getApplicationContext()).getApplicationComponent().inject(this);
-
         Map<Object, Class> map = getCastMap();
         for (Object object: map.keySet()) {
             Class clazz = map.get(object);
