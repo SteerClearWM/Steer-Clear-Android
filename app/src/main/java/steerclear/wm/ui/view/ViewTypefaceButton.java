@@ -115,14 +115,14 @@ public class ViewTypefaceButton extends AppCompatButton {
         return isChosen;
     }
 
-    public void setSelected() {
+    public void setChosen() {
         if (!isChosen) {
             changeToDrawableColorBackground();
             isChosen = true;
         }
     }
 
-    public void setNotSelected() {
+    public void setNotChosen() {
         if (isChosen) {
             changeToWhiteBackground();
             isChosen = false;

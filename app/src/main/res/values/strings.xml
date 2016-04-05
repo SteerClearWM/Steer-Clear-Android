@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SteerClear</string>
-    <string name="url_base">https://steerclear.wm.edu/api</string>
+    <string name="url_base">https://steerclear.wm.edu/api/</string>
     <string name="url_authenticate">https://steerclear.wm.edu/</string>
 
     <string name="contact_email">steerclear@email.wm.edu</string>
@@ -68,7 +68,7 @@
 
     <string name="error_dialog_not_running_title">Donezo!</string>
     <string name="error_dialog_not_running_body">SteerClear has stopped servicing new ride requests.
-        Our hours are Thursday from 9:30PM to 1:30AM, Friday from 9:30PM to 2:30AM, and Saturday
+        Our hours are Thursday from 10:30PM to 1:30AM, Friday from 9:30PM to 2:30AM, and Saturday
         from 9:30PM to 2:30AM.</string>
 
     <string name="dialog_cancel_ride_title">Cancel Ride</string>

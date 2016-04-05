@@ -1,9 +1,12 @@
 package steerclear.wm.data.model;
 
+/**
+ * Created by mbpeele on 4/4/16.
+ */
 public class LoginPost {
 
-    public String username;
-    public String password;
+    final String username;
+    final String password;
 
     public LoginPost(String username, String password) {
         this.username = username;

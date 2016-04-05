@@ -7,8 +7,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.greenrobot.event.EventBus;
-import steerclear.wm.data.retrofit.Client;
-import steerclear.wm.data.Datastore;
+import steerclear.wm.data.DataStore;
+import steerclear.wm.data.retrofit.SteerClearClient;
 
 /**
  * Created by Miles Peele on 6/20/2015.
@@ -29,14 +29,14 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public Client getClient() {
-        return new Client(mApplication);
+    public SteerClearClient getClient() {
+        return new SteerClearClient(mApplication);
     }
 
     @Provides
     @Singleton
-    public Datastore getDatastore(Application mApplication) {
-        return new Datastore(mApplication);
+    public DataStore getDatastore(Application mApplication) {
+        return new DataStore(mApplication);
     }
 
     @Provides

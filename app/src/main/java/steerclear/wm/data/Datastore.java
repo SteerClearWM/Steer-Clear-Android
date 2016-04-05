@@ -4,13 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class Datastore {
+import okhttp3.Cookie;
 
-    private SharedPreferences prefs;
+public class DataStore {
 
     private final static String HAS_REGISTER = "register";
     private final static String ETA = "eta";
@@ -18,7 +20,11 @@ public class Datastore {
     private final static String USER = "username";
     private final static String COOKIE = "cookie";
 
-    public Datastore(Application application) {
+    private SharedPreferences prefs;
+    private Gson gson;
+
+    public DataStore(Application application) {
+        gson = new Gson();
         prefs = application.getSharedPreferences("prefs", Context.MODE_PRIVATE);
     }
 
@@ -86,10 +92,13 @@ public class Datastore {
 
     public void putCookie(String cookie) {
         getEditor().putString(COOKIE, cookie).commit();
+//        getEditor().putString(COOKIE, gson.toJson(cookie)).commit();
     }
 
     public String getCookie() {
-        return getPrefs().getString(COOKIE, "");
+//        String json = prefs.getString(COOKIE, "");
+//        return gson.fromJson(json, Cookie.class);
+        return prefs.getString(COOKIE, "");
     }
 
     public boolean hasCookie() {

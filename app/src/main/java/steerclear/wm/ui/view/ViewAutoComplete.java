@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.lang.ref.WeakReference;
 
 import steerclear.wm.R;
@@ -28,33 +30,6 @@ import steerclear.wm.data.AdapterAutoComplete;
 import steerclear.wm.util.TextUtils;
 
 public class ViewAutoComplete extends AutoCompleteTextView {
-
-    private static final int MESSAGE_TEXT_CHANGED = 100;
-    private static final int DEFAULT_AUTOCOMPLETE_DELAY = 750;
-    private static final int mAutoCompleteDelay = DEFAULT_AUTOCOMPLETE_DELAY;
-
-    private Drawable clearDrawable, blockDrawable;
-    private Drawable[] mCompoundDrawables;
-    private AdapterAutoComplete mAdapter;
-
-    private MyHandler mHandler = new MyHandler(this);
-    private final static class MyHandler extends Handler {
-        private final WeakReference<ViewAutoComplete> ref;
-
-        public MyHandler(ViewAutoComplete view) {
-            ref = new WeakReference<>(view);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            ref.get().handlerFilter((CharSequence) msg.obj, msg.arg1);
-        }
-    }
-
-    private AutoCompleteListener mListener;
-    public interface AutoCompleteListener {
-        void clearClicked(View v);
-    }
 
     public ViewAutoComplete(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -88,89 +63,10 @@ public class ViewAutoComplete extends AutoCompleteTextView {
         setEllipsize(android.text.TextUtils.TruncateAt.END);
         setTypeface(TextUtils.getStaticTypeFace(getContext(), TextUtils.FONT_NAME));
         setCompoundDrawablePadding(getResources().getDimensionPixelSize(R.dimen.fragment_map_autocomplete_view_padding));
-
-        blockDrawable = getCompoundDrawables()[0];
-        clearDrawable = getCompoundDrawables()[2];
-
-        addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setCancelDrawableVisible(s.length() != 0);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        setCancelDrawableVisible(false);
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getX() > getWidth() - getPaddingRight() - clearDrawable.getIntrinsicWidth()) {
-                setText("");
-                mListener.clearClicked(this);
-            }
-        }
-
-        return super.onTouchEvent(event);
     }
 
     @Override
     protected void replaceText(CharSequence text) {
         setText(text);
-    }
-
-    @Override
-    protected void performFiltering(CharSequence text, int keyCode) {
-        mHandler.removeMessages(MESSAGE_TEXT_CHANGED);
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MESSAGE_TEXT_CHANGED, text), mAutoCompleteDelay);
-    }
-
-    protected void handlerFilter(CharSequence msg, int delay) {
-        super.performFiltering(msg, delay);
-    }
-
-    public void setAutoCompleteListener(AutoCompleteListener listener) {
-        mListener = listener;
-    }
-
-    private void setCancelDrawableVisible(boolean hasText) {
-        if (mCompoundDrawables == null) {
-            mCompoundDrawables = getCompoundDrawables();
-        }
-
-        if (hasText) {
-            setCompoundDrawablesWithIntrinsicBounds(
-                    blockDrawable,
-                    mCompoundDrawables[1],
-                    clearDrawable,
-                    mCompoundDrawables[3]);
-        } else {
-            setCompoundDrawablesWithIntrinsicBounds(
-                    blockDrawable,
-                    mCompoundDrawables[1],
-                    null,
-                    mCompoundDrawables[3]);
-        }
-    }
-
-    public void closeKeyboard() {
-        final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        IBinder binder = getWindowToken();
-        if (binder != null) {
-            imm.hideSoftInputFromWindow(getWindowToken(), 0);
-        }
     }
 }

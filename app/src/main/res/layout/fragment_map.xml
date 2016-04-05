@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true" >
 
-    <steerclear.wm.ui.view.ViewHeader
-        android:id="@+id/fragment_map_header"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/view_header_layout_height"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text="@string/header_text"
-        android:drawableRight="@drawable/ic_power_settings_new_white_24dp"
-        android:drawableEnd="@drawable/ic_power_settings_new_white_24dp" />
-
     <steerclear.wm.ui.view.ViewFooter
         android:id="@+id/fragment_map_post"
         android:layout_width="match_parent"
@@ -25,7 +15,6 @@
 
     <com.google.android.gms.maps.MapView
         android:visibility="gone"
-        android:layout_below="@id/fragment_map_header"
         android:layout_above="@id/fragment_map_post"
         android:id="@+id/fragment_map_view"
         android:layout_width="match_parent"
@@ -35,7 +24,8 @@
         android:id="@+id/fragment_map_pickup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_map_header"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/fragment_map_autocomplete_horizontal_margin"
         android:background="@android:drawable/dialog_holo_light_frame"
         android:layout_marginStart="@dimen/fragment_map_autocomplete_horizontal_margin"
         android:layout_marginLeft="@dimen/fragment_map_autocomplete_horizontal_margin"
@@ -43,9 +33,7 @@
         android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
         android:hint="@string/fragment_map_pickup_hint"
         android:textCursorDrawable="@null"
-        android:drawableLeft="@drawable/gold_block"
         android:drawableStart="@drawable/gold_block"
-        android:drawableRight="@drawable/ic_clear_black_24dp"
         android:drawableEnd="@drawable/ic_clear_black_24dp"
         app:highlightColor="@color/accent" />
 
@@ -62,12 +50,10 @@
         android:textCursorDrawable="@null"
         android:background="@android:drawable/dialog_holo_light_frame"
         android:drawableStart="@drawable/green_block"
-        android:drawableLeft="@drawable/green_block"
-        android:drawableRight="@drawable/ic_clear_black_24dp"
         android:drawableEnd="@drawable/ic_clear_black_24dp"
         app:highlightColor="@color/primary_dark" />
 
-    <steerclear.wm.ui.view.ViewMarkerSelectLayout
+    <LinearLayout
         android:id="@+id/fragment_map_marker_select_layout"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
@@ -82,9 +68,7 @@
             android:layout_height="match_parent"
             android:id="@+id/fragment_map_show_pickup_location"
             android:drawableStart="@drawable/gold_block"
-            android:drawableLeft="@drawable/gold_block"
             android:text="@string/fragment_map_marker_drop_pickup"
-            android:paddingRight="@dimen/view_typeface_button_padding"
             android:paddingEnd="@dimen/view_typeface_button_padding"
             android:textAllCaps="true"
             app:preferredTextColor="@android:color/black"
@@ -99,10 +83,9 @@
             android:layout_height="match_parent"
             android:id="@+id/fragment_map_show_dropoff_location"
             android:drawableEnd="@drawable/green_block"
-            android:drawableRight="@drawable/green_block"
             android:text="@string/fragment_map_marker_drop_dropoff"
             android:drawablePadding="5dp"
-            android:paddingLeft="@dimen/view_typeface_button_padding"
+            android:paddingStart="@dimen/view_typeface_button_padding"
             android:textAllCaps="true"
             app:preferredTextColor="@android:color/black"
             app:preferredTextSize="@dimen/view_typeface_button_small_text_size"
@@ -110,7 +93,7 @@
             app:fillOnClick="true"
             app:drawableColor="@color/primary_dark"
             android:background="@null" />
-    </steerclear.wm.ui.view.ViewMarkerSelectLayout>
+    </LinearLayout>
 
     <android.support.v7.widget.AppCompatImageButton
         android:layout_width="@dimen/fragment_map_my_location_dimens"
@@ -119,14 +102,12 @@
         android:scaleType="fitXY"
         android:adjustViewBounds="true"
         android:layout_above="@id/fragment_map_post"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:gravity="center"
         android:background="@android:drawable/dialog_holo_light_frame"
         android:layout_alignBottom="@id/fragment_map_marker_select_layout"
         android:padding="@dimen/fragment_map_my_location_padding"
         android:layout_marginEnd="@dimen/fragment_map_autocomplete_horizontal_margin"
-        android:layout_marginRight="@dimen/fragment_map_autocomplete_horizontal_margin"
         android:id="@+id/fragment_map_current_location" />
 
 </RelativeLayout>

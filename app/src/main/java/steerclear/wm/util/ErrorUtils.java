@@ -3,8 +3,7 @@ package steerclear.wm.util;
 import android.content.Context;
 import android.content.res.Resources;
 
-import retrofit.RetrofitError;
-import retrofit.client.Response;
+import retrofit2.Response;
 import steerclear.wm.R;
 
 public class ErrorUtils {
@@ -13,16 +12,17 @@ public class ErrorUtils {
     public final static int NO_INTERNET = 404;
 
     public static int getErrorCode(Throwable throwable) {
-        if (throwable instanceof RetrofitError) {
-            Response error = ((RetrofitError) throwable).getResponse();
-            if (error != null) {
-                return error.getStatus();
-            } else {
-                return NO_INTERNET;
-            }
-        } else {
-            return NO_INTERNET;
-        }
+//        if (throwable instanceof RetrofitError) {
+//            Response error = ((RetrofitError) throwable).getResponse();
+//            if (error != null) {
+//                return error.getStatus();
+//            } else {
+//                return NO_INTERNET;
+//            }
+//        } else {
+//            return NO_INTERNET;
+//        }
+        return 0;
     }
 
     public static String getMessage(Context context, Throwable throwable) {

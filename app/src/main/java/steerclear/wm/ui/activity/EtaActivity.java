@@ -12,12 +12,14 @@ import butterknife.ButterKnife;
 import butterknife.Bind;
 import butterknife.OnClick;
 import icepick.State;
-import retrofit.client.Response;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import steerclear.wm.R;
 import steerclear.wm.data.event.EventLogout;
+import steerclear.wm.ui.LoadingDialog;
 import steerclear.wm.ui.view.ViewFooter;
 import steerclear.wm.ui.view.ViewTypefaceTextView;
 
@@ -121,7 +123,7 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
         saveInfo = false;
         store.clearRideInfo();
 
-        Subscriber<Response> rideCancelSubscriber = new Subscriber<Response>() {
+        Subscriber<ResponseBody> rideCancelSubscriber = new Subscriber<ResponseBody>() {
             @Override
             public void onCompleted() {
                 removeSubscription(this);
@@ -137,14 +139,14 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
             }
 
             @Override
-            public void onNext(Response response) {
+            public void onNext(ResponseBody response) {
 
             }
         };
 
         addSubscription(helper.cancelRide(cancelId)
                 .subscribeOn(Schedulers.io())
-                .onExceptionResumeNext(rx.Observable.<Response>empty())
+//                .onExceptionResumeNext(rx.Observable.<Response>empty())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(rideCancelSubscriber));
     }

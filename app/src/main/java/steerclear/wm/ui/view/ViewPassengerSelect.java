@@ -21,7 +21,6 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
     @Bind(R.id.fragment_hail_ride_passenger_select_linear_layout) LinearLayout linearLayout;
 
     public int count = 0;
-    private boolean canAnimate = true;
 
     public ViewPassengerSelect(Context context) {
         super(context);
@@ -64,7 +63,6 @@ public class ViewPassengerSelect extends ScrollView implements View.OnClickListe
             R.id.fragment_passenger_select_5, R.id.fragment_passenger_select_6,
             R.id.fragment_passenger_select_7, R.id.fragment_passenger_select_8})
     public void onClick(View v) {
-        Logg.log(v instanceof ViewTypefaceTextView);
         if (v instanceof ViewTypefaceTextView) {
             ViewTypefaceTextView textView = (ViewTypefaceTextView) v;
             textView.animateBackgroundToColor(ContextCompat.getColor(getContext(), R.color.accent));

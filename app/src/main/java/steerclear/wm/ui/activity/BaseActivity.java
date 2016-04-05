@@ -1,21 +1,25 @@
 package steerclear.wm.ui.activity;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import icepick.Icepick;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 import steerclear.wm.MainApp;
-import steerclear.wm.data.retrofit.Client;
-import steerclear.wm.data.Datastore;
+import steerclear.wm.data.DataStore;
+import steerclear.wm.data.retrofit.SteerClearClient;
 import steerclear.wm.util.ErrorUtils;
 import steerclear.wm.util.Logg;
 
@@ -24,9 +28,10 @@ import steerclear.wm.util.Logg;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    @Inject Client helper;
-    @Inject Datastore store;
-    @Inject EventBus bus;
+    @Inject
+    SteerClearClient helper;
+    @Inject
+    DataStore store;
 
     private CompositeSubscription compositeSubscription;
 
@@ -40,21 +45,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.bind(this);
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        bus.unregister(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        bus.register(this);
     }
 
     @Override
@@ -74,6 +73,21 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean hasInternet() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         return manager.getActiveNetworkInfo() != null && manager.getActiveNetworkInfo().isConnectedOrConnecting();
+    }
+
+    public boolean hasPermissions(String... permissions) {
+        for (String permission: permissions) {
+            if (ActivityCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void requestPermissions(int requestCode, String... permissions) {
+        ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
 
     public void handleError(Throwable throwable) {
@@ -98,11 +112,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void handleError(Throwable throwable, @StringRes int resId) {
         Logg.log(getClass().getName(), throwable);
+        throwable.printStackTrace();
 
-        Snackbar.make(findViewById(android.R.id.content),
-                resId,
-                Snackbar.LENGTH_LONG)
-                .show();
+        Snackbar.make(findViewById(android.R.id.content), resId, Snackbar.LENGTH_LONG).show();
     }
 
     public void handleError(String message) {

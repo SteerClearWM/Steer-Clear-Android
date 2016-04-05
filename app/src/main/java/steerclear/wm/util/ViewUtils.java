@@ -3,7 +3,11 @@ package steerclear.wm.util;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.os.IBinder;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 /**
  * Created by mbpeele on 1/1/16.
@@ -67,5 +71,15 @@ public class ViewUtils {
             }
         });
         return visibility;
+    }
+
+
+    public static void closeKeyboard(EditText editText) {
+        Context context = editText.getContext();
+        final InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        IBinder binder = editText.getWindowToken();
+        if (binder != null) {
+            imm.hideSoftInputFromWindow(binder, 0);
+        }
     }
 }
