@@ -3,6 +3,7 @@ package steerclear.wm.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,8 +109,8 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.unbind(this);
     }
 
-    public void showSnackBar(View view, int stringRes, int dur) {
-
+    public Snackbar showSnackBar(View view, int stringRes, int dur) {
+        return Snackbar.make(view, stringRes, dur);
     }
 
     protected abstract Map<Object, Class> getCastMap();

@@ -70,7 +70,6 @@ dependencies {
 
     compile 'joda-time:joda-time:2.9.3'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'de.greenrobot:eventbus:2.4.0'
     compile 'me.grantland:autofittextview:0.2.1'
 
     compile 'frankiesardo:icepick:3.1.0'

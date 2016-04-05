@@ -28,7 +28,7 @@ import steerclear.wm.ui.view.ViewTypefaceTextView;
 import steerclear.wm.util.ErrorUtils;
 import steerclear.wm.util.ViewUtils;
 
-public class AuthenticateActivity extends BaseActivity implements IAuthenticateActivity {
+public class AuthenticateActivity extends BaseActivity {
 
     private final static String RELOGIN = "relogin";
 
@@ -100,8 +100,7 @@ public class AuthenticateActivity extends BaseActivity implements IAuthenticateA
         super.onBackPressed();
     }
 
-    @Override
-    public boolean validateUsername(EditText editText) {
+    private boolean validateUsername(EditText editText) {
         String text = editText.getText().toString();
         boolean isLowerCase = text.matches("^[a-zA-Z0-9]*$");
         if (!isLowerCase) {
@@ -110,8 +109,7 @@ public class AuthenticateActivity extends BaseActivity implements IAuthenticateA
         return isLowerCase;
     }
 
-    @Override
-    public boolean validatePassword(EditText editText) {
+    private boolean validatePassword(EditText editText) {
         String text = editText.getText().toString();
         boolean isEmpty = text.isEmpty();
         if (isEmpty) {
@@ -120,8 +118,7 @@ public class AuthenticateActivity extends BaseActivity implements IAuthenticateA
         return !isEmpty;
     }
 
-    @Override
-    public boolean validatePhoneNumber(EditText editText) {
+    private boolean validatePhoneNumber(EditText editText) {
         String text = editText.getText().toString();
         boolean matches = text.matches("([0-9]{10})");
         if (!matches) {
@@ -130,8 +127,7 @@ public class AuthenticateActivity extends BaseActivity implements IAuthenticateA
         return matches;
     }
 
-    @Override
-    public void register() {
+    private void register() {
         boolean validateUsername = validateUsername(editUsername);
         boolean validatePassword = validatePassword(editPassword);
         boolean validatePhone = validatePhoneNumber(editPhone);
@@ -172,8 +168,7 @@ public class AuthenticateActivity extends BaseActivity implements IAuthenticateA
         }
     }
 
-    @Override
-    public void login() {
+    private void login() {
         boolean validateUsername = validateUsername(editUsername);
         boolean validatePassword = validatePassword(editPassword);
         if (validateUsername && validatePassword) {
@@ -215,8 +210,7 @@ public class AuthenticateActivity extends BaseActivity implements IAuthenticateA
         }
     }
 
-    @Override
-    public String formatPhoneNumber(String phoneNumber) {
+    private String formatPhoneNumber(String phoneNumber) {
         return "+1" + phoneNumber;
     }
 

@@ -19,8 +19,6 @@ public interface ApplicationComponent {
 
     void inject(BaseActivity baseActivity);
 
-    void inject(BaseFragment baseFragment);
-
     void inject(SteerClearClient steerClearClient);
 
     void inject(ViewHeader viewHeader);

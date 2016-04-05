@@ -24,7 +24,6 @@ import de.greenrobot.event.EventBus;
 import icepick.State;
 import steerclear.wm.MainApp;
 import steerclear.wm.R;
-import steerclear.wm.data.event.EventPostPlacesChosen;
 import steerclear.wm.util.TimeLock;
 import steerclear.wm.ui.view.ViewFooter;
 import steerclear.wm.ui.view.ViewPassengerSelect;

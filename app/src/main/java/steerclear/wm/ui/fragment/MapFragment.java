@@ -47,7 +47,6 @@ import steerclear.wm.R;
 import steerclear.wm.ui.CancelDetector;
 import steerclear.wm.ui.activity.HomeActivity;
 import steerclear.wm.data.AdapterAutoComplete;
-import steerclear.wm.data.event.EventAnimateToMarker;
 import steerclear.wm.ui.view.ViewTypefaceButton;
 import steerclear.wm.util.Hue;
 import steerclear.wm.ui.view.ViewAutoComplete;
