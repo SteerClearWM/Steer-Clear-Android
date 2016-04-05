@@ -39,13 +39,10 @@ public class SteerClearClient {
 
         CookieJar cookieJar = new SteerClearCookieHandler(store);
 
-        SteerClearErrorHandler errorHandler = new SteerClearErrorHandler();
-
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .followRedirects(true)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
-                .addInterceptor(errorHandler)
                 .cookieJar(cookieJar)
                 .build();
 

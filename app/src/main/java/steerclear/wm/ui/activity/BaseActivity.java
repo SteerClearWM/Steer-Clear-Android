@@ -9,11 +9,13 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import icepick.Icepick;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 import steerclear.wm.MainApp;
@@ -32,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Inject
     DataStore store;
 
+    protected ViewGroup root;
     private CompositeSubscription compositeSubscription;
 
     @Override
@@ -47,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
+        root = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
     }
 
     @Override
@@ -89,36 +93,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
 
-    public void handleError(Throwable throwable) {
-        Logg.log(getClass().getName(), throwable);
+    public void handleError(HttpException httpExcetion) {
+        Logg.log(getClass().getName(), httpExcetion);
 
-        int code = ErrorUtils.getErrorCode(throwable);
-        Snackbar.make(findViewById(android.R.id.content),
-                ErrorUtils.getMessage(this, code),
+        Snackbar.make(root,
+                ErrorUtils.getMessage(this, httpExcetion),
                 Snackbar.LENGTH_LONG)
-                .setCallback(new Snackbar.Callback() {
-                    @Override
-                    public void onDismissed(Snackbar snackbar, int event) {
-                        super.onDismissed(snackbar, event);
-                        if (code == ErrorUtils.UNAUTHORIZED) {
-                            startActivity(AuthenticateActivity.newIntent(BaseActivity.this, true));
-                            finish();
-                        }
-                    }
-                })
                 .show();
-    }
-
-    public void handleError(Throwable throwable, @StringRes int resId) {
-        Logg.log(getClass().getName(), throwable);
-        throwable.printStackTrace();
-
-        Snackbar.make(findViewById(android.R.id.content), resId, Snackbar.LENGTH_LONG).show();
-    }
-
-    public void handleError(String message) {
-        Logg.log(getClass().getName(), message);
-
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show();
     }
 }

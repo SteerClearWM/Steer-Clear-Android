@@ -297,6 +297,7 @@ public class HomeActivity extends BaseActivity
 
             @Override
             public void onError(Throwable e) {
+                super.onError(e);
                 onCompleted();
             }
 

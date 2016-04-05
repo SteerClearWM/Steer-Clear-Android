@@ -109,12 +109,8 @@ public class EtaActivity extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void onError(Throwable e) {
+                super.onError(e);
                 onCompleted();
-            }
-
-            @Override
-            public void onNext(ResponseBody response) {
-
             }
         };
 

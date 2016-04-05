@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import java.lang.ref.SoftReference;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import steerclear.wm.ui.activity.BaseActivity;
 import steerclear.wm.util.Logg;
@@ -33,12 +34,14 @@ public class ActivitySubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-        BaseActivity activity = softReference.get();
-        if (activity != null) {
+        if (e instanceof HttpException) {
+            BaseActivity baseActivity = getSubscribedActivity();
+            if (baseActivity != null) {
+                baseActivity.handleError((HttpException) e);
+            }
+        } else {
             e.printStackTrace();
-            Logg.log("ERROR FROM:", activity.getClass().getName());
         }
-        removeSelf();
     }
 
     @Override

@@ -4,29 +4,17 @@ import android.content.Context;
 import android.content.res.Resources;
 
 import retrofit2.Response;
+import retrofit2.adapter.rxjava.HttpException;
 import steerclear.wm.R;
 
 public class ErrorUtils {
 
-    public final static int UNAUTHORIZED = 401;
-    public final static int NO_INTERNET = 404;
-
-    public static int getErrorCode(Throwable throwable) {
-//        if (throwable instanceof RetrofitError) {
-//            Response error = ((RetrofitError) throwable).getResponse();
-//            if (error != null) {
-//                return error.getStatus();
-//            } else {
-//                return NO_INTERNET;
-//            }
-//        } else {
-//            return NO_INTERNET;
-//        }
-        return 0;
+    private static int getErrorCode(HttpException httpException) {
+        return httpException.code();
     }
 
-    public static String getMessage(Context context, Throwable throwable) {
-        return getMessage(context, getErrorCode(throwable));
+    public static String getMessage(Context context, HttpException httpException) {
+        return getMessage(context, getErrorCode(httpException));
     }
 
     public static String getMessage(Context context, int code) {
